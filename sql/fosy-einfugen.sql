@@ -77,3 +77,16 @@ INSERT INTO article_category (name) VALUES ('Video');
 INSERT INTO article_category (name) VALUES ('Radio');
 INSERT INTO article_category (name) VALUES ('Sonstiges');
 
+-- tax_type
+INSERT INTO tax_type (type) VALUES ('vst');
+INSERT INTO tax_type (type) VALUES ('ust');
+
+-- indicator
+INSERT INTO indicator_type (type) VALUES ('KZ');
+INSERT INTO indicator_type (type) VALUES ('TAB');
+
+-- period
+INSERT INTO period (value) VALUES ('1 Monat');
+INSERT INTO period (value) VALUES ('1 Quartal');
+INSERT INTO period (value) VALUES ('1 Jahr');
+
