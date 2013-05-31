@@ -1,4 +1,3 @@
-
 INSERT INTO role (rolename) VALUES ('admin');
 
 INSERT INTO department (name) VALUES ('Geschäftsführung');
