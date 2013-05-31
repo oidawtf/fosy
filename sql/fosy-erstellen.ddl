@@ -1,3 +1,8 @@
+CREATE TABLE article_manufacturer (
+  id   int(10) NOT NULL AUTO_INCREMENT, 
+  name varchar(255) NOT NULL, 
+  PRIMARY KEY (id), 
+  UNIQUE INDEX (id));
 CREATE TABLE tax_report (
   id       int(10) NOT NULL AUTO_INCREMENT, 
   month    smallint(6) NOT NULL, 
@@ -158,7 +163,7 @@ CREATE TABLE person (
   fk_department_id int(10) NOT NULL, 
   firstname        varchar(32) NOT NULL, 
   lastname         varchar(32) NOT NULL, 
-  username         varchar(32), 
+  username         varchar(32) UNIQUE, 
   password         varchar(255), 
   title            varchar(10), 
   street           varchar(255) NOT NULL, 
@@ -180,11 +185,7 @@ CREATE TABLE person (
   is_employee      tinyint(1), 
   PRIMARY KEY (id), 
   UNIQUE INDEX (id));
-CREATE TABLE article_manufacturer (
-  id   int(10) NOT NULL AUTO_INCREMENT, 
-  name varchar(255) NOT NULL, 
-  PRIMARY KEY (id), 
-  UNIQUE INDEX (id));
+ALTER TABLE article ADD INDEX FKarticle457910 (fk_article_manufacturer_id), ADD CONSTRAINT FKarticle457910 FOREIGN KEY (fk_article_manufacturer_id) REFERENCES article_manufacturer (id);
 ALTER TABLE person_role ADD INDEX FKperson_rol382207 (fk_role_id), ADD CONSTRAINT FKperson_rol382207 FOREIGN KEY (fk_role_id) REFERENCES role (id);
 ALTER TABLE offer ADD INDEX FKoffer923303 (fk_customer_id), ADD CONSTRAINT FKoffer923303 FOREIGN KEY (fk_customer_id) REFERENCES person (id);
 ALTER TABLE person_role ADD INDEX FKperson_rol801128 (fk_person_id), ADD CONSTRAINT FKperson_rol801128 FOREIGN KEY (fk_person_id) REFERENCES person (id);
@@ -206,5 +207,4 @@ ALTER TABLE tax ADD INDEX FKtax270969 (fk_tax_type_id), ADD CONSTRAINT FKtax2709
 ALTER TABLE indicator ADD INDEX FKindicator424408 (fk_indicator_type_id), ADD CONSTRAINT FKindicator424408 FOREIGN KEY (fk_indicator_type_id) REFERENCES indicator_type (id);
 ALTER TABLE plannedValue ADD INDEX FKplannedVal989713 (fk_indicator_id), ADD CONSTRAINT FKplannedVal989713 FOREIGN KEY (fk_indicator_id) REFERENCES indicator (id);
 ALTER TABLE plannedValue ADD INDEX FKplannedVal409240 (fk_period_id), ADD CONSTRAINT FKplannedVal409240 FOREIGN KEY (fk_period_id) REFERENCES period (id);
-ALTER TABLE article ADD INDEX FKarticle457910 (fk_article_manufacturer_id), ADD CONSTRAINT FKarticle457910 FOREIGN KEY (fk_article_manufacturer_id) REFERENCES article_manufacturer (id);
 
