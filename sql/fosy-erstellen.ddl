@@ -93,10 +93,8 @@ CREATE TABLE campaign_article (
   PRIMARY KEY (fk_campaign_id, 
   fk_article_id));
 CREATE TABLE article_category (
-  id           int(10) NOT NULL AUTO_INCREMENT, 
-  name         varchar(255) NOT NULL, 
-  manufacturer varchar(255) NOT NULL, 
-  model_no     varchar(255) NOT NULL, 
+  id   int(10) NOT NULL AUTO_INCREMENT, 
+  name varchar(255) NOT NULL, 
   PRIMARY KEY (id), 
   UNIQUE INDEX (id));
 CREATE TABLE status (
@@ -105,15 +103,16 @@ CREATE TABLE status (
   PRIMARY KEY (id), 
   UNIQUE INDEX (id));
 CREATE TABLE article (
-  id                     int(10) NOT NULL AUTO_INCREMENT, 
-  fk_article_category_id int(10) NOT NULL, 
-  name                   varchar(128) NOT NULL, 
-  description            varchar(255) NOT NULL, 
-  picture                blob, 
-  stock                  int(5) NOT NULL, 
-  purchase_price         int(10) NOT NULL, 
-  selling_price          int(10), 
-  tax_rate               smallint(6) NOT NULL, 
+  id                         int(10) NOT NULL AUTO_INCREMENT, 
+  fk_article_category_id     int(10) NOT NULL, 
+  fk_article_manufacturer_id int(10) NOT NULL, 
+  model                      varchar(128) NOT NULL, 
+  description                varchar(255) NOT NULL, 
+  picture                    blob, 
+  stock                      int(5) NOT NULL, 
+  purchase_price             int(10) NOT NULL, 
+  selling_price              int(10), 
+  tax_rate                   smallint(6) NOT NULL, 
   PRIMARY KEY (id), 
   UNIQUE INDEX (id));
 CREATE TABLE customer_request_type (
@@ -159,6 +158,8 @@ CREATE TABLE person (
   fk_department_id int(10) NOT NULL, 
   firstname        varchar(32) NOT NULL, 
   lastname         varchar(32) NOT NULL, 
+  username         varchar(32), 
+  password         varchar(255), 
   title            varchar(10), 
   street           varchar(255) NOT NULL, 
   housenumber      int(10) NOT NULL, 
@@ -177,6 +178,11 @@ CREATE TABLE person (
   is_distributor   tinyint(1), 
   is_customer      tinyint(1), 
   is_employee      tinyint(1), 
+  PRIMARY KEY (id), 
+  UNIQUE INDEX (id));
+CREATE TABLE article_manufacturer (
+  id   int(10) NOT NULL AUTO_INCREMENT, 
+  name varchar(255) NOT NULL, 
   PRIMARY KEY (id), 
   UNIQUE INDEX (id));
 ALTER TABLE person_role ADD INDEX FKperson_rol382207 (fk_role_id), ADD CONSTRAINT FKperson_rol382207 FOREIGN KEY (fk_role_id) REFERENCES role (id);
@@ -200,4 +206,5 @@ ALTER TABLE tax ADD INDEX FKtax270969 (fk_tax_type_id), ADD CONSTRAINT FKtax2709
 ALTER TABLE indicator ADD INDEX FKindicator424408 (fk_indicator_type_id), ADD CONSTRAINT FKindicator424408 FOREIGN KEY (fk_indicator_type_id) REFERENCES indicator_type (id);
 ALTER TABLE plannedValue ADD INDEX FKplannedVal989713 (fk_indicator_id), ADD CONSTRAINT FKplannedVal989713 FOREIGN KEY (fk_indicator_id) REFERENCES indicator (id);
 ALTER TABLE plannedValue ADD INDEX FKplannedVal409240 (fk_period_id), ADD CONSTRAINT FKplannedVal409240 FOREIGN KEY (fk_period_id) REFERENCES period (id);
+ALTER TABLE article ADD INDEX FKarticle457910 (fk_article_manufacturer_id), ADD CONSTRAINT FKarticle457910 FOREIGN KEY (fk_article_manufacturer_id) REFERENCES article_manufacturer (id);
 
