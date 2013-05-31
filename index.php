@@ -13,6 +13,7 @@
 		<![endif]
 	-->
 	<link rel="stylesheet" href="css/fosy.css" type="text/css">
+        <link rel="stylesheet" href="css/layout.css">
 	
 	<title>FOSY - Felix Online Systems</title>
 </head>	
