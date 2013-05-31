@@ -69,3 +69,11 @@ INSERT INTO person_role (fk_person_id, fk_role_id) values ( (select id from pers
 INSERT INTO person_role (fk_person_id, fk_role_id) values ( (select id from person where username='csp'), (select id from role where rolename='montage') );
 INSERT INTO person_role (fk_person_id, fk_role_id) values ( (select id from person where username='dvo'), (select id from role where rolename='montage') );
 INSERT INTO person_role (fk_person_id, fk_role_id) values ( (select id from person where username='sha'), (select id from role where rolename='montage') );
+
+-- Artikel Kategorien
+INSERT INTO article_category (name) VALUES ('TV');
+INSERT INTO article_category (name) VALUES ('Hifi');
+INSERT INTO article_category (name) VALUES ('Video');
+INSERT INTO article_category (name) VALUES ('Radio');
+INSERT INTO article_category (name) VALUES ('Sonstiges');
+
