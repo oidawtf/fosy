@@ -3,7 +3,7 @@
 	
 	<form>
             <fieldset>
-                    <label>Benutzername123:</label>
+                    <label>Benutzername:</label>
                     <input type="text">
             </fieldset>
             <fieldset>
