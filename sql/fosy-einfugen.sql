@@ -111,4 +111,3 @@ INSERT INTO person_role (fk_person_id, fk_role_id) values ( (select id from pers
 INSERT INTO person_role (fk_person_id, fk_role_id) values ( (select id from person where username='dvo'), (select id from role where rolename='montage') );
 
 INSERT INTO person_role (fk_person_id, fk_role_id) values ( (select id from person where username='sha'), (select id from role where rolename='montage') );
-
