@@ -6,7 +6,6 @@ class controller {
     
     const sessionIDName = 'fosy_session';
     const sessionIDUser = "username";
-    const sessionIDEvents = 'eventIds';
     
     private static function getDataService() {
         if (empty(controller::$dataService)) {
@@ -24,7 +23,6 @@ class controller {
         @session_start();
         $_SESSION[self::sessionIDName] = 1;
         $_SESSION[self::sessionIDUser] = $username;
-        $_SESSION[self::sessionIDIsAdmin] = controller::getDataService()->isAdmin($username);
     }
     
     public static function Logout() {
