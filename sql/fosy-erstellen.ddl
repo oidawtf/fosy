@@ -1,3 +1,4 @@
+
 CREATE TABLE tax_report (
   id       int(10) NOT NULL AUTO_INCREMENT, 
   month    smallint(6) NOT NULL, 
