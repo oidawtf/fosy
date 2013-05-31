@@ -14,6 +14,11 @@
             -->
             <link rel="stylesheet" href="css/fosy.css" type="text/css">
             <link rel="stylesheet" href="css/layout.css">
+            
+            <script type="text/javascript" src="js/jquery-1.5.2.min.js"></script>
+            <script type="text/javascript" src="js/hideshow.js"></script>
+            <script type="text/javascript" src="js/jquery.tablesorter.min.js"></script>
+            <script type="text/javascript" src="js/jquery.equalHeight.js"></script>
 
             <title>FOSY - Felix Online Systems</title>
     </head>
@@ -37,22 +42,33 @@
 
     <body>
 	
-	<!-- else show empty content page -->
 	<header>
+            <?php include "header.php" ?>;
 	</header>
-		
-	<nav>
-            <?php /*require("navi.php");*/ ?>
-	</nav>
+        
+        <nav>
+            <?php
+            
+            if (controller::isLoggedIn())
+                include "navi.php";
+            
+            ?>
+        </nav>
 		
         <div id="content">
             <?php
 
             if (isset($_GET['content'])) {
                 switch ($_GET['content']) {
-                    case 'login.php':
-                    // Add other .php files
-                        @include 'ui/'.$_GET['content'];
+                    case 'login':
+                        @include $_GET['content'].'.php';
+                        break;
+                    case 'customerrequest':
+                    case 'maintaincustomer':
+                        @include "kundenMgmt/".$_GET['content'].'.php';
+                        break;
+                    case 'dashboard':
+                        @include "reporting/".$_GET['content'].'.php';
                         break;
 
                     default:

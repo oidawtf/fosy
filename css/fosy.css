@@ -30,3 +30,14 @@ div#centerhelper {
 	border:1px solid blue;
 	padding:20px;
 }
+
+.menu {
+    color: #666666;
+    display: inline-block;
+    height: 17px;
+    line-height: 17px;
+    margin: 2px 0;
+    padding-left: 25px;
+    text-decoration: none;
+    text-shadow: 0 1px 0 #FFFFFF;
+}
