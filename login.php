@@ -1,8 +1,14 @@
 <div id="loginForm">
-	<div id="logo"><img src="img/logo_120x40.png" alt="Programm: Felix Online Systems"/></div>
+	<div id="logo"><img src="images/logo_120x40.png" alt="Programm: Felix Online Systems"/></div>
 	
 	<form>
-		<div id="">Benutzername: <input type="text"></div>
-		<div id="">Kennwort: <input type="password"></div>
+            <fieldset>
+                    <label>Benutzername:</label>
+                    <input type="text">
+            </fieldset>
+            <fieldset>
+                    <label>Kennwort:</label>
+                    <input type="password">
+            </fieldset>
 	</form>
 </div>
