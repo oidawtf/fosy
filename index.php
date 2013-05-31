@@ -28,7 +28,7 @@
 	
 	<!-- else show empty content page -->
 	<header>
-		<?php /*require("header.php");*/ ?>
+		<?php require("header.php"); ?>
 	</header>
 		
 	<nav>
