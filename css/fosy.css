@@ -1,0 +1,32 @@
+* {
+	padding:0;
+	margin:0;
+}
+
+body {
+	width: 100%;
+	height: 100%;
+}
+
+div#centerhelper {
+	width:1px;
+	height:50%;
+	margin-bottom:-150px; /* Hälfte der Container-Höhe */
+	float:left;
+}
+
+#login {
+	border:1px solid red;
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	width: 400px;
+	height: 200px;
+	margin-left: -200px; /* Hälfte der Breite nach links */
+	margin-top: -100px; /* Hälfte der Höhe nach oben */
+}
+
+#loginForm {
+	border:1px solid blue;
+	padding:20px;
+}
