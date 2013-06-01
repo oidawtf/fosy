@@ -2,10 +2,25 @@
 
 class controller {
     
+    private static $content;
     private static $dataService;
     
     const sessionIDName = 'fosy_session';
     const sessionIDUser = "username";
+    
+    private static function getContent() {
+        if (empty(controller::$content)) {
+            controller::$content = array(
+                'home' => array('title' => 'Home', 'file' => 'home.php'),
+                'login' => array('title' => 'Login', 'file' => 'login.php'),
+                'customerrequest' => array('title' => 'Kundenanfrage verwalten', 'file' => 'kundenMgmt/customerrequest.php'),
+                'maintaincustomer' => array('title' => 'Kunden verwalten', 'file' => 'kundenMgmt/maintaincustomer.php'),
+                'dashboard' => array('title' => 'Dashboard', 'file' => 'reporting/dashboard.php')
+                );
+        }
+        
+        return controller::$content;
+    }
     
     private static function getDataService() {
         if (empty(controller::$dataService)) {
@@ -61,6 +76,28 @@ class controller {
     
     public static function IsRegistered($username) {
         return controller::getDataService()->isUserRegistered($username);
+    }
+    
+    public static function getContentTitle() {
+        $content = controller::getCurrentContent();
+        return $content['title'];
+    }
+    
+    public static function getContentPage() {
+        $content = controller::getCurrentContent();
+        return $content['file'];
+    }
+    
+    private static function getCurrentContent() {
+        if (isset($_GET['content']) && array_key_exists($_GET['content'], controller::getContent()))
+            $key = $_GET['content'];
+        elseif (controller::isLoggedIn())
+            $key = 'home';
+        else
+            $key = 'login';
+        
+        $content = controller::getContent();
+        return $content[$key];
     }
 }
 

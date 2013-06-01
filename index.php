@@ -58,30 +58,7 @@
         <div id="content">
             <?php
 
-            if (isset($_GET['content'])) {
-                switch ($_GET['content']) {
-                    case 'login':
-                        @include $_GET['content'].'.php';
-                        break;
-                    case 'customerrequest':
-                    case 'maintaincustomer':
-                        @include "kundenMgmt/".$_GET['content'].'.php';
-                        break;
-                    case 'dashboard':
-                        @include "reporting/".$_GET['content'].'.php';
-                        break;
-
-                    default:
-                        echo $_GET['content']." - 404 - Not found! =(";
-                        break;
-                }
-            }
-            elseif(controller::isLoggedIn()) {
-                include 'home.php';
-            }
-            else {
-                include 'login.php';
-            }
+            include controller::getContentPage();
 
             ?>
 	</div>

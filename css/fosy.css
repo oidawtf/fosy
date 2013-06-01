@@ -16,7 +16,6 @@ div#centerhelper {
 }
 
 #login {
-	border:1px solid red;
 	position: absolute;
 	left: 50%;
 	top: 50%;
@@ -27,8 +26,7 @@ div#centerhelper {
 }
 
 #loginForm {
-	border:1px solid blue;
-	padding:20px;
+	padding:0px;
 }
 
 .menu {
