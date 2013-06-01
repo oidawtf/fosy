@@ -23,18 +23,44 @@
             <title>FOSY - Felix Online Systems</title>
     </head>
 
+    <?php
+
+    include_once "businesslogic/dbaccess.php";
+    include_once "businesslogic/controller.php";
+    
+    // Login clicked
+    if (isset($_POST['login']) && isset($_POST['username']) && isset($_POST['password']))
+        if (controller::isLoginValid($_POST['username'], $_POST['password'])) {
+            controller::Login($_POST['username']);
+        }
+    
+    // Logout clicked
+    if (isset($_POST['logout']))
+        controller::Logout();
+
+    ?>
+
     <body>
 	
 	<header>
+            <?php include "header.php" ?>;
 	</header>
         
         <nav>
+            <?php
+            
+            if (controller::isLoggedIn())
+                include "navi.php";
+            
+            ?>
         </nav>
 		
         <div id="content">
-            <a href="auftragsMgmt/index.php">Auftragsmanagement</a>
-            <a href="crm/index.php">CRM</a>
-            <a href="reporting/index.php">Reporting</a>
+            <?php
+
+            include controller::getContentPage();
+
+            ?>
 	</div>
 		
 	<footer>
