@@ -1,0 +1,164 @@
+* {
+	padding:0;
+	margin:0;
+}
+
+body, html {
+	color: #000;
+	/*background: #E6E6E6;*/
+	background: white;
+	font-family: Verdana;
+	font-size: 11pt;
+}
+.clear {
+	clear: both;
+}
+.shadowBottom {
+	-webkit-box-shadow: 0px 4px 5px -2px #000000;
+	   -moz-box-shadow: 0px 4px 5px -2px #000000;
+			box-shadow: 0px 4px 5px -2px #000000;
+}
+.shadowTop {
+	-webkit-box-shadow: 0px -4px 5px -2px #000000;
+	   -moz-box-shadow: 0px -4px 5px -2px #000000;
+			box-shadow: 0px -4px 5px -2px #000000;
+}
+
+/* LOGIN */
+div#centerhelper {
+	width:1px;
+	height:50%;
+	margin-bottom:-150px; /* Hälfte der Container-Höhe */
+	float:left;
+}
+
+#login {
+	border:1px solid red;
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	width: 400px;
+	height: 200px;
+	margin-left: -200px; /* Hälfte der Breite nach links */
+	margin-top: -100px; /* Hälfte der Höhe nach oben */
+}
+
+#loginForm {
+	border:0px solid blue;
+	padding:20px;
+}
+
+#wrapper {
+	width: 1000px;
+	margin: 0 auto;
+	background: #FFF;
+	border: 0px solid green;
+}
+
+/* HEADER */
+header {
+	border: 0px solid red;
+	background: #E6E6E6;
+	height: 142px;
+	position: relative;
+	margin-bottom: 10px;
+}
+header #moduleLogo {
+	border: 0px solid yellow;
+	width: 425px;
+	float: left;
+	height: 142px;
+}
+header #fosyLogo {
+	border: 0px solid blue;
+	height: 142px;
+	text-align: right;
+}
+header #fosyLogo #logo {
+	border: 0px solid green;
+	padding: 10px 10px 0 0;
+}
+header #fosyLogo #logoutForm {
+	border: 0px dotted fuchsia;
+	position: absolute;
+	right: 0;
+	bottom: 5px;
+	margin-right: 10px;
+}
+
+/* NAVI */
+nav {
+	float: left;
+	width: 210px;
+	background: #FFFFFF;
+	/*background: #9fc;*/
+	margin-bottom: 10px;
+	padding-left: 0px;
+}
+nav h3 {
+	border: 0px solid red;
+}
+nav ul {
+	border: 0px solid red;
+	list-style: none outside none;
+	width: 200px;	
+}
+nav ul li {
+	list-style: none outside none;
+	font-weight: bold;
+	padding-bottom: 2px;
+}
+nav ul li a:link, nav ul li a:visited {
+	background: url("../img/navi_off.gif") transparent;
+	background-repeat: no-repeat;
+	color: #4D4D4D;
+	display: block;
+	padding: 8px 0 0 10px;
+}
+nav ul li a:hover {
+	background: url("../img/navi_on.gif") no-repeat transparent;
+	color: #B5DC22;
+	padding: 8px 0 0 10px;
+}
+nav ul li a.active {
+	background: url("../img/navi_on.gif") no-repeat transparent;
+	color: #36AACB;
+	padding: 8px 0 0 10px;
+}
+nav ul li a {
+	height: 24px;
+	text-decoration: none;
+}
+
+/* CONTENT */
+#content {
+	border:0px solid blue;
+	float: right;
+	width: 790px;
+	min-height: 150px;
+	background: #FFFFFF;
+	margin-bottom: 10px;
+}
+
+/* FOOTER */
+footer {
+	border:0px solid magenta;
+	background: #E6E6E6;
+	height: 30px;
+}
+
+/* Forms */
+fieldset legend {
+	border: 1px solid red;
+	margin-left: 5px;
+}
+fieldset div {
+	margin: 5px;
+}
+fieldset label {
+	border:0px solid blue;
+}
+fieldset input.fosyDate, fieldset input.fosyInput {
+	border:0px solid red;
+	width: 100px;
+}
