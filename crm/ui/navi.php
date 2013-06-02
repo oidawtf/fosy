@@ -13,8 +13,11 @@
 
         <h3>CRM <a class="toggleLink" href="#"></a></h3>
         <ul class="toggle">
-            <li><a class="menu" href="<?php echo $_SERVER['PHP_SELF']; ?>?content=customerrequest">Kundenanfrage</a></li>
-            <li><a class="menu" href="<?php echo $_SERVER['PHP_SELF']; ?>?content=maintaincustomer">Kundenverwaltung</a></li>
+            <li><a class="menu" href="<?php echo $_SERVER['PHP_SELF']; ?>?content=maintaincustomer"><?php echo controller::getContentTitle('maintaincustomer'); ?></a></li>
+            <li><a class="menu" href="<?php echo $_SERVER['PHP_SELF']; ?>?content=createcustomer"><?php echo controller::getContentTitle('createcustomer'); ?></a></li>
+            <li><a class="menu" href="<?php echo $_SERVER['PHP_SELF']; ?>?content=customerrequest"><?php echo controller::getContentTitle('customerrequest'); ?></a></li>
+            <li><a class="menu" href="<?php echo $_SERVER['PHP_SELF']; ?>?content=createcampaign"><?php echo controller::getContentTitle('createcampaign'); ?></a></li>
+            <li><a class="menu" href="<?php echo $_SERVER['PHP_SELF']; ?>?content=analysecampaign"><?php echo controller::getContentTitle('analysecampaign'); ?></a></li>
         </ul>
 
         <h3>Reporting <a class="toggleLink" href="#"></a></h3>

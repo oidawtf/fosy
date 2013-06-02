@@ -13,12 +13,15 @@ class controller {
             controller::$content = array(
                 'home' => array('title' => 'Home', 'file' => 'ui/home.php'),
                 'login' => array('title' => 'Login', 'file' => 'ui/login.php'),
-                'customerrequest' => array('title' => 'Kundenanfrage', 'file' => 'ui/customerrequest.php'),
-                'maintaincustomer' => array('title' => 'Kundenverwaltung', 'file' => 'ui/maintaincustomer.php'),
-                'customerdetails' => array('title' => 'Kunden bearbeiten', 'file' => 'ui/customerdetails.php')
+                'customerrequest' => array('title' => 'Anfrage erfassen', 'file' => 'ui/customerrequest.php'),
+                'maintaincustomer' => array('title' => 'Kunden ansehen', 'file' => 'ui/maintaincustomer.php'),
+                'customerdetails' => array('title' => 'Kunden bearbeiten', 'file' => 'ui/customerdetails.php'),
+                'createcustomer' => array('title' => 'Kunden hinzufügen', 'file' => 'ui/customerdetails.php'),
+                'createcampaign' => array('title' => 'Kampagne erstellen', 'file' => 'ui/createcampaign.php'),
+                'analysecampaign' => array('title' => 'Kampagne analysieren', 'file' => 'ui/analysecampaign.php')
                 );
         }
-        
+
         return controller::$content;
     }
     
@@ -78,23 +81,25 @@ class controller {
         return controller::getDataService()->isUserRegistered($username);
     }
     
-    public static function getContentTitle() {
-        $content = controller::getCurrentContent();
+    public static function getContentTitle($key = "") {
+        $content = controller::getContentItem($key);
         return $content['title'];
     }
     
-    public static function getContentPage() {
-        $content = controller::getCurrentContent();
+    public static function getContentPage($key = "") {
+        $content = controller::getContentItem($key);
         return $content['file'];
     }
     
-    private static function getCurrentContent() {
-        if (isset($_GET['content']) && array_key_exists($_GET['content'], controller::getContent()))
-            $key = $_GET['content'];
-        elseif (controller::isLoggedIn())
-            $key = 'home';
-        else
-            $key = 'login';
+    private static function getContentItem($key) {
+        if ($key == "" && isset($_GET['content']))
+                $key = $_GET['content'];
+        
+        if (!array_key_exists($key, controller::getContent()))
+            if (controller::isLoggedIn())
+                $key = 'home';
+            else
+                $key = 'login';
         
         $content = controller::getContent();
         return $content[$key];
