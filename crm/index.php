@@ -80,7 +80,7 @@
         ?>
 		
         <div id="content">
-            <?php include controller::getContentPage(); ?>
+            <?php include controller::getContentItem()->getUrl(); ?>
 	</div>
 		
 	<footer>
