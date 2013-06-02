@@ -5,8 +5,8 @@ class dbAccess {
 //  local DB    
     const host = "localhost";
     const db = "fosy";
-    const user = "root";
-    const password = "";
+    const user = "fosy";
+    const password = "fosyPassword";
     
 //  remote DB
 //    const host = "";

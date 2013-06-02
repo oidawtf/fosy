@@ -13,8 +13,8 @@ class controller {
             controller::$content = array(
                 'home' => array('title' => 'Home', 'file' => 'ui/home.php'),
                 'login' => array('title' => 'Login', 'file' => 'ui/login.php'),
-                'customerrequest' => array('title' => 'Kundenanfrage verwalten', 'file' => 'ui/customerrequest.php'),
-                'maintaincustomer' => array('title' => 'Kunden verwalten', 'file' => 'ui/maintaincustomer.php')
+                'customerrequest' => array('title' => 'Kundenanfrage', 'file' => 'ui/customerrequest.php'),
+                'maintaincustomer' => array('title' => 'Kundenverwaltung', 'file' => 'ui/maintaincustomer.php')
                 );
         }
         
