@@ -20,6 +20,7 @@ class dbAccess {
     private function openConnection()
     {
          $connection = mysql_connect(self::host, self::user, self::password) or die("cannot connect");
+         //$connection->exec('SET CHARACTER SET utf16');
 
          if (mysqli_connect_errno($connection))
          {
@@ -28,6 +29,8 @@ class dbAccess {
          }
          
          mysql_select_db(self::db) or die("cannot connect");
+         
+         //mysql_query("SET character_set_results = 'utf16', character_set_client = 'utf16', character_set_connection = 'utf16', character_set_database = 'utf16', character_set_server = 'utf16'", $connection);
          
          return $connection;
     }
@@ -75,6 +78,51 @@ class dbAccess {
             return true;
         else
             return false;
+    }
+    
+    public function getCustomers($search)
+    {
+        $this->openConnection();
+
+        $search = $this->format($search);
+        
+        if ($search == "")
+            $query = mysql_query("select * from person where is_customer = 1;");
+        else
+            $query = mysql_query("select * from person where (username like '%".$search."%' OR firstname like '%".$search."%' OR lastname like '%".$search."%') AND is_customer = 1" );
+        
+        $result = array();
+        while ($row = mysql_fetch_assoc($query))
+        {
+            $person = new person();
+            $person->id = $row['id'];
+            $person->username = $row['username'];
+            $person->firstname = $row['firstname'];
+            $person->lastname = $row['lastname'];
+            $person->title = $row['title'];
+            $person->birthdate = $row['birthdate'];
+            $person->street = $row['street'];
+            $person->housenumber = $row['housenumber'];
+            $person->stiege = $row['stiege'];
+            $person->doornumber = $row['doornumber'];
+            $person->city = $row['city'];
+            $person->zip = $row['zip'];
+            $person->country = $row['country'];
+            $person->phone = $row['phone'];
+            $person->fax = $row['fax'];
+            $person->email = $row['email'];
+            $person->personnel_number = $row['personnel_number'];
+            $person->hiredate = $row['hiredate'];
+            $person->posistion = $row['posistion'];
+            $person->is_distributor = $row['is_distributor'];
+            $person->is_customer = $row['is_customer'];
+            $person->is_employee = $row['is_employee'];
+            $result[] = $person;
+        }
+        
+        $this->closeConnection($query);
+        
+        return $result;
     }
 }
 

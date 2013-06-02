@@ -14,7 +14,8 @@ class controller {
                 'home' => array('title' => 'Home', 'file' => 'ui/home.php'),
                 'login' => array('title' => 'Login', 'file' => 'ui/login.php'),
                 'customerrequest' => array('title' => 'Kundenanfrage', 'file' => 'ui/customerrequest.php'),
-                'maintaincustomer' => array('title' => 'Kundenverwaltung', 'file' => 'ui/maintaincustomer.php')
+                'maintaincustomer' => array('title' => 'Kundenverwaltung', 'file' => 'ui/maintaincustomer.php'),
+                'customerdetails' => array('title' => 'Kunden bearbeiten', 'file' => 'ui/customerdetails.php')
                 );
         }
         
@@ -97,6 +98,16 @@ class controller {
         
         $content = controller::getContent();
         return $content[$key];
+    }
+    
+    public static function getCustomers($search) {
+        return controller::getDataService()->getCustomers($search);
+    }
+    
+    public static function getCustomer($id) {
+        foreach (controller::getCustomers("") as $customer)
+            if ($customer->id == $id)
+                return $customer;
     }
 }
 
