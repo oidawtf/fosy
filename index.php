@@ -31,10 +31,10 @@
         <nav>
         </nav>
 		
-        <div id="content">
-            <a href="auftragsMgmt/index.php">Auftragsmanagement</a>
-            <a href="crm/index.php">CRM</a>
-            <a href="reporting/index.php">Reporting</a>
+        <div id="modules">
+            <a href="auftragsMgmt/index.php"><img src="img/logo_auftragsMgmt.png" alt="FOSY - Auftragsmanagement"></a>
+            <a href="crm/index.php"><img src="img/logo_CRM.png" alt="FOSY - Kundenmanagement"></a>
+            <a href="reporting/index.php"><img src="img/logo_reporting.png" alt="FOSY - Reporting"></a>
 	</div>
 		
 	<footer>

@@ -7,46 +7,24 @@
     
     <h3>Auftragsmanagement <a class="toggleLink" href="#"></a></h3>
     <ul class="toggle">
+        <li><a class="menu" href="../auftragsMgmt/index.php?content=angebot">Angebot legen</a></li>
     </ul>
     
     <h3>CRM <a class="toggleLink" href="#"></a></h3>
     <ul class="toggle">
-        <form method="GET" action="<?php echo $_SERVER['PHP_SELF']; ?>">
-            <input type='hidden' name='content' value='customerrequest'>
-            <a class="menu" href="javascript:;" onclick="parentNode.submit();">Kundenanfrage</a>
-        </form>
-        <form method="GET" action="<?php echo $_SERVER['PHP_SELF']; ?>">
-            <input type='hidden' name='content' value='maintaincustomer'>
-            <a class="menu" href="javascript:;" onclick="parentNode.submit();">Kundenverwaltung</a>
-        </form>
+        <li><a class="menu" href="<?php echo $_SERVER['PHP_SELF']; ?>?content=customerrequest">Kundenanfrage</a></li>
+        <li><a class="menu" href="<?php echo $_SERVER['PHP_SELF']; ?>?content=maintaincustomer">Kundenverwaltung</a></li>
     </ul>
     
     <h3>Reporting <a class="toggleLink" href="#"></a></h3>
     <ul class="toggle">
-        <form method="GET" action="<?php echo $_SERVER['PHP_SELF']; ?>">
-            <input type='hidden' name='content' value='dashboard'>
-            <a class="menu" href="javascript:;" onclick="parentNode.submit();">Dashboard</a>
-        </form>
-        <form method="GET" action="<?php echo $_SERVER['PHP_SELF']; ?>">
-            <input type='hidden' name='content' value='hugo'>
-            <a class="menu" href="javascript:;" onclick="parentNode.submit();">Flexible Reports</a>
-        </form>
-        <form method="GET" action="<?php echo $_SERVER['PHP_SELF']; ?>">
-            <input type='hidden' name='content' value='hugo'>
-            <a class="menu" href="javascript:;" onclick="parentNode.submit();">ER erfassen</a>
-        </form>
-        <form method="GET" action="<?php echo $_SERVER['PHP_SELF']; ?>">
-            <input type='hidden' name='content' value='hugo'>
-            <a class="menu" href="javascript:;" onclick="parentNode.submit();">UST VA</a>
-        </form>
-        <form method="GET" action="<?php echo $_SERVER['PHP_SELF']; ?>">
-            <input type='hidden' name='content' value='hugo'>
-            <a class="menu" href="javascript:;" onclick="parentNode.submit();">Plandatenverwaltung</a>
-        </form>
-        <form method="GET" action="<?php echo $_SERVER['PHP_SELF']; ?>">
-            <input type='hidden' name='content' value='hugo'>
-            <a class="menu" href="javascript:;" onclick="parentNode.submit();">Plan-Ist-Vergleich</a>
-        </form>
+        <li><a class="menu" href="../reporting/index.php?content=dashboard">Dashboard</a></li>
+        <li><a class="menu" href="../reporting/index.php?content=flexibleReports">Flexible Reports</a></li>
+        <li><a class="menu" href="../reporting/index.php?content=erErfassen">ER erfassen</a></li>
+        <li><a class="menu" href="../reporting/index.php?content=ustVA">UST VA</a></li>
+        <li><a class="menu" href="../reporting/index.php?content=plandatenverwaltung">Plandatenverwaltung</a></li>
+        <li><a class="menu" href="../reporting/index.php?content=planIstVergleich">Plan-Ist-Vergleich</a></li>
     </ul>
     
 </aside>
+    

@@ -1,6 +1,6 @@
 <div id="login">
     <div id="logo">
-        <img src="img/logo_120x40_transparent.png" alt="Programm: Felix Online Systems"/>
+        <img src="../img/logo_120x40_transparent.png" alt="Programm: Felix Online Systems"/>
     </div>
     <form id="loginForm" method="POST" action="<?php echo $_SERVER["PHP_SELF"]; ?>">
         <fieldset>
