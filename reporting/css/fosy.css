@@ -8,7 +8,7 @@ body, html {
 	/*background: #E6E6E6;*/
 	background: white;
 	font-family: Verdana;
-	font-size: 11pt;
+	font-size: 10pt;
 }
 .clear {
 	clear: both;
@@ -109,24 +109,10 @@ nav ul li {
 	padding-bottom: 2px;
 }
 nav ul li a:link, nav ul li a:visited {
-	background: url("../img/navi_off.gif") transparent;
-	background-repeat: no-repeat;
-	color: #4D4D4D;
 	display: block;
-	padding: 8px 0 0 10px;
-}
-nav ul li a:hover {
-	background: url("../img/navi_on.gif") no-repeat transparent;
-	color: #B5DC22;
-	padding: 8px 0 0 10px;
-}
-nav ul li a.active {
-	background: url("../img/navi_on.gif") no-repeat transparent;
-	color: #36AACB;
-	padding: 8px 0 0 10px;
+	text-align: left;
 }
 nav ul li a {
-	height: 24px;
 	text-decoration: none;
 }
 
@@ -148,17 +134,22 @@ footer {
 }
 
 /* Forms */
+#ui-datepicker-div {
+	font-size: 8pt;
+}
+input.ui-widget {
+	font-size: 9pt;
+}
 fieldset legend {
-	border: 1px solid red;
+	border: 0px solid red;
 	margin-left: 5px;
 }
 fieldset div {
 	margin: 5px;
 }
-fieldset label {
-	border:0px solid blue;
-}
-fieldset input.fosyDate, fieldset input.fosyInput {
-	border:0px solid red;
-	width: 100px;
+fieldset div label {
+	display: block;
+	float: left;
+	width: 150px;
+	border: 0px solid blue;
 }
