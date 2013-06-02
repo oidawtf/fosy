@@ -14,8 +14,7 @@ class controller {
                 'home' => array('title' => 'Home', 'file' => 'ui/home.php'),
                 'login' => array('title' => 'Login', 'file' => 'ui/login.php'),
                 'customerrequest' => array('title' => 'Kundenanfrage verwalten', 'file' => 'ui/customerrequest.php'),
-                'maintaincustomer' => array('title' => 'Kunden verwalten', 'file' => 'ui/maintaincustomer.php'),
-                'dashboard' => array('title' => 'Dashboard', 'file' => '../reporting/dashboard.php')
+                'maintaincustomer' => array('title' => 'Kunden verwalten', 'file' => 'ui/maintaincustomer.php')
                 );
         }
         
