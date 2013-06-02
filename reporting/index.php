@@ -14,8 +14,8 @@
 			<![endif]
 		-->
 		<link rel="stylesheet" href="css/fosy.css" type="text/css">
-		<link rel="stylesheet" href="css/jquery-ui-1.10.3.custom.min.css" type="text/css">
-            
+		<link rel="stylesheet" href="css/jquery-ui-1.10.3.custom.css" type="text/css">
+		
 		<script type="text/javascript" src="js/jquery-1.9.1.js"></script>
 		<script type="text/javascript" src="js/jquery-ui-1.10.3.custom.min.js"></script>
 		<script type="text/javascript" src="js/fosy.js"></script>
@@ -60,6 +60,7 @@
 							case 'dashboard':
 							case 'flexibleReports':
 							case 'erErfassen':
+							case 'erErfassenSuccess':
 							case 'ustVA':
 							case 'plandatenverwaltung':
 							case 'planIstVergleich':

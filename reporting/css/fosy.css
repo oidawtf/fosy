@@ -145,6 +145,7 @@ fieldset legend {
 	margin-left: 5px;
 }
 fieldset div {
+	border: 0px solid red;
 	margin: 5px;
 }
 fieldset div label {
