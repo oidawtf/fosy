@@ -3,7 +3,7 @@
         <h1 class="site_title">
             <a href="../index.php">FOSY - Felix Online Systems</a>
         </h1>
-        <h2 class="section_title"><?php echo controller::getContentTitle(); ?></h2>
+        <h2 class="section_title"><?php echo controller::getContentItem()->getTitle(); ?></h2>
         <div class="btn_view_site">
             
             <?php
@@ -37,9 +37,21 @@ if (!controller::isLoggedIn())
     </div>
     <div class="breadcrumbs_container">
         <article class="breadcrumbs">
-            <a href="<?php echo $_SERVER['PHP_SELF']; ?>">Home</a>
-            <div class="breadcrumb_divider"></div>
-            <a class="current">Dashboard</a>
+            
+            <?php
+            
+            $content = controller::getContentItem();
+            
+            if ($content->getParents() != NULL)
+                foreach($content->getParents() as $parentKey) {
+                    $parent = controller::getContentItem($parentKey);
+                    echo "<a href='".$_SERVER['PHP_SELF']."?content=".$parent->getId()."'>".$parent->getTitle()."</a>";
+                    echo "<div class='breadcrumb_divider'></div>";
+                }
+            echo "<a class='current' href='".$_SERVER['PHP_SELF']."?content=".$content->getId()."'>".$content->getTitle()."</a>";
+            
+            ?>
+            
         </article>
     </div>
 </section>

@@ -11,14 +11,14 @@ class controller {
     private static function getContent() {
         if (empty(controller::$content)) {
             controller::$content = array(
-                'home' => array('title' => 'Home', 'file' => 'ui/home.php'),
-                'login' => array('title' => 'Login', 'file' => 'ui/login.php'),
-                'customerrequest' => array('title' => 'Anfrage erfassen', 'file' => 'ui/customerrequest.php'),
-                'maintaincustomer' => array('title' => 'Kunden ansehen', 'file' => 'ui/maintaincustomer.php'),
-                'customerdetails' => array('title' => 'Kunden bearbeiten', 'file' => 'ui/customerdetails.php'),
-                'createcustomer' => array('title' => 'Kunden hinzufügen', 'file' => 'ui/customerdetails.php'),
-                'createcampaign' => array('title' => 'Kampagne erstellen', 'file' => 'ui/createcampaign.php'),
-                'analysecampaign' => array('title' => 'Kampagne analysieren', 'file' => 'ui/analysecampaign.php')
+                'home' => new page('home', 'Home', 'ui/home.php'),
+                'login' => new page('login', 'Login', 'ui/login.php'),
+                'customerrequest' => new page('customerrequest', 'Anfrage erfassen', 'ui/customerrequest.php', array('home')),
+                'maintaincustomer' => new page('maintaincustomer', 'Kunden ansehen', 'ui/maintaincustomer.php', array('home')),
+                'customerdetails' => new page('customerdetails', 'Kunden bearbeiten', 'ui/customerdetails.php', array('home', 'maintaincustomer')),
+                'createcustomer' => new page('createcustomer', 'Kunden hinzufügen', 'ui/customerdetails.php', array('home')),
+                'createcampaign' => new page('createcampaign', 'Kampagne erstellen', 'ui/createcampaign.php', array('home')),
+                'analysecampaign' => new page('analysecampaign', 'Kampagne analysieren', 'ui/analysecampaign.php', array('home'))
                 );
         }
 
@@ -81,17 +81,7 @@ class controller {
         return controller::getDataService()->isUserRegistered($username);
     }
     
-    public static function getContentTitle($key = "") {
-        $content = controller::getContentItem($key);
-        return $content['title'];
-    }
-    
-    public static function getContentPage($key = "") {
-        $content = controller::getContentItem($key);
-        return $content['file'];
-    }
-    
-    private static function getContentItem($key) {
+    public static function getContentItem($key = "") {
         if ($key == "" && isset($_GET['content']))
                 $key = $_GET['content'];
         
