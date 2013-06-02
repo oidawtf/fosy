@@ -25,3 +25,21 @@
         </div>
     </hgroup>
 </header>
+
+<?php
+if (!controller::isLoggedIn())
+    return;
+?>
+
+<section id="secondary_bar">
+    <div class="user">
+        <p><?php echo controller::getUsername(); ?></p>
+    </div>
+    <div class="breadcrumbs_container">
+        <article class="breadcrumbs">
+            <a href="<?php echo $_SERVER['PHP_SELF']; ?>">Home</a>
+            <div class="breadcrumb_divider"></div>
+            <a class="current">Dashboard</a>
+        </article>
+    </div>
+</section>

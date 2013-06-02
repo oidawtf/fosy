@@ -1,0 +1,42 @@
+/* 
+    Document   : site.css
+    Created on : 02.06.2013, 12:32:25
+    Author     : admin
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+root { 
+    display: block;
+}
+
+body {
+	width: 100%;
+	height: 100%;
+}
+
+#login {
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	width: 400px;
+	height: 200px;
+	margin-left: -200px; /* Hälfte der Breite nach links */
+	margin-top: -100px; /* Hälfte der Höhe nach oben */
+}
+
+#loginForm {
+	padding:0px;
+}
+
+.menu {
+    color: #666666;
+    display: inline-block;
+    height: 17px;
+    line-height: 17px;
+    margin: 2px 0;
+    padding-left: 25px;
+    text-decoration: none;
+    text-shadow: 0 1px 0 #FFFFFF;
+}
+
