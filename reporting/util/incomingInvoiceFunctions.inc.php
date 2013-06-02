@@ -18,34 +18,29 @@ function checkBruttoBetrag($brutto) {
 }
 
 function saveIncomingInvoice($date, $belegNr, $bruttoBetrag, $tax) {
-	// TODO maybe have to check the data
+	// TODO maybe have to check the data because anybody can call the method!
+	if(checkDateFormatValid($_POST['date']) && checkDateNotInFuture($_POST['date']) &&  checkBelegNr($_POST['belegNr']) && checkBruttoBetrag($_POST['bruttoBetrag'])) {
 	
-	switch($tax) {
-		case "10":
-			$vst = $bruttoBetrag / 11;
-			break;
-		case "20":
-			$vst = $bruttoBetrag / 6;
-			break;
-	}
+		// TODO write short if?
+		if($tax==10) { $vst = $bruttoBetrag / 11; }
+		else if($tax==20) { $vst = $bruttoBetrag / 6; }
 	
-	$nettoBetrag = $bruttoBetrag - $vst;
+		$taxType = getTaxTypeId("vst");
+		$date = formatDateForDatabase($date);
 	
-	$taxType = getTaxTypeId("vst");
-
-	$date = formatDateForDatabase($date);
-	// todo format netto-betrag
-	$query = "INSERT INTO tax (date, value, businessRecordNumber, fk_tax_type_id) VALUES ('$date', $nettoBetrag, '$belegNr', $taxType)";
+		$query = "INSERT INTO tax (date, value, businessRecordNumber, fk_tax_type_id) VALUES ('$date', $vst, '$belegNr', $taxType)";
+		$result = mysql_query($query);
 	
-	$result = mysql_query($query);
-	
-	if($result && mysql_affected_rows()) {
-		// TODO make a readirect
-		echo "now check the database for new insert <br>";
+		if($result && mysql_affected_rows()) {
+			redirect("erErfassenSuccess");
+		}else {
+			// TODO add method for error-output
+			$message  = 'Ungültige Abfrage: ' . mysql_error() . "\n";
+			$message .= 'Gesamte Abfrage: ' . $query;
+			die($message);
+		}
 	}else {
-		$message  = 'Ungültige Abfrage: ' . mysql_error() . "\n";
-		$message .= 'Gesamte Abfrage: ' . $query;
-		die($message);
+		echo "shit happens here";
 	}
 }
 
@@ -58,6 +53,7 @@ function getTaxTypeId($type) {
 			return $z['id'];
 		}
 	}else {
+		// TODO add method for error-output
 		$message  = 'Ungültige Abfrage: ' . mysql_error() . "\n";
 		$message .= 'Gesamte Abfrage: ' . $query;
 		die($message);

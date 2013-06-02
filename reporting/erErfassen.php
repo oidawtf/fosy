@@ -4,12 +4,8 @@
 	
 	// save clicked 
 	if(isset($_POST['save']) && checkDateFormatValid($_POST['date']) && checkDateNotInFuture($_POST['date']) &&  checkBelegNr($_POST['belegNr']) && checkBruttoBetrag($_POST['bruttoBetrag'])) {
-		echo "everythings correct<br>";
-		// SAVE TO DATABASE!!!
-		// DON'T FORGET THE REDIRECT!!
 		
 		saveIncomingInvoice($_POST['date'], $_POST['belegNr'], $_POST['bruttoBetrag'], $_POST['tax']);
-		
 	
 	} else {
 		if(isset($_POST['save'])) {
@@ -35,15 +31,15 @@
 		<legend>Eingangsrechnung erfassen</legend>
 		<div>
 			<label>Datum:</label>
-			<input type="text" name="date" id="datepicker" value="<?php echo $_POST['date']; ?>01.06.2013"/>
+			<input type="text" name="date" id="datepicker" value="<?php echo $_POST['date']; ?>"/>
 		</div>
 		<div>
 			<label>BelegNr:</label>
-			<input type="text" id="belegNr" name="belegNr" value="<?php echo $_POST['belegNr']; ?>123">
+			<input type="text" id="belegNr" name="belegNr" value="<?php echo $_POST['belegNr']; ?>">
 		</div>
 		<div>
 			<label>Brutto-Betrag:</label>
-			<input type="text" id="bruttoBetrag" name="bruttoBetrag" value="<?php echo $_POST['bruttoBetrag']; ?>1200">
+			<input type="text" id="bruttoBetrag" name="bruttoBetrag" value="<?php echo $_POST['bruttoBetrag']; ?>">
 			
 		</div>
 		<div>

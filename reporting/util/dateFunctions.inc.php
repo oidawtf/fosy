@@ -36,8 +36,7 @@ function checkDateNotInFuture($date) {
 	outputformat: yyyy-mm-dd
 */
 function formatDateForDatabase($date) {
-	$my_date = date('Y-m-d', strtotime($date));
- 	return $my_date;
+ 	return date('Y-m-d', strtotime($date));
 }
 
 ?>

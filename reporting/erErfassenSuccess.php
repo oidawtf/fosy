@@ -1,3 +1,3 @@
-<h3>Eingangsrechnung erfassen</h3>
+<h3>Eingangsrechnung erfasst</h3>
 <br/>
-<div id="saveSuccess"></div>
+<div id="saveSuccess">Die Daten wurden gespeichert.</div>
