@@ -20,7 +20,6 @@ class dbAccess {
     private function openConnection()
     {
          $connection = mysql_connect(self::host, self::user, self::password) or die("cannot connect");
-         //$connection->exec('SET CHARACTER SET utf16');
 
          if (mysqli_connect_errno($connection))
          {
@@ -29,8 +28,6 @@ class dbAccess {
          }
          
          mysql_select_db(self::db) or die("cannot connect");
-         
-         //mysql_query("SET character_set_results = 'utf16', character_set_client = 'utf16', character_set_connection = 'utf16', character_set_database = 'utf16', character_set_server = 'utf16'", $connection);
          
          return $connection;
     }

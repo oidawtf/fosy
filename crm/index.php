@@ -5,7 +5,7 @@
 -->
 <html>
     <head>
-            <meta charset="UTF-16">
+            <meta charset="UTF-8">
             <meta name="description" content="FOSY - Felix Online Systems">
             <meta name="author" content="Brunnhuber, Cibukcic, Hotko, Matthaei, Meissner, Piesel, Quidet, Reithofer, Wagner-Celik">
             <!--[if lte IE 8]>
@@ -80,11 +80,7 @@
         ?>
 		
         <div id="content">
-            <?php
-
-            include controller::getContentPage();
-
-            ?>
+            <?php include controller::getContentPage(); ?>
 	</div>
 		
 	<footer>
