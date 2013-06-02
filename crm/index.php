@@ -12,7 +12,7 @@
                     <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
                     <![endif]
             -->
-            <link rel="stylesheet" href="css/fosy.css" type="text/css">
+            <link rel="stylesheet" href="../css/fosy.css" type="text/css">
             <link rel="stylesheet" href="css/layout.css">
             
             <script type="text/javascript" src="js/jquery-1.5.2.min.js"></script>
@@ -24,9 +24,8 @@
     </head>
 
     <?php
-
-    include_once "businesslogic/dbaccess.php";
-    include_once "businesslogic/controller.php";
+    
+    include "includes.php";
     
     // Login clicked
     if (isset($_POST['login']) && isset($_POST['username']) && isset($_POST['password']))
@@ -43,14 +42,14 @@
     <body>
 	
 	<header>
-            <?php include "header.php" ?>;
+            <?php include "ui/header.php" ?>;
 	</header>
         
         <nav>
             <?php
             
             if (controller::isLoggedIn())
-                include "navi.php";
+                include "ui/navi.php";
             
             ?>
         </nav>

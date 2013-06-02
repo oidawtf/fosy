@@ -15,6 +15,16 @@ div#centerhelper {
 	float:left;
 }
 
+#modules {
+	position: absolute;
+	left: 50%;
+	top: 50%;
+        width: 100%;
+	height: 100%;
+	margin-left: -638px; /* Hälfte der Breite nach links */
+	margin-top: -71px; /* Hälfte der Höhe nach oben */
+}
+
 #login {
 	position: absolute;
 	left: 50%;
