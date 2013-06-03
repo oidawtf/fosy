@@ -20,15 +20,15 @@ else
             
             <fieldset style="width:32%; float:left; margin-right: 2%;">
                 <label>Vorname</label>
-                <input name="firstname" type="text" style="width:92%" />
+                <input name="firstname" type="text" style="width:90%" />
             </fieldset>
             <fieldset style="width:32%; float:left; margin-right: 2%">
                 <label>Nachname</label>
-                <input name="lastname" type="text" style="width:92%;" />
+                <input name="lastname" type="text" style="width:90%;" />
             </fieldset>
             <fieldset style="width:31%; float:left;">
                 <label>Titel</label>
-                <input name="title" type="text" style="width:92%;" />
+                <input name="title" type="text" style="width:90%;" />
             </fieldset>
             
             
