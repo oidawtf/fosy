@@ -56,7 +56,7 @@
                             echo    "<td>".$customer->firstname."</td>";
                             echo    "<td>".$customer->lastname."</td>";
                             echo    "<td>".$customer->username."</td>";
-                            echo    "<td>".$customer->birthdate."</td>";
+                            echo    "<td>".$customer->getBirthdate()."</td>";
                             echo "</tr>";
                         }
                         

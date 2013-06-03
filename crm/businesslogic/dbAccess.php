@@ -110,7 +110,7 @@ class dbAccess {
             $person->email = $row['email'];
             $person->personnel_number = $row['personnel_number'];
             $person->hiredate = $row['hiredate'];
-            $person->posistion = $row['posistion'];
+            $person->posistion = $row['position'];
             $person->is_distributor = $row['is_distributor'];
             $person->is_customer = $row['is_customer'];
             $person->is_employee = $row['is_employee'];
