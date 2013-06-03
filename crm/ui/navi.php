@@ -13,11 +13,11 @@
 
         <h3>CRM <a class="toggleLink" href="#"></a></h3>
         <ul class="toggle">
-            <li><a class="menu" href="<?php echo $_SERVER['PHP_SELF']; ?>?content=maintaincustomer"><?php echo controller::getContentItem('maintaincustomer')->getTitle(); ?></a></li>
-            <li><a class="menu" href="<?php echo $_SERVER['PHP_SELF']; ?>?content=createcustomer"><?php echo controller::getContentItem('createcustomer')->getTitle(); ?></a></li>
-            <li><a class="menu" href="<?php echo $_SERVER['PHP_SELF']; ?>?content=customerrequest"><?php echo controller::getContentItem('customerrequest')->getTitle(); ?></a></li>
-            <li><a class="menu" href="<?php echo $_SERVER['PHP_SELF']; ?>?content=createcampaign"><?php echo controller::getContentItem('createcampaign')->getTitle(); ?></a></li>
-            <li><a class="menu" href="<?php echo $_SERVER['PHP_SELF']; ?>?content=analysecampaign"><?php echo controller::getContentItem('analysecampaign')->getTitle(); ?></a></li>
+            <li class="icn_view_users"><a class="menu" href="<?php echo $_SERVER['PHP_SELF']; ?>?content=maintaincustomer"><?php echo controller::getContentItem('maintaincustomer')->getTitle(); ?></a></li>
+            <li class="icn_add_user"><a class="menu" href="<?php echo $_SERVER['PHP_SELF']; ?>?content=createcustomer"><?php echo controller::getContentItem('createcustomer')->getTitle(); ?></a></li>
+            <li class="icn_edit_article"><a class="menu" href="<?php echo $_SERVER['PHP_SELF']; ?>?content=customerrequest"><?php echo controller::getContentItem('customerrequest')->getTitle(); ?></a></li>
+            <li class="icn_new_article"><a class="menu" href="<?php echo $_SERVER['PHP_SELF']; ?>?content=createcampaign"><?php echo controller::getContentItem('createcampaign')->getTitle(); ?></a></li>
+            <li class="icn_categories"><a class="menu" href="<?php echo $_SERVER['PHP_SELF']; ?>?content=analysecampaign"><?php echo controller::getContentItem('analysecampaign')->getTitle(); ?></a></li>
         </ul>
 
         <h3>Reporting <a class="toggleLink" href="#"></a></h3>
