@@ -121,6 +121,89 @@ class dbAccess {
         
         return $result;
     }
+    
+    public function insertCustomer($firstname, $lastname, $title, $birthdate, $street, $housenumber, $stiege, $doornumber, $zip, $city, $country, $phone, $fax, $email) {
+        $this->openConnection();
+
+        $firstname = $this->format($firstname);
+        $lastname = $this->format($lastname);
+        $title = $this->format($title);
+        $birthdate = $this->format($birthdate);
+        $street = $this->format($street);
+        $housenumber = $this->format($housenumber);
+        $stiege = $this->format($stiege);
+        $doornumber = $this->format($doornumber);
+        $zip = $this->format($zip);
+        $city = $this->format($city);
+        $country = $this->format($country);
+        $phone = $this->format($phone);
+        $fax = $this->format($fax);
+        $email = $this->format($email);
+
+        mysql_query("
+            INSERT INTO person (firstname, lastname, title, birthdate, street, housenumber, stiege, doornumber, zip, city, country, phone, fax, email, is_customer)
+            VALUES (
+                '".$firstname."',
+                '".$lastname."',
+                '".$title."',
+                '".$birthdate."',
+                '".$street."',
+                '".$housenumber."',
+                '".$stiege."',
+                '".$doornumber."',
+                '".$zip."',
+                '".$city."',
+                '".$country."',
+                '".$phone."',
+                '".$fax."',
+                '".$email."',
+                '1'
+                    )
+                ");
+        
+        mysql_close();
+    }
+    
+    public function updateCustomer($id, $firstname, $lastname, $title, $birthdate, $street, $housenumber, $stiege, $doornumber, $zip, $city, $country, $phone, $fax, $email) {
+        $this->openConnection();
+
+        $id = $this->format($id);
+        $firstname = $this->format($firstname);
+        $lastname = $this->format($lastname);
+        $title = $this->format($title);
+        $birthdate = $this->format($birthdate);
+        $street = $this->format($street);
+        $housenumber = $this->format($housenumber);
+        $stiege = $this->format($stiege);
+        $doornumber = $this->format($doornumber);
+        $zip = $this->format($zip);
+        $city = $this->format($city);
+        $country = $this->format($country);
+        $phone = $this->format($phone);
+        $fax = $this->format($fax);
+        $email = $this->format($email);
+        
+        mysql_query("
+                UPDATE TABLE person
+                SET
+                firstname = '".$firstname."',
+                lastname = '".$lastname."',
+                title = '".$title."',
+                birthdate = '".$birthdate."',
+                street = '".$street."',
+                housenumber = '".$housenumber."',
+                stiege = '".$stiege."',
+                doornumber = '".$doornumber."',
+                zip = '".$zip."',
+                city = '".$city."',
+                country = '".$country."',
+                phone = '".$phone."',
+                fax = '".$fax."',
+                email = '".$email."',
+                ");
+        
+        mysql_close();
+    }
 }
 
 ?>

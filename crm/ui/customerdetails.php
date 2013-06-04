@@ -2,10 +2,14 @@
 
 @controller::checkAuthentication();
 
-if (isset($_GET['id']))
+if (isset($_GET['id'])) {
     $customer = controller::getCustomer($_GET['id']);
-else
+    $command = 'editcustomer';
+}
+else {
     $customer = new person();
+    $command = 'createcustomer';
+}
 
 ?>
 
@@ -18,6 +22,7 @@ else
         
         <div class="module_content">
             
+            <form method="POST" action="<?php echo $_SERVER["PHP_SELF"]; ?>?content=maintaincustomer">
             <fieldset style="float:left; padding: 10px">
                 <h4><label>Per&ouml;nlich</label></h4>
                 <table>
@@ -89,6 +94,14 @@ else
                     </tbody>
                 </table>
             </fieldset>
+                
+                <div class="clear">
+                    <input type="hidden" name="id" value="<?php echo $customer->id; ?>" />
+                    <input type="submit" name="<?php echo $command; ?>" value="Speichern" />
+                    <input type="submit" name="" value="Abbrechen" />
+                </div>
+                
+            </form>
             
         </div>
         

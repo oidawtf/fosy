@@ -2,22 +2,29 @@
 
 @controller::checkAuthentication();
 
+var_dump($_POST);
+
+if (isset($_POST['createcustomer']))
+    controller::createCustomer();
+if (isset($_POST['editcustomer']))
+    controller::editCustomer();
+
 ?>
 
 <section id="main" class="column" style="height: 90%;">
     
-    <article class="module width_full">
+    <article class="module width_half">
         <header>
             <h3 class="tabs_involved">Kundensuche</h3>
         </header>
         <form class="quick_search" method="GET" action="<?php echo $_SERVER['PHP_SELF']; ?>">
             <input type="hidden" name="content" value="maintaincustomer" />
-            <input type="text" name="search" onfocus="if(!this._haschanged){this.value=''};this._haschanged=true;" value="Geben Sie hier die Suchkriterien ein...">
-            <input type="submit" value="Suchen" />
+            <input type="text" style="width:80%" name="search" onfocus="if(!this._haschanged){this.value=''};this._haschanged=true;" value="Geben Sie hier die Suchkriterien ein...">
+            <input type="submit" style="width:10%" value="Suchen" />
         </form>
     </article>
     
-    <article class="module width_full">
+    <article class="module width_full" style="float:left">
         
         <header>
             <h3 class="tabs_involved">Kunden</h3>

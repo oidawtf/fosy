@@ -104,6 +104,76 @@ class controller {
             if ($customer->id == $id)
                 return $customer;
     }
+    
+    public static function createCustomer() {
+        $firstname = $_POST['firstname'];
+        $lastname = $_POST['lastname'];
+        $title = $_POST['title'];
+        $birthdate = date('Y-m-d H:i:s', strtotime(str_replace('-', '/', $_POST['birthdate'])));
+        $street = $_POST['street'];
+        $housenumber = $_POST['housenumber'];
+        $stiege = $_POST['stiege'];
+        $doornumber = $_POST['doornumber'];
+        $zip = $_POST['zip'];
+        $city = $_POST['city'];
+        $country = $_POST['country'];
+        $phone = $_POST['phone'];
+        $fax = $_POST['fax'];
+        $email = $_POST['email'];
+
+        controller::getDataService()->insertCustomer(
+                $firstname,
+                $lastname,
+                $title,
+                $birthdate,
+                $street,
+                $housenumber,
+                $stiege,
+                $doornumber,
+                $zip,
+                $city,
+                $country,
+                $phone,
+                $fax,
+                $email
+                );
+        }
+    
+        public static function editCustomer() {
+            $id = $_POST['id'];
+            $firstname = $_POST['firstname'];
+            $lastname = $_POST['lastname'];
+            $title = $_POST['title'];
+            $birthdate = date('Y-m-d H:i:s', strtotime(str_replace('-', '/', $_POST['birthdate'])));
+            $street = $_POST['street'];
+            $housenumber = $_POST['housenumber'];
+            $stiege = $_POST['stiege'];
+            $doornumber = $_POST['doornumber'];
+            $zip = $_POST['zip'];
+            $city = $_POST['city'];
+            $country = $_POST['country'];
+            $phone = $_POST['phone'];
+            $fax = $_POST['fax'];
+            $email = $_POST['email'];
+
+            controller::getDataService()->updateCustomer(
+                    $id,
+                    $firstname,
+                    $lastname,
+                    $title,
+                    $birthdate,
+                    $street,
+                    $housenumber,
+                    $stiege,
+                    $doornumber,
+                    $zip,
+                    $city,
+                    $country,
+                    $phone,
+                    $fax,
+                    $email
+                    );
+        }
 }
 
 ?>
