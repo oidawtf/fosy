@@ -90,3 +90,13 @@ INSERT INTO period (value) VALUES ('1 Monat');
 INSERT INTO period (value) VALUES ('1 Quartal');
 INSERT INTO period (value) VALUES ('1 Jahr');
 
+-- Status
+INSERT INTO status (value) VALUES ('Offen');
+INSERT INTO status (value) VALUES ('In Bearbeitung');
+INSERT INTO status (value) VALUES ('Geschlossen');
+
+-- Klassifizierung
+INSERT INTO customer_request_type (type) VALUES ('Feedback');
+INSERT INTO customer_request_type (type) VALUES ('Beschwerde');
+INSERT INTO customer_request_type (type) VALUES ('Angebotsanfrage');
+INSERT INTO customer_request_type (type) VALUES ('Auftragsanfrage');
