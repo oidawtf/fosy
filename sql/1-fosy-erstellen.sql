@@ -160,7 +160,7 @@ CREATE TABLE department (
   UNIQUE INDEX (id));
 CREATE TABLE person (
   id               int(10) NOT NULL AUTO_INCREMENT, 
-  fk_department_id int(10) NOT NULL, 
+  fk_department_id int(10), 
   firstname        varchar(32) NOT NULL, 
   lastname         varchar(32) NOT NULL, 
   username         varchar(32) UNIQUE, 
@@ -207,4 +207,3 @@ ALTER TABLE tax ADD INDEX FKtax270969 (fk_tax_type_id), ADD CONSTRAINT FKtax2709
 ALTER TABLE indicator ADD INDEX FKindicator424408 (fk_indicator_type_id), ADD CONSTRAINT FKindicator424408 FOREIGN KEY (fk_indicator_type_id) REFERENCES indicator_type (id);
 ALTER TABLE plannedValue ADD INDEX FKplannedVal989713 (fk_indicator_id), ADD CONSTRAINT FKplannedVal989713 FOREIGN KEY (fk_indicator_id) REFERENCES indicator (id);
 ALTER TABLE plannedValue ADD INDEX FKplannedVal409240 (fk_period_id), ADD CONSTRAINT FKplannedVal409240 FOREIGN KEY (fk_period_id) REFERENCES period (id);
-

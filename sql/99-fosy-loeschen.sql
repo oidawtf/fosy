@@ -44,4 +44,3 @@ DROP TABLE IF EXISTS campaign_person;
 DROP TABLE IF EXISTS campaign;
 DROP TABLE IF EXISTS department;
 DROP TABLE IF EXISTS person;
-
