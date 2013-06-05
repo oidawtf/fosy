@@ -13,16 +13,6 @@ body, html {
 .clear {
 	clear: both;
 }
-.shadowBottom {
-	-webkit-box-shadow: 0px 4px 5px -2px #000000;
-	   -moz-box-shadow: 0px 4px 5px -2px #000000;
-			box-shadow: 0px 4px 5px -2px #000000;
-}
-.shadowTop {
-	-webkit-box-shadow: 0px -4px 5px -2px #000000;
-	   -moz-box-shadow: 0px -4px 5px -2px #000000;
-			box-shadow: 0px -4px 5px -2px #000000;
-}
 
 /* LOGIN */
 div#centerhelper {
@@ -61,7 +51,7 @@ header {
 	background: #E6E6E6;
 	height: 142px;
 	position: relative;
-	margin-bottom: 10px;
+	margin: 10px 0;
 }
 header #moduleLogo {
 	border: 0px solid yellow;
@@ -73,6 +63,7 @@ header #fosyLogo {
 	border: 0px solid blue;
 	height: 142px;
 	text-align: right;
+	background-color: white;
 }
 header #fosyLogo #logo {
 	border: 0px solid green;
@@ -84,6 +75,7 @@ header #fosyLogo #logoutForm {
 	right: 0;
 	bottom: 5px;
 	margin-right: 10px;
+	background-color: white;
 }
 
 /* NAVI */

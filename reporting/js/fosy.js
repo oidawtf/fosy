@@ -20,6 +20,12 @@ $(function() {
 	$("#saveSuccess").addClass("ui-state-highlight");
 });
 
+/* header and footer layout */
+$(function() {
+	$("header").addClass("ui-widget ui-widget-content ui-corner-all");
+	$("footer").addClass("ui-widget ui-widget-content ui-corner-all");
+});
+
 /* mouse over for navigation */
 $(function() {
 	$("nav ul li a").hover(function(){$(this).addClass("ui-state-highlight");},function(){$(this).removeClass("ui-state-highlight");})

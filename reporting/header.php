@@ -1,4 +1,4 @@
-<header class="shadowBottom">
+<header>
 	<div id="moduleLogo">
 		<a href="<?php echo $_SERVER["PHP_SELF"]; ?>"><img src="img/logo_reporting.png" alt="FOSY - Reporting"></a>
 	</div>
