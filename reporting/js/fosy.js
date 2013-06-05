@@ -20,8 +20,8 @@ $(function() {
 	$("#saveSuccess").addClass("ui-state-highlight");
 
 	/* header and footer layout */
-	$("header").addClass("ui-widget ui-widget-content ui-corner-all");
-	$("footer").addClass("ui-widget ui-widget-content ui-corner-all");
+	$("header").addClass("ui-widget ui-widget-content-white ui-corner-all");
+	$("footer").addClass("ui-widget ui-widget-content-white ui-corner-all");
 
 	/* mouse over for navigation */
 	$("nav ul li a").hover(function(){$(this).addClass("ui-state-highlight");},function(){$(this).removeClass("ui-state-highlight");})
@@ -29,8 +29,12 @@ $(function() {
 	/* navi elements as buttons, every button as button */
 	$("nav ul li a, button").button();
 
+	$("fieldset").addClass("ui-widget ui-widget-content-white ui-corner-all");
+	
 	/* define every input field */
 	$("input").addClass("ui-widget ui-widget-content ui-corner-all");
+	
+	
 
 });
 

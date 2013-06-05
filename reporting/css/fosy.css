@@ -5,7 +5,6 @@
 
 body, html {
 	color: #000;
-	/*background: #E6E6E6;*/
 	background: white;
 	font-family: Verdana;
 	font-size: 10pt;
@@ -49,21 +48,21 @@ div#centerhelper {
 header {
 	border: 0px solid red;
 	background: #E6E6E6;
-	height: 142px;
+	height: 152px;
 	position: relative;
 	margin: 10px 0;
+	padding: 5px;
 }
 header #moduleLogo {
 	border: 0px solid yellow;
 	width: 425px;
 	float: left;
-	height: 142px;
+	height: 152px;
 }
 header #fosyLogo {
 	border: 0px solid blue;
-	height: 142px;
+	height: 152px;
 	text-align: right;
-	background-color: white;
 }
 header #fosyLogo #logo {
 	border: 0px solid green;
@@ -75,7 +74,6 @@ header #fosyLogo #logoutForm {
 	right: 0;
 	bottom: 5px;
 	margin-right: 10px;
-	background-color: white;
 }
 
 /* NAVI */
@@ -121,7 +119,6 @@ nav ul li a {
 /* FOOTER */
 footer {
 	border:0px solid magenta;
-	background: #E6E6E6;
 	height: 30px;
 }
 
