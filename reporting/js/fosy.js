@@ -10,37 +10,30 @@ $(function() {
 	});
 });
 
-/* error box class */
+/* init layouts */
+
 $(function() {
+	/* error box class */
 	$("#error").addClass("ui-state-error");
-});
 
-/* div saveSuccess highlight */
-$(function() {
+	/* div saveSuccess highlight */
 	$("#saveSuccess").addClass("ui-state-highlight");
-});
 
-/* header and footer layout */
-$(function() {
+	/* header and footer layout */
 	$("header").addClass("ui-widget ui-widget-content ui-corner-all");
 	$("footer").addClass("ui-widget ui-widget-content ui-corner-all");
-});
 
-/* mouse over for navigation */
-$(function() {
+	/* mouse over for navigation */
 	$("nav ul li a").hover(function(){$(this).addClass("ui-state-highlight");},function(){$(this).removeClass("ui-state-highlight");})
-});
 
-/* navi elements as buttons, every button as button */
-$(function() {
+	/* navi elements as buttons, every button as button */
 	$("nav ul li a, button").button();
-});
 
-
-/* define every input field */
-$(function() {
+	/* define every input field */
 	$("input").addClass("ui-widget ui-widget-content ui-corner-all");
+
 });
+
 
 /* calculate tax */
 $(function() {
