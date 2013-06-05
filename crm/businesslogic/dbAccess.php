@@ -77,7 +77,7 @@ class dbAccess {
             return false;
     }
     
-    public function getCustomers($search)
+    public function selectCustomers($search)
     {
         $this->openConnection();
 
@@ -116,6 +116,40 @@ class dbAccess {
             $person->is_employee = $row['is_employee'];
             $result[] = $person;
         }
+        
+        $this->closeConnection($query);
+        
+        return $result;
+    }
+    
+    public function selectRequests($customerId)
+    {
+        $this->openConnection();
+
+        $customerId = $this->format($customerId);
+        
+        $query = mysql_query("
+            SELECT *
+            FROM customer_request AS CR
+            WHERE CR.fk_person_id = '".$customerId."'
+            ");
+        
+        $request = new request();
+        $request->id = 1;
+        $request->type = "Anfrage";
+        $request->article = "Logitech Terminator X3000";
+        $request->text = "Lorem ipsum dolor sit amet consectetuer dolor amet. Lorem ipsum dolor sit amet consectetuer dolor amet. Lorem ipsum dolor sit amet consectetuer dolor amet. Lorem ipsum dolor sit amet consectetuer dolor amet. Lorem ipsum dolor sit amet consectetuer dolor amet. Lorem ipsum dolor sit amet consectetuer dolor amet. Lorem ipsum dolor sit amet consectetuer dolor amet. Lorem ipsum dolor sit amet consectetuer dolor amet. Lorem ipsum dolor sit amet consectetuer dolor amet. Lorem ipsum dolor sit amet consectetuer dolor amet. Lorem ipsum dolor sit amet consectetuer dolor amet. Lorem ipsum dolor sit amet consectetuer dolor amet. Lorem ipsum dolor sit amet consectetuer dolor amet. Lorem ipsum dolor sit amet consectetuer dolor amet. Lorem ipsum dolor sit amet consectetuer dolor amet. Lorem ipsum dolor sit amet consectetuer dolor amet. Lorem ipsum dolor sit amet consectetuer dolor amet. Lorem ipsum dolor sit amet consectetuer dolor amet. Lorem ipsum dolor sit amet consectetuer dolor amet. Lorem ipsum dolor sit amet consectetuer dolor amet. Lorem ipsum dolor sit amet consectetuer dolor amet. Lorem ipsum dolor sit amet consectetuer dolor amet. Lorem ipsum dolor sit amet consectetuer dolor amet. Lorem ipsum dolor sit amet consectetuer dolor amet. Lorem ipsum dolor sit amet consectetuer dolor amet. Lorem ipsum dolor sit amet consectetuer dolor amet. Lorem ipsum dolor sit amet consectetuer dolor amet. Lorem ipsum dolor sit amet consectetuer dolor amet. Lorem ipsum dolor sit amet consectetuer dolor amet. Lorem ipsum dolor sit amet consectetuer dolor amet. Lorem ipsum dolor sit amet consectetuer dolor amet. Lorem ipsum dolor sit amet consectetuer dolor amet. Lorem ipsum dolor sit amet consectetuer dolor amet. Lorem ipsum dolor sit amet consectetuer dolor amet. Lorem ipsum dolor sit amet consectetuer dolor amet. Lorem ipsum dolor sit amet consectetuer dolor amet. Lorem ipsum dolor sit amet consectetuer dolor amet. Lorem ipsum dolor sit amet consectetuer dolor amet. Lorem ipsum dolor sit amet consectetuer dolor amet. Lorem ipsum dolor sit amet consectetuer dolor amet. Lorem ipsum dolor sit amet consectetuer dolor amet. Lorem ipsum dolor sit amet consectetuer dolor amet. Lorem ipsum dolor sit amet consectetuer dolor amet. Lorem ipsum dolor sit amet consectetuer dolor amet. Lorem ipsum dolor sit amet consectetuer dolor amet. Lorem ipsum dolor sit amet consectetuer dolor amet. Lorem ipsum dolor sit amet consectetuer dolor amet. Lorem ipsum dolor sit amet consectetuer dolor amet. Lorem ipsum dolor sit amet consectetuer dolor amet. Lorem ipsum dolor sit amet consectetuer dolor amet. Lorem ipsum dolor sit amet consectetuer dolor amet. Lorem ipsum dolor sit amet consectetuer dolor amet. Lorem ipsum dolor sit amet consectetuer dolor amet. Lorem ipsum dolor sit amet consectetuer dolor amet. ";
+        $request->status = "offen";
+        $request->date = "13.05.2013";
+        
+        $result = array();
+        $result[] = $request;
+//        while ($row = mysql_fetch_assoc($query))
+//        {
+//            $request = new request();
+//            $request->street = $row['street'];
+//            $result[] = $request;
+//        }
         
         $this->closeConnection($query);
         

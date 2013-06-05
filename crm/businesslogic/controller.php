@@ -17,6 +17,7 @@ class controller {
                 'customerdetails' => new page('customerdetails', 'Kundendetails', 'ui/customerdetails.php', true, array('home', 'showcustomers')),
                 'editcustomer' => new page('editcustomer', 'Kunden bearbeiten', 'ui/editcustomer.php', true, array('home', 'showcustomers', 'customerdetails')),
                 'customerrequest' => new page('customerrequest', 'Anfrage erfassen', 'ui/customerrequest.php', true, array('home', 'showcustomers', 'customerdetails')),
+                'showrequest' => new page('showrequest', 'Anfragendetails', 'ui/showrequest.php', true, array('home', 'showcustomers', 'customerdetails')),
                 'createcustomer' => new page('createcustomer', 'Kunden hinzufügen', 'ui/editcustomer.php', false, array('home')),
                 'createcampaign' => new page('createcampaign', 'Kampagne erstellen', 'ui/createcampaign.php', true, array('home')),
                 'analysecampaign' => new page('analysecampaign', 'Kampagne analysieren', 'ui/analysecampaign.php', true, array('home'))
@@ -97,13 +98,17 @@ class controller {
     }
     
     public static function getCustomers($search) {
-        return controller::getDataService()->getCustomers($search);
+        return controller::getDataService()->selectCustomers($search);
     }
     
     public static function getCustomer($id) {
         foreach (controller::getCustomers("") as $customer)
             if ($customer->id == $id)
                 return $customer;
+    }
+    
+    public static function getRequests($customerId) {
+        return controller::getDataService()->selectRequests($customerId);
     }
     
     public static function createCustomer() {

@@ -62,7 +62,37 @@ if (isset($_GET['id']))
         </header>
         
         <div class="module_content">
-            
+            <table cellspacing="0" class="tablesorter" style="margin: -15px -20px 0 -20px; width: 107%;">
+                <thead>
+                    <tr> 
+                        <th class="header">Betreff</th>
+                        <th class="header">Text</th>
+                        <th class="header">Status</th>
+                        <th class="header">Datum</th>
+                    </tr> 
+                </thead>
+                <tbody>
+
+                    <?php
+
+                    $requests = controller::getRequests($customer->id);
+
+                    foreach ($requests as $request) {
+                        $betreff = $request->type;
+                        if ($request->article != "")
+                            $betreff = $betreff." zu ".$request->article;
+                        echo "<tr>";
+                        echo    "<td><a href='".$_SERVER['PHP_SELF']."?content=showrequest&id=".$customer->id."&requestid=".$request->id."'>".$betreff."</a></td>";
+                        echo    "<td>".$request->getTextTrimmed()."</td>";
+                        echo    "<td>".$request->status."</td>";
+                        echo    "<td>".$request->date."</td>";
+                        echo "</tr>";
+                    }
+
+                    ?>
+
+                </tbody>
+            </table>
         </div>
         
         <footer>
