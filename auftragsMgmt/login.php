@@ -1,6 +1,6 @@
 <div id="loginForm">
     <div id="logo">
-        <img src="img/logo_120x40.png" alt="LOGO Programm: Felix Online Systems"/>
+        <img src="img/logo_auftragsMgmt.png" alt="LOGO Programm: Felix Online Systems"/>
     </div>
     <!-- //TODO formatieren -->
     <hr />

@@ -41,29 +41,25 @@
 			WHERE is_customer=1
 			AND (lastname = '$pCritera' OR id = '$pCritera')";
 		$result = mysql_query($query);
+		$count = mysql_num_rows($result);
+		if($count == 0)
+			echo "Kein Kunde gefunden!";
 
-		switch(mysql_num_rows($result)){
-			case 0:
-				echo "Kein Kunde gefunden!";
-				break;
-			case 1:
-				displayPersonData($result);
-				break;
-			case 2:
-				//displayPersonDropDown();
-		}
+		if($count==1)
+			displayPersonData($result);
+
+		if($count>1)
+			displayPersonDropDown($result);
 	}
 
 	function displayPersonData($pData){
 		echo "
 			<fieldset>
 				<legend>Kundenstammdaten</legend>
-					<table>
-			";
-
+			<table>";
 		while($row = mysql_fetch_assoc($pData)){
 			echo "<tr>
-					<td>Kundennummer:</td>
+					<td>Kunden-NR:</td>
 					<td>{$row['id']}</td>
 				</tr>
 				<tr>
@@ -74,11 +70,27 @@
 					<td>Adresse:</td>
 					<td>{$row['city']},&nbsp;{$row['street']}&nbsp;{$row['housenumber']}</td>
 				</tr>";
-		}
 
-		echo "		</table>
+		}
+		echo "
+			</table>
 			</fieldset>";
 	}
+
+	function displayPersonDropDown($pData){
+		echo "Mehrere Kunden gefunden.. Bitte w&auml;hlen Sie!<br />";
+		echo "<form method=\"POST\" action=\"" . $_SERVER["PHP_SELF"] . "?content=home\">
+				<select>";				
+				while($row = mysql_fetch_assoc($pData)){
+					echo "<option>" . $row['id'] . " / " .
+					$row['firstname'] . " / " .
+					$row['lastname'] . " / " .
+					"{$row['city']},&nbsp;{$row['street']}&nbsp;{$row['housenumber']}
+					</option>";
+				}
+			echo "</select>";
+	}
+
 
 
 

@@ -1,10 +1,9 @@
 <header>
-	<h1>
-		<a href="<?php echo $_SERVER["PHP_SELF"]; ?>">FOSY - Felix Online Systems</a>
-	</h1>
+    <div id="logo">
+        <img src="img/logo_auftragsMgmt.png" alt="LOGO Programm: Felix Online Systems"/>
+    </div>
 	
-	<div>
-
+	<div id="headerLogout">
 		<form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST" id="logout">
 			<button type="submit" name="logout">Logout</button>
 		</form>           

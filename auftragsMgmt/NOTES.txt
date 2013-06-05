@@ -1,0 +1,66 @@
+
+FORMAT LOGOUT BUTTON??
+
+
+
+isset($_POST['search'] && isset($_POST['searchbutton'])
+> display customers
+
+SELECT * from person where iscustomer = true
+customers selecten per dropdown
+$row -> dropdown adden
+customer per dropdown auswählen, per button bestätigen > wo speichern? $_GLOBALS?
+
+li width setzen (%?)
+
+include header when logged in
+login logo?
+
+bei falschem login fehlermeldung ausgeben
+
+spacing im navi zwischen den rubriken
+schriftart?
+
+
+css
+li:active
+
+
+username und passwort nicht nullable -> ?? jeder customer kann sich einloggen
+
+recherchieren wie man warenkorb realisiert php
+> 
+
+
+angebot erstellen2
+onclick lieferadresse wie kundenadresse > formular oben ausfüllen
+aufrufen per $_SERVER["PHP_SELF"] ?
+
+zahlungsmodalitäten per array speichern und per foreach ausgeben
+if $_POST[MONTAGE] == yes
+	add to price?? (staffeln?)
+
+
+
+angebot erstellen3
+preissummary gliedern (liefer / montagepreis etc)
+EDIT BUTTON: zurück auf die seite gehen und gespeicherten sachen ($_GLOBALS??) in die formulare preset schreiben (per value?)
+>> index.php?content=createoffer&edit=person
+oder so?
+
+anderen kunden per dropdown auswählen, NICHT die daten ändern können
+lieferadresse ändern können per edit
+
+
+angebot verwalten
+display pdf auf der seite -> googeln, php kann das (readfile?)
+
+
+
+
+
+liefer/ und montagepreis in db speichern? (zusätzlicher table)
+
+
+
+pdf recherchieren über seitenumbruch

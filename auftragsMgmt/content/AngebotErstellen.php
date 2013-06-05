@@ -5,7 +5,7 @@
 				<td>Kundennummer / Name:</td>
 				<td><input type="text" name="search"></td>
 				<td><input type="submit" name="searchButton" value="suchen">
-				<td>Noch kein Kunde? <a href="http://kundeanlegen.php" target="_blank">Anlegen</a></td>
+				<td>Noch kein Kunde? <a href="http://localhost/fosy/crm/index.php?content=createcustomer&prevPage=true">Anlegen</a></td>
 			</td></tr>
 		</table>
 		
