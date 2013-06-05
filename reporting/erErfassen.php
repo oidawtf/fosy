@@ -49,10 +49,14 @@
 		</div>
 		<div id="taxError"></div>
 		<div id="taxOutput">
-			<label>Netto-Betrag:</label>
-			<input type="text" id="nettoBetrag"><br>
-			<label>VST:</label>
-			<input type="text" id="vst">
+			<div>
+				<label>Netto-Betrag:</label>
+				<input type="text" id="nettoBetrag"><br>
+			</div>
+			<div>
+				<label>VST:</label>
+				<input type="text" id="vst">
+			</div>
 		</div>
 		<div>
 			<button type="button" id="calculate">Berechnen</button>

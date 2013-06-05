@@ -21,10 +21,10 @@ $(function() {
 
 	/* header and footer layout */
 	$("header").addClass("ui-widget ui-widget-content-white ui-corner-all");
-	$("footer").addClass("ui-widget ui-widget-content-white ui-corner-all");
+	$("footer").addClass("ui-widget-header ui-corner-all");
 
 	/* mouse over for navigation */
-	$("nav ul li a").hover(function(){$(this).addClass("ui-state-highlight");},function(){$(this).removeClass("ui-state-highlight");})
+	$("nav ul li a").hover(function(){$(this).addClass("ui-state-highlight-navi");},function(){$(this).removeClass("ui-state-highlight-navi");})
 
 	/* navi elements as buttons, every button as button */
 	$("nav ul li a, button").button();

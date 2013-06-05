@@ -1,4 +1,4 @@
-/*!!! ZBR: Achtung: File wurde wegen mouseover in Navigation adaptiert!!!*/
+/*!!! ZBR: Achtung: File wurde wegen mouseover in Navigation und anderen Dingen adaptiert!!!*/
 
 /*! jQuery UI - v1.10.3 - 2013-06-01
 * http://jqueryui.com
@@ -890,7 +890,14 @@ body .ui-tooltip {
 .ui-widget-content .ui-state-highlight,
 .ui-widget-header .ui-state-highlight {
 	border: 1px solid #fad42e;
-	background: #fbec88 url(images/ui-bg_flat_55_fbec88_40x100.png) 50% 50% repeat-x;
+	background: #fbec88; /* ZBR FOSY url(images/ui-bg_flat_55_fbec88_40x100.png) 50% 50% repeat-x; */
+	color: #363636;
+	padding: 3px;
+}
+/* ZBR FOSY */
+.ui-state-highlight-navi {
+	border: 1px solid #fad42e;
+	background: #fbec88;
 	color: #363636;
 }
 .ui-state-highlight a,
@@ -902,8 +909,9 @@ body .ui-tooltip {
 .ui-widget-content .ui-state-error,
 .ui-widget-header .ui-state-error {
 	border: 1px solid #cd0a0a;
-	background: #fef1ec url(images/ui-bg_glass_95_fef1ec_1x400.png) 50% 50% repeat-x;
+	background: #fef1ec;/* ZBR FOSY url(images/ui-bg_glass_95_fef1ec_1x400.png) 50% 50% repeat-x;*/
 	color: #cd0a0a;
+	padding: 3px; /* ZBR FOSY */
 }
 .ui-state-error a,
 .ui-widget-content .ui-state-error a,
