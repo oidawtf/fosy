@@ -2,8 +2,14 @@
 
 @controller::checkAuthentication();
 
-if (isset($_GET['id']))
+if (isset($_GET['id'])) {
     $customer = controller::getCustomer($_GET['id']);
+    $command = 'editcustomer';
+}
+else {
+    $customer = new person();
+    $command = 'createcustomer';
+}
 
 ?>
 
@@ -11,11 +17,12 @@ if (isset($_GET['id']))
     
     <article class="module width_full" style="height:90%">
         <header>
-            <h3 class="tabs_involved">Kundendetails<?php echo $customer->getIdFormatted(); ?></h3>
+            <h3 class="tabs_involved">Kunden bearbeiten<?php echo $customer->getIdFormatted(); ?></h3>
         </header>
         
         <div class="module_content">
             
+            <form method="POST" action="<?php echo $_SERVER["PHP_SELF"]; ?>?content=showcustomers">
             <fieldset style="float:left; padding: 10px">
                 <h4><label>Per&ouml;nlich</label></h4>
                 <table>
@@ -88,19 +95,14 @@ if (isset($_GET['id']))
                 </table>
             </fieldset>
                 
-            <div class="clear">
-                <form method="GET" action="<?php echo $_SERVER['PHP_SELF']; ?>" style="float: left; margin-right: 10px;">
-                    <input type="hidden" name="content" value="editcustomer" />
+                <div class="clear">
                     <input type="hidden" name="id" value="<?php echo $customer->id; ?>" />
-                    <input type="submit" value="Bearbeiten" />
-                </form>
-                <form method="GET" action="<?php echo $_SERVER['PHP_SELF']; ?>">
-                    <input type="hidden" name="content" value="customerrequest" />
-                    <input type="hidden" name="id" value="<?php echo $customer->id; ?>" />
-                    <input type="submit" value="Anfrage erfassen" />
-                </form>
-            </div>
-
+                    <input type="submit" name="<?php echo $command; ?>" value="Speichern" />
+                    <input type="submit" name="" value="Abbrechen" />
+                </div>
+                
+            </form>
+            
         </div>
         
     </article>
