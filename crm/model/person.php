@@ -34,6 +34,15 @@ class person {
             return " - Id ".$this->id;
     }
     
+    public function getFullName() {
+        $result = $this->firstname." ".$this->lastname;
+        
+        if ($this->title != "")
+            $result = $this->title." ".$result;
+        
+        return $result;
+    }
+    
     public function getAddress() {
         $result = $this->street." ".$this->housenumber;
         

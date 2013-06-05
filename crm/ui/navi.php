@@ -1,8 +1,10 @@
 <navi>
     <aside class="column" id="sidebar" style="height: 90%;">
 
-        <form class="quick_search">
-            <input type="text" onfocus="if(!this._haschanged){this.value=''};this._haschanged=true;" value="Quick Search">
+        <form class="quick_search" method="GET" action="<?php echo $_SERVER['PHP_SELF']; ?>">
+            <input type="hidden" name="content" value="showcustomers" />
+            <input type="text" style="width:70%" name="search" onfocus="if(!this._haschanged){this.value=''};this._haschanged=true;" value="Kundensuche...">
+            <input type="submit" style="width:20%" value="Suchen" />
         </form>
         <hr>
 
@@ -13,9 +15,8 @@
 
         <h3>CRM <a class="toggleLink" href="#"></a></h3>
         <ul class="toggle">
-            <li class="icn_view_users"><a class="menu" href="<?php echo $_SERVER['PHP_SELF']; ?>?content=maintaincustomer"><?php echo controller::getContentItem('maintaincustomer')->getTitle(); ?></a></li>
+            <li class="icn_view_users"><a class="menu" href="<?php echo $_SERVER['PHP_SELF']; ?>?content=showcustomers"><?php echo controller::getContentItem('showcustomers')->getTitle(); ?></a></li>
             <li class="icn_add_user"><a class="menu" href="<?php echo $_SERVER['PHP_SELF']; ?>?content=createcustomer"><?php echo controller::getContentItem('createcustomer')->getTitle(); ?></a></li>
-            <li class="icn_edit_article"><a class="menu" href="<?php echo $_SERVER['PHP_SELF']; ?>?content=customerrequest"><?php echo controller::getContentItem('customerrequest')->getTitle(); ?></a></li>
             <li class="icn_new_article"><a class="menu" href="<?php echo $_SERVER['PHP_SELF']; ?>?content=createcampaign"><?php echo controller::getContentItem('createcampaign')->getTitle(); ?></a></li>
             <li class="icn_categories"><a class="menu" href="<?php echo $_SERVER['PHP_SELF']; ?>?content=analysecampaign"><?php echo controller::getContentItem('analysecampaign')->getTitle(); ?></a></li>
         </ul>

@@ -42,13 +42,14 @@ if (!controller::isLoggedIn())
             
             $content = controller::getContentItem();
             
-            if ($content->getParents() != NULL)
+            if ($content->getParents() != NULL) {
                 foreach($content->getParents() as $parentKey) {
                     $parent = controller::getContentItem($parentKey);
-                    echo "<a href='".$_SERVER['PHP_SELF']."?content=".$parent->getId()."'>".$parent->getTitle()."</a>";
+                    echo "<a href='".$_SERVER['PHP_SELF']."?content=".$parent->getId().$parent->computeIdParameter()."'>".$parent->getTitle()."</a>";
                     echo "<div class='breadcrumb_divider'></div>";
                 }
-            echo "<a class='current' href='".$_SERVER['PHP_SELF']."?content=".$content->getId()."'>".$content->getTitle()."</a>";
+            }
+            echo "<a class='current' href='".$_SERVER['PHP_SELF']."?content=".$content->getId().$content->computeIdParameter()."'>".$content->getTitle()."</a>";
             
             ?>
             
