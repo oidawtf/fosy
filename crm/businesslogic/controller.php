@@ -180,6 +180,13 @@ class controller {
                     $email
                     );
         }
+        
+        public function deleteCustomer() {
+            if (isset($_POST['id'])) {
+                $id = $_POST['id'];
+                controller::getDataService()->deactivateCustomer($id);   
+            }
+        }
 }
 
 ?>

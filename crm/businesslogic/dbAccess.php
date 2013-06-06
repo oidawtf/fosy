@@ -259,6 +259,20 @@ class dbAccess {
         
         mysql_close();
     }
+    
+    public function deactivateCustomer($id) {
+        $this->openConnection();
+
+        $id = $this->format($id);
+        
+        mysql_query("
+            UPDATE person
+            SET is_customer = '0'
+            WHERE id = '".$id."'
+            ");
+        
+        mysql_close();
+    }
 }
 
 ?>

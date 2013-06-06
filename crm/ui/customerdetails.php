@@ -47,11 +47,16 @@ if (isset($_GET['id']))
         
         <footer>
             <div class="submit_link">
-                <form method="GET" action="<?php echo $_SERVER['PHP_SELF']; ?>">
+                <form method="GET" action="<?php echo $_SERVER['PHP_SELF']; ?>" style="float:left; margin-right: 10px;">
                     <input type="hidden" name="content" value="editcustomer" />
                     <input type="hidden" name="id" value="<?php echo $customer->id; ?>" />
                     <input type="submit" value="Bearbeiten" />
-                </form> 
+                </form>
+                <form method="POST" action="<?php echo $_SERVER['PHP_SELF']; ?>?content=showcustomers" style="float:left;">
+                    <input type="hidden" name="deletecustomer" value="" />
+                    <input type="hidden" name="id" value="<?php echo $customer->id; ?>" />
+                    <input type="submit" value="L&ouml;schen" />
+                </form>
             </div>
         </footer>
     </article>

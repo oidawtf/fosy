@@ -6,6 +6,8 @@ if (isset($_POST['createcustomer']))
     controller::createCustomer();
 if (isset($_POST['editcustomer']))
     controller::editCustomer();
+if (isset($_POST['deletecustomer']))
+    controller::deleteCustomer();
 
 if (isset($_GET['search']))
     $customers = controller::getCustomers($_GET['search']);
