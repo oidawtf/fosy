@@ -7,6 +7,11 @@ if (isset($_POST['createcustomer']))
 if (isset($_POST['editcustomer']))
     controller::editCustomer();
 
+if (isset($_GET['search']))
+    $customers = controller::getCustomers($_GET['search']);
+else
+    $customers = controller::getCustomers("");
+
 ?>
 
 <section id="main" class="column" style="height: 90%;">
@@ -37,11 +42,6 @@ if (isset($_POST['editcustomer']))
                     <tbody>
                         
                         <?php
-                        
-                        if (isset($_GET['search']))
-                            $customers = controller::getCustomers($_GET['search']);
-                        else
-                            $customers = controller::getCustomers("");
                         
                         foreach ($customers as $customer) {
                             echo "<tr>";
@@ -76,8 +76,6 @@ if (isset($_POST['editcustomer']))
                     <tbody>
                         
                         <?php
-                        
-                        $customers = controller::getCustomers("");
                         
                         foreach ($customers as $customer) {
                             echo "<tr>";

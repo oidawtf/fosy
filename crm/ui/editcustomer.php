@@ -34,8 +34,8 @@ else {
                                 <td><label>Geburtsdatum</label></td>
                             </tr>
                             <tr>
-                                <td><input name="firstname" type="text" style="width:90%" value="<?php echo $customer->firstname; ?>" /></td>
-                                <td><input name="lastname" type="text" style="width:90%" value="<?php echo $customer->lastname; ?>" /></td>
+                                <td><input name="firstname" required="1" type="text" style="width:90%" value="<?php echo $customer->firstname; ?>" /></td>
+                                <td><input name="lastname" required="1" type="text" style="width:90%" value="<?php echo $customer->lastname; ?>" /></td>
                                 <td><input name="title" type="text" style="width:90%" value="<?php echo $customer->title; ?>" /></td>
                                 <td><input name="birthdate" type="date" style="width:90%" value="<?php echo $customer->birthdate; ?>" /></td>
                             </tr>
@@ -54,8 +54,8 @@ else {
                                 <td><label style="width:65px">T&uuml;r</label></td>
                             </tr>
                             <tr>
-                                <td><input name="street" type="text" style="width:90%" value="<?php echo $customer->street; ?>" /></td>
-                                <td><input name="housenumber" type="text" style="width:65px" value="<?php echo $customer->housenumber; ?>" /></td>
+                                <td><input name="street" required="1" type="text" style="width:90%" value="<?php echo $customer->street; ?>" /></td>
+                                <td><input name="housenumber" required="1" type="text" style="width:65px" value="<?php echo $customer->housenumber; ?>" /></td>
                                 <td><input name="stiege" type="text" style="width:65px" value="<?php echo $customer->stiege; ?>" /></td>
                                 <td><input name="doornumber" type="text" style="width:65px" value="<?php echo $customer->doornumber; ?>" /></td>
                             </tr>
@@ -69,9 +69,9 @@ else {
                                 <td><label>Land</label></td>
                             </tr>
                             <tr>
-                                <td><input name="zip" type="text" style="width:65px" value="<?php echo $customer->zip; ?>" /></td>
-                                <td><input name="city" type="text" style="width:90%" value="<?php echo $customer->city; ?>" /></td>
-                                <td><input name="country" type="text" style="width:90%" value="<?php echo $customer->country; ?>" /></td>
+                                <td><input name="zip" required="1" type="text" style="width:65px" value="<?php echo $customer->zip; ?>" /></td>
+                                <td><input name="city" required="1" type="text" style="width:90%" value="<?php echo $customer->city; ?>" /></td>
+                                <td><input name="country" required="1" type="text" style="width:90%" value="<?php echo $customer->country; ?>" /></td>
                             </tr>
                         </tbody>
                     </table>
@@ -89,7 +89,7 @@ else {
                             <tr>
                                 <td><input name="phone" type="text" style="width:90%" value="<?php echo $customer->phone; ?>" /></td>
                                 <td><input name="fax" type="text" style="width:90%" value="<?php echo $customer->fax; ?>" /></td>
-                                <td><input name="email" type="text" style="width:90%" value="<?php echo $customer->email; ?>" /></td>
+                                <td><input name="email" type="email" style="width:90%" value="<?php echo $customer->email; ?>" /></td>
                             </tr>
                         </tbody>
                     </table>
