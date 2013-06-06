@@ -52,7 +52,11 @@ class dbAccess {
         $password = md5($password);
         
         // Hier query auslagern in $this->queries["select"]
-        $query = mysql_query("SELECT * FROM person WHERE username='$username' and password='$password'");
+        $query = mysql_query("
+            SELECT *
+            FROM person
+            WHERE username='$username' AND password='$password'
+                ");
 
         $result = mysql_num_rows($query);
         $this->closeConnection($query);
@@ -65,7 +69,11 @@ class dbAccess {
 
         $username = $this->format($username);
         
-        $query = mysql_query("SELECT * FROM user WHERE email='$username'");
+        $query = mysql_query("
+            SELECT *
+            FROM user
+            WHERE email='$username'
+                ");
         
         $result = mysql_num_rows($query);
 
@@ -84,9 +92,21 @@ class dbAccess {
         $search = $this->format($search);
         
         if ($search == "")
-            $query = mysql_query("select * from person where is_customer = 1;");
+            $query = mysql_query("
+                SELECT *
+                FROM person
+                WHERE is_customer = 1;
+                ");
         else
-            $query = mysql_query("select * from person where (username like '%".$search."%' OR firstname like '%".$search."%' OR lastname like '%".$search."%') AND is_customer = 1" );
+            $query = mysql_query("
+                SELECT *
+                FROM person
+                WHERE
+                    (id like '%".$search."%' OR
+                     username like '%".$search."%' OR
+                     firstname like '%".$search."%' OR
+                     lastname like '%".$search."%')
+                AND is_customer = 1" );
         
         $result = array();
         while ($row = mysql_fetch_assoc($query))
