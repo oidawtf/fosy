@@ -34,11 +34,12 @@ else
                     <thead>
                         <tr> 
                             <th class="header">Name</th>
-                            <th class="header">Titel</th>
                             <th class="header">Vorname</th>
                             <th class="header">Nachname</th>
-                            <th class="header">Benutzername</th>
                             <th class="header">Geburtsdatum</th>
+                            <th class="header">Anzahl Anfragen</th>
+                            <th class="header">Anzahl Angebote</th>
+                            <th class="header">Anzahl Bestellungen</th>
                         </tr> 
                     </thead>
                     <tbody>
@@ -47,12 +48,13 @@ else
                         
                         foreach ($customers as $customer) {
                             echo "<tr>";
-                            echo    "<td><a href='".$_SERVER['PHP_SELF']."?content=customerdetails&id=".$customer->id."'>".$customer->firstname." ".$customer->lastname."</a></td>";
-                            echo    "<td>".$customer->title."</td>";
+                            echo    "<td><a href='".$_SERVER['PHP_SELF']."?content=customerdetails&id=".$customer->id."'>".$customer->getFullName()."</a></td>";
                             echo    "<td>".$customer->firstname."</td>";
                             echo    "<td>".$customer->lastname."</td>";
-                            echo    "<td>".$customer->username."</td>";
                             echo    "<td>".$customer->getBirthdate()."</td>";
+                            echo    "<td>".$customer->requests."</td>";
+                            echo    "<td>".$customer->offers."</td>";
+                            echo    "<td>".$customer->orders."</td>";
                             echo "</tr>";
                         }
                         

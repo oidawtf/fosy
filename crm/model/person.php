@@ -27,6 +27,10 @@ class person {
     public $is_customer;
     public $is_employee;
     
+    public $requests;
+    public $offers;
+    public $orders;
+    
     public function getIdFormatted() {
         if ($this->id == "")
             return "";

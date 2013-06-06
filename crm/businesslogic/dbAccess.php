@@ -134,6 +134,7 @@ class dbAccess {
             $person->is_distributor = $row['is_distributor'];
             $person->is_customer = $row['is_customer'];
             $person->is_employee = $row['is_employee'];
+            $person->requests = 10;
             $result[] = $person;
         }
         
