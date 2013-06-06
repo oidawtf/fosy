@@ -60,10 +60,7 @@ class person {
     }
     
     public function getBirthdate() {
-        if ($this->birthdate == NULL)
-            return "";
-        
-        return date("j F Y", strtotime($this->birthdate));
+        return utils::ConvertDate($this->birthdate);
     }
     
 }

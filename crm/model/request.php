@@ -18,6 +18,9 @@ class request {
         return $this->text;
     }
     
+    public function getDate() {
+        return utils::ConvertDate($this->date);
+    }
 }
 
 ?>

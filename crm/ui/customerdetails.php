@@ -26,7 +26,7 @@ if (isset($_GET['id']))
                             <td><label>Erreichbarkeiten</label></td>
                         </tr>
                         <tr>
-                            <td><?php echo $customer->birthdate; ?></td>
+                            <td><?php echo $customer->getBirthdate(); ?></td>
                             <td><?php echo $customer->getAddress(); ?></td>
                             <td>Telefon: <?php echo $customer->phone; ?></td>
                         </tr>
@@ -90,7 +90,7 @@ if (isset($_GET['id']))
                         echo    "<td><a href='".$_SERVER['PHP_SELF']."?content=showrequest&id=".$customer->id."&requestid=".$request->id."'>".$betreff."</a></td>";
                         echo    "<td>".$request->getTextTrimmed()."</td>";
                         echo    "<td>".$request->status."</td>";
-                        echo    "<td>".$request->date."</td>";
+                        echo    "<td>".$request->getDate()."</td>";
                         echo "</tr>";
                     }
 
