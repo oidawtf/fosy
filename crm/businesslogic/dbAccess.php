@@ -124,7 +124,7 @@ class dbAccess {
                 P.is_distributor,
                 P.is_customer,
                 P.is_employee,
-                CR.id AS 'count_requests'
+                COUNT(CR.id) AS 'count_requests'
             FROM person AS P left OUTER JOIN customer_request AS CR on P.id = CR.fk_person_id
             ".$where."
             GROUP BY P.id;
