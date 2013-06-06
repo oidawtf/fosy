@@ -2,8 +2,6 @@
 
 @controller::checkAuthentication();
 
-var_dump($_POST);
-
 if (isset($_POST['createcustomer']))
     controller::createCustomer();
 if (isset($_POST['editcustomer']))

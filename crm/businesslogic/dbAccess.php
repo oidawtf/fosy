@@ -238,22 +238,23 @@ class dbAccess {
         $email = $this->format($email);
         
         mysql_query("
-                UPDATE TABLE person
+                UPDATE person
                 SET
-                firstname = '".$firstname."',
-                lastname = '".$lastname."',
-                title = '".$title."',
-                birthdate = '".$birthdate."',
-                street = '".$street."',
-                housenumber = '".$housenumber."',
-                stiege = '".$stiege."',
-                doornumber = '".$doornumber."',
-                zip = '".$zip."',
-                city = '".$city."',
-                country = '".$country."',
-                phone = '".$phone."',
-                fax = '".$fax."',
-                email = '".$email."',
+                    firstname = '".$firstname."',
+                    lastname = '".$lastname."',
+                    title = '".$title."',
+                    birthdate = '".$birthdate."',
+                    street = '".$street."',
+                    housenumber = '".$housenumber."',
+                    stiege = '".$stiege."',
+                    doornumber = '".$doornumber."',
+                    zip = '".$zip."',
+                    city = '".$city."',
+                    country = '".$country."',
+                    phone = '".$phone."',
+                    fax = '".$fax."',
+                    email = '".$email."'
+                WHERE id = '".$id."'
                 ");
         
         mysql_close();
