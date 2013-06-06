@@ -149,27 +149,40 @@ class dbAccess {
         $customerId = $this->format($customerId);
         
         $query = mysql_query("
-            SELECT *
-            FROM customer_request AS CR
-            WHERE CR.fk_person_id = '".$customerId."'
+            SELECT
+                CR.id,
+                CR.text,
+                CR.date,
+                CRT.type,
+                S.value AS status,
+                A.model,
+                AM.name AS manufacturer
+            FROM
+                customer_request AS CR,
+                customer_request_type AS CRT,
+                status AS S,
+                article AS A,
+                article_manufacturer AS AM
+            WHERE
+                CR.fk_person_id = '".$customerId."' AND
+                CR.fk_customer_request_type_id = CRT.id AND
+                CR.fk_status_id = S.id AND
+                CR.fk_article_id = A.id AND
+                A.fk_article_manufacturer_id = AM.id
             ");
         
-        $request = new request();
-        $request->id = 1;
-        $request->type = "Anfrage";
-        $request->article = "Logitech Terminator X3000";
-        $request->text = "Lorem ipsum dolor sit amet consectetuer dolor amet. Lorem ipsum dolor sit amet consectetuer dolor amet. Lorem ipsum dolor sit amet consectetuer dolor amet. Lorem ipsum dolor sit amet consectetuer dolor amet. Lorem ipsum dolor sit amet consectetuer dolor amet. Lorem ipsum dolor sit amet consectetuer dolor amet. Lorem ipsum dolor sit amet consectetuer dolor amet. Lorem ipsum dolor sit amet consectetuer dolor amet. Lorem ipsum dolor sit amet consectetuer dolor amet. Lorem ipsum dolor sit amet consectetuer dolor amet. Lorem ipsum dolor sit amet consectetuer dolor amet. Lorem ipsum dolor sit amet consectetuer dolor amet. Lorem ipsum dolor sit amet consectetuer dolor amet. Lorem ipsum dolor sit amet consectetuer dolor amet. Lorem ipsum dolor sit amet consectetuer dolor amet. Lorem ipsum dolor sit amet consectetuer dolor amet. Lorem ipsum dolor sit amet consectetuer dolor amet. Lorem ipsum dolor sit amet consectetuer dolor amet. Lorem ipsum dolor sit amet consectetuer dolor amet. Lorem ipsum dolor sit amet consectetuer dolor amet. Lorem ipsum dolor sit amet consectetuer dolor amet. Lorem ipsum dolor sit amet consectetuer dolor amet. Lorem ipsum dolor sit amet consectetuer dolor amet. Lorem ipsum dolor sit amet consectetuer dolor amet. Lorem ipsum dolor sit amet consectetuer dolor amet. Lorem ipsum dolor sit amet consectetuer dolor amet. Lorem ipsum dolor sit amet consectetuer dolor amet. Lorem ipsum dolor sit amet consectetuer dolor amet. Lorem ipsum dolor sit amet consectetuer dolor amet. Lorem ipsum dolor sit amet consectetuer dolor amet. Lorem ipsum dolor sit amet consectetuer dolor amet. Lorem ipsum dolor sit amet consectetuer dolor amet. Lorem ipsum dolor sit amet consectetuer dolor amet. Lorem ipsum dolor sit amet consectetuer dolor amet. Lorem ipsum dolor sit amet consectetuer dolor amet. Lorem ipsum dolor sit amet consectetuer dolor amet. Lorem ipsum dolor sit amet consectetuer dolor amet. Lorem ipsum dolor sit amet consectetuer dolor amet. Lorem ipsum dolor sit amet consectetuer dolor amet. Lorem ipsum dolor sit amet consectetuer dolor amet. Lorem ipsum dolor sit amet consectetuer dolor amet. Lorem ipsum dolor sit amet consectetuer dolor amet. Lorem ipsum dolor sit amet consectetuer dolor amet. Lorem ipsum dolor sit amet consectetuer dolor amet. Lorem ipsum dolor sit amet consectetuer dolor amet. Lorem ipsum dolor sit amet consectetuer dolor amet. Lorem ipsum dolor sit amet consectetuer dolor amet. Lorem ipsum dolor sit amet consectetuer dolor amet. Lorem ipsum dolor sit amet consectetuer dolor amet. Lorem ipsum dolor sit amet consectetuer dolor amet. Lorem ipsum dolor sit amet consectetuer dolor amet. Lorem ipsum dolor sit amet consectetuer dolor amet. Lorem ipsum dolor sit amet consectetuer dolor amet. Lorem ipsum dolor sit amet consectetuer dolor amet. ";
-        $request->status = "offen";
-        $request->date = "13.05.2013";
-        
         $result = array();
-        $result[] = $request;
-//        while ($row = mysql_fetch_assoc($query))
-//        {
-//            $request = new request();
-//            $request->street = $row['street'];
-//            $result[] = $request;
-//        }
+        while ($row = mysql_fetch_assoc($query))
+        {
+            $request = new request();
+            $request->id = $row['id'];
+            $request->type = $row['type'];
+            $request->article = $row['manufacturer']." ".$row['model'];
+            $request->text = $row['text'];
+            $request->status = $row['status'];
+            $request->date = $row['date'];
+            $result[] = $request;
+        }
         
         $this->closeConnection($query);
         

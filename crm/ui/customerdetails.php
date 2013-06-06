@@ -67,7 +67,7 @@ if (isset($_GET['id']))
         </header>
         
         <div class="module_content">
-            <table cellspacing="0" class="tablesorter" style="margin: -15px -20px 0 -20px; width: 107%;">
+            <table cellspacing="0" class="tablesorter">
                 <thead>
                     <tr> 
                         <th class="header">Betreff</th>
