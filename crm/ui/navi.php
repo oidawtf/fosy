@@ -4,7 +4,7 @@
         <form class="quick_search" method="GET" action="<?php echo $_SERVER['PHP_SELF']; ?>">
             <input type="hidden" name="content" value="showcustomers" />
             <input type="text" style="width:70%" name="search" onfocus="if(!this._haschanged){this.value=''};this._haschanged=true;" value="Kundensuche...">
-            <input type="submit" style="width:20%" value="Suchen" />
+            <input type="submit" style="width:25%" value="Suchen" />
         </form>
         <hr>
 

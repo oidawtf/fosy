@@ -92,21 +92,43 @@ class dbAccess {
         $search = $this->format($search);
         
         if ($search == "")
-            $query = mysql_query("
-                SELECT *
-                FROM person
-                WHERE is_customer = 1;
-                ");
+            $where = "WHERE P.is_customer = 1";
         else
-            $query = mysql_query("
-                SELECT *
-                FROM person
-                WHERE
-                    (id like '%".$search."%' OR
-                     username like '%".$search."%' OR
-                     firstname like '%".$search."%' OR
-                     lastname like '%".$search."%')
-                AND is_customer = 1" );
+            $where = "WHERE 
+                        (P.id like '%".$search."%' OR
+                         P.username like '%".$search."%' OR
+                         P.firstname like '%".$search."%' OR
+                         P.lastname like '%".$search."%') AND P.is_customer = 1";
+                
+        $query = mysql_query("
+            SELECT
+                P.id,
+                P.username,
+                P.firstname,
+                P.lastname,
+                P.title,
+                P.birthdate,
+                P.street,
+                P.housenumber,
+                P.stiege,
+                P.doornumber,
+                P.city,
+                P.zip,
+                P.country,
+                P.phone,
+                P.fax,
+                P.email,
+                P.personnel_number,
+                P.hiredate,
+                P.position,
+                P.is_distributor,
+                P.is_customer,
+                P.is_employee,
+                CR.id AS 'count_requests'
+            FROM person AS P left OUTER JOIN customer_request AS CR on P.id = CR.fk_person_id
+            ".$where."
+            GROUP BY P.id;
+            ");
         
         $result = array();
         while ($row = mysql_fetch_assoc($query))
@@ -134,7 +156,7 @@ class dbAccess {
             $person->is_distributor = $row['is_distributor'];
             $person->is_customer = $row['is_customer'];
             $person->is_employee = $row['is_employee'];
-            $person->requests = 10;
+            $person->requests = $row['count_requests'];
             $result[] = $person;
         }
         
