@@ -28,7 +28,8 @@ INSERT INTO `article_manufacturer` (`id`, `name`) VALUES
 (1, 'Samsung'),
 (2, 'Sony'),
 (3, 'Panasonc'),
-(4, 'Toshiba');
+(4, 'Toshiba'),
+(5, 'Apple');
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
