@@ -75,6 +75,7 @@ if (isset($_GET['id']))
                     <tr> 
                         <th class="header">Betreff</th>
                         <th class="header">Text</th>
+                        <th class="header">Sachbearbeiter</th>
                         <th class="header">Status</th>
                         <th class="header">Datum</th>
                     </tr> 
@@ -92,6 +93,7 @@ if (isset($_GET['id']))
                         echo "<tr>";
                         echo    "<td><a href='".$_SERVER['PHP_SELF']."?content=showrequest&id=".$customer->id."&requestid=".$request->id."'>".$betreff."</a></td>";
                         echo    "<td>".$request->getTextTrimmed()."</td>";
+                        echo    "<td>".$request->responsible_user."</td>";
                         echo    "<td>".$request->status."</td>";
                         echo    "<td>".$request->getDate()."</td>";
                         echo "</tr>";

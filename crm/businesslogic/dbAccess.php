@@ -226,7 +226,8 @@ class dbAccess {
             $request->customerId = $row['customer_id'];
             $request->customer = $row['customer_firstname']." ".$row['customer_lastname'];
             $request->responsible_userId = $row['user_id'];
-            $request->responsible_user = $row['user_username']." - ".$row['user_firstname']." ".$row['user_lastname'];
+            $request->responsible_username = $row['user_username'];
+            $request->responsible_user = $row['user_firstname']." ".$row['user_lastname'];
             $request->type = $row['type'];
             $request->article = $row['manufacturer']." ".$row['model'];
             $request->text = $row['text'];

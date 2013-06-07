@@ -2,10 +2,6 @@
 
 @controller::checkAuthentication();
 
-$requests = controller::getRequestsByUsername();
-
-var_dump($requests);
-
 ?>
 
 <section id="main" class="column" style="height: 90%;">
@@ -20,40 +16,39 @@ var_dump($requests);
             <div class="tab_content" style="display: block;">
                 <table cellspacing="0" class="tablesorter">
                     <thead>
-                        <tr> 
-                            <th class="header">Name</th>
-                            <th class="header">Vorname</th>
-                            <th class="header">Nachname</th>
-                            <th class="header">Geburtsdatum</th>
-                            <th class="header">Anzahl Anfragen</th>
-                            <th class="header">Anzahl Angebote</th>
-                            <th class="header">Anzahl Bestellungen</th>
-                            <th class="header">Aktionen</th>
+                        <tr>
+                            <th class="header">Betreff</th>
+                            <th class="header">Text</th>
+                            <th class="header">Kunde</th>
+                            <th class="header">Status</th>
+                            <th class="header">Datum</th>
+                            <th class="header" style="width: 220px;">Aktionen</th>
                         </tr> 
                     </thead>
                     <tbody>
                         
                         <?php
                         
-                        foreach ($customers as $customer) {
+                        $requests = controller::getRequestsByUsername();
+                        
+                        foreach ($requests as $request) {
+                            $betreff = $request->type;
+                            if ($request->article != "")
+                                $betreff = $betreff." zu ".$request->article;
                             echo "<tr>";
-                            echo    "<td><a href='".$_SERVER['PHP_SELF']."?content=customerdetails&id=".$customer->id."'>".$customer->getFullName()."</a></td>";
-                            echo    "<td>".$customer->firstname."</td>";
-                            echo    "<td>".$customer->lastname."</td>";
-                            echo    "<td>".$customer->getBirthdate()."</td>";
-                            echo    "<td>".$customer->requests."</td>";
-                            echo    "<td>".$customer->offers."</td>";
-                            echo    "<td>".$customer->orders."</td>";
+                            echo    "<td><a href='".$_SERVER['PHP_SELF']."?content=showrequest&id=".$request->customerId."&requestid=".$request->id."'>".$betreff."</a></td>";
+                            echo    "<td>".$request->getTextTrimmed(400)."</td>";
+                            echo    "<td>".$request->customer."</td>";
+                            echo    "<td>".$request->status."</td>";
+                            echo    "<td>".$request->getDate()."</td>";
                             echo    "<td>";
                             echo        "<form method='GET' action='".$_SERVER['PHP_SELF']."' style='float:left; margin-right: 10px;'>";
-                            echo            "<input type='hidden' name='content' value='editcustomer' />";
-                            echo            "<input type='hidden' name='id' value='".$customer->id."' />";
+                            echo            "<input type='hidden' name='content' value='editrequest' />";
+                            echo            "<input type='hidden' name='id' value='".$request->customerId."' />";
+                            echo            "<input type='hidden' name='requestId' value='".$request->id."' />";
                             echo            "<input type='image' title='Bearbeiten' src='images/icn_edit.png'>";
-                            echo        "</form>";
-                            echo        "<form method='POST' action='".$_SERVER['PHP_SELF']."?content=showcustomers' style='float:left;'>";
-                            echo            "<input type='hidden' name='deletecustomer' value='' />";
-                            echo            "<input type='hidden' name='id' value='".$customer->id."' />";
-                            echo            "<input type='image' title='L&ouml;schen' src='images/icn_trash.png'>";
+                            echo            "<a href='../auftragsMgmt/index.php?content=AngebotErstellen&id=".$request->customerId."&requestid=".$request->id."'>Angebot erstellen</a>";
+                            echo            "<a href='../auftragsMgmt/index.php?content=AuftragErstellen&id=".$request->customerId."&requestid=".$request->id."' style='margin-left: 10px;'>Autrag erstellen</a>";
                             echo        "</form>";
                             echo    "</td>";
                             echo "</tr>";
