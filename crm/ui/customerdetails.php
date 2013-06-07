@@ -2,11 +2,11 @@
 
 @controller::checkAuthentication();
 
-if (isset($_GET['id'])) {
+if (isset($_POST['createrequest']) && isset($_GET['id']))
+    controller::createRequest($_GET['id']);
+
+if (isset($_GET['id']))
     $customer = controller::getCustomer($_GET['id']);
-    if (isset($_POST['createrequest']))
-        controller::createRequest($customer->id);
-}
 
 ?>
 

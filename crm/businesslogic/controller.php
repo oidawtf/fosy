@@ -5,6 +5,10 @@ class controller {
     private static $content;
     private static $dataService;
     
+    private static $requestTypes;
+    private static $articleCategories;
+    private static $status;
+    
     const sessionIDName = 'fosy_session';
     const sessionIDUser = "username";
     
@@ -28,11 +32,31 @@ class controller {
     }
     
     private static function getDataService() {
-        if (empty(controller::$dataService)) {
+        if (empty(controller::$dataService))
             controller::$dataService = new dbAccess();
-        }
          
         return controller::$dataService;
+    }
+    
+    public static function getRequestTypes() {
+        if (empty(controller::$requestTypes))
+            controller::$requestTypes = controller::getDataService()->selectRequestTypes();
+        
+        return controller::$requestTypes;
+    }
+    
+    public static function getArticleCategories() {
+        if (empty(controller::$articleCategories))
+            controller::$articleCategories = controller::getDataService()->selectArticleCategories();
+        
+        return controller::$articleCategories;
+    }
+    
+    public static function getStatus() {
+        if (empty(controller::$status))
+            controller::$status = controller::getDataService()->selectStatus();
+        
+        return controller::$status;
     }
     
     public static function isLoginValid($username, $password) {
@@ -201,20 +225,8 @@ class controller {
         controller::getDataService()->insertRequest($customerId, $type_id, $article_id, $text, $status_id, $date);
     }
     
-    public static function getRequestTypes() {
-        return controller::getDataService()->selectRequestTypes();
-    }
-    
-    public static function getArticleCategories() {
-        return controller::getDataService()->selectArticleCategories();
-    }
-    
     public static function getArticles($article_category_id) {
         return controller::getDataService()->selectArticles($article_category_id);
-    }
-    
-    public static function getStatus() {
-        return controller::getDataService()->selectStatus();
     }
 }
 
