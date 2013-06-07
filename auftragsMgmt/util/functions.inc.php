@@ -45,8 +45,11 @@
 		if($count == 0)
 			echo "Kein Kunde gefunden!";
 
-		if($count==1)
+		if($count==1){
 			displayPersonData($result);
+			echo "<br />";
+			displayArticles();
+		}
 
 		if($count>1)
 			displayPersonDropDown($result);
@@ -56,7 +59,9 @@
 		echo "
 			<fieldset>
 				<legend>Kundenstammdaten</legend>
-			<table>";
+			<div id=\"Kundendaten\">
+				<table>";
+
 		while($row = mysql_fetch_assoc($pData)){
 			echo "<tr>
 					<td>Kunden-NR:</td>
@@ -73,22 +78,44 @@
 
 		}
 		echo "
-			</table>
+				</table>
+			</div>
 			</fieldset>";
 	}
 
 	function displayPersonDropDown($pData){
 		echo "Mehrere Kunden gefunden.. Bitte w&auml;hlen Sie!<br />";
 		echo "<form method=\"POST\" action=\"" . $_SERVER["PHP_SELF"] . "?content=home\">
-				<select>";				
+				<select name=\"personSelectDropDown\"	>";				
 				while($row = mysql_fetch_assoc($pData)){
-					echo "<option>" . $row['id'] . " / " .
+					echo "<option value=\"".$row['id']."\">" . $row['id'] . " / " .
 					$row['firstname'] . " / " .
 					$row['lastname'] . " / " .
 					"{$row['city']},&nbsp;{$row['street']}&nbsp;{$row['housenumber']}
 					</option>";
 				}
 			echo "</select>";
+			echo "<input type=\"submit\" name=\"personPicker\" value=\"Ok\" />";
+		echo "</form>";
+	}
+
+	function displayArticles(){
+		echo"
+			<table>
+				<tr>
+					<form method=\"POST\" action=\"".$_SERVER['PHP_SELF']."\"?content=AngebotErstellen\">
+					<td>Bezeichnung / Artikelnummer:</td>
+					<td><input type=\"text\" name=\"search\"></td>
+					<td><input type=\"submit\" name=\"searchButton\" value=\"suchen\">
+				</tr>
+
+			</table>
+			";
+		echo "<fieldset>
+				<legend>Artikel</legend>
+					<div id\"Artikeldaten\">
+					</div>
+			</fieldset>";
 	}
 
 
