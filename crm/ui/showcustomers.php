@@ -40,6 +40,7 @@ else
                             <th class="header">Anzahl Anfragen</th>
                             <th class="header">Anzahl Angebote</th>
                             <th class="header">Anzahl Bestellungen</th>
+                            <th class="header">Aktionen</th>
                         </tr> 
                     </thead>
                     <tbody>
@@ -55,6 +56,18 @@ else
                             echo    "<td>".$customer->requests."</td>";
                             echo    "<td>".$customer->offers."</td>";
                             echo    "<td>".$customer->orders."</td>";
+                            echo    "<td>";
+                            echo        "<form method='GET' action='".$_SERVER['PHP_SELF']."' style='float:left; margin-right: 10px;'>";
+                            echo            "<input type='hidden' name='content' value='editcustomer' />";
+                            echo            "<input type='hidden' name='id' value='".$customer->id."' />";
+                            echo            "<input type='image' title='Bearbeiten' src='images/icn_edit.png'>";
+                            echo        "</form>";
+                            echo        "<form method='POST' action='".$_SERVER['PHP_SELF']."?content=showcustomers' style='float:left;'>";
+                            echo            "<input type='hidden' name='deletecustomer' value='' />";
+                            echo            "<input type='hidden' name='id' value='".$customer->id."' />";
+                            echo            "<input type='image' title='L&ouml;schen' src='images/icn_trash.png'>";
+                            echo        "</form>";
+                            echo    "</td>";
                             echo "</tr>";
                         }
                         
