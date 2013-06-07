@@ -128,65 +128,94 @@ class controller {
         $email = $_POST['email'];
 
         controller::getDataService()->insertCustomer(
-                $firstname,
-                $lastname,
-                $title,
-                $birthdate,
-                $street,
-                $housenumber,
-                $stiege,
-                $doornumber,
-                $zip,
-                $city,
-                $country,
-                $phone,
-                $fax,
-                $email
-                );
-        }
+            $firstname,
+            $lastname,
+            $title,
+            $birthdate,
+            $street,
+            $housenumber,
+            $stiege,
+            $doornumber,
+            $zip,
+            $city,
+            $country,
+            $phone,
+            $fax,
+            $email
+            );
+    }
     
-        public static function editCustomer() {
-            $id = $_POST['id'];
-            $firstname = $_POST['firstname'];
-            $lastname = $_POST['lastname'];
-            $title = $_POST['title'];
-            $birthdate = date('Y-m-d H:i:s', strtotime(str_replace('-', '/', $_POST['birthdate'])));
-            $street = $_POST['street'];
-            $housenumber = $_POST['housenumber'];
-            $stiege = $_POST['stiege'];
-            $doornumber = $_POST['doornumber'];
-            $zip = $_POST['zip'];
-            $city = $_POST['city'];
-            $country = $_POST['country'];
-            $phone = $_POST['phone'];
-            $fax = $_POST['fax'];
-            $email = $_POST['email'];
+    public static function editCustomer() {
+        $id = $_POST['id'];
+        $firstname = $_POST['firstname'];
+        $lastname = $_POST['lastname'];
+        $title = $_POST['title'];
+        $birthdate = date('Y-m-d H:i:s', strtotime(str_replace('-', '/', $_POST['birthdate'])));
+        $street = $_POST['street'];
+        $housenumber = $_POST['housenumber'];
+        $stiege = $_POST['stiege'];
+        $doornumber = $_POST['doornumber'];
+        $zip = $_POST['zip'];
+        $city = $_POST['city'];
+        $country = $_POST['country'];
+        $phone = $_POST['phone'];
+        $fax = $_POST['fax'];
+        $email = $_POST['email'];
 
-            controller::getDataService()->updateCustomer(
-                    $id,
-                    $firstname,
-                    $lastname,
-                    $title,
-                    $birthdate,
-                    $street,
-                    $housenumber,
-                    $stiege,
-                    $doornumber,
-                    $zip,
-                    $city,
-                    $country,
-                    $phone,
-                    $fax,
-                    $email
-                    );
+        controller::getDataService()->updateCustomer(
+            $id,
+            $firstname,
+            $lastname,
+            $title,
+            $birthdate,
+            $street,
+            $housenumber,
+            $stiege,
+            $doornumber,
+            $zip,
+            $city,
+            $country,
+            $phone,
+            $fax,
+            $email
+            );
+    }
+
+    public static function deleteCustomer() {
+        if (isset($_POST['id'])) {
+            $id = $_POST['id'];
+            controller::getDataService()->deactivateCustomer($id);   
         }
+    }
+    
+    public static function createRequest($customerId) {
+        if ($customerId == "")
+            return;
         
-        public function deleteCustomer() {
-            if (isset($_POST['id'])) {
-                $id = $_POST['id'];
-                controller::getDataService()->deactivateCustomer($id);   
-            }
-        }
+        $type_id = $_POST['request_type'];
+        $article_id = $_POST['article'];
+        $text = $_POST['text'];
+        $status_id = $_POST['status'];
+        $date = date("Y-m-d");
+        
+        controller::getDataService()->insertRequest($customerId, $type_id, $article_id, $text, $status_id, $date);
+    }
+    
+    public static function getRequestTypes() {
+        return controller::getDataService()->selectRequestTypes();
+    }
+    
+    public static function getArticleCategories() {
+        return controller::getDataService()->selectArticleCategories();
+    }
+    
+    public static function getArticles($article_category_id) {
+        return controller::getDataService()->selectArticles($article_category_id);
+    }
+    
+    public static function getStatus() {
+        return controller::getDataService()->selectStatus();
+    }
 }
 
 ?>

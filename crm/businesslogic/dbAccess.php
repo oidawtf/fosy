@@ -309,6 +309,102 @@ class dbAccess {
         
         mysql_close();
     }
+    
+    public function insertRequest($customerId, $type_id, $article_id, $text, $status_id, $date) {
+        $this->openConnection();
+        
+        $customerId = $this->format($customerId);
+        $type_id = $this->format($type_id);
+        $article_id = $this->format($article_id);
+        $text = $this->format($text);
+        $status_id = $this->format($status_id);
+        $date = $this->format($date);
+        
+        mysql_query("
+            INSERT INTO customer_request (fk_customer_request_type_id, fk_person_id, fk_article_id, fk_status_id, date, text)
+            VALUES (
+                '".$type_id."',
+                '".$customerId."',
+                '".$article_id."',
+                '".$status_id."',
+                '".$date."',
+                '".$text."'
+                    )
+                ");
+        
+        mysql_close();
+    }
+    
+    public function selectRequestTypes()
+    {
+        $this->openConnection();
+
+        $query = mysql_query("SELECT * FROM customer_request_type");
+        
+        $result = array();
+        while ($row = mysql_fetch_assoc($query))
+            $result[] = array('id' => $row['id'], 'name' => $row['type']);
+        
+        $this->closeConnection($query);
+        
+        return $result;
+    }
+    
+    public function selectArticleCategories()
+    {
+        $this->openConnection();
+
+        $query = mysql_query("SELECT * FROM article_category");
+        
+        $result = array();
+        while ($row = mysql_fetch_assoc($query))
+            $result[] = array('id' => $row['id'], 'name' => $row['name']);
+        
+        $this->closeConnection($query);
+        
+        return $result;
+    }
+    
+    public function selectArticles($article_category_id)
+    {
+        $this->openConnection();
+
+        $query = mysql_query("
+            SELECT
+                A.id,
+                A.model AS model,
+                AM.name AS manufacturer
+            FROM
+                article AS A,
+                article_manufacturer AS AM
+            WHERE
+                A.fk_article_category_id = '".$article_category_id."' AND
+                A.fk_article_manufacturer_id = AM.id
+                ");
+        
+        $result = array();
+        while ($row = mysql_fetch_assoc($query))
+            $result[] = array('id' => $row['id'], 'name' => $row['manufacturer']." ".$row['model']);
+        
+        $this->closeConnection($query);
+        
+        return $result;
+    }
+    
+    public function selectStatus()
+    {
+        $this->openConnection();
+
+        $query = mysql_query("SELECT * FROM status");
+        
+        $result = array();
+        while ($row = mysql_fetch_assoc($query))
+            $result[] = array('id' => $row['id'], 'name' => $row['value']);
+        
+        $this->closeConnection($query);
+        
+        return $result;
+    }
 }
 
 ?>

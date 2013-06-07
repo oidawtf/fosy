@@ -2,8 +2,11 @@
 
 @controller::checkAuthentication();
 
-if (isset($_GET['id']))
+if (isset($_GET['id'])) {
     $customer = controller::getCustomer($_GET['id']);
+    if (isset($_POST['createrequest']))
+        controller::createRequest($customer->id);
+}
 
 ?>
 
@@ -63,7 +66,7 @@ if (isset($_GET['id']))
     
     <article class="module width_half">
         <header>
-            <h3 class="tabs_involved">Anfragen</h3>
+            <h3 class="tabs_involved"><?php echo $customer->requests; ?> Anfragen</h3>
         </header>
         
         <div class="module_content">
