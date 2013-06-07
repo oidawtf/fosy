@@ -66,7 +66,7 @@ if (isset($_GET['id'])) {
             <footer>
                 <div class="submit_link">
                     <input type="hidden" name="id" value="<?php echo $id; ?>" />
-                    <input type="submit" name="createrequest" value="Speichern" />
+                    <input type="submit" class="alt_btn" name="createrequest" value="Speichern" />
                     <input type="submit" name="" value="Abbrechen" />
                 </div>
             </footer>

@@ -99,7 +99,7 @@ else {
             <footer>
                 <div class="submit_link">
                     <input type="hidden" name="id" value="<?php echo $customer->id; ?>" />
-                    <input type="submit" name="<?php echo $command; ?>" value="Speichern" />
+                    <input type="submit" class="alt_btn" name="<?php echo $command; ?>" value="Speichern" />
                     <input type="submit" name="" value="Abbrechen" />
                 </div>
             </footer>
