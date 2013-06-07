@@ -20,8 +20,9 @@ class controller {
                 'showcustomers' => new page('showcustomers', 'Kunden ansehen', 'ui/showcustomers.php', false, array('home')),
                 'customerdetails' => new page('customerdetails', 'Kundendetails', 'ui/customerdetails.php', true, array('home', 'showcustomers')),
                 'editcustomer' => new page('editcustomer', 'Kunden bearbeiten', 'ui/editcustomer.php', true, array('home', 'showcustomers', 'customerdetails')),
-                'customerrequest' => new page('customerrequest', 'Anfrage erfassen', 'ui/customerrequest.php', true, array('home', 'showcustomers', 'customerdetails')),
-                'showrequest' => new page('showrequest', 'Anfragendetails', 'ui/showrequest.php', true, array('home', 'showcustomers', 'customerdetails')),
+                'requestdetails' => new page('requestdetails', 'Anfragendetails', 'ui/requestdetails.php', true, array('home', 'showcustomers', 'customerdetails')),
+                'createrequest' => new page('createrequest', 'Anfrage erfassen', 'ui/editrequest.php', true, array('home', 'showcustomers', 'customerdetails')),
+                'editrequest' => new page('editrequest', 'Anfrage bearbeiten', 'ui/editrequest.php', true, array('home', 'showcustomers', 'customerdetails', 'requestdetails')),
                 'createcustomer' => new page('createcustomer', 'Kunden erfassen', 'ui/editcustomer.php', false, array('home')),
                 'createcampaign' => new page('createcampaign', 'Kampagne erstellen', 'ui/createcampaign.php', true, array('home')),
                 'analysecampaign' => new page('analysecampaign', 'Kampagne analysieren', 'ui/analysecampaign.php', true, array('home'))

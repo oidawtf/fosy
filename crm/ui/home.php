@@ -36,9 +36,9 @@
                             if ($request->article != "")
                                 $betreff = $betreff." zu ".$request->article;
                             echo "<tr>";
-                            echo    "<td><a href='".$_SERVER['PHP_SELF']."?content=showrequest&id=".$request->customerId."&requestid=".$request->id."'>".$betreff."</a></td>";
+                            echo    "<td><a href='".$_SERVER['PHP_SELF']."?content=requestdetails&id=".$request->customerId."&requestid=".$request->id."'>".$betreff."</a></td>";
                             echo    "<td>".$request->getTextTrimmed(400)."</td>";
-                            echo    "<td>".$request->customer."</td>";
+                            echo    "<td><a href='".$_SERVER['PHP_SELF']."?content=customerdetails&id=".$request->customerId."'>".$request->customer."</a></td>";
                             echo    "<td>".$request->status."</td>";
                             echo    "<td>".$request->getDate()."</td>";
                             echo    "<td>";

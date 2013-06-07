@@ -91,7 +91,7 @@ if (isset($_GET['id']))
                         if ($request->article != "")
                             $betreff = $betreff." zu ".$request->article;
                         echo "<tr>";
-                        echo    "<td><a href='".$_SERVER['PHP_SELF']."?content=showrequest&id=".$customer->id."&requestid=".$request->id."'>".$betreff."</a></td>";
+                        echo    "<td><a href='".$_SERVER['PHP_SELF']."?content=requestdetails&id=".$customer->id."&requestid=".$request->id."'>".$betreff."</a></td>";
                         echo    "<td>".$request->getTextTrimmed()."</td>";
                         echo    "<td>".$request->responsible_user."</td>";
                         echo    "<td>".$request->status."</td>";
@@ -108,7 +108,7 @@ if (isset($_GET['id']))
         <footer>
             <div class="submit_link">
                 <form method="GET" action="<?php echo $_SERVER['PHP_SELF']; ?>">
-                    <input type="hidden" name="content" value="customerrequest" />
+                    <input type="hidden" name="content" value="createrequest" />
                     <input type="hidden" name="id" value="<?php echo $customer->id; ?>" />
                     <input type="submit" value="Anfrage erfassen" />
                 </form>
