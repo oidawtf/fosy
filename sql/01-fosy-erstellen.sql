@@ -129,6 +129,7 @@ CREATE TABLE customer_request (
   id                          int(10) NOT NULL AUTO_INCREMENT, 
   fk_customer_request_type_id int(10) NOT NULL, 
   fk_person_id                int(10) NOT NULL, 
+  fk_responsible_user_id      int(10), 
   fk_article_id               int(10) NOT NULL, 
   fk_status_id                int(10) NOT NULL, 
   `date`                      date NOT NULL, 

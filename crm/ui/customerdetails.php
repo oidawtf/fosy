@@ -83,7 +83,7 @@ if (isset($_GET['id']))
 
                     <?php
 
-                    $requests = controller::getRequests($customer->id);
+                    $requests = controller::getRequestsByCustomer($customer->id);
 
                     foreach ($requests as $request) {
                         $betreff = $request->type;

@@ -5,6 +5,10 @@ class request {
     const MAXLENGTH = 50;
     
     public $id;
+    public $customerId;
+    public $customer;
+    public $responsible_userId;
+    public $responsible_user;
     public $type;
     public $article; // Manufacturer + Model
     public $text;

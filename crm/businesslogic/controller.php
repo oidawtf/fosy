@@ -131,8 +131,12 @@ class controller {
                 return $customer;
     }
     
-    public static function getRequests($customerId) {
-        return controller::getDataService()->selectRequests($customerId);
+    public static function getRequestsByCustomer($customerId) {
+        return controller::getDataService()->selectRequestsByCustomer($customerId);
+    }
+    
+    public static function getRequestsByUsername() {
+        return controller::getDataService()->selectRequestsByUsername(controller::getUsername());
     }
     
     public static function createCustomer() {
