@@ -16,6 +16,14 @@ class request {
     public $status;
     public $date;
     
+    public function getBetreff() {
+        $betreff = $this->type;
+        if ($this->article != "")
+            $betreff = $betreff." zu ".$this->article;
+        
+        return $betreff;
+    }
+    
     public function getTextTrimmed($length = NULL) {
         if ($length == NULL)
             $length = self::MAXLENGTH;

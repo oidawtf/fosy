@@ -17,8 +17,7 @@ if (isset($_GET['id']))
             <h3 class="tabs_involved">Kundendetails<?php echo $customer->getIdFormatted(); ?></h3>
         </header>
         
-        <div class="module_content">
-            
+        <div class="module_content">    
             <fieldset style="padding: 10px">
                 <h4><label><?php echo $customer->getFullName(); ?></label></h4>
                 <table class="clear">
@@ -87,11 +86,8 @@ if (isset($_GET['id']))
                     $requests = controller::getRequestsByCustomer($customer->id);
 
                     foreach ($requests as $request) {
-                        $betreff = $request->type;
-                        if ($request->article != "")
-                            $betreff = $betreff." zu ".$request->article;
                         echo "<tr>";
-                        echo    "<td><a href='".$_SERVER['PHP_SELF']."?content=requestdetails&id=".$customer->id."&requestid=".$request->id."'>".$betreff."</a></td>";
+                        echo    "<td><a href='".$_SERVER['PHP_SELF']."?content=requestdetails&id=".$customer->id."&requestId=".$request->id."'>".$request->getBetreff()."</a></td>";
                         echo    "<td>".$request->getTextTrimmed()."</td>";
                         echo    "<td>".$request->responsible_user."</td>";
                         echo    "<td>".$request->status."</td>";

@@ -32,11 +32,8 @@
                         $requests = controller::getRequestsByUsername();
                         
                         foreach ($requests as $request) {
-                            $betreff = $request->type;
-                            if ($request->article != "")
-                                $betreff = $betreff." zu ".$request->article;
                             echo "<tr>";
-                            echo    "<td><a href='".$_SERVER['PHP_SELF']."?content=requestdetails&id=".$request->customerId."&requestid=".$request->id."'>".$betreff."</a></td>";
+                            echo    "<td><a href='".$_SERVER['PHP_SELF']."?content=requestdetails&id=".$request->customerId."&requestId=".$request->id."'>".$request->getBetreff()."</a></td>";
                             echo    "<td>".$request->getTextTrimmed(400)."</td>";
                             echo    "<td><a href='".$_SERVER['PHP_SELF']."?content=customerdetails&id=".$request->customerId."'>".$request->customer."</a></td>";
                             echo    "<td>".$request->status."</td>";
@@ -47,8 +44,8 @@
                             echo            "<input type='hidden' name='id' value='".$request->customerId."' />";
                             echo            "<input type='hidden' name='requestId' value='".$request->id."' />";
                             echo            "<input type='image' title='Bearbeiten' src='images/icn_edit.png'>";
-                            echo            "<a href='../auftragsMgmt/index.php?content=AngebotErstellen&id=".$request->customerId."&requestid=".$request->id."'>Angebot erstellen</a>";
-                            echo            "<a href='../auftragsMgmt/index.php?content=AuftragErstellen&id=".$request->customerId."&requestid=".$request->id."' style='margin-left: 10px;'>Autrag erstellen</a>";
+                            echo            "<a href='../auftragsMgmt/index.php?content=AngebotErstellen&id=".$request->customerId."&requestId=".$request->id."'>Angebot erstellen</a>";
+                            echo            "<a href='../auftragsMgmt/index.php?content=AuftragErstellen&id=".$request->customerId."&requestId=".$request->id."' style='margin-left: 10px;'>Autrag erstellen</a>";
                             echo        "</form>";
                             echo    "</td>";
                             echo "</tr>";

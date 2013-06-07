@@ -168,6 +168,16 @@ class dbAccess {
         
         return $result;
     }
+    
+    public function selectRequestById($id) {
+        $id = $this->format($id);
+
+        $requests = $this->selectRequests("WHERE CR.id = '".$id."'");
+        if (count($requests) > 0)
+            return $requests[0];
+        
+        return NULL;
+    }
 
     public function selectRequestsByCustomer($customerId) {
         $customerId = $this->format($customerId);
