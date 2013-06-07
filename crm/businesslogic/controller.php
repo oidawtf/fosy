@@ -144,6 +144,19 @@ class controller {
         return controller::getDataService()->selectRequestsByUsername(controller::getUsername());
     }
     
+    public static function editRequest($id) {
+        if ($id == "")
+            return;
+        
+        $type_id = $_POST['request_type'];
+        $article_id = $_POST['article'];
+        $text = $_POST['text'];
+        $status_id = $_POST['status'];
+        $date = date("Y-m-d");
+        
+        controller::getDataService()->updateRequest($id, $type_id, $article_id, $text, $status_id, $date);
+    }
+    
     public static function createCustomer() {
         $firstname = $_POST['firstname'];
         $lastname = $_POST['lastname'];

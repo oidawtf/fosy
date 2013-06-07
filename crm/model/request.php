@@ -16,6 +16,13 @@ class request {
     public $status;
     public $date;
     
+    public function getIdFormatted() {
+        if ($this->id == "")
+            return "";
+        else
+            return " - Id ".$this->id;
+    }
+    
     public function getBetreff() {
         $betreff = $this->type;
         if ($this->article != "")

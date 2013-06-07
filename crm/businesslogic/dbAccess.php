@@ -251,6 +251,30 @@ class dbAccess {
         return $result;
     }
     
+    public function updateRequest($id, $type_id, $article_id, $text, $status_id, $date) {
+        $this->openConnection();
+
+        $id = $this->format($id);
+        $type_id = $this->format($type_id);
+        $article_id = $this->format($article_id);
+        $text = $this->format($text);
+        $status_id = $this->format($status_id);
+        $date = $this->format($date);
+        
+        mysql_query("
+                UPDATE customer_request
+                SET
+                    fk_customer_request_id = '".$type_id."',
+                    fk_article_id = '".$article_id."',
+                    text = '".$text."',
+                    fk_status_id = '".$status_id."',
+                    date = '".$date."'
+                WHERE id = '".$id."'
+                ");
+        
+        mysql_close();
+    }
+    
     public function insertCustomer($firstname, $lastname, $title, $birthdate, $street, $housenumber, $stiege, $doornumber, $zip, $city, $country, $phone, $fax, $email) {
         $this->openConnection();
 

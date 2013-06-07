@@ -104,7 +104,7 @@ else {
                 </div>
             </footer>
         
-        </form>   
+        </form>
     </article>
     
 </section>
