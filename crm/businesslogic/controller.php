@@ -22,7 +22,7 @@ class controller {
                 'editcustomer' => new page('editcustomer', 'Kunden bearbeiten', 'ui/editcustomer.php', true, array('home', 'showcustomers', 'customerdetails')),
                 'customerrequest' => new page('customerrequest', 'Anfrage erfassen', 'ui/customerrequest.php', true, array('home', 'showcustomers', 'customerdetails')),
                 'showrequest' => new page('showrequest', 'Anfragendetails', 'ui/showrequest.php', true, array('home', 'showcustomers', 'customerdetails')),
-                'createcustomer' => new page('createcustomer', 'Kunden hinzufügen', 'ui/editcustomer.php', false, array('home')),
+                'createcustomer' => new page('createcustomer', 'Kunden erfassen', 'ui/editcustomer.php', false, array('home')),
                 'createcampaign' => new page('createcampaign', 'Kampagne erstellen', 'ui/createcampaign.php', true, array('home')),
                 'analysecampaign' => new page('analysecampaign', 'Kampagne analysieren', 'ui/analysecampaign.php', true, array('home'))
                 );

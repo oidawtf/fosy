@@ -10,7 +10,11 @@
 
         <h3>Auftragsmanagement <a class="toggleLink" href="#"></a></h3>
         <ul class="toggle">
-            <li><a class="menu" href="../auftragsMgmt/index.php?content=angebot">Angebot legen</a></li>
+            <li><a class="menu" href="../auftragsMgmt/index.php?content=AngebotErstellen">Angebot erstellen</a></li>
+            <li><a class="menu" href="../auftragsMgmt/index.php?content=AngebotVerwalten">Angebote verwalten</a></li>
+            <li><a class="menu" href="../auftragsMgmt/index.php?content=AuftragErstellen">Autrag erstellen</a></li>
+            <li><a class="menu" href="../auftragsMgmt/index.php?content=AuftrageVerwalten">Auftr&auml;ge verwalten</a></li>
+            <li><a class="menu" href="../auftragsMgmt/index.php?content=RechnungErstellen">Rechnung erstellen</a></li>
         </ul>
 
         <h3>CRM <a class="toggleLink" href="#"></a></h3>
