@@ -66,7 +66,7 @@ if (isset($_GET['id'])) {
     
     <article class="module width_half">
         <header>
-            <h3 class="tabs_involved"><?php echo $customer->requests; ?> Anfragen</h3>
+            <h3 class="tabs_involved">Anfragen - ingesamt <?php echo $customer->requests; ?></h3>
         </header>
         
         <div class="module_content">
