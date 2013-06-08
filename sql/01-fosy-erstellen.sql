@@ -7,7 +7,7 @@ CREATE TABLE tax_report (
   id       int(10) NOT NULL AUTO_INCREMENT, 
   month    smallint(6) NOT NULL, 
   year     smallint(6) NOT NULL, 
-  document blob NOT NULL, 
+  document varchar(255) NOT NULL, 
   PRIMARY KEY (id), 
   UNIQUE INDEX (id));
 CREATE TABLE role (
@@ -113,7 +113,7 @@ CREATE TABLE article (
   fk_article_manufacturer_id int(10) NOT NULL, 
   model                      varchar(128) NOT NULL, 
   description                varchar(255) NOT NULL, 
-  picture                    blob, 
+  picture                    varchar(255), 
   stock                      int(5) NOT NULL, 
   purchase_price             decimal(19, 2) NOT NULL, 
   selling_price              decimal(19, 2), 
@@ -129,6 +129,7 @@ CREATE TABLE customer_request (
   id                          int(10) NOT NULL AUTO_INCREMENT, 
   fk_customer_request_type_id int(10) NOT NULL, 
   fk_person_id                int(10) NOT NULL, 
+  fk_responsible_user_id      int(10) NOT NULL, 
   fk_article_id               int(10) NOT NULL, 
   fk_status_id                int(10) NOT NULL, 
   `date`                      date NOT NULL, 
@@ -207,3 +208,4 @@ ALTER TABLE tax ADD INDEX FKtax270969 (fk_tax_type_id), ADD CONSTRAINT FKtax2709
 ALTER TABLE indicator ADD INDEX FKindicator424408 (fk_indicator_type_id), ADD CONSTRAINT FKindicator424408 FOREIGN KEY (fk_indicator_type_id) REFERENCES indicator_type (id);
 ALTER TABLE plannedValue ADD INDEX FKplannedVal989713 (fk_indicator_id), ADD CONSTRAINT FKplannedVal989713 FOREIGN KEY (fk_indicator_id) REFERENCES indicator (id);
 ALTER TABLE plannedValue ADD INDEX FKplannedVal409240 (fk_period_id), ADD CONSTRAINT FKplannedVal409240 FOREIGN KEY (fk_period_id) REFERENCES period (id);
+ALTER TABLE customer_request ADD INDEX FKcustomer_r922497 (fk_responsible_user_id), ADD CONSTRAINT FKcustomer_r922497 FOREIGN KEY (fk_responsible_user_id) REFERENCES person (id);
