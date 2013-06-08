@@ -12,7 +12,7 @@ if (isset($_POST['deletecustomer']))
 if (isset($_GET['search']))
     $customers = controller::getCustomers($_GET['search']);
 else
-    $customers = controller::getCustomers("");
+    $customers = controller::getCustomers();
 
 ?>
 

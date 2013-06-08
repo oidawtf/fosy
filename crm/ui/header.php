@@ -33,7 +33,7 @@ if (!controller::isLoggedIn())
 
 <section id="secondary_bar">
     <div class="user">
-        <p><?php echo controller::getUsername(); ?></p>
+        <p><?php echo controller::getFullUsername(); ?></p>
     </div>
     <div class="breadcrumbs_container">
         <article class="breadcrumbs">

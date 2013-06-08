@@ -19,10 +19,10 @@
                         <tr>
                             <th class="header">Betreff</th>
                             <th class="header">Text</th>
-                            <th class="header">Kunde</th>
-                            <th class="header">Status</th>
-                            <th class="header">Datum</th>
-                            <th class="header" style="width: 220px;">Aktionen</th>
+                            <th class="header" style="width: 150px;">Kunde</th>
+                            <th class="header" style="width: 100px;">Status</th>
+                            <th class="header" style="width: 100px;">Datum</th>
+                            <th class="header" style="width: 240px;">Aktionen</th>
                         </tr> 
                     </thead>
                     <tbody>
