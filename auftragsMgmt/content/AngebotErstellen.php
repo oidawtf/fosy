@@ -12,7 +12,8 @@
 			if(isset($_POST['search']) && isset($_POST['searchButton'])){
 				findPerson($_POST['search']);
 			}
-			else
+			
+			if(!isset($_POST['search']) && !isset($_POST['searchButton']) && !isset($_POST['personSelectDropDown']) && !isset($_POST['personPicker']))
 				echo "Noch kein Kunde? <a href=\"http://localhost/fosy/crm/index.php?content=createcustomer&prevPage=true\">Anlegen</a>";
 
 

@@ -72,6 +72,7 @@ nav ul li{
 	-moz-border-radius: 4px;
 	border-radius: 4px;
 	text-align: center;
+
 	
 	background: -webkit-linear-gradient(white 0%, #E7F2FC 100%); 
 	background: -moz-linear-gradient(white 0%, #E7F2FC 100%); 
@@ -94,7 +95,7 @@ nav ul li:hover{
 	background: linear-gradient(white 0%, #7FFFAA 100%);
 }
 
-nav ul li a{
+nav ul a{
 	text-decoration: none;
     color:#3870A7;
     font-size:0.55em;

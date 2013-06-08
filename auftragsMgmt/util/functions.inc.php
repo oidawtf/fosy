@@ -63,6 +63,7 @@
 				<table>";
 
 		while($row = mysql_fetch_assoc($pData)){
+			$_SESSION['cart']['customerID']=$row['id'];
 			echo "<tr>
 					<td>Kunden-NR:</td>
 					<td>{$row['id']}</td>
@@ -118,6 +119,19 @@
 			</fieldset>";
 	}
 
+	function createCart(){
+		$_SESSION['cart'] = array();
+		$_SESSION['cartCount']=1;
+	}
+
+	function addCart($pArticle){
+		$_SESSION['cart'][$_SESSION['cartCount']] = $pArticle; 
+		$_SESSION['cartCount']+=1;
+	}
+
+	function displayCart(){
+		var_dump($_SESSION['cart']);
+	}
 
 
 
