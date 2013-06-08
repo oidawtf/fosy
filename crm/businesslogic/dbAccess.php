@@ -17,6 +17,10 @@ class dbAccess {
     public function __construct() {
     }
     
+    private function displayError($connection) {
+        echo mysql_errno($connection) . ": " . mysql_error($connection). "\n";
+    }
+    
     private function openConnection()
     {
          $connection = mysql_connect(self::host, self::user, self::password) or die("cannot connect");
@@ -165,40 +169,75 @@ class dbAccess {
         return $result;
     }
     
-    public function selectRequests($customerId)
+    public function selectRequestById($id) {
+        $id = $this->format($id);
+
+        $requests = $this->selectRequests("WHERE CR.id = '".$id."'");
+        if (count($requests) > 0)
+            return $requests[0];
+        
+        return NULL;
+    }
+
+    public function selectRequestsByCustomer($customerId) {
+        $customerId = $this->format($customerId);
+
+        return $this->selectRequests("WHERE CR.fk_person_id = '".$customerId."'");
+    }
+    
+    public function selectRequestsByUsername($username) {
+        $username = $this->format($username);
+
+        return $this->selectRequests("
+                WHERE
+                    CR.fk_responsible_user_id = (
+                        SELECT id
+                        FROM person
+                        WHERE person.username = '".$username."'
+                        )
+                        ");
+    }
+    
+    private function selectRequests($where)
     {
         $this->openConnection();
-
-        $customerId = $this->format($customerId);
         
         $query = mysql_query("
             SELECT
-                CR.id,
+                CR.id AS requestId,
                 CR.text,
                 CR.date,
-                CRT.type,
+                P.id AS customer_id,
+                P.firstname AS customer_firstname,
+                P.lastname AS customer_lastname,
+                USER.id AS user_id,
+                USER.username AS user_username,
+                USER.firstname AS user_firstname,
+                USER.lastname AS user_lastname,
                 S.value AS status,
-                A.model,
-                AM.name AS manufacturer
+                CRT.type AS type,
+                AM.name as manufacturer,
+                A.model
             FROM
-                customer_request AS CR,
-                customer_request_type AS CRT,
-                status AS S,
-                article AS A,
-                article_manufacturer AS AM
-            WHERE
-                CR.fk_person_id = '".$customerId."' AND
-                CR.fk_customer_request_type_id = CRT.id AND
-                CR.fk_status_id = S.id AND
-                CR.fk_article_id = A.id AND
-                A.fk_article_manufacturer_id = AM.id
-            ");
+                customer_request AS CR
+                LEFT OUTER JOIN person AS USER on CR.fk_responsible_user_id = USER.id
+                LEFT OUTER JOIN person AS P on CR.fk_person_id = P.id
+                LEFT OUTER JOIN status AS S on CR.fk_status_id = S.id
+                LEFT OUTER JOIN customer_request_type AS CRT on CR.fk_customer_request_type_id = CRT.id
+                LEFT OUTER JOIN article AS A on CR.fk_article_id = A.id
+                LEFT OUTER JOIN article_manufacturer AS AM on A.fk_article_manufacturer_id = AM.id
+            ".$where);
         
         $result = array();
         while ($row = mysql_fetch_assoc($query))
         {
             $request = new request();
-            $request->id = $row['id'];
+            $request->id = $row['requestId'];
+            $request->customerId = $row['customer_id'];
+            $request->customer = $row['customer_firstname']." ".$row['customer_lastname'];
+            $request->responsible_userId = $row['user_id'];
+            $request->responsible_username = $row['user_username'];
+            $request->responsible_user = $row['user_firstname']." ".$row['user_lastname'];
             $request->type = $row['type'];
             $request->article = $row['manufacturer']." ".$row['model'];
             $request->text = $row['text'];
@@ -210,6 +249,30 @@ class dbAccess {
         $this->closeConnection($query);
         
         return $result;
+    }
+    
+    public function updateRequest($id, $type_id, $article_id, $text, $status_id, $date) {
+        $this->openConnection();
+
+        $id = $this->format($id);
+        $type_id = $this->format($type_id);
+        $article_id = $this->format($article_id);
+        $text = $this->format($text);
+        $status_id = $this->format($status_id);
+        $date = $this->format($date);
+        
+        mysql_query("
+                UPDATE customer_request
+                SET
+                    fk_customer_request_id = '".$type_id."',
+                    fk_article_id = '".$article_id."',
+                    text = '".$text."',
+                    fk_status_id = '".$status_id."',
+                    date = '".$date."'
+                WHERE id = '".$id."'
+                ");
+        
+        mysql_close();
     }
     
     public function insertCustomer($firstname, $lastname, $title, $birthdate, $street, $housenumber, $stiege, $doornumber, $zip, $city, $country, $phone, $fax, $email) {

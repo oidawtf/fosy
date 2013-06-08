@@ -20,8 +20,9 @@ class controller {
                 'showcustomers' => new page('showcustomers', 'Kunden ansehen', 'ui/showcustomers.php', false, array('home')),
                 'customerdetails' => new page('customerdetails', 'Kundendetails', 'ui/customerdetails.php', true, array('home', 'showcustomers')),
                 'editcustomer' => new page('editcustomer', 'Kunden bearbeiten', 'ui/editcustomer.php', true, array('home', 'showcustomers', 'customerdetails')),
-                'customerrequest' => new page('customerrequest', 'Anfrage erfassen', 'ui/customerrequest.php', true, array('home', 'showcustomers', 'customerdetails')),
-                'showrequest' => new page('showrequest', 'Anfragendetails', 'ui/showrequest.php', true, array('home', 'showcustomers', 'customerdetails')),
+                'requestdetails' => new page('requestdetails', 'Anfragendetails', 'ui/requestdetails.php', true, array('home', 'showcustomers', 'customerdetails')),
+                'createrequest' => new page('createrequest', 'Anfrage erfassen', 'ui/editrequest.php', true, array('home', 'showcustomers', 'customerdetails')),
+                'editrequest' => new page('editrequest', 'Anfrage bearbeiten', 'ui/editrequest.php', true, array('home', 'showcustomers', 'customerdetails', 'requestdetails')),
                 'createcustomer' => new page('createcustomer', 'Kunden erfassen', 'ui/editcustomer.php', false, array('home')),
                 'createcampaign' => new page('createcampaign', 'Kampagne erstellen', 'ui/createcampaign.php', true, array('home')),
                 'analysecampaign' => new page('analysecampaign', 'Kampagne analysieren', 'ui/analysecampaign.php', true, array('home'))
@@ -131,8 +132,29 @@ class controller {
                 return $customer;
     }
     
-    public static function getRequests($customerId) {
-        return controller::getDataService()->selectRequests($customerId);
+    public static function getRequestById($id) {
+        return controller::getDataService()->selectRequestById($id);
+    }
+    
+    public static function getRequestsByCustomer($customerId) {
+        return controller::getDataService()->selectRequestsByCustomer($customerId);
+    }
+    
+    public static function getRequestsByUsername() {
+        return controller::getDataService()->selectRequestsByUsername(controller::getUsername());
+    }
+    
+    public static function editRequest($id) {
+        if ($id == "")
+            return;
+        
+        $type_id = $_POST['request_type'];
+        $article_id = $_POST['article'];
+        $text = $_POST['text'];
+        $status_id = $_POST['status'];
+        $date = date("Y-m-d");
+        
+        controller::getDataService()->updateRequest($id, $type_id, $article_id, $text, $status_id, $date);
     }
     
     public static function createCustomer() {

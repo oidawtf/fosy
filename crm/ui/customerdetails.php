@@ -5,6 +5,9 @@
 if (isset($_POST['createrequest']) && isset($_GET['id']))
     controller::createRequest($_GET['id']);
 
+if (isset($_POST['editrequest']) && isset($_GET['requestId']))
+    controller::editRequest($_GET['requestId']);
+
 if (isset($_GET['id']))
     $customer = controller::getCustomer($_GET['id']);
 
@@ -17,8 +20,7 @@ if (isset($_GET['id']))
             <h3 class="tabs_involved">Kundendetails<?php echo $customer->getIdFormatted(); ?></h3>
         </header>
         
-        <div class="module_content">
-            
+        <div class="module_content">    
             <fieldset style="padding: 10px">
                 <h4><label><?php echo $customer->getFullName(); ?></label></h4>
                 <table class="clear">
@@ -75,6 +77,7 @@ if (isset($_GET['id']))
                     <tr> 
                         <th class="header">Betreff</th>
                         <th class="header">Text</th>
+                        <th class="header">Sachbearbeiter</th>
                         <th class="header">Status</th>
                         <th class="header">Datum</th>
                     </tr> 
@@ -83,15 +86,13 @@ if (isset($_GET['id']))
 
                     <?php
 
-                    $requests = controller::getRequests($customer->id);
+                    $requests = controller::getRequestsByCustomer($customer->id);
 
                     foreach ($requests as $request) {
-                        $betreff = $request->type;
-                        if ($request->article != "")
-                            $betreff = $betreff." zu ".$request->article;
                         echo "<tr>";
-                        echo    "<td><a href='".$_SERVER['PHP_SELF']."?content=showrequest&id=".$customer->id."&requestid=".$request->id."'>".$betreff."</a></td>";
+                        echo    "<td><a href='".$_SERVER['PHP_SELF']."?content=requestdetails&id=".$customer->id."&requestId=".$request->id."'>".$request->getBetreff()."</a></td>";
                         echo    "<td>".$request->getTextTrimmed()."</td>";
+                        echo    "<td>".$request->responsible_user."</td>";
                         echo    "<td>".$request->status."</td>";
                         echo    "<td>".$request->getDate()."</td>";
                         echo "</tr>";
@@ -106,7 +107,7 @@ if (isset($_GET['id']))
         <footer>
             <div class="submit_link">
                 <form method="GET" action="<?php echo $_SERVER['PHP_SELF']; ?>">
-                    <input type="hidden" name="content" value="customerrequest" />
+                    <input type="hidden" name="content" value="createrequest" />
                     <input type="hidden" name="id" value="<?php echo $customer->id; ?>" />
                     <input type="submit" value="Anfrage erfassen" />
                 </form>

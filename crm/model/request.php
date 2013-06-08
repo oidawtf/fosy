@@ -5,15 +5,38 @@ class request {
     const MAXLENGTH = 50;
     
     public $id;
+    public $customerId;
+    public $customer;
+    public $responsible_userId;
+    public $responsible_user;
+    public $responsible_username;
     public $type;
     public $article; // Manufacturer + Model
     public $text;
     public $status;
     public $date;
     
-    public function getTextTrimmed() {
-        if (strlen($this->text) > self::MAXLENGTH)
-            return substr($this->text, 0, self::MAXLENGTH - 3)."...";
+    public function getIdFormatted() {
+        if ($this->id == "")
+            return "";
+        else
+            return " - Id ".$this->id;
+    }
+    
+    public function getBetreff() {
+        $betreff = $this->type;
+        if ($this->article != "")
+            $betreff = $betreff." zu ".$this->article;
+        
+        return $betreff;
+    }
+    
+    public function getTextTrimmed($length = NULL) {
+        if ($length == NULL)
+            $length = self::MAXLENGTH;
+        
+        if (strlen($this->text) > $length)
+            return substr($this->text, 0, $length - 3)."...";
         
         return $this->text;
     }
