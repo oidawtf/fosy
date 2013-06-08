@@ -78,7 +78,7 @@ if (isset($_GET['id']))
                         <th class="header">Betreff</th>
                         <th class="header">Text</th>
                         <th class="header" style="width: 120px;">Sachbearbeiter</th>
-                        <th class="header" style="width: 90px;">Status</th>
+                        <th class="header" style="width: 100px;">Status</th>
                         <th class="header" style="width: 100px;">Datum</th>
                     </tr> 
                 </thead>

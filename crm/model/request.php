@@ -10,6 +10,7 @@ class request {
     public $responsible_userId;
     public $responsible_user;
     public $responsible_username;
+    public $typeId;
     public $type;
     public $article_id;
     public $article_model;

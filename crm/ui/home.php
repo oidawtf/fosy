@@ -22,7 +22,7 @@
                             <th class="header" style="width: 150px;">Kunde</th>
                             <th class="header" style="width: 100px;">Status</th>
                             <th class="header" style="width: 100px;">Datum</th>
-                            <th class="header" style="width: 240px;">Aktionen</th>
+                            <th class="header" style="width: 160px;">Aktionen</th>
                         </tr> 
                     </thead>
                     <tbody>
@@ -44,8 +44,10 @@
                             echo            "<input type='hidden' name='id' value='".$request->customerId."' />";
                             echo            "<input type='hidden' name='requestId' value='".$request->id."' />";
                             echo            "<input type='image' title='Bearbeiten' src='images/icn_edit.png'>";
-                            echo            "<a href='../auftragsMgmt/index.php?content=AngebotErstellen&id=".$request->customerId."&requestId=".$request->id."'>Angebot erstellen</a>";
-                            echo            "<a href='../auftragsMgmt/index.php?content=AuftragErstellen&id=".$request->customerId."&requestId=".$request->id."' style='margin-left: 10px;'>Autrag erstellen</a>";
+                            if ($request->typeId == 3)
+                                echo        "<a href='../auftragsMgmt/index.php?content=AngebotErstellen&id=".$request->customerId."&requestId=".$request->id."'>Angebot erstellen</a>";
+                            if ($request->typeId == 4)
+                                echo        "<a href='../auftragsMgmt/index.php?content=AuftragErstellen&id=".$request->customerId."&requestId=".$request->id."' style='margin-left: 10px;'>Autrag erstellen</a>";
                             echo        "</form>";
                             echo    "</td>";
                             echo "</tr>";

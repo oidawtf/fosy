@@ -215,6 +215,7 @@ class dbAccess {
                 USER.firstname AS user_firstname,
                 USER.lastname AS user_lastname,
                 S.value AS status,
+                CRT.id AS typeId,
                 CRT.type AS type,
                 AM.id AS manufacturer_id,
                 AM.name AS manufacturer,
@@ -243,6 +244,7 @@ class dbAccess {
             $request->responsible_userId = $row['user_id'];
             $request->responsible_username = $row['user_username'];
             $request->responsible_user = $row['user_firstname']." ".$row['user_lastname'];
+            $request->typeId = $row['typeId'];
             $request->type = $row['type'];
             $request->article_id = $row['article_id'];
             $request->article_model = $row['article_model'];
