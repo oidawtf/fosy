@@ -102,7 +102,7 @@ else {
                     </select>
                 </fieldset>
                 <fieldset style="width:150px; float:left; margin-right: 10px;">
-                    <label>Artikeltyp</label>
+                    <label>Artikel Kategorie</label>
                     <select name="article_category" onchange="OnReloadArticles(this)" style="width:92%;">
                         <?php
                         foreach (controller::getArticleCategories() as $item) {
