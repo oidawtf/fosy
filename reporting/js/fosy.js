@@ -1,3 +1,5 @@
+/* init */
+
 $(function() {
 	$("#datepicker").datepicker({
 		showOn: "button",
@@ -5,14 +7,9 @@ $(function() {
 		buttonImage: "img/calendar.gif",
 		buttonImageOnly: true,
 		buttonText: "Datum",
-		dateFormat: "dd.mm.yy",
-		
+		dateFormat: "dd.mm.yy"
 	});
-});
-
-/* init layouts */
-
-$(function() {
+	
 	/* error box class */
 	$("#error").addClass("ui-state-error");
 
@@ -34,47 +31,47 @@ $(function() {
 	/* define every input field */
 	$("input").addClass("ui-widget ui-widget-content ui-corner-all");
 	
-	
-
-});
-
-
-/* calculate tax */
-$(function() {
+	/* tax boxes */
 	$("#taxError").addClass("ui-state-error").hide();
 	$("#taxOutput").addClass("ui-state-highlight").hide();
 	$("#nettoBetrag").prop("disabled",true);
 	$("#vst").prop("disabled", true);
-});
-
-$(function() {
+	
+	/* calculate tax */
 	$("#calculate").click(function() {
-		belegNr = $("#belegNr").val();
 		bruttoBetrag = $("#bruttoBetrag").val();
-		tax = $("input:radio:checked[name='tax']").val();
+		parseFloat(bruttoBetrag);
+		
+		if(bruttoBetrag != "" && bruttoBetrag > 0) {
+			if(!isNaN(bruttoBetrag)) {
 				
-		if(belegNr!="" && bruttoBetrag!="") {
-			if(tax==10) { vst = bruttoBetrag / 11; }
-			else{ vst = bruttoBetrag / 6; }
-			nettoBetrag = bruttoBetrag - vst;
+				tax = $("input:radio:checked[name='tax']").val();
 				
-			$("#taxError").hide();
-			$("#taxOutput").show();
-			$("#nettoBetrag").val(kaufm(nettoBetrag)+" €");
-			$("#vst").val(kaufm(vst)+" €");
+				if(tax==10) { vst = bruttoBetrag / 11; }
+				else{ vst = bruttoBetrag / 6; }
+				nettoBetrag = bruttoBetrag - vst;
+				
+				$("#taxError").hide();
+				$("#taxOutput").show();
+				$("#nettoBetrag").val(kaufm(nettoBetrag)+" €");
+				$("#vst").val(kaufm(vst)+" €");
+			}else {
+				$("#taxOutput").hide();
+				$("#taxError").show();
+				$("#taxError").text("Bitte Brutto-Betrag im gültigen Format (xxxx.yy) eingeben.").show();
+			}
 		}else {
 			$("#taxOutput").hide();
 			$("#taxError").show();
-			if(bruttoBetrag <= 0) { 
-				$("#taxError").text("Brutto-Betrag darf nicht kleiner oder gleich 0 sein.").show(); 
-			}
+			$("#taxError").text("Bitte Brutto-Betrag im gültigen Format (xxxx.yy) eingeben.").show(); 
 		}
 	});
 });
+
 function kaufm(x) {
 	var k = (Math.round(x * 100) / 100).toString();
 	k += (k.indexOf('.') == -1)? '.00' : '00';
 	var p = k.indexOf('.');
-	return k.substring(0, p) + ',' + k.substring(p+1, p+3);
+	return k.substring(0, p) + '.' + k.substring(p+1, p+3);
 }
 /* calculate tax end */

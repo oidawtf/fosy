@@ -64,10 +64,12 @@
 							case 'ustVA':
 							case 'plandatenverwaltung':
 							case 'planIstVergleich':
-								@include $_GET['content'].'.php';
+							case 'impressum':
+							case 'aboutus':
+								@include "pages/".$_GET['content'].'.php';
 								break;
 							default:
-								echo "<h1>Sorry, Page ".$_GET['content']." not found.";
+								echo "<h2>Sorry, Page ".$_GET['content']." not found.</h2>";
 								break;
 						}
 					}

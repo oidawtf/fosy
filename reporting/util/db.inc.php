@@ -11,4 +11,10 @@
 	
 	mysql_select_db($database, $db) or die("Konnte Datenbank nicht finden!");		
 	
+	
+	function showErrorMsg($mysqlError, $query) {
+		$message  = 'Ungültige Abfrage: ' . $mysqlError . "\n";
+		$message .= 'Gesamte Abfrage: ' . $query;
+		die($message);
+	}
 ?>		

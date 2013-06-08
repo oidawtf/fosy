@@ -1,5 +1,4 @@
 <?php
-// TODO check format method for fixing user bad input
 function checkBelegNr($belegNr) {
 	$belegNr = trim($belegNr);
 	if(empty($belegNr)) {
@@ -8,22 +7,23 @@ function checkBelegNr($belegNr) {
 	return true;
 }
 
-// TODO check format method for fixing user bad input
 function checkBruttoBetrag($brutto) {
-	$brutto = trim($brutto);
-	if(empty($brutto) || !is_numeric($brutto) || $brutto <= 0) {
+	$brutto = floatConverter($brutto, array('single_dot_as_decimal'=> TRUE));
+	
+	if(empty($brutto) || !is_float($brutto) || $brutto <= 0) {
 		return false;
 	}
 	return true;
 }
 
 function saveIncomingInvoice($date, $belegNr, $bruttoBetrag, $tax) {
-	// TODO maybe have to check the data because anybody can call the method!
 	if(checkDateFormatValid($_POST['date']) && checkDateNotInFuture($_POST['date']) &&  checkBelegNr($_POST['belegNr']) && checkBruttoBetrag($_POST['bruttoBetrag'])) {
-	
+		
+		$bruttoBetrag = floatConverter($bruttoBetrag, array('single_dot_as_decimal'=> TRUE));
+
 		// TODO write short if?
-		if($tax==10) { $vst = $bruttoBetrag / 11; }
-		else if($tax==20) { $vst = $bruttoBetrag / 6; }
+		if($tax==10) { (float)$vst = $bruttoBetrag / 11; }
+		else if($tax==20) { (float)$vst = $bruttoBetrag / 6; }
 	
 		$taxType = getTaxTypeId("vst");
 		$date = formatDateForDatabase($date);
@@ -34,13 +34,10 @@ function saveIncomingInvoice($date, $belegNr, $bruttoBetrag, $tax) {
 		if($result && mysql_affected_rows()) {
 			redirect("erErfassenSuccess");
 		}else {
-			// TODO add method for error-output
-			$message  = 'Ungültige Abfrage: ' . mysql_error() . "\n";
-			$message .= 'Gesamte Abfrage: ' . $query;
-			die($message);
+			showErrorMsg(mysql_error(), $query);
 		}
 	}else {
-		echo "shit happens here";
+		echo "never see this msg in the browser! only needed, if anybody called the form outside.";
 	}
 }
 
@@ -53,10 +50,7 @@ function getTaxTypeId($type) {
 			return $z['id'];
 		}
 	}else {
-		// TODO add method for error-output
-		$message  = 'Ungültige Abfrage: ' . mysql_error() . "\n";
-		$message .= 'Gesamte Abfrage: ' . $query;
-		die($message);
+		showErrorMsg(mysql_errno(), $query);
 	}
 	
 }

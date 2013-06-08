@@ -19,8 +19,8 @@ function checkDateNotInFuture($date) {
 	if(checkDateFormatValid($date)) {
 		$now = date('d.m.Y');
 		
-		$dateInput 	= mktime(0, 0, 0, substr($date, 3, 2), substr($date, 1, 2), substr($date, 6, 2));
-		$dateNow 	= mktime(0, 0, 0, substr($now, 3, 2), substr($now, 1, 2), substr($now, 6, 2));
+		$dateInput 	= mktime(0, 0, 0, substr($date, 3, 2), substr($date, 0, 2), substr($date, 6, 4));
+		$dateNow 	= mktime(0, 0, 0, substr($now, 3, 2), substr($now, 0, 2), substr($now, 6, 4));
 		
 		if($dateInput > $dateNow) {
 			return false;
