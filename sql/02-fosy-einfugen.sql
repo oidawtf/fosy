@@ -74,7 +74,7 @@ INSERT INTO person_role (fk_person_id, fk_role_id) values ( (select id from pers
 INSERT INTO tax_type (type) VALUES ('vst');
 INSERT INTO tax_type (type) VALUES ('ust');
 
--- indicator
+-- indicator_type
 INSERT INTO indicator_type (type) VALUES ('KZ');
 INSERT INTO indicator_type (type) VALUES ('TAB');
 
@@ -82,6 +82,11 @@ INSERT INTO indicator_type (type) VALUES ('TAB');
 INSERT INTO period (value) VALUES ('1 Monat');
 INSERT INTO period (value) VALUES ('1 Quartal');
 INSERT INTO period (value) VALUES ('1 Jahr');
+
+-- plannedValue_type
+INSERT INTO plannedValue_type (type) VALUES ('Anz.');
+INSERT INTO plannedValue_type (type) VALUES ('%');
+INSERT INTO plannedValue_type (type) VALUES ('€');
 
 -- Status
 INSERT INTO status (value) VALUES ('Offen');
