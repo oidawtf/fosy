@@ -82,10 +82,8 @@
         <div id="content">
             <?php include controller::getContentItem()->getUrl(); ?>
 	</div>
-		
-	<footer>
-            <?php /*require("footer.php");*/ ?>
-	</footer>
-		
+        
+        <?php include "ui/footer.php"; ?>
+        
     </body>
 </html>

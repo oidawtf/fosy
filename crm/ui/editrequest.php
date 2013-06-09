@@ -12,10 +12,55 @@ if (isset($_GET['requestId'])) {
 }
 else {
     $request = new request();
+    $user = controller::getUser();
+    $request->responsible_userId = $user['id'];
+    $request->responsible_user = $user['username'];
+    $request->article_category_id = 1;
     $command = 'createrequest';
 }
 
 ?>
+
+<script type="text/javascript">
+    
+    function getXmlHttpRequest()
+    {
+        var xmlhttp;
+
+        if (window.XMLHttpRequest)  // code for IE7+, Firefox, Chrome, Opera, Safari
+            xmlhttp=new XMLHttpRequest();
+        else                        // code for IE6, IE5
+            xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+
+        return xmlhttp;
+    }
+    
+    function OnReloadArticles(select) {
+        OnLoadArticles(select.options[select.selectedIndex].value);
+    }
+    
+    function OnLoadArticles(article_category_id)
+    {
+        var xmlhttp = getXmlHttpRequest();
+        var url = "ui/getArticles.php";
+        var params = "article_category_id=" + article_category_id;
+
+        xmlhttp.open("POST", url, true);
+
+        xmlhttp.onreadystatechange = function()
+        {
+            if (xmlhttp.readyState===4 && xmlhttp.status===200)
+                document.getElementById("articles").innerHTML=xmlhttp.responseText;
+        };
+
+        xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        xmlhttp.setRequestHeader("Content-length", params.length);
+        xmlhttp.setRequestHeader("Connection", "close");
+
+        xmlhttp.send(params);
+    }
+    
+</script>
 
 <section id="main" class="column" style="height: 90%;">
     <article class="module width_full">
@@ -42,8 +87,23 @@ else {
                     </select>
                 </fieldset>
                 <fieldset style="width:150px; float:left; margin-right: 10px;">
-                    <label>Artikeltyp</label>
-                    <select name="article_category" style="width:92%;">
+                    <label>Sachbearbeiter</label>
+                    <select name="responsible_userId" style="width:92%;">
+                        <?php
+                        foreach (controller::getUsers() as $item) {
+                            if ($request->responsible_userId == $item['id'])
+                                $selected = "selected='selected'";
+                            else
+                                $selected = "";                            
+                            
+                            echo "<option ".$selected." value='".$item['id']."'>".utils::ConvertUser($item)."</option>";
+                        }
+                        ?>
+                    </select>
+                </fieldset>
+                <fieldset style="width:150px; float:left; margin-right: 10px;">
+                    <label>Artikel Kategorie</label>
+                    <select name="article_category" onchange="OnReloadArticles(this)" style="width:92%;">
                         <?php
                         foreach (controller::getArticleCategories() as $item) {
                             if ($request->article_category_id == $item['id'])
@@ -58,24 +118,14 @@ else {
                 </fieldset>
                 <fieldset style="width:300px; float:left;">
                     <label>Artikel</label>
-                    <select name="article" style="width:92%;">
-                        <?php
-                        // TODO Article category: wenn sich die aendert, dann auch die liste der artikel aendern
-                        foreach (controller::getArticles(1) as $item) {
-                            if ($request->articleId == $item['id'])
-                                $selected = "selected='selected'";
-                            else
-                                $selected = "";
-                            
-                            echo "<option ".$selected." value='".$item['id']."'>".$item['name']."</option>";
-                        }
-                            
-                        ?>
-                    </select>
+                    <div id="articles"></div>
+                    <script type="text/javascript">
+                        OnLoadArticles(<?php echo $request->article_category_id ?>);
+                    </script>
                 </fieldset>
                 
                 <fieldset class="clear">
-                    <label>Text</label>
+                    <label>* Text</label>
                     <textarea name="text" required="1" maxlength="2048" rows="12"><?php echo $request->text; ?></textarea>
                 </fieldset>
 
@@ -101,10 +151,13 @@ else {
                 <div class="submit_link">
                     <input type="hidden" name="id" value="<?php echo $request->customerId; ?>" />
                     <input type="hidden" name="requestId" value="<?php echo $request->id; ?>" />
-                    <input type="submit" class="alt_btn" name=""<?php echo $command; ?>" value="Speichern" />
+                    <input type="submit" class="alt_btn" name="<?php echo $command; ?>" value="Speichern" />
                     <input type="button" onclick="javascript:history.back()" value="Abbrechen" />
                 </div>
             </footer>
         </form>
     </article>
+    
+    <div class="spacer clear"></div>
+    
 </section>

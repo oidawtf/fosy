@@ -5,12 +5,17 @@ class controller {
     private static $content;
     private static $dataService;
     
+    private static $users;
     private static $requestTypes;
     private static $articleCategories;
     private static $status;
     
     const sessionIDName = 'fosy_session';
+    const sessionIDUserId = "userId";
     const sessionIDUser = "username";
+    const sessionIDUser_firstname = "user_firstname";
+    const sessionIDUser_lastname = "user_lastname";
+    
     
     private static function getContent() {
         if (empty(controller::$content)) {
@@ -37,6 +42,13 @@ class controller {
             controller::$dataService = new dbAccess();
          
         return controller::$dataService;
+    }
+    
+    public static function getUsers() {
+        if (empty(controller::$users))
+            controller::$users = controller::getDataService()->selectUsers();
+        
+        return controller::$users;
     }
     
     public static function getRequestTypes() {
@@ -68,6 +80,14 @@ class controller {
         @session_start();
         $_SESSION[self::sessionIDName] = 1;
         $_SESSION[self::sessionIDUser] = $username;
+        
+        foreach (controller::getUsers() as $user)
+            if ($user['username'] == $username) {
+                $_SESSION[self::sessionIDUserId] = $user['id'];
+                $_SESSION[self::sessionIDUser_firstname] = $user['firstname'];
+                $_SESSION[self::sessionIDUser_lastname] = $user['lastname'];
+                break;
+            }
     }
     
     public static function Logout() {
@@ -86,10 +106,28 @@ class controller {
         return self::sessionIDName;
     }
     
-    public static function getUsername() {
+    public static function getUser() {
         @session_start();
-        if (isset($_SESSION[self::sessionIDUser]))
-            return $_SESSION[self::sessionIDUser];
+        if (
+                isset($_SESSION[self::sessionIDUserId]) &&
+                isset($_SESSION[self::sessionIDUser]) &&
+                isset($_SESSION[self::sessionIDUser_firstname]) &&
+                isset($_SESSION[self::sessionIDUser_lastname]))
+            return array(
+                "id" => $_SESSION[self::sessionIDUserId],
+                "username" => $_SESSION[self::sessionIDUser],
+                "firstname" => $_SESSION[self::sessionIDUser_firstname],
+                "lastname" => $_SESSION[self::sessionIDUser_lastname]
+                );
+    }
+    
+    public static function getUsername() {
+        $user = controller::getUser();
+        return $user['username'];
+    }
+    
+    public static function getFullUsername() {
+        return utils::ConvertUser(controller::getUser());
     }
     
     public static function checkAuthentication() {
@@ -122,12 +160,12 @@ class controller {
         return $content[$key];
     }
     
-    public static function getCustomers($search) {
+    public static function getCustomers($search = NULL) {
         return controller::getDataService()->selectCustomers($search);
     }
     
     public static function getCustomer($id) {
-        foreach (controller::getCustomers("") as $customer)
+        foreach (controller::getCustomers() as $customer)
             if ($customer->id == $id)
                 return $customer;
     }
@@ -150,11 +188,12 @@ class controller {
         
         $type_id = $_POST['request_type'];
         $article_id = $_POST['article'];
+        $responsible_userId = $_POST['responsible_userId'];
         $text = $_POST['text'];
         $status_id = $_POST['status'];
         $date = date("Y-m-d");
         
-        controller::getDataService()->updateRequest($id, $type_id, $article_id, $text, $status_id, $date);
+        controller::getDataService()->updateRequest($id, $responsible_userId, $type_id, $article_id, $text, $status_id, $date);
     }
     
     public static function createCustomer() {
@@ -240,11 +279,12 @@ class controller {
         
         $type_id = $_POST['request_type'];
         $article_id = $_POST['article'];
+        $responsible_userId = $_POST['responsible_userId'];
         $text = $_POST['text'];
         $status_id = $_POST['status'];
         $date = date("Y-m-d");
         
-        controller::getDataService()->insertRequest($customerId, $type_id, $article_id, $text, $status_id, $date);
+        controller::getDataService()->insertRequest($customerId, $responsible_userId, $type_id, $article_id, $text, $status_id, $date);
     }
     
     public static function getArticles($article_category_id) {

@@ -24,6 +24,7 @@ class dbAccess {
     private function openConnection()
     {
          $connection = mysql_connect(self::host, self::user, self::password) or die("cannot connect");
+         mysql_query("SET NAMES 'utf8'");
 
          if (mysqli_connect_errno($connection))
          {
@@ -89,13 +90,13 @@ class dbAccess {
             return false;
     }
     
-    public function selectCustomers($search)
+    public function selectCustomers($search = NULL)
     {
         $this->openConnection();
 
         $search = $this->format($search);
         
-        if ($search == "")
+        if ($search == NULL)
             $where = "WHERE P.is_customer = 1";
         else
             $where = "WHERE 
@@ -193,7 +194,7 @@ class dbAccess {
                     CR.fk_responsible_user_id = (
                         SELECT id
                         FROM person
-                        WHERE person.username = '".$username."'
+                        WHERE person.username = '".$username."' AND CR.fk_status_id != 3
                         )
                         ");
     }
@@ -215,9 +216,14 @@ class dbAccess {
                 USER.firstname AS user_firstname,
                 USER.lastname AS user_lastname,
                 S.value AS status,
+                CRT.id AS typeId,
                 CRT.type AS type,
-                AM.name as manufacturer,
-                A.model
+                AM.id AS manufacturer_id,
+                AM.name AS manufacturer,
+                A.id AS article_id,
+                A.model AS article_model,
+                AC.id AS article_category_id,
+                AC.name AS article_category
             FROM
                 customer_request AS CR
                 LEFT OUTER JOIN person AS USER on CR.fk_responsible_user_id = USER.id
@@ -226,6 +232,7 @@ class dbAccess {
                 LEFT OUTER JOIN customer_request_type AS CRT on CR.fk_customer_request_type_id = CRT.id
                 LEFT OUTER JOIN article AS A on CR.fk_article_id = A.id
                 LEFT OUTER JOIN article_manufacturer AS AM on A.fk_article_manufacturer_id = AM.id
+                LEFT OUTER JOIN article_category AS AC on A.fk_article_category_id = AC.id
             ".$where);
         
         $result = array();
@@ -238,8 +245,14 @@ class dbAccess {
             $request->responsible_userId = $row['user_id'];
             $request->responsible_username = $row['user_username'];
             $request->responsible_user = $row['user_firstname']." ".$row['user_lastname'];
+            $request->typeId = $row['typeId'];
             $request->type = $row['type'];
-            $request->article = $row['manufacturer']." ".$row['model'];
+            $request->article_id = $row['article_id'];
+            $request->article_model = $row['article_model'];
+            $request->article_category_id = $row['article_category_id'];
+            $request->article_category = $row['article_category'];
+            $request->manufacturer_id = $row['manufacturer_id'];
+            $request->manufacturer = $row['manufacturer'];
             $request->text = $row['text'];
             $request->status = $row['status'];
             $request->date = $row['date'];
@@ -251,7 +264,7 @@ class dbAccess {
         return $result;
     }
     
-    public function updateRequest($id, $type_id, $article_id, $text, $status_id, $date) {
+    public function updateRequest($id, $responsible_userId, $type_id, $article_id, $text, $status_id, $date) {
         $this->openConnection();
 
         $id = $this->format($id);
@@ -264,8 +277,9 @@ class dbAccess {
         mysql_query("
                 UPDATE customer_request
                 SET
-                    fk_customer_request_id = '".$type_id."',
+                    fk_customer_request_type_id = '".$type_id."',
                     fk_article_id = '".$article_id."',
+                    fk_responsible_user_id = '".$responsible_userId."',
                     text = '".$text."',
                     fk_status_id = '".$status_id."',
                     date = '".$date."'
@@ -373,7 +387,7 @@ class dbAccess {
         mysql_close();
     }
     
-    public function insertRequest($customerId, $type_id, $article_id, $text, $status_id, $date) {
+    public function insertRequest($customerId, $responsible_userId, $type_id, $article_id, $text, $status_id, $date) {
         $this->openConnection();
         
         $customerId = $this->format($customerId);
@@ -384,9 +398,10 @@ class dbAccess {
         $date = $this->format($date);
         
         mysql_query("
-            INSERT INTO customer_request (fk_customer_request_type_id, fk_person_id, fk_article_id, fk_status_id, date, text)
+            INSERT INTO customer_request (fk_customer_request_type_id, fk_responsible_user_id, fk_person_id, fk_article_id, fk_status_id, date, text)
             VALUES (
                 '".$type_id."',
+                '".$responsible_userId."',
                 '".$customerId."',
                 '".$article_id."',
                 '".$status_id."',
@@ -407,6 +422,30 @@ class dbAccess {
         $result = array();
         while ($row = mysql_fetch_assoc($query))
             $result[] = array('id' => $row['id'], 'name' => $row['type']);
+        
+        $this->closeConnection($query);
+        
+        return $result;
+    }
+    
+    public function selectUsers()
+    {
+        $this->openConnection();
+
+        $query = mysql_query("
+            SELECT id, firstname, lastname, username
+            FROM person
+            WHERE username IS NOT NULL
+            ");
+        
+        $result = array();
+        while ($row = mysql_fetch_assoc($query))
+            $result[] = array(
+                'id' => $row['id'],
+                'firstname' => $row['firstname'],
+                'lastname' => $row['lastname'],
+                'username' => $row['username']
+                );
         
         $this->closeConnection($query);
         

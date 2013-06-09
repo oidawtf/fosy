@@ -30,7 +30,6 @@ a:hover {
 text-decoration: underline;
 }
 
-
 /* Header */
 
 header#header {
@@ -85,6 +84,45 @@ text-shadow: 0 -1px 0 #000;}
 
 .btn_view_site a:hover {
 background-position: 0 -27px;
+}
+
+/* Footer */
+
+footer#footer {
+clear: both;
+height: 55px;
+width: 100%;
+background: #222222 url(../images/header_bg.png) repeat-x;
+}
+
+.footer_links {
+margin-left: 400px;
+}
+
+footer#footer h1.site_title, footer#footer h2.section_title {
+    color: #FFFFFF;
+    display: block;
+    float: left;
+    font-size: 22px;
+    font-weight: normal;
+    height: 55px;
+    line-height: 55px;
+    margin: 0;
+    text-align: left;
+    text-indent: 1.8%;
+    text-shadow: 0 -1px 0 #000000;
+    width: 23%;
+}
+
+footer#footer h2.section_title {
+    background: url("../images/header_shadow.png") no-repeat scroll left top transparent;
+    text-align: center;
+    text-indent: 0%;
+    width: 300px;
+}
+
+footer#footer h2.section_title a {
+    color: #FFFFFF;
 }
 
 /* Secondary Header Bar */

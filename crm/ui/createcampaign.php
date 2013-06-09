@@ -1,7 +1,7 @@
 <?php
 
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
+controller::checkAuthentication();
+
 ?>
+
+<div class="spacer clear"></div>

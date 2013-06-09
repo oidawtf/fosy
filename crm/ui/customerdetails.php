@@ -5,8 +5,8 @@
 if (isset($_POST['createrequest']) && isset($_GET['id']))
     controller::createRequest($_GET['id']);
 
-if (isset($_POST['editrequest']) && isset($_GET['requestId']))
-    controller::editRequest($_GET['requestId']);
+if (isset($_POST['editrequest']) && isset($_POST['requestId']))
+    controller::editRequest($_POST['requestId']);
 
 if (isset($_GET['id']))
     $customer = controller::getCustomer($_GET['id']);
@@ -77,9 +77,9 @@ if (isset($_GET['id']))
                     <tr> 
                         <th class="header">Betreff</th>
                         <th class="header">Text</th>
-                        <th class="header">Sachbearbeiter</th>
-                        <th class="header">Status</th>
-                        <th class="header">Datum</th>
+                        <th class="header" style="width: 120px;">Sachbearbeiter</th>
+                        <th class="header" style="width: 100px;">Status</th>
+                        <th class="header" style="width: 100px;">Datum</th>
                     </tr> 
                 </thead>
                 <tbody>
@@ -124,5 +124,7 @@ if (isset($_GET['id']))
             
         </div>
     </article>
+    
+    <div class="spacer clear"></div>
     
 </section>
