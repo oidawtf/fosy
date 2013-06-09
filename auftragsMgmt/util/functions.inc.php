@@ -42,6 +42,13 @@
 			AND (lastname = '$pCritera' OR id = '$pCritera')";
 		$result = mysql_query($query);
 		$count = mysql_num_rows($result);
+
+/*
+		while($row = mysql_fetch_assoc($result)){
+			$_SESSION['cart']['customerID']=$row['id'];
+			echo "testopaisedsoaödfjksaedöofgjae".$_SESSION['cart']['customerID'];
+		}
+*/
 		if($pDisplay == true){
 			if($count == 0)
 			echo "Kein Kunde gefunden!";
@@ -106,6 +113,8 @@
 	}
 
 	function displayArticles(){
+		createCart();
+
 		echo"
 			<table>
 				<tr>
@@ -149,8 +158,9 @@
 					<td>Kategorie:</td>
 					<td>Modell:</td>
 					<td>Beschreibung:</td>
-					<td>Preis:</td>
+					<td>Preis/Einheit:</td>
 					<td>Lagerstand:</td>
+					<td>Menge:</td>
 				</tr>
 				";	
 
@@ -160,7 +170,8 @@
 					<td>{$row['id']}</td>
 					<td>{$row['name']}</td>
 					<td>{$row['model']}</td>
-					<td>{$row['description']}</td>
+					<!--<td>{$row['description']}</td>-->
+					<td><a href=\"\" target=\"_blank\">&ouml;ffnen</td>
 					<td>{$row['selling_price']}</td>
 					<td>{$row['stock']}</td>
 				</tr>
@@ -173,12 +184,13 @@
 		
 	}
 	function createCart(){
-		$_SESSION['cart'] = array();
+		$_SESSION['cartItemQuantity']=0;
 		$_SESSION['cartCount']=1;
 	}
 
-	function addCart($pArticle){
+	function addCart($pArticle, $pQty){
 		$_SESSION['cart'][$_SESSION['cartCount']] = $pArticle; 
+		$_SESSION['cartItemQuantity'][$_SESSION['cartCount']] = $pQty; 
 		$_SESSION['cartCount']+=1;
 	}
 
