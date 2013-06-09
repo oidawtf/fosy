@@ -83,7 +83,7 @@
             <?php include controller::getContentItem()->getUrl(); ?>
 	</div>
         
-        <?php //include "ui/footer.php"; ?>
+        <?php include "ui/footer.php"; ?>
         
     </body>
 </html>

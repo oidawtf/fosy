@@ -1,4 +1,7 @@
 <footer id="footer">
-        <h2 class="section_title">Impressum</h2>
-        <h2 class="section_title">&Uuml;ber uns</h2>
+    <div class="footer_links">
+        <h2 class="section_title" style="float: left;"><a href="../impressum.php">Impressum</a></h2>
+        <h2 class="section_title" style="float: left;"><a href="../about.php">&Uuml;ber uns</a></h2>
+        <h2 class="section_title"></h2>
+    </div>
 </footer>
