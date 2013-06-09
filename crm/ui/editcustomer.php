@@ -28,8 +28,8 @@ else {
                     <table class="clear">
                         <tbody>
                             <tr>
-                                <td><label>Vorname</label></td>
-                                <td><label>Nachname</label></td>
+                                <td><label>* Vorname</label></td>
+                                <td><label>* Nachname</label></td>
                                 <td><label>Titel</label></td>
                                 <td><label>Geburtsdatum</label></td>
                             </tr>
@@ -48,14 +48,14 @@ else {
                     <table class="clear">
                         <tbody>
                             <tr>
-                                <td><label>Stra&szlig;e</label></th>
-                                <td><label style="width:65px">Hausnummer</label></td>
+                                <td><label>* Stra&szlig;e</label></th>
+                                <td><label style="width:95px">* Hausnummer</label></td>
                                 <td><label style="width:65px">Stiege</label></td>
                                 <td><label style="width:65px">T&uuml;r</label></td>
                             </tr>
                             <tr>
                                 <td><input name="street" required="1" type="text" style="width:90%" value="<?php echo $customer->street; ?>" /></td>
-                                <td><input name="housenumber" required="1" type="text" style="width:65px" value="<?php echo $customer->housenumber; ?>" /></td>
+                                <td><input name="housenumber" required="1" type="text" style="width:95px" value="<?php echo $customer->housenumber; ?>" /></td>
                                 <td><input name="stiege" type="text" style="width:65px" value="<?php echo $customer->stiege; ?>" /></td>
                                 <td><input name="doornumber" type="text" style="width:65px" value="<?php echo $customer->doornumber; ?>" /></td>
                             </tr>
@@ -64,9 +64,9 @@ else {
                     <table style="margin-top:20px">
                         <tbody>
                             <tr>
-                                <td><label style="width:65px">PLZ</label></td>
-                                <td><label>Ort</label></td>
-                                <td><label>Land</label></td>
+                                <td><label style="width:65px">* PLZ</label></td>
+                                <td><label>* Ort</label></td>
+                                <td><label>* Land</label></td>
                             </tr>
                             <tr>
                                 <td><input name="zip" required="1" type="text" style="width:65px" value="<?php echo $customer->zip; ?>" /></td>

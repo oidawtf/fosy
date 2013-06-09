@@ -125,7 +125,7 @@ else {
                 </fieldset>
                 
                 <fieldset class="clear">
-                    <label>Text</label>
+                    <label>* Text</label>
                     <textarea name="text" required="1" maxlength="2048" rows="12"><?php echo $request->text; ?></textarea>
                 </fieldset>
 
