@@ -24,6 +24,7 @@ class dbAccess {
     private function openConnection()
     {
          $connection = mysql_connect(self::host, self::user, self::password) or die("cannot connect");
+         mysql_query("SET NAMES 'utf8'");
 
          if (mysqli_connect_errno($connection))
          {
