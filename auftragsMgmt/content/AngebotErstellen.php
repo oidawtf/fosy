@@ -10,7 +10,7 @@
 		
 		<?php
 			if(isset($_POST['search']) && isset($_POST['searchButton'])){
-				findPerson($_POST['search']);
+				findPerson($_POST['search'],true);
 			}
 			
 			if(!isset($_POST['search']) && !isset($_POST['searchButton']) && !isset($_POST['personSelectDropDown']) && !isset($_POST['personPicker']))
@@ -18,7 +18,14 @@
 
 
 			if(isset($_POST['personSelectDropDown']) && isset($_POST['personPicker'])){
-				findPerson($_POST['personSelectDropDown']);
+				findPerson($_POST['personSelectDropDown'],true);
+			}
+
+			if(isset($_POST['searchA']) && isset($_POST['searchAButton'])){
+				if(isset($_SESSION['cart']['customerID'])){
+					findPerson($_SESSION['cart']['customerID'],true);
+				}
+				findArticle($_POST['searchA']);
 			}
 		?>
 
