@@ -13,6 +13,10 @@ body, html {
 	clear: both;
 }
 
+.bold {
+	font-weight: bold;
+}
+
 /* LOGIN */
 div#centerhelper {
 	width:1px;

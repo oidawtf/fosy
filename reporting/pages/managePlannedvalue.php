@@ -2,7 +2,7 @@
 <br/>
 
 <div>Kennzahl:
-	<select id="plandaten-select" class="ui-widget ui-widget-content ui-corner-all">
+	<select id="indicatorsSelect" class="ui-widget ui-widget-content ui-corner-all">
 		<option value="0"><--wählen--></option>
 	<?php 
 
@@ -17,5 +17,4 @@
 <br/>
 <div id="resultDiv"></div>
 <br/>
-<div><a class="button" href="<?php echo $_SERVER['PHP_SELF']; ?>?content=editPlannedValue">Plandaten hinzufügen</a></div>
-
+<div><a class="button" href="<?php echo $_SERVER['PHP_SELF'];?>?content=addPlannedvalue">Plandaten hinzufügen</a></div>

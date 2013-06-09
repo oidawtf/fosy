@@ -19,10 +19,12 @@
 		<li>
 			<a <?php 
 				if(isset($_GET['content'])) { 
-					if($_GET['content']=='erErfassen' || $_GET['content']=='erErfassenSuccess') 
+					if(	$_GET['content']=='addIncomminginvoice' || 
+						$_GET['content']=='addIncomminginvoiceSuccess'
+					) 
 						echo 'class="ui-state-activeFOSY"'; 
 					} 
-			?> href="<?php echo $_SERVER['PHP_SELF']; ?>?content=erErfassen">ER erfassen</a>
+			?> href="<?php echo $_SERVER['PHP_SELF']; ?>?content=addIncomminginvoice">ER erfassen</a>
 		</li>
 		<li>
 			<a <?php 
@@ -35,10 +37,17 @@
 		<li>
 			<a <?php 
 				if(isset($_GET['content'])) { 
-					if($_GET['content']=='plandatenverwaltung' || $_GET['content']=='editPlannedValue' || $_GET['content']=='deletePlannedValue') 
+					if(	$_GET['content']=='managePlannedvalue' || 
+						$_GET['content']=='addPlannedvalue' || 
+						$_GET['content']=='addPlannedvalueSuccess' || 
+						$_GET['content']=='editPlannedvalue' || 
+						$_GET['content']=='editPlannedvalueSuccess' ||
+						$_GET['content']=='deletePlannedvalue' || 
+						$_GET['content']=='deletePlannedvalueSuccess' 						
+					) 
 						echo 'class="ui-state-activeFOSY"'; 
 					}  
-			?> href="<?php echo $_SERVER['PHP_SELF']; ?>?content=plandatenverwaltung">Plandatenverwaltung</a>
+			?> href="<?php echo $_SERVER['PHP_SELF']; ?>?content=managePlannedvalue">Plandatenverwaltung</a>
 		</li>
 		<li>
 			<a <?php 

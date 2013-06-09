@@ -1,11 +1,11 @@
 <?php
 	require("db.inc.php");
 	
-	$query = "SELECT i.name, p.value as pValue, pv.value as pvValue, pvt.type, pv.id as pvID 
-				FROM plannedValue pv 
-				INNER JOIN indicator i on pv.fk_indicator_id = i.id 
-				INNER JOIN period p on pv.fk_period_id = p.id 
-				INNER JOIN plannedValue_type pvt on pv.fk_plannedValue_type_id = pvt.id 
+	$query = "SELECT i.name, p.value AS pValue, pv.value AS pvValue, pvt.type, pv.id AS pvID 
+				FROM plannedvalue pv 
+				INNER JOIN indicator i ON pv.fk_indicator_id = i.id 
+				INNER JOIN period p ON pv.fk_period_id = p.id 
+				INNER JOIN plannedvalue_type pvt ON pv.fk_plannedvalue_type_id = pvt.id 
 				WHERE i.id=".$_GET['id'];
 
 	
@@ -20,7 +20,9 @@
 				<td><?php echo $row['name']; ?></td>
 				<td><?php echo $row['pValue']; ?></td>
 				<td class="right"><?php echo $row['pvValue']; ?> <?php echo $row['type']; ?></td>
-				<td><a href="/reporting/index.php?content=editPlannedValue&pvID=<?php echo $row['pvID']; ?>">Edit</a> <a href="/reporting/index.php?content=deletePlannedValue&pvID=<?php echo $row['pvID']; ?>">Delete</a></td>
+				<td>
+					<a href="/reporting/index.php?content=editPlannedvalue&pvID=<?php echo $row['pvID']; ?>">Edit</a> 
+					<a href="/reporting/index.php?content=deletePlannedvalue&pvID=<?php echo $row['pvID']; ?>">Delete</a></td>
 			</tr>
 <?php		$i++;
 		}
