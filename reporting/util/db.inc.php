@@ -10,6 +10,7 @@
 	$db = mysql_connect($host, $user, $password) or die("Keine Verbindung!");
 	
 	mysql_select_db($database, $db) or die("Konnte Datenbank nicht finden!");		
+	mysql_query("SET NAMES 'utf8'");
 	
 	
 	function showErrorMsg($mysqlError, $query) {

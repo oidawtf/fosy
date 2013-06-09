@@ -46,9 +46,9 @@ div#centerhelper {
 
 /* HEADER */
 header {
-	border: 0px solid red;
+	border: 1px solid red;
 	background: #E6E6E6;
-	height: 152px;
+	height: 110px;
 	position: relative;
 	margin: 10px 0;
 	padding: 5px;
@@ -57,11 +57,11 @@ header #moduleLogo {
 	border: 0px solid yellow;
 	width: 425px;
 	float: left;
-	height: 152px;
+	height: 110px;
 }
 header #fosyLogo {
 	border: 0px solid blue;
-	height: 152px;
+	height: 110px;
 	text-align: right;
 }
 header #fosyLogo #logo {
@@ -81,7 +81,6 @@ nav {
 	float: left;
 	width: 210px;
 	background: #FFFFFF;
-	/*background: #9fc;*/
 	margin-bottom: 10px;
 	padding-left: 0px;
 }
@@ -142,4 +141,20 @@ fieldset div label {
 	float: left;
 	width: 150px;
 	border: 0px solid blue;
+}
+
+/* tables */
+#resultDiv table {
+/*	border: 1px solid red;*/
+}
+#resultDiv table tr.cell1 {
+	border: 1px solid #c5dbec;
+	background: #dfeffc;
+	color: #2e6e9e;
+}
+#resultDiv table tr td, #resultDiv table tr th {
+	padding: 5px;
+}
+#resultDiv table tr td.right {
+	text-align: right;
 }

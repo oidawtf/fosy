@@ -23,39 +23,39 @@
 				$errorMsg .= "Bitte Brutto-Betrag im gültigen Format (xxxx.yy) eingeben.<br/>";
 			}
 						
-			if(!empty($errorMsg)) { echo "<div id='error'>".$errorMsg."</div><br/>"; }
+			if(!empty($errorMsg)) { echo "<div id='error' class='ui-state-error'>".$errorMsg."</div><br/>"; }
 		}
 ?>
 <form method="POST" action="<?php echo $_SERVER['PHP_SELF']; ?>?content=erErfassen">
-	<fieldset>
+	<fieldset class="ui-widget ui-widget-content-white ui-corner-all">
 		<legend>Eingangsrechnung erfassen</legend>
 		<div>
 			<label>Datum:</label>
-			<input type="text" name="date" id="datepicker" value="<?php echo $_POST['date']; ?>"/>
+			<input class="ui-widget ui-widget-content ui-corner-all" type="text" name="date" id="datepicker" value="<?php echo $_POST['date']; ?>"/>
 		</div>
 		<div>
 			<label>BelegNr:</label>
-			<input type="text" id="belegNr" name="belegNr" value="<?php echo $_POST['belegNr']; ?>">
+			<input class="ui-widget ui-widget-content ui-corner-all" type="text" id="belegNr" name="belegNr" value="<?php echo $_POST['belegNr']; ?>">
 		</div>
 		<div>
 			<label>Brutto-Betrag:</label>
-			<input type="text" id="bruttoBetrag" name="bruttoBetrag" value="<?php echo $_POST['bruttoBetrag']; ?>">
+			<input class="ui-widget ui-widget-content ui-corner-all" type="text" id="bruttoBetrag" name="bruttoBetrag" value="<?php echo $_POST['bruttoBetrag']; ?>">
 			
 		</div>
 		<div>
 			<label>Steuersatz:</label>
-			<input type="radio" name="tax" value="10"> 10 %
-			<input type="radio" name="tax" value="20" checked> 20 %
+			<input class="ui-widget ui-widget-content ui-corner-all" type="radio" name="tax" value="10"> 10 %
+			<input class="ui-widget ui-widget-content ui-corner-all" type="radio" name="tax" value="20" checked> 20 %
 		</div>
-		<div id="taxError"></div>
-		<div id="taxOutput">
+		<div id="taxError" class="ui-state-error"></div>
+		<div id="taxOutput" class="ui-state-highlight">
 			<div>
 				<label>Netto-Betrag:</label>
-				<input type="text" id="nettoBetrag"><br>
+				<input class="ui-widget ui-widget-content ui-corner-all" type="text" id="nettoBetrag" disabled="disabled"><br>
 			</div>
 			<div>
 				<label>VST:</label>
-				<input type="text" id="vst">
+				<input class="ui-widget ui-widget-content ui-corner-all" type="text" id="vst" disabled="disabled">
 			</div>
 		</div>
 		<div>

@@ -66,7 +66,12 @@
 							case 'planIstVergleich':
 							case 'impressum':
 							case 'aboutus':
+							case 'deletePlannedValue':
 								@include "pages/".$_GET['content'].'.php';
+								break;
+							case 'editPlannedValue':
+							case 'addPlannedValue':
+								@include "pages/editPlannedValue.php";
 								break;
 							default:
 								echo "<h2>Sorry, Page ".$_GET['content']." not found.</h2>";

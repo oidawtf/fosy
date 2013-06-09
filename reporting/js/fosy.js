@@ -10,32 +10,22 @@ $(function() {
 		dateFormat: "dd.mm.yy"
 	});
 	
-	/* error box class */
-	$("#error").addClass("ui-state-error");
-
-	/* div saveSuccess highlight */
-	$("#saveSuccess").addClass("ui-state-highlight");
-
-	/* header and footer layout */
-	$("header").addClass("ui-widget ui-widget-content-white ui-corner-all");
-	$("footer").addClass("ui-widget-header ui-corner-all");
-
 	/* mouse over for navigation */
-	$("nav ul li a").hover(function(){$(this).addClass("ui-state-highlight-navi");},function(){$(this).removeClass("ui-state-highlight-navi");})
+	$("nav ul li a").hover(
+		function(){
+			$(this).addClass("ui-state-highlight-navi");
+		},
+		function(){
+			$(this).removeClass("ui-state-highlight-navi");
+		}
+	);
 
-	/* navi elements as buttons, every button as button */
-	$("nav ul li a, button").button();
+	/* navi elements as buttons, every button as button, every a with class button as button */
+	$("nav ul li a, button, a.button").button();
 
-	$("fieldset").addClass("ui-widget ui-widget-content-white ui-corner-all");
-	
-	/* define every input field */
-	$("input").addClass("ui-widget ui-widget-content ui-corner-all");
-	
 	/* tax boxes */
-	$("#taxError").addClass("ui-state-error").hide();
-	$("#taxOutput").addClass("ui-state-highlight").hide();
-	$("#nettoBetrag").prop("disabled",true);
-	$("#vst").prop("disabled", true);
+	$("#taxError").hide();
+	$("#taxOutput").hide();
 	
 	/* calculate tax */
 	$("#calculate").click(function() {
@@ -66,8 +56,41 @@ $(function() {
 			$("#taxError").text("Bitte Brutto-Betrag im gültigen Format (xxxx.yy) eingeben.").show(); 
 		}
 	});
+	
+	/* plandatenverwalten kz selected */
+	$("#plandaten-select").change(function() {
+		$("#plandaten-select option:selected").each(function() {
+			var id = $(this).val();
+			if(id > 0) {
+				getPlannedValues(id);
+			}
+		});
+	});
 });
 
+/* AJAX Request for planned Value */
+var req = null;
+function getPlannedValues(id) {
+	var pos = document.URL.lastIndexOf("/");
+	var url = document.URL.substring(0,pos+1);
+	
+	if(window.XMLHttpRequest) {
+		req = new XMLHttpRequest();
+	}else if(window.ActiveXObject) {
+		req = new ActiveXObject("Microsoft.XMLHTTP");
+	}
+	
+	req.onreadystatechange = displayPlannedValue;
+	req.open("GET", url+"util/getPlannedValue.ajax.php?id="+id);
+	req.send(null);
+}
+function displayPlannedValue() {
+	if(req.readyState == 4) {
+		$('#resultDiv').html(req.responseText);
+	}
+}
+
+/* Presentation for calculated tax value */
 function kaufm(x) {
 	var k = (Math.round(x * 100) / 100).toString();
 	k += (k.indexOf('.') == -1)? '.00' : '00';
