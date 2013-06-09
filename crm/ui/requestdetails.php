@@ -48,4 +48,7 @@ if (isset($_GET['requestId']))
             </div>
         </footer>
     </article>
+    
+    <div class="spacer clear"></div>
+    
 </section>

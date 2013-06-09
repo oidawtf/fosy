@@ -157,4 +157,7 @@ else {
             </footer>
         </form>
     </article>
+    
+    <div class="spacer clear"></div>
+    
 </section>

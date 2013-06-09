@@ -115,4 +115,7 @@ else
         </div>
         
     </article>
+    
+    <div class="spacer clear"></div>
+    
 </section>

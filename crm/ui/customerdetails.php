@@ -125,4 +125,6 @@ if (isset($_GET['id']))
         </div>
     </article>
     
+    <div class="spacer clear"></div>
+    
 </section>

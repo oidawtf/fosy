@@ -30,6 +30,15 @@ a:hover {
 text-decoration: underline;
 }
 
+/* Footer */
+
+footer#footer {
+    margin-top: 20px;
+clear: both;
+height: 55px;
+width: 100%;
+background: #222222 url(../images/header_bg.png) repeat-x;
+}
 
 /* Header */
 
