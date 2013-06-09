@@ -59,19 +59,20 @@
 						switch($_GET['content']) {
 							case 'dashboard':
 							case 'flexibleReports':
-							case 'erErfassen':
-							case 'erErfassenSuccess':
+							case 'addIncomminginvoice':
+							case 'addIncomminginvoiceSuccess':
 							case 'ustVA':
-							case 'plandatenverwaltung':
+							case 'managePlannedvalue':
 							case 'planIstVergleich':
 							case 'impressum':
 							case 'aboutus':
-							case 'deletePlannedValue':
+							case 'deletePlannedvalue':
+							case 'deletePlannedvalueSuccess':
+							case 'editPlannedvalue':
+							case 'editPlannedvalueSuccess':
+							case 'addPlannedvalue':
+							case 'addPlannedvalueSuccess':
 								@include "pages/".$_GET['content'].'.php';
-								break;
-							case 'editPlannedValue':
-							case 'addPlannedValue':
-								@include "pages/editPlannedValue.php";
 								break;
 							default:
 								echo "<h2>Sorry, Page ".$_GET['content']." not found.</h2>";

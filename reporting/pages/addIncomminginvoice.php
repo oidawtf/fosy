@@ -5,7 +5,7 @@
 	// save clicked 
 	if(isset($_POST['save']) && checkDateFormatValid($_POST['date']) && checkDateNotInFuture($_POST['date']) &&  checkBelegNr($_POST['belegNr']) && checkBruttoBetrag($_POST['bruttoBetrag'])) {
 		
-		saveIncomingInvoice($_POST['date'], $_POST['belegNr'], $_POST['bruttoBetrag'], $_POST['tax']);
+		saveIncominginvoice($_POST['date'], $_POST['belegNr'], $_POST['bruttoBetrag'], $_POST['tax']);
 	
 	} else {
 		if(isset($_POST['save'])) {
@@ -26,7 +26,7 @@
 			if(!empty($errorMsg)) { echo "<div id='error' class='ui-state-error'>".$errorMsg."</div><br/>"; }
 		}
 ?>
-<form method="POST" action="<?php echo $_SERVER['PHP_SELF']; ?>?content=erErfassen">
+<form method="POST" action="<?php echo $_SERVER['PHP_SELF']; ?>?content=addIncomminginvoice">
 	<fieldset class="ui-widget ui-widget-content-white ui-corner-all">
 		<legend>Eingangsrechnung erfassen</legend>
 		<div>

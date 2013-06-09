@@ -16,7 +16,7 @@ function checkBruttoBetrag($brutto) {
 	return true;
 }
 
-function saveIncomingInvoice($date, $belegNr, $bruttoBetrag, $tax) {
+function saveIncominginvoice($date, $belegNr, $bruttoBetrag, $tax) {
 	if(checkDateFormatValid($_POST['date']) && checkDateNotInFuture($_POST['date']) &&  checkBelegNr($_POST['belegNr']) && checkBruttoBetrag($_POST['bruttoBetrag'])) {
 		
 		$bruttoBetrag = floatConverter($bruttoBetrag, array('single_dot_as_decimal'=> TRUE));
@@ -32,7 +32,7 @@ function saveIncomingInvoice($date, $belegNr, $bruttoBetrag, $tax) {
 		$result = mysql_query($query);
 	
 		if($result && mysql_affected_rows()) {
-			redirect("erErfassenSuccess");
+			redirect("addIncomminginvoiceSuccess");
 		}else {
 			showErrorMsg(mysql_error(), $query);
 		}

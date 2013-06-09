@@ -5,5 +5,5 @@
 	require("util/dateFunctions.inc.php");
 	require("util/numberFunctions.inc.php");
 	require("util/incomingInvoiceFunctions.inc.php");
-	require("util/plannedValueFunctions.inc.php");
+	require("util/plannedvalueFunctions.inc.php");
 ?>

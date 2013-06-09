@@ -58,35 +58,72 @@ $(function() {
 	});
 	
 	/* plandatenverwalten kz selected */
-	$("#plandaten-select").change(function() {
-		$("#plandaten-select option:selected").each(function() {
+	$("#indicatorsSelect").change(function() {
+		$("#indicatorsSelect option:selected").each(function() {
 			var id = $(this).val();
 			if(id > 0) {
-				getPlannedValues(id);
+				getPlannedvalues(id);
 			}
 		});
+	});
+	
+	/* plandaten anlegen kz selected */
+	$("#indicatorsAddSelect").change(function() {
+		$("#indicatorsAddSelect option:selected").each(function() {
+			var id = $(this).val();
+			if(id > 0) {
+				getPeriods(id);
+			}
+		});
+	});
+	
+});
+
+/* plandaten anlegen period selected */
+$(document).on('change', '#periodSelect', function() {
+	$("#periodSelect option:selected").each(function() {
+		var id = $(this).val();
+		if(id > 0) {
+			$("#plannedvalue").show();
+		}
 	});
 });
 
 /* AJAX Request for planned Value */
 var req = null;
-function getPlannedValues(id) {
-	var pos = document.URL.lastIndexOf("/");
-	var url = document.URL.substring(0,pos+1);
+var pos = 0;
+var url = null;
+function initAjaxCall() {
+	pos = document.URL.lastIndexOf("/");
+	url = document.URL.substring(0,pos+1);
 	
 	if(window.XMLHttpRequest) {
 		req = new XMLHttpRequest();
 	}else if(window.ActiveXObject) {
 		req = new ActiveXObject("Microsoft.XMLHTTP");
 	}
-	
-	req.onreadystatechange = displayPlannedValue;
-	req.open("GET", url+"util/getPlannedValue.ajax.php?id="+id);
+}
+function getPlannedvalues(id) {
+	initAjaxCall();
+	req.onreadystatechange = displayPlannedvalue;
+	req.open("GET", url+"util/getPlannedvalue.ajax.php?id="+id);
 	req.send(null);
 }
-function displayPlannedValue() {
+function displayPlannedvalue() {
 	if(req.readyState == 4) {
 		$('#resultDiv').html(req.responseText);
+	}
+}
+
+function getPeriods(id) {
+	initAjaxCall();
+	req.onreadystatechange = displayPeriods;
+	req.open("GET", url+"util/getPeriods.ajax.php?id="+id);
+	req.send(null);
+}
+function displayPeriods() {
+	if(req.readyState == 4) {
+		$('#periods').html(req.responseText);
 	}
 }
 
