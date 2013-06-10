@@ -2,8 +2,6 @@
 
 @controller::checkAuthentication();
 
-var_dump($_POST);
-
 ?>
 
 <section id="main" class="column" style="height: 90%;">

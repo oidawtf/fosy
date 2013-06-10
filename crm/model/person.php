@@ -31,6 +31,8 @@ class person {
     public $offers;
     public $orders;
     
+    public $isSelected;
+    
     public function getIdFormatted() {
         if ($this->id == "")
             return "";

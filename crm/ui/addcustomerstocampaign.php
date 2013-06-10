@@ -2,10 +2,17 @@
 
 controller::checkAuthentication();
 
-if (!isset($_POST['campaignId']))
+if (!isset($_GET['campaignId']))
     return;
 
-$customers = controller::getCustomersByCampaign($_POST['campaignId']);
+$campaignId = $_GET['campaignId'];
+
+if (isset($_POST['editcampaign']))
+    $campaign = controller::editCampaign($campaignId);
+else
+    $campaign = controller::getCampaign($campaignId);
+
+$customers = controller::getCustomersByCampaign($campaign);
 
 ?>
 
@@ -31,8 +38,12 @@ $customers = controller::getCustomersByCampaign($_POST['campaignId']);
                         <?php
                         
                         foreach ($customers as $customer) {
+                            if ($customer->isSelected)
+                                $checked = "checked=''";
+                            else
+                                $checked = "";
                             echo "<tr>";
-                            echo    "<td><input name='isSelected' type='checkbox' value='".$customer->id."'</td>";
+                            echo    "<td><input name='isSelected' type='checkbox' ".$checked." value='".$customer->id."'</td>";
                             echo    "<td><a href='index.php?content=customerdetails&id=".$customer->id."'>".$customer->getFullName()."</a></td>";
                             echo    "<td style='width: 100px;'>".$customer->getBirthdate()."</td>";
                             echo    "<td>".$customer->zip."</td>";

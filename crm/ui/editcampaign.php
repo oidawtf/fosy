@@ -2,15 +2,20 @@
 
 controller::checkAuthentication();
 
+if (isset($_GET['campaignId']))
+    $campaignId = $_GET['campaignId'];
+else
+    $campaignId = controller::createCampaign();
+
 ?>
 
 <section id="main" class="column">
     
-    <form method="POST" action="<?php echo $_SERVER["PHP_SELF"]; ?>?content=addcustomerstocampaign">
+    <form method="POST" action="<?php echo $_SERVER["PHP_SELF"]; ?>?content=addcustomerstocampaign&campaignId=<?php echo $campaignId; ?>">
 
         <article class="module width_full">
             <header>
-                <h3 class="tabs_involved">Kampagne erfassen</h3>
+                <h3 class="tabs_involved">Grunddaten erfassen</h3>
             </header>
 
             <div class="module_content">
@@ -39,7 +44,7 @@ controller::checkAuthentication();
                             </tr>
                             <tr>
                                 <td><input name="budget" required="1" type="text" style="width:90%" /></td>
-                                <td><input name=date_from" required="1" type="date" style="width:90%" /></td>
+                                <td><input name="date_from" required="1" type="date" style="width:90%" /></td>
                                 <td><input name="date_to" required="1" type="date" style="width:90%" /></td>
                                 <td>
                                     <select name="medium" style="width:90%;">
@@ -56,7 +61,7 @@ controller::checkAuthentication();
             
             <footer>
                 <div class="submit_link">
-                    <input type="submit" class="alt_btn" name="createcampaign" value="Weiter zur Kundenauswahl" />
+                    <input type="submit" class="alt_btn" name="editcampaign" value="Weiter zur Kundenauswahl" />
                     <input type="button" onclick="javascript:history.back()" value="Abbrechen" />
                 </div>
             </footer>
