@@ -29,7 +29,10 @@ class controller {
                 'createrequest' => new page('createrequest', 'Anfrage erfassen', 'ui/editrequest.php', true, array('home', 'showcustomers', 'customerdetails')),
                 'editrequest' => new page('editrequest', 'Anfrage bearbeiten', 'ui/editrequest.php', true, array('home', 'showcustomers', 'customerdetails', 'requestdetails')),
                 'createcustomer' => new page('createcustomer', 'Kunden erfassen', 'ui/editcustomer.php', false, array('home')),
-                'createcampaign' => new page('createcampaign', 'Kampagne erstellen', 'ui/createcampaign.php', true, array('home')),
+                'editcampaign' => new page('editcampaign', 'Kampagne erstellen', 'ui/editcampaign.php', true, array('home')),
+                'addcustomerstocampaign' => new page('addcustomerstocampaign', 'Kunden zur Kampagne hinzuf&uml;gen', 'ui/addcustomerstocampaign.php', true, array('home', 'editcampaign')),
+                'addarticlestocampaign' => new page('addarticlestocampaign', 'Artikel zur Kampagne hinzuf&uml;gen', 'ui/addarticlestocampaign.php', true, array('home'), 'editcampaign', 'addcustomerstocampaign'),
+                'finalizecampaign' => new page('finalizecampaign', 'Kampagne fertigstellen', 'ui/finalizecampaign.php', true, array('home'), 'editcampaign', 'addcustomerstocampaign', 'addarticlestocampaign'),
                 'analysecampaign' => new page('analysecampaign', 'Kampagne analysieren', 'ui/analysecampaign.php', true, array('home'))
                 );
         }
@@ -158,6 +161,10 @@ class controller {
         
         $content = controller::getContent();
         return $content[$key];
+    }
+    
+    public static function getCustomersByMedium($medium) {
+        return controller::getDataService()->selectCustomersByMedium($medium);
     }
     
     public static function getCustomers($search = NULL) {

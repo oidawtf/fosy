@@ -90,10 +90,31 @@ class dbAccess {
             return false;
     }
     
-    public function selectCustomers($search = NULL)
-    {
-        $this->openConnection();
-
+    public function selectCustomersByMedium($medium) {
+        if ($medium == "email")
+            $where = "
+                WHERE
+                    (P.email IS NOT NULL AND P.is_customer = 1)
+                    ";
+        else
+            $where = "
+                WHERE
+                    P.street IS NOT NULL AND
+                    P.housenumber IS NOT NULL AND
+                    P.city IS NOT NULL AND
+                    P.zip IS NOT NULL AND
+                    P.country IS NOT NULL AND
+                    P.street != '' AND
+                    P.housenumber != '' AND
+                    P.city != '' AND
+                    P.zip != '' AND
+                    P.country != ''
+                ";
+        
+        return $this->selectCustomersInternal($where);
+    }
+    
+    public function selectCustomers($search = NULL) {
         $search = $this->format($search);
         
         if ($search == NULL)
@@ -104,7 +125,14 @@ class dbAccess {
                          P.username like '%".$search."%' OR
                          P.firstname like '%".$search."%' OR
                          P.lastname like '%".$search."%') AND P.is_customer = 1";
-                
+        
+        return $this->selectCustomersInternal($where);
+    }
+    
+    public function selectCustomersInternal($where)
+    {
+        $con = $this->openConnection();
+        
         $query = mysql_query("
             SELECT
                 P.id,
@@ -134,6 +162,8 @@ class dbAccess {
             ".$where."
             GROUP BY P.id;
             ");
+        
+        echo $this->displayError($con);
         
         $result = array();
         while ($row = mysql_fetch_assoc($query))

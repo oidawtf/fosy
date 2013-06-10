@@ -23,18 +23,6 @@ else {
 
 <script type="text/javascript">
     
-    function getXmlHttpRequest()
-    {
-        var xmlhttp;
-
-        if (window.XMLHttpRequest)  // code for IE7+, Firefox, Chrome, Opera, Safari
-            xmlhttp=new XMLHttpRequest();
-        else                        // code for IE6, IE5
-            xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
-
-        return xmlhttp;
-    }
-    
     function OnReloadArticles(select) {
         OnLoadArticles(select.options[select.selectedIndex].value);
     }
@@ -79,7 +67,7 @@ else {
                             if ($request->type == $item['name'])
                                 $selected = "selected='selected'";
                             else
-                                $selected = "";                            
+                                $selected = "";                          
                             
                             echo "<option ".$selected." value='".$item['id']."'>".$item['name']."</option>";
                         }
