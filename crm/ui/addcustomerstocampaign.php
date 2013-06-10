@@ -24,36 +24,34 @@ $customers = controller::getCustomersByCampaign($campaign);
                 <h3 class="tabs_involved">Kundenauswahl</h3>
             </header>
 
-            <div class="module_content">
-                <table cellspacing="0" class="tablesorter">
-                    <thead>
-                        <tr>
-                            <th class="header"></th>
-                            <th class="header">Name</th>
-                            <th class="header" style="width: 100px;">Geburtsdatum</th>
-                            <th class="header">ZIP Code</th>
-                        </tr>
-                    </thead>
-                    <tbody style="overflow: scroll; height: 300px;">
-                        <?php
-                        
-                        foreach ($customers as $customer) {
-                            if ($customer->isSelected)
-                                $checked = "checked=''";
-                            else
-                                $checked = "";
-                            echo "<tr>";
-                            echo    "<td><input name='isSelected' type='checkbox' ".$checked." value='".$customer->id."'</td>";
-                            echo    "<td><a href='index.php?content=customerdetails&id=".$customer->id."'>".$customer->getFullName()."</a></td>";
-                            echo    "<td style='width: 100px;'>".$customer->getBirthdate()."</td>";
-                            echo    "<td>".$customer->zip."</td>";
-                            echo "</tr>";
-                        }
-                        
-                        ?>
-                    </tbody>
-                </table>
-            </div>
+            <table cellspacing="0" class="tablesorter">
+                <thead>
+                    <tr>
+                        <th class="header"></th>
+                        <th class="header">Name</th>
+                        <th class="header" style="width: 100px;">Geburtsdatum</th>
+                        <th class="header">ZIP Code</th>
+                    </tr>
+                </thead>
+                <tbody style="overflow: scroll; height: 300px;">
+                    <?php
+
+                    foreach ($customers as $customer) {
+                        if ($customer->isSelected)
+                            $checked = "checked=''";
+                        else
+                            $checked = "";
+                        echo "<tr>";
+                        echo    "<td><input name='isSelected' type='checkbox' ".$checked." value='".$customer->id."'</td>";
+                        echo    "<td><a href='index.php?content=customerdetails&id=".$customer->id."'>".$customer->getFullName()."</a></td>";
+                        echo    "<td style='width: 100px;'>".$customer->getBirthdate()."</td>";
+                        echo    "<td>".$customer->zip."</td>";
+                        echo "</tr>";
+                    }
+
+                    ?>
+                </tbody>
+            </table>
 
             <footer>
                 <div class="submit_link">
