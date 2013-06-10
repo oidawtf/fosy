@@ -2,8 +2,8 @@
 
 @controller::checkAuthentication();
 
-if (isset($_GET['id'])) {
-    $customer = controller::getCustomer($_GET['id']);
+if (isset($_GET['customerId'])) {
+    $customer = controller::getCustomer($_GET['customerId']);
     $command = 'editcustomer';
 }
 else {
@@ -98,7 +98,7 @@ else {
         
             <footer>
                 <div class="submit_link">
-                    <input type="hidden" name="id" value="<?php echo $customer->id; ?>" />
+                    <input type="hidden" name="customerId" value="<?php echo $customer->id; ?>" />
                     <input type="submit" class="alt_btn" name="<?php echo $command; ?>" value="Speichern" />
                     <input type="button" onclick="javascript:history.back()" value="Abbrechen" />
                 </div>

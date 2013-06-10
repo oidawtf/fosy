@@ -26,7 +26,7 @@ if (isset($_GET['requestId']))
                             <td></td>
                         </tr>
                         <tr>
-                            <td><a href='<?php echo $_SERVER['PHP_SELF']."?content=customerdetails&id=".$request->customerId; ?>'><?php echo $request->customer; ?></a></td>
+                            <td><a href='<?php echo $_SERVER['PHP_SELF']."?content=customerdetails&customerId=".$request->customerId; ?>'><?php echo $request->customer; ?></a></td>
                             <td><?php echo $request->responsible_username." - ".$request->responsible_user ?></td>
                             <td><?php echo $request->status; ?></td>
                             <td><?php echo $request->getDate(); ?></td>
@@ -41,7 +41,7 @@ if (isset($_GET['requestId']))
             <div class="submit_link">
                 <form method="GET" action="<?php echo $_SERVER['PHP_SELF']; ?>">
                     <input type="hidden" name="content" value="editrequest" />
-                    <input type="hidden" name="id" value="<?php echo $request->customerId; ?>" />
+                    <input type="hidden" name="customerId" value="<?php echo $request->customerId; ?>" />
                     <input type="hidden" name="requestId" value="<?php echo $request->id; ?>" />
                     <input type="submit" value="Bearbeiten" />
                 </form>

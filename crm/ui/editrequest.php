@@ -2,8 +2,8 @@
 
 @controller::checkAuthentication();
 
-if (isset($_GET['id'])) {
-    $id = $_GET['id'];
+if (isset($_GET['customerId'])) {
+    $customerId = $_GET['customerId'];
 }
 
 if (isset($_GET['requestId'])) {
@@ -52,7 +52,7 @@ else {
 
 <section id="main" class="column" style="height: 90%;">
     <article class="module width_full">
-        <form method="POST" action="<?php echo $_SERVER["PHP_SELF"]."?content=customerdetails&id=".$id; ?>">
+        <form method="POST" action="<?php echo $_SERVER["PHP_SELF"]."?content=customerdetails&customerId=".$customerId; ?>">
             <header>
                 <h3>Kundenanfrage erfassen<?php echo $request->getIdFormatted(); ?></h3>
             </header>

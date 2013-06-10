@@ -43,7 +43,7 @@ $customers = controller::getCustomersByCampaign($campaign);
                             $checked = "";
                         echo "<tr>";
                         echo    "<td><input name='isSelected' type='checkbox' ".$checked." value='".$customer->id."'</td>";
-                        echo    "<td><a href='index.php?content=customerdetailsfromcampaign&id=".$customer->id."&campaignId=".$campaignId."'>".$customer->getFullName()."</a></td>";
+                        echo    "<td><a href='index.php?content=customerdetailsfromcampaign&customerId=".$customer->id."&campaignId=".$campaignId."'>".$customer->getFullName()."</a></td>";
                         echo    "<td style='width: 100px;'>".$customer->getBirthdate()."</td>";
                         echo    "<td>".$customer->zip."</td>";
                         echo "</tr>";

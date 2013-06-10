@@ -33,7 +33,6 @@ class page {
             return "";
         
         return "&".$this->GETId."=".$_GET[$this->GETId];
-        //return '&id='.$_GET['id'];
     }
     
     public function getParents() {

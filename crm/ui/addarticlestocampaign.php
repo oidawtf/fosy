@@ -33,7 +33,7 @@ $articles = controller::getArticlessByCampaign($_POST['campaignId']);
                     foreach ($articles as $article) {
                         echo "<tr>";
                         echo    "<td><input name='isSelected' type='checkbox' value='".$article->id."'</td>";
-                        echo    "<td><a href='index.php?content=customerdetails&id=".$article->id."'>".$article->getFullName()."</a></td>";
+                        echo    "<td><a href='index.php?content=customerdetails&customerId=".$article->id."'>".$article->getFullName()."</a></td>";
                         echo    "<td style='width: 100px;'>".$article->getBirthdate()."</td>";
                         echo    "<td>".$article->zip."</td>";
                         echo "</tr>";

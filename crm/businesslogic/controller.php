@@ -23,15 +23,15 @@ class controller {
                 'home' => new page('home', 'Home', 'ui/home.php'),
                 'login' => new page('login', 'Login', 'ui/login.php'),
                 'showcustomers' => new page('showcustomers', 'Kunden ansehen', 'ui/showcustomers.php', NULL, array('home')),
-                'customerdetails' => new page('customerdetails', 'Kundendetails', 'ui/customerdetails.php', 'id', array('home', 'showcustomers')),
-                'editcustomer' => new page('editcustomer', 'Kunden bearbeiten', 'ui/editcustomer.php', 'id', array('home', 'showcustomers', 'customerdetails')),
-                'requestdetails' => new page('requestdetails', 'Anfragendetails', 'ui/requestdetails.php', 'id', array('home', 'showcustomers', 'customerdetails')),
-                'createrequest' => new page('createrequest', 'Anfrage erfassen', 'ui/editrequest.php', 'id', array('home', 'showcustomers', 'customerdetails')),
-                'editrequest' => new page('editrequest', 'Anfrage bearbeiten', 'ui/editrequest.php', 'id', array('home', 'showcustomers', 'customerdetails', 'requestdetails')),
+                'customerdetails' => new page('customerdetails', 'Kundendetails', 'ui/customerdetails.php', 'customerId', array('home', 'showcustomers')),
+                'editcustomer' => new page('editcustomer', 'Kunden bearbeiten', 'ui/editcustomer.php', 'customerId', array('home', 'showcustomers', 'customerdetails')),
+                'requestdetails' => new page('requestdetails', 'Anfragendetails', 'ui/requestdetails.php', 'customerId', array('home', 'showcustomers', 'customerdetails')),
+                'createrequest' => new page('createrequest', 'Anfrage erfassen', 'ui/editrequest.php', 'customerId', array('home', 'showcustomers', 'customerdetails')),
+                'editrequest' => new page('editrequest', 'Anfrage bearbeiten', 'ui/editrequest.php', 'customerId', array('home', 'showcustomers', 'customerdetails', 'requestdetails')),
                 'createcustomer' => new page('createcustomer', 'Kunden erfassen', 'ui/editcustomer.php', NULL, array('home')),
                 'editcampaign' => new page('editcampaign', 'Kampagne erstellen', 'ui/editcampaign.php', 'campaignId', array('home')),
                 'addcustomerstocampaign' => new page('addcustomerstocampaign', 'Kunden zur Kampagne hinzufügen', 'ui/addcustomerstocampaign.php', 'campaignId', array('home', 'editcampaign')),
-                'customerdetailsfromcampaign' => new page('customerdetailsfromcampaign', 'Kundendetails', 'ui/customerdetails.php', 'id', array('home', 'editcampaign', 'addcustomerstocampaign')),
+                'customerdetailsfromcampaign' => new page('customerdetailsfromcampaign', 'Kundendetails', 'ui/customerdetails.php', 'customerId', array('home', 'editcampaign', 'addcustomerstocampaign')),
                 'addarticlestocampaign' => new page('addarticlestocampaign', 'Artikel zur Kampagne hinzufügen', 'ui/addarticlestocampaign.php', 'campaignId', array('home', 'editcampaign', 'addcustomerstocampaign')),
                 'finalizecampaign' => new page('finalizecampaign', 'Kampagne fertigstellen', 'ui/finalizecampaign.php', 'campaignId', array('home', 'editcampaign', 'addcustomerstocampaign', 'addarticlestocampaign')),
                 'analysecampaign' => new page('analysecampaign', 'Kampagne analysieren', 'ui/analysecampaign.php', 'campaignId', array('home'))
@@ -252,7 +252,7 @@ class controller {
     }
     
     public static function editCustomer() {
-        $id = $_POST['id'];
+        $id = $_POST['customerId'];
         $firstname = $_POST['firstname'];
         $lastname = $_POST['lastname'];
         $title = $_POST['title'];
@@ -288,8 +288,8 @@ class controller {
     }
 
     public static function deleteCustomer() {
-        if (isset($_POST['id'])) {
-            $id = $_POST['id'];
+        if (isset($_POST['customerId'])) {
+            $id = $_POST['customerId'];
             controller::getDataService()->deactivateCustomer($id);   
         }
     }
