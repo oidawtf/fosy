@@ -26,7 +26,7 @@ SET time_zone = "+00:00";
 
 INSERT INTO `article` (`id`, `fk_article_category_id`, `fk_article_manufacturer_id`, `model`, `description`, `picture`, `stock`, `purchase_price`, `selling_price`, `tax_rate`) VALUES
 (1, 1, 1, 'UE46F6500 ', 'Diagonale: 117cm, Auflösung: 1920x1080, Format: 16:9', NULL, 5, 605.00, 805.00, 20),
-(2, 1, 2, '46PFL3807K', 'Diagonale: 117cm, Auflösung: 1920x1080, Format: 16:9', NULL, 5, 380.00, 470.00, 20),
+(2, 1, 2, '46PFL3807K', 'Diagonale: 117cm, Auflösung: 1920x1080, Format: 16:9', NULL, 0, 380.00, 470.00, 20),
 (3, 1, 1, 'UE55F6500', 'Diagonale: 139cm, Auflösung: 1920x1080, Format: 16:9', NULL, 12, 1050.00, 1200.00, 8),
 (4, 3, 2, 'BDP-S560E', ' Blu-ray(BD-ROM/BD-R(E)), DVD+R(W)/DVD-R(W)/DVD-Video', NULL, 50, 95.00, 149.00, 20),
 (5, 4, 2, 'SCD-XE800', 'Wiedergabe: CD-R(W)/SACD. Abmessungen: 430x95x295mm', NULL, 14, 143.00, 182.00, 20),

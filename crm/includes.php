@@ -7,5 +7,6 @@ include "model/person.php";
 include "model/page.php";
 include "model/request.php";
 include "model/campaign.php";
+include "model/article.php";
 
 ?>

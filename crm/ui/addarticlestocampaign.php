@@ -2,16 +2,23 @@
 
 controller::checkAuthentication();
 
-if (!isset($_POST['campaignId']))
+if (!isset($_GET['campaignId']))
     return;
 
-$articles = controller::getArticlessByCampaign($_POST['campaignId']);
+$campaignId = $_GET['campaignId'];
+
+if (isset($_POST['editcampaign']))
+    $campaign = controller::editCampaign($campaignId);
+else
+    $campaign = controller::getCampaign($campaignId);
+
+$articles = controller::getArticlessByCampaign($campaign);
 
 ?>
 
 <section id="main" class="column" style="height: 90%;">
-    <form method="POST" action="<?php echo $_SERVER["PHP_SELF"]; ?>?content=finalizecampaign">
-        <article class="module width_half">
+    <form method="POST" action="<?php echo $_SERVER["PHP_SELF"]; ?>?content=finalizecampaign&campaignId=<?php echo $campaignId; ?>">
+        <article class="module width_full">
             
             <header>
                 <h3 class="tabs_involved">Artikelauswahl</h3>
@@ -20,25 +27,32 @@ $articles = controller::getArticlessByCampaign($_POST['campaignId']);
             <table cellspacing="0" class="tablesorter">
                 <thead>
                     <tr> 
-                        <th class="header">Betreff</th>
-                        <th class="header">Text</th>
-                        <th class="header" style="width: 120px;">Sachbearbeiter</th>
-                        <th class="header" style="width: 100px;">Status</th>
-                        <th class="header" style="width: 100px;">Datum</th>
+                        <th class="header"></th>
+                        <th class="header">Artikel</th>
+                        <th class="header">Kategorie</th>
+                        <th class="header">Hersteller</th>
+                        <th class="header">Model</th>
+                        <th class="header">Lagerbestand</th>
                     </tr> 
                 </thead>
                 <tbody style='overflow: scroll; height: 300px;'>
                     <?php
-
+                    
                     foreach ($articles as $article) {
+                        if ($article->isSelected)
+                            $checked = "checked=''";
+                        else
+                            $checked = "";
                         echo "<tr>";
-                        echo    "<td><input name='isSelected' type='checkbox' value='".$article->id."'</td>";
-                        echo    "<td><a href='index.php?content=customerdetails&customerId=".$article->id."'>".$article->getFullName()."</a></td>";
-                        echo    "<td style='width: 100px;'>".$article->getBirthdate()."</td>";
-                        echo    "<td>".$article->zip."</td>";
+                        echo    "<td><input name='isSelected' type='checkbox' ".$checked." value='".$article->id."'</td>";
+                        echo    "<td><a href='index.php?content=articledetailsfromcampaign&articleId=".$article->id."&campaignId=".$campaignId."'>".$article->getFullName()."</a></td>";
+                        echo    "<td>".$article->category."</td>";
+                        echo    "<td>".$article->manufacturer."</td>";
+                        echo    "<td>".$article->model."</td>";
+                        echo    "<td>".$article->stock."</td>";
                         echo "</tr>";
                     }
-
+                    
                     ?>
                 </tbody>
             </table>

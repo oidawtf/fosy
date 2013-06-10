@@ -17,7 +17,13 @@ $customers = controller::getCustomersByCampaign($campaign);
 ?>
 
 <section id="main" class="column" style="height: 90%;">
-    <form method="POST" action="<?php echo $_SERVER["PHP_SELF"]; ?>?content=addarticlestocampaign">
+    <form method="POST" action="<?php echo $_SERVER["PHP_SELF"]; ?>?content=addarticlestocampaign&campaignId=<?php echo $campaignId; ?>">
+        
+        <?php
+        if ($campaign->medium == "email")
+            echo "<h4 class='alert_warning'>Es werden nur Kunden angezeigt, die eine email eingetragen haben.</h4>";
+        ?>
+        
         <article class="module width_full">
             
             <header>

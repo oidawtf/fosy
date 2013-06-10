@@ -143,14 +143,14 @@ CREATE TABLE campaign_person (
   fk_campaign_id));
 CREATE TABLE campaign (
   id          int(10) NOT NULL AUTO_INCREMENT, 
-  name        varchar(255) NOT NULL, 
-  description varchar(255) NOT NULL, 
-  goal        varchar(255) NOT NULL, 
-  date_from   date NOT NULL, 
-  date_to     date NOT NULL, 
-  budget      decimal(19, 2) NOT NULL, 
-  medium      varchar(64) NOT NULL, 
-  code        varchar(64) NOT NULL, 
+  name        varchar(255), 
+  description varchar(255), 
+  goal        varchar(255), 
+  date_from   date, 
+  date_to     date, 
+  budget      decimal(19, 2), 
+  medium      varchar(64), 
+  code        varchar(64), 
   CONSTRAINT id 
     PRIMARY KEY (id), 
   UNIQUE INDEX (id));

@@ -169,9 +169,11 @@ class controller {
             $namefilter = $_GET['namefilter'];
         else
             $namefilter = NULL;
+        
         if (isset($_GET['zipfilter']))
             $zipfilter = $_GET['zipfilter'];
         else
+            
             $zipfilter = NULL;
         if (isset($_GET['birthdatefilter']))
             $birthdatefilter = $_GET['birthdatefilter'];
@@ -179,6 +181,20 @@ class controller {
             $birthdatefilter = NULL;
         
         return controller::getDataService()->selectCustomersByCampaign($campaign->id, $campaign->medium, $namefilter, $zipfilter, $birthdatefilter);
+    }
+    
+    public static function getArticlessByCampaign($campaign) {
+        if (isset($_GET['category_id']))
+            $category_id = $_GET['category_id'];
+        else
+            $category_id = NULL;
+        
+        if (isset($_GET['manufacturer_id']))
+            $manufacturer_id = $_GET['manufacturer_id'];
+        else
+            $manufacturer_id = NULL;
+        
+        return controller::getDataService()->selectArticlesByCampaign($campaign->id, $category_id, $manufacturer_id);
     }
     
     public static function getCustomers($search = NULL) {

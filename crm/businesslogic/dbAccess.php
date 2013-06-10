@@ -123,23 +123,11 @@ class dbAccess {
             $where = "
                 WHERE
                     P.email IS NOT NULL AND
+                    P.email != '' AND
                     P.is_customer = 1
                     ";
         else
-            $where = "
-                WHERE
-                    P.street IS NOT NULL AND
-                    P.housenumber IS NOT NULL AND
-                    P.city IS NOT NULL AND
-                    P.zip IS NOT NULL AND
-                    P.country IS NOT NULL AND
-                    P.street != '' AND
-                    P.housenumber != '' AND
-                    P.city != '' AND
-                    P.zip != '' AND
-                    P.country != '' AND
-                    P.is_customer = 1
-                ";
+            $where = "WHERE P.is_customer = 1";
         
         $this->openConnection();
         
@@ -202,6 +190,64 @@ class dbAccess {
             $person->is_employee = $row['is_employee'];
             $person->isSelected = $row['isSelected'];
             $result[] = $person;
+        }
+        
+        $this->closeConnection($query);
+        
+        return $result;
+    }
+    
+    public function selectArticlesByCampaign($campaignId, $category_id, $manufacturer_id) {
+        $this->openConnection();
+        
+        $where = "";
+        
+        $query = mysql_query("
+            SELECT
+                A.id AS article_id,
+                AC.id AS category_id,
+                AC.name AS category,
+                AM.id AS manufacturer_id,
+                AM.name AS manufacturer,
+                A.model,
+                A.description,
+                A.picture,
+                A.stock,
+                A.purchase_price,
+                A.selling_price,
+                A.tax_rate,
+                CA.real_price,
+                CA.fk_campaign_id = '".$campaignId."' AS isSelected
+            FROM
+                article AS A
+                LEFT OUTER JOIN campaign_article AS CA on A.id = CA.fk_article_id
+                LEFT OUTER JOIN article_category AS AC on A.fk_article_category_id = AC.id
+                LEFT OUTER JOIN article_manufacturer AS AM on A.fk_article_manufacturer_id = AM.id
+            ".$where."
+            ");
+        
+        $result = array();
+        while ($row = mysql_fetch_assoc($query))
+        {
+            $article = new article();
+            $article->id = $row['article_id'];
+            $article->category_id = $row['category_id'];
+            $article->category = $row['category'];
+            $article->manufacturer_id = $row['manufacturer_id'];
+            $article->manufacturer = $row['manufacturer'];
+            $article->model = $row['model'];
+            $article->description = $row['description'];
+            $article->picture = $row['picture'];
+            $article->stock = $row['stock'];
+            $article->purchase_price = $row['purchase_price'];
+            $article->selling_price = $row['selling_price'];
+            if ($row['real_price'] == NULL)
+                $article->real_price = $row['selling_price'];
+            else
+                $article->real_price = $row['real_price'];
+            $article->tax_rate = $row['tax_rate'];
+            $article->isSelected = $row['isSelected'];
+            $result[] = $article;
         }
         
         $this->closeConnection($query);
