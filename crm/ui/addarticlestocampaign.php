@@ -10,7 +10,7 @@ $articles = controller::getArticlessByCampaign($_POST['campaignId']);
 ?>
 
 <section id="main" class="column" style="height: 90%;">
-    <form method="POST" action="<?php echo $_SERVER["PHP_SELF"]; ?>?content=finanlizecampaign">
+    <form method="POST" action="<?php echo $_SERVER["PHP_SELF"]; ?>?content=finalizecampaign">
         <article class="module width_half">
             
             <header>

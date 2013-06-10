@@ -167,7 +167,7 @@ class dbAccess {
                 P.is_distributor,
                 P.is_customer,
                 P.is_employee,
-                !ISNULL(CP.fk_campaign_id) AS isSelected
+                CP.fk_campaign_id = '".$campaignId."' AS isSelected
             FROM
                 person AS P
                 LEFT OUTER JOIN campaign_person AS CP on P.id = CP.fk_person_id
@@ -200,7 +200,6 @@ class dbAccess {
             $person->is_distributor = $row['is_distributor'];
             $person->is_customer = $row['is_customer'];
             $person->is_employee = $row['is_employee'];
-            //if ($row['isSelected'] == '1')
             $person->isSelected = $row['isSelected'];
             $result[] = $person;
         }

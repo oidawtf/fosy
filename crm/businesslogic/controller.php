@@ -22,18 +22,19 @@ class controller {
             controller::$content = array(
                 'home' => new page('home', 'Home', 'ui/home.php'),
                 'login' => new page('login', 'Login', 'ui/login.php'),
-                'showcustomers' => new page('showcustomers', 'Kunden ansehen', 'ui/showcustomers.php', false, array('home')),
-                'customerdetails' => new page('customerdetails', 'Kundendetails', 'ui/customerdetails.php', true, array('home', 'showcustomers')),
-                'editcustomer' => new page('editcustomer', 'Kunden bearbeiten', 'ui/editcustomer.php', true, array('home', 'showcustomers', 'customerdetails')),
-                'requestdetails' => new page('requestdetails', 'Anfragendetails', 'ui/requestdetails.php', true, array('home', 'showcustomers', 'customerdetails')),
-                'createrequest' => new page('createrequest', 'Anfrage erfassen', 'ui/editrequest.php', true, array('home', 'showcustomers', 'customerdetails')),
-                'editrequest' => new page('editrequest', 'Anfrage bearbeiten', 'ui/editrequest.php', true, array('home', 'showcustomers', 'customerdetails', 'requestdetails')),
-                'createcustomer' => new page('createcustomer', 'Kunden erfassen', 'ui/editcustomer.php', false, array('home')),
-                'editcampaign' => new page('editcampaign', 'Kampagne erstellen', 'ui/editcampaign.php', true, array('home')),
-                'addcustomerstocampaign' => new page('addcustomerstocampaign', 'Kunden zur Kampagne hinzufügen', 'ui/addcustomerstocampaign.php', true, array('home', 'editcampaign')),
-                'addarticlestocampaign' => new page('addarticlestocampaign', 'Artikel zur Kampagne hinzufügen', 'ui/addarticlestocampaign.php', true, array('home'), 'editcampaign', 'addcustomerstocampaign'),
-                'finalizecampaign' => new page('finalizecampaign', 'Kampagne fertigstellen', 'ui/finalizecampaign.php', true, array('home'), 'editcampaign', 'addcustomerstocampaign', 'addarticlestocampaign'),
-                'analysecampaign' => new page('analysecampaign', 'Kampagne analysieren', 'ui/analysecampaign.php', true, array('home'))
+                'showcustomers' => new page('showcustomers', 'Kunden ansehen', 'ui/showcustomers.php', NULL, array('home')),
+                'customerdetails' => new page('customerdetails', 'Kundendetails', 'ui/customerdetails.php', 'id', array('home', 'showcustomers')),
+                'editcustomer' => new page('editcustomer', 'Kunden bearbeiten', 'ui/editcustomer.php', 'id', array('home', 'showcustomers', 'customerdetails')),
+                'requestdetails' => new page('requestdetails', 'Anfragendetails', 'ui/requestdetails.php', 'id', array('home', 'showcustomers', 'customerdetails')),
+                'createrequest' => new page('createrequest', 'Anfrage erfassen', 'ui/editrequest.php', 'id', array('home', 'showcustomers', 'customerdetails')),
+                'editrequest' => new page('editrequest', 'Anfrage bearbeiten', 'ui/editrequest.php', 'id', array('home', 'showcustomers', 'customerdetails', 'requestdetails')),
+                'createcustomer' => new page('createcustomer', 'Kunden erfassen', 'ui/editcustomer.php', NULL, array('home')),
+                'editcampaign' => new page('editcampaign', 'Kampagne erstellen', 'ui/editcampaign.php', 'campaignId', array('home')),
+                'addcustomerstocampaign' => new page('addcustomerstocampaign', 'Kunden zur Kampagne hinzufügen', 'ui/addcustomerstocampaign.php', 'campaignId', array('home', 'editcampaign')),
+                'customerdetailsfromcampaign' => new page('customerdetailsfromcampaign', 'Kundendetails', 'ui/customerdetails.php', 'id', array('home', 'editcampaign', 'addcustomerstocampaign')),
+                'addarticlestocampaign' => new page('addarticlestocampaign', 'Artikel zur Kampagne hinzufügen', 'ui/addarticlestocampaign.php', 'campaignId', array('home', 'editcampaign', 'addcustomerstocampaign')),
+                'finalizecampaign' => new page('finalizecampaign', 'Kampagne fertigstellen', 'ui/finalizecampaign.php', 'campaignId', array('home', 'editcampaign', 'addcustomerstocampaign', 'addarticlestocampaign')),
+                'analysecampaign' => new page('analysecampaign', 'Kampagne analysieren', 'ui/analysecampaign.php', 'campaignId', array('home'))
                 );
         }
 

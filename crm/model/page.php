@@ -5,14 +5,14 @@ class page {
     private $id;
     private $title;
     private $url;
-    private $needsId;
+    private $GETId;
     private $parents;
     
-    public function __construct($id, $title, $url, $needsId = false, $parents = NULL) {
+    public function __construct($id, $title, $url, $GETId = NULL, $parents = NULL) {
         $this->id = $id;
         $this->title = $title;
         $this->url = $url;
-        $this->needsId = $needsId;
+        $this->GETId = $GETId;
         $this->parents = $parents;
     }
     
@@ -29,10 +29,11 @@ class page {
     }
     
     public function computeIdParameter() {
-        if (isset($_GET['id']) && $this->needsId)
-            return '&id='.$_GET['id'];
+        if ($this->GETId == NULL || !isset($_GET[$this->GETId]))
+            return "";
         
-        return "";
+        return "&".$this->GETId."=".$_GET[$this->GETId];
+        //return '&id='.$_GET['id'];
     }
     
     public function getParents() {
