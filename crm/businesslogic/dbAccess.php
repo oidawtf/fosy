@@ -196,7 +196,16 @@ class dbAccess {
         
         return $result;
     }
-    
+//    
+//                SELECT
+//                A.id AS article_id,
+//SubCampaign.fk_campaign_id
+//            FROM
+//                article AS A
+//                LEFT OUTER JOIN 
+//                 (SELECT * from campaign_article  WHERE   campaign_article.fk_campaign_id = 2) AS SubCampaign  on A.id = SubCampaign.fk_article_id 
+//
+//    
     public function selectArticlesByCampaign($campaignId, $category_id, $manufacturer_id) {
         $this->openConnection();
         
