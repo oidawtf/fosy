@@ -1,5 +1,5 @@
 <?php
 
-controller::checkAuthentication();
+authenticationController::checkAuthentication();
 
 ?>

@@ -68,13 +68,13 @@
     
     // Login clicked
     if (isset($_POST['login']) && isset($_POST['username']) && isset($_POST['password']))
-        if (controller::isLoginValid($_POST['username'], $_POST['password'])) {
-            controller::Login($_POST['username']);
+        if (authenticationController::isLoginValid($_POST['username'], $_POST['password'])) {
+            authenticationController::Login($_POST['username']);
         }
     
     // Logout clicked
     if (isset($_POST['logout']))
-        controller::Logout();
+        authenticationController::Logout();
 
     ?>
 
@@ -84,7 +84,7 @@
         
         include "ui/header.php";
         
-        if (controller::isLoggedIn())
+        if (authenticationController::isLoggedIn())
             include "ui/navi.php";
             
         ?>

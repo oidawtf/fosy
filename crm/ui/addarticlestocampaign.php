@@ -1,6 +1,6 @@
 <?php
 
-controller::checkAuthentication();
+authenticationController::checkAuthentication();
 
 if (!isset($_GET['campaignId']))
     return;

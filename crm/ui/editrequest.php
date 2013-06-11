@@ -1,6 +1,6 @@
 <?php
 
-@controller::checkAuthentication();
+authenticationController::checkAuthentication();
 
 if (isset($_GET['customerId'])) {
     $customerId = $_GET['customerId'];
@@ -12,7 +12,7 @@ if (isset($_GET['requestId'])) {
 }
 else {
     $request = new request();
-    $user = controller::getUser();
+    $user = authenticationController::getUser();
     $request->responsible_userId = $user['id'];
     $request->responsible_user = $user['username'];
     $request->article_category_id = 1;
@@ -78,7 +78,7 @@ else {
                     <label>Sachbearbeiter</label>
                     <select name="responsible_userId" style="width:92%;">
                         <?php
-                        foreach (controller::getUsers() as $item) {
+                        foreach (authenticationController::getUsers() as $item) {
                             if ($request->responsible_userId == $item['id'])
                                 $selected = "selected='selected'";
                             else

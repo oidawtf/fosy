@@ -8,7 +8,7 @@
             
             <?php
             
-            if (controller::isLoggedIn()) {
+            if (authenticationController::isLoggedIn()) {
                 echo "<form method='POST' action='".$_SERVER['PHP_SELF']."'>";
                 echo    "<input type='hidden' name='logout'>";
                 echo    "<a href='javascript:;' onclick='parentNode.submit();'>Logout</a>";
@@ -27,13 +27,13 @@
 </header>
 
 <?php
-if (!controller::isLoggedIn())
+if (!authenticationController::isLoggedIn())
     return;
 ?>
 
 <section id="secondary_bar">
     <div class="user">
-        <p><?php echo controller::getFullUsername(); ?></p>
+        <p><?php echo authenticationController::getFullUsername(); ?></p>
     </div>
     <div class="breadcrumbs_container">
         <article class="breadcrumbs">

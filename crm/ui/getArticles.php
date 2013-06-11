@@ -2,7 +2,7 @@
 
 require '../includes.php';
 
-controller::checkAuthentication();
+authenticationController::checkAuthentication();
 
 if (!isset($_POST['article_category_id']))
     return;
