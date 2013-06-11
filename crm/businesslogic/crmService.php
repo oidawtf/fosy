@@ -107,7 +107,11 @@ class crmService {
                 CP.fk_campaign_id = '".$campaignId."' AS isSelected
             FROM
                 person AS P
-                LEFT OUTER JOIN campaign_person AS CP on P.id = CP.fk_person_id
+                LEFT OUTER JOIN (
+                    SELECT *
+                    FROM campaign_person
+                    WHERE campaign_person.fk_campaign_id = '".$campaignId."'
+                    ) AS CP on P.id = CP.fk_person_id
             ".$where."
             ");
         
@@ -145,16 +149,7 @@ class crmService {
         
         return $result;
     }
-//    
-//                SELECT
-//                A.id AS article_id,
-//SubCampaign.fk_campaign_id
-//            FROM
-//                article AS A
-//                LEFT OUTER JOIN 
-//                 (SELECT * from campaign_article  WHERE   campaign_article.fk_campaign_id = 2) AS SubCampaign  on A.id = SubCampaign.fk_article_id 
-//
-//    
+   
     public function selectArticlesByCampaign($campaignId, $category_id, $manufacturer_id) {
         $this->openConnection();
         
@@ -163,10 +158,6 @@ class crmService {
         $query = mysql_query("
             SELECT
                 A.id AS article_id,
-                AC.id AS category_id,
-                AC.name AS category,
-                AM.id AS manufacturer_id,
-                AM.name AS manufacturer,
                 A.model,
                 A.description,
                 A.picture,
@@ -174,11 +165,20 @@ class crmService {
                 A.purchase_price,
                 A.selling_price,
                 A.tax_rate,
+                CA.fk_campaign_id AS campaign_id,
                 CA.real_price,
-                CA.fk_campaign_id = '".$campaignId."' AS isSelected
+                CA.fk_campaign_id = '".$campaignId."' AS isSelected,
+                AC.id AS category_id,
+                AC.name AS category,
+                AM.id AS manufacturer_id,
+                AM.name AS manufacturer
             FROM
                 article AS A
-                LEFT OUTER JOIN campaign_article AS CA on A.id = CA.fk_article_id
+                LEFT OUTER JOIN (
+                    SELECT *
+                    FROM campaign_article
+                    WHERE campaign_article.fk_campaign_id = '".$campaignId."'
+                    ) AS CA on A.id = CA.fk_article_id
                 LEFT OUTER JOIN article_category AS AC on A.fk_article_category_id = AC.id
                 LEFT OUTER JOIN article_manufacturer AS AM on A.fk_article_manufacturer_id = AM.id
             ".$where."
