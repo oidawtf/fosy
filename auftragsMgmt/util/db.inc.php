@@ -9,5 +9,6 @@
                 ) or die("Keine Verbindung!");
 	
 	mysql_select_db(authenticationController::db, $db) or die("Konnte Datenbank nicht finden!");
+        mysql_query("SET NAMES 'utf8'");
 	
 ?>		

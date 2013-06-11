@@ -28,14 +28,14 @@
 	
 		// Login clicked
 		if(isset($_POST['login']) && isset($_POST['username']) && isset($_POST['password'])) {
-			if(isLoginValid($_POST['username'], $_POST['password'])) {
-				login($_POST['username']);
+			if(authenticationController::isLoginValid($_POST['username'], $_POST['password'])) {
+				authenticationController::login($_POST['username']);
 			}
 		}
     
 	    // Logout clicked
     	if(isset($_POST['logout'])) {
-    		logout();
+    		authenticationController::logout();
 	    }
     ?>
 
@@ -44,17 +44,17 @@
 	<div id="wrapper">
 	
 		<!-- header start -->
-		<?php if(isLoggedIn()) { include "header.php"; } ?>
+		<?php if(authenticationController::isLoggedIn()) { include "header.php"; } ?>
 		<!-- header end -->
 		
 		<!-- navi start -->
-		<?php if(isLoggedIn()) { include "navi.php"; } ?>
+		<?php if(authenticationController::isLoggedIn()) { include "navi.php"; } ?>
 		<!-- navi end -->
 
 		<div id="content">
 			<?php
 			
-				if(isLoggedIn()) {
+				if(authenticationController::isLoggedIn()) {
 					if(isset($_GET['content'])) {
 						switch($_GET['content']) {
 							case 'dashboard':
@@ -87,7 +87,7 @@
 		</div>
 		
 		<!-- footer start -->
-		<?php if(isLoggedIn()) { include "footer.php"; } ?>
+		<?php if(authenticationController::isLoggedIn()) { include "footer.php"; } ?>
 		<!-- footer end -->
 	</div><!-- wrapper end -->
 
