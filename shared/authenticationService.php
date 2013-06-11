@@ -14,6 +14,13 @@ class authenticationService {
         $this->db = $db;
     }
     
+    public static function format($input)
+    {
+        $input = stripslashes($input);
+        $input = mysql_real_escape_string($input);
+        return $input;
+    }
+    
     private function displayError($connection) {
         echo mysql_errno($connection) . ": " . mysql_error($connection). "\n";
     }
@@ -39,18 +46,11 @@ class authenticationService {
         mysql_close();  
     }
     
-    private function format($input)
-    {
-        $input = stripslashes($input);
-        $input = mysql_real_escape_string($input);
-        return $input;
-    }
-    
     public function checkCredentials($username, $password) {
         $this->openConnection();
         
-        $username = $this->format($username);
-        $password = $this->format($password);
+        $username = authenticationService::format($username);
+        $password = authenticationService::format($password);
         $password = md5($password);
         
         // Hier query auslagern in $this->queries["select"]
@@ -69,7 +69,7 @@ class authenticationService {
     public function isUserRegistered($username) {
         $this->openConnection();
 
-        $username = $this->format($username);
+        $username = authenticationService::format($username);
         
         $query = mysql_query("
             SELECT *

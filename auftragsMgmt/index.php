@@ -22,30 +22,30 @@
 	
 		// Login clicked
 		if(isset($_POST['login']) && isset($_POST['username']) && isset($_POST['password'])) {
-			if(isLoginValid($_POST['username'], $_POST['password'])) {
-				login($_POST['username']);
+			if(authenticationController::isLoginValid($_POST['username'], $_POST['password'])) {
+				authenticationController::login($_POST['username']);
 			}
 		}
     
 	    // Logout clicked
     	if(isset($_POST['logout'])) {
-    		logout();
+    		authenticationController::logout();
 	    }
     ?>
 
     <body>
 		<div id="wrapper">
 			<!-- header start -->
-			<?php if(isLoggedIn()) { include "header.php"; } ?>
+			<?php if(authenticationController::isLoggedIn()) { include "header.php"; } ?>
 			<!-- header end -->
 			
 			<!-- navi start -->
-			<?php if(isLoggedIn()) { include "navi_auftragsmgmt.php"; } ?>
+			<?php if(authenticationController::isLoggedIn()) { include "navi_auftragsmgmt.php"; } ?>
 			<!-- navi end -->
 
 
 			<?php
-				if(isLoggedIn()) {
+				if(authenticationController::isLoggedIn()) {
 					echo "<div id=\"content\">";
 						include "content.php";
 						// TODO WHITE LIST!
@@ -54,12 +54,12 @@
 			?>
 
 				<?php
-					if(!isLoggedIn()){
+					if(!authenticationController::isLoggedIn()){
 						include "login.php";
 					}
 				?>
 
-			<?php if(isLoggedIn()) { include "footer.php"; } ?>
+			<?php if(authenticationController::isLoggedIn()) { include "footer.php"; } ?>
 		</div>
     </body>
 </html>

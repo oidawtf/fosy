@@ -1,5 +1,5 @@
 <?php
-if(isLoggedIn()) {
+if(authenticationController::isLoggedIn()) {
   if(isset($_GET['content'])) {
     switch($_GET['content']) {
       case 'home':
