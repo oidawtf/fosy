@@ -49,7 +49,11 @@ INSERT INTO `campaign_person` (`fk_person_id`, `fk_campaign_id`) VALUES
 (23, 1),
 (23, 2),
 (24, 1),
-(24, 2);
+(24, 2),
+(25, 1),
+(26, 2),
+(27, 2),
+(28, 1);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
