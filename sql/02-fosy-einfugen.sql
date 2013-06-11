@@ -84,9 +84,9 @@ INSERT INTO period (value) VALUES ('1 Quartal');
 INSERT INTO period (value) VALUES ('1 Jahr');
 
 -- plannedValue_type
-INSERT INTO plannedValue_type (type) VALUES ('Anz.');
-INSERT INTO plannedValue_type (type) VALUES ('%');
-INSERT INTO plannedValue_type (type) VALUES ('€');
+INSERT INTO plannedvalue_type (type) VALUES ('Stk.');
+INSERT INTO plannedvalue_type (type) VALUES ('%');
+INSERT INTO plannedvalue_type (type) VALUES ('€');
 
 -- Status
 INSERT INTO status (value) VALUES ('Offen');

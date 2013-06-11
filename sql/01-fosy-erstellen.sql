@@ -1,3 +1,8 @@
+CREATE TABLE plannedvalue_type (
+  id   int(10) NOT NULL AUTO_INCREMENT, 
+  type varchar(10) NOT NULL, 
+  PRIMARY KEY (id), 
+  UNIQUE INDEX (id));
 CREATE TABLE article_manufacturer (
   id   int(10) NOT NULL AUTO_INCREMENT, 
   name varchar(255) NOT NULL, 
@@ -25,11 +30,12 @@ CREATE TABLE period (
   value varchar(255) NOT NULL, 
   PRIMARY KEY (id), 
   UNIQUE INDEX (id));
-CREATE TABLE plannedValue (
-  id              int(10) NOT NULL AUTO_INCREMENT, 
-  fk_period_id    int(10) NOT NULL, 
-  fk_indicator_id int(10) NOT NULL, 
-  value           int(10) NOT NULL, 
+CREATE TABLE plannedvalue (
+  id                      int(10) NOT NULL AUTO_INCREMENT, 
+  fk_period_id            int(10) NOT NULL, 
+  fk_indicator_id         int(10) NOT NULL, 
+  fk_plannedvalue_type_id int(10) NOT NULL, 
+  value                   varchar(10) NOT NULL, 
   PRIMARY KEY (id), 
   UNIQUE INDEX (id));
 CREATE TABLE indicator (
@@ -129,7 +135,7 @@ CREATE TABLE customer_request (
   id                          int(10) NOT NULL AUTO_INCREMENT, 
   fk_customer_request_type_id int(10) NOT NULL, 
   fk_person_id                int(10) NOT NULL, 
-  fk_responsible_user_id      int(10), 
+  fk_responsible_user_id      int(10) NOT NULL, 
   fk_article_id               int(10) NOT NULL, 
   fk_status_id                int(10) NOT NULL, 
   `date`                      date NOT NULL, 
@@ -143,14 +149,14 @@ CREATE TABLE campaign_person (
   fk_campaign_id));
 CREATE TABLE campaign (
   id          int(10) NOT NULL AUTO_INCREMENT, 
-  name        varchar(255) NOT NULL, 
-  description varchar(255) NOT NULL, 
-  goal        varchar(255) NOT NULL, 
-  date_from   date NOT NULL, 
-  date_to     date NOT NULL, 
-  budget      decimal(19, 2) NOT NULL, 
-  medium      varchar(64) NOT NULL, 
-  code        varchar(64) NOT NULL, 
+  name        varchar(255), 
+  description varchar(255), 
+  goal        varchar(255), 
+  date_from   date, 
+  date_to     date, 
+  budget      decimal(19, 2), 
+  medium      varchar(64), 
+  code        varchar(64), 
   CONSTRAINT id 
     PRIMARY KEY (id), 
   UNIQUE INDEX (id));
@@ -167,6 +173,7 @@ CREATE TABLE person (
   username         varchar(32) UNIQUE, 
   password         varchar(255), 
   title            varchar(10), 
+  companyname      varchar(255), 
   street           varchar(255) NOT NULL, 
   housenumber      int(10) NOT NULL, 
   stiege           smallint(6), 
@@ -186,6 +193,8 @@ CREATE TABLE person (
   is_employee      tinyint(1), 
   PRIMARY KEY (id), 
   UNIQUE INDEX (id));
+ALTER TABLE plannedvalue ADD INDEX FKplannedval839 (fk_plannedvalue_type_id), ADD CONSTRAINT FKplannedval839 FOREIGN KEY (fk_plannedvalue_type_id) REFERENCES plannedvalue_type (id);
+ALTER TABLE customer_request ADD INDEX FKcustomer_r922497 (fk_responsible_user_id), ADD CONSTRAINT FKcustomer_r922497 FOREIGN KEY (fk_responsible_user_id) REFERENCES person (id);
 ALTER TABLE article ADD INDEX FKarticle457910 (fk_article_manufacturer_id), ADD CONSTRAINT FKarticle457910 FOREIGN KEY (fk_article_manufacturer_id) REFERENCES article_manufacturer (id);
 ALTER TABLE person_role ADD INDEX FKperson_rol382207 (fk_role_id), ADD CONSTRAINT FKperson_rol382207 FOREIGN KEY (fk_role_id) REFERENCES role (id);
 ALTER TABLE offer ADD INDEX FKoffer923303 (fk_customer_id), ADD CONSTRAINT FKoffer923303 FOREIGN KEY (fk_customer_id) REFERENCES person (id);
@@ -206,6 +215,5 @@ ALTER TABLE offer_article ADD INDEX FKoffer_arti895052 (fk_article_id), ADD CONS
 ALTER TABLE offer_article ADD INDEX FKoffer_arti327112 (fk_offer_id), ADD CONSTRAINT FKoffer_arti327112 FOREIGN KEY (fk_offer_id) REFERENCES offer (id);
 ALTER TABLE tax ADD INDEX FKtax270969 (fk_tax_type_id), ADD CONSTRAINT FKtax270969 FOREIGN KEY (fk_tax_type_id) REFERENCES tax_type (id);
 ALTER TABLE indicator ADD INDEX FKindicator424408 (fk_indicator_type_id), ADD CONSTRAINT FKindicator424408 FOREIGN KEY (fk_indicator_type_id) REFERENCES indicator_type (id);
-ALTER TABLE plannedValue ADD INDEX FKplannedVal989713 (fk_indicator_id), ADD CONSTRAINT FKplannedVal989713 FOREIGN KEY (fk_indicator_id) REFERENCES indicator (id);
-ALTER TABLE plannedValue ADD INDEX FKplannedVal409240 (fk_period_id), ADD CONSTRAINT FKplannedVal409240 FOREIGN KEY (fk_period_id) REFERENCES period (id);
-ALTER TABLE customer_request ADD INDEX FKcustomer_r922497 (fk_responsible_user_id), ADD CONSTRAINT FKcustomer_r922497 FOREIGN KEY (fk_responsible_user_id) REFERENCES person (id);
+ALTER TABLE plannedvalue ADD INDEX FKplannedval437012 (fk_indicator_id), ADD CONSTRAINT FKplannedval437012 FOREIGN KEY (fk_indicator_id) REFERENCES indicator (id);
+ALTER TABLE plannedvalue ADD INDEX FKplannedval9649 (fk_period_id), ADD CONSTRAINT FKplannedval9649 FOREIGN KEY (fk_period_id) REFERENCES period (id);

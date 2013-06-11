@@ -10,12 +10,12 @@ INSERT INTO indicator (fk_indicator_type_id, name) VALUES ( (select id from indi
 INSERT INTO indicator (fk_indicator_type_id, name) VALUES ( (select id from indicator_type where type='TAB'), 'Anzahl Bestellungen pro Kunde');
 
 -- plannedValue
-INSERT INTO plannedValue (fk_period_id, fk_indicator_id, fk_plannedValue_type_id, value) VALUES ( (select id from period where value='1 Monat'), (select id from indicator where name='Anzahl Angebote'), (select id from plannedValue_type where type='Anz.'), '10');
-INSERT INTO plannedValue (fk_period_id, fk_indicator_id, fk_plannedValue_type_id, value) VALUES ( (select id from period where value='1 Quartal'), (select id from indicator where name='Anzahl Angebote'), (select id from plannedValue_type where type='Anz.'), '30');
-INSERT INTO plannedValue (fk_period_id, fk_indicator_id, fk_plannedValue_type_id, value) VALUES ( (select id from period where value='1 Jahr'), (select id from indicator where name='Anzahl Angebote'), (select id from plannedValue_type where type='Anz.'), '120');
-INSERT INTO plannedValue (fk_period_id, fk_indicator_id, fk_plannedValue_type_id, value) VALUES ( (select id from period where value='1 Monat'), (select id from indicator where name='Anzahl Aufträge'), (select id from plannedValue_type where type='Anz.'), '5');
-INSERT INTO plannedValue (fk_period_id, fk_indicator_id, fk_plannedValue_type_id, value) VALUES ( (select id from period where value='1 Quartal'), (select id from indicator where name='Anzahl Aufträge'), (select id from plannedValue_type where type='Anz.'), '15');
-INSERT INTO plannedValue (fk_period_id, fk_indicator_id, fk_plannedValue_type_id, value) VALUES ( (select id from period where value='1 Monat'), (select id from indicator where name='Verhältnis Angebote/Aufträge'), (select id from plannedValue_type where type='%'), '33,33');
+INSERT INTO plannedvalue (fk_period_id, fk_indicator_id, fk_plannedvalue_type_id, value) VALUES ( (select id from period where value='1 Monat'), (select id from indicator where name='Anzahl Angebote'), (select id from plannedvalue_type where type='Stk.'), '10');
+INSERT INTO plannedvalue (fk_period_id, fk_indicator_id, fk_plannedvalue_type_id, value) VALUES ( (select id from period where value='1 Quartal'), (select id from indicator where name='Anzahl Angebote'), (select id from plannedvalue_type where type='Stk.'), '30');
+INSERT INTO plannedvalue (fk_period_id, fk_indicator_id, fk_plannedvalue_type_id, value) VALUES ( (select id from period where value='1 Jahr'), (select id from indicator where name='Anzahl Angebote'), (select id from plannedvalue_type where type='Stk.'), '120');
+INSERT INTO plannedvalue (fk_period_id, fk_indicator_id, fk_plannedvalue_type_id, value) VALUES ( (select id from period where value='1 Monat'), (select id from indicator where name='Anzahl Aufträge'), (select id from plannedvalue_type where type='Stk.'), '5');
+INSERT INTO plannedvalue (fk_period_id, fk_indicator_id, fk_plannedvalue_type_id, value) VALUES ( (select id from period where value='1 Quartal'), (select id from indicator where name='Anzahl Aufträge'), (select id from plannedvalue_type where type='Stk.'), '15');
+INSERT INTO plannedvalue (fk_period_id, fk_indicator_id, fk_plannedvalue_type_id, value) VALUES ( (select id from period where value='1 Monat'), (select id from indicator where name='Verhältnis Angebote/Aufträge'), (select id from plannedvalue_type where type='%'), '33,33');
 
 
 
