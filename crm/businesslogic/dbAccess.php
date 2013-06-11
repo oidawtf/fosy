@@ -90,10 +90,181 @@ class dbAccess {
             return false;
     }
     
-    public function selectCustomers($search = NULL)
-    {
+    public function selectCampaign($campaignId) {
         $this->openConnection();
+        
+        $campaignId = $this->format($campaignId);
 
+        $query = mysql_query("
+            SELECT id, name, description, goal, date_from, date_to, budget, medium, code
+            FROM campaign
+            WHERE id = '".$campaignId."'
+            ");
+        
+        $row = mysql_fetch_assoc($query);
+        $campaign = new campaign();
+        $campaign->id = $row['id'];
+        $campaign->name = $row['name'];
+        $campaign->description = $row['description'];
+        $campaign->goal = $row['goal'];
+        $campaign->date_from = $row['date_from'];
+        $campaign->date_to = $row['date_to'];
+        $campaign->budget = $row['budget'];
+        $campaign->medium = $row['medium'];
+        $campaign->code = $row['code'];
+        
+        $this->closeConnection($query);
+        
+        return $campaign;
+    }
+    
+    public function selectCustomersByCampaign($campaignId, $medium, $namefilter, $zipfilter, $birthdatefilter) {
+        if ($medium == "email")
+            $where = "
+                WHERE
+                    P.email IS NOT NULL AND
+                    P.email != '' AND
+                    P.is_customer = 1
+                    ";
+        else
+            $where = "WHERE P.is_customer = 1";
+        
+        $this->openConnection();
+        
+        $query = mysql_query("
+            SELECT
+                P.id,
+                P.username,
+                P.firstname,
+                P.lastname,
+                P.title,
+                P.birthdate,
+                P.street,
+                P.housenumber,
+                P.stiege,
+                P.doornumber,
+                P.city,
+                P.zip,
+                P.country,
+                P.phone,
+                P.fax,
+                P.email,
+                P.personnel_number,
+                P.hiredate,
+                P.position,
+                P.is_distributor,
+                P.is_customer,
+                P.is_employee,
+                CP.fk_campaign_id = '".$campaignId."' AS isSelected
+            FROM
+                person AS P
+                LEFT OUTER JOIN campaign_person AS CP on P.id = CP.fk_person_id
+            ".$where."
+            ");
+        
+        $result = array();
+        while ($row = mysql_fetch_assoc($query))
+        {
+            $person = new person();
+            $person->id = $row['id'];
+            $person->username = $row['username'];
+            $person->firstname = $row['firstname'];
+            $person->lastname = $row['lastname'];
+            $person->title = $row['title'];
+            $person->birthdate = $row['birthdate'];
+            $person->street = $row['street'];
+            $person->housenumber = $row['housenumber'];
+            $person->stiege = $row['stiege'];
+            $person->doornumber = $row['doornumber'];
+            $person->city = $row['city'];
+            $person->zip = $row['zip'];
+            $person->country = $row['country'];
+            $person->phone = $row['phone'];
+            $person->fax = $row['fax'];
+            $person->email = $row['email'];
+            $person->personnel_number = $row['personnel_number'];
+            $person->hiredate = $row['hiredate'];
+            $person->posistion = $row['position'];
+            $person->is_distributor = $row['is_distributor'];
+            $person->is_customer = $row['is_customer'];
+            $person->is_employee = $row['is_employee'];
+            $person->isSelected = $row['isSelected'];
+            $result[] = $person;
+        }
+        
+        $this->closeConnection($query);
+        
+        return $result;
+    }
+//    
+//                SELECT
+//                A.id AS article_id,
+//SubCampaign.fk_campaign_id
+//            FROM
+//                article AS A
+//                LEFT OUTER JOIN 
+//                 (SELECT * from campaign_article  WHERE   campaign_article.fk_campaign_id = 2) AS SubCampaign  on A.id = SubCampaign.fk_article_id 
+//
+//    
+    public function selectArticlesByCampaign($campaignId, $category_id, $manufacturer_id) {
+        $this->openConnection();
+        
+        $where = "";
+        
+        $query = mysql_query("
+            SELECT
+                A.id AS article_id,
+                AC.id AS category_id,
+                AC.name AS category,
+                AM.id AS manufacturer_id,
+                AM.name AS manufacturer,
+                A.model,
+                A.description,
+                A.picture,
+                A.stock,
+                A.purchase_price,
+                A.selling_price,
+                A.tax_rate,
+                CA.real_price,
+                CA.fk_campaign_id = '".$campaignId."' AS isSelected
+            FROM
+                article AS A
+                LEFT OUTER JOIN campaign_article AS CA on A.id = CA.fk_article_id
+                LEFT OUTER JOIN article_category AS AC on A.fk_article_category_id = AC.id
+                LEFT OUTER JOIN article_manufacturer AS AM on A.fk_article_manufacturer_id = AM.id
+            ".$where."
+            ");
+        
+        $result = array();
+        while ($row = mysql_fetch_assoc($query))
+        {
+            $article = new article();
+            $article->id = $row['article_id'];
+            $article->category_id = $row['category_id'];
+            $article->category = $row['category'];
+            $article->manufacturer_id = $row['manufacturer_id'];
+            $article->manufacturer = $row['manufacturer'];
+            $article->model = $row['model'];
+            $article->description = $row['description'];
+            $article->picture = $row['picture'];
+            $article->stock = $row['stock'];
+            $article->purchase_price = $row['purchase_price'];
+            $article->selling_price = $row['selling_price'];
+            if ($row['real_price'] == NULL)
+                $article->real_price = $row['selling_price'];
+            else
+                $article->real_price = $row['real_price'];
+            $article->tax_rate = $row['tax_rate'];
+            $article->isSelected = $row['isSelected'];
+            $result[] = $article;
+        }
+        
+        $this->closeConnection($query);
+        
+        return $result;
+    }
+    
+    public function selectCustomers($search = NULL) {
         $search = $this->format($search);
         
         if ($search == NULL)
@@ -104,7 +275,14 @@ class dbAccess {
                          P.username like '%".$search."%' OR
                          P.firstname like '%".$search."%' OR
                          P.lastname like '%".$search."%') AND P.is_customer = 1";
-                
+        
+        return $this->selectCustomersInternal($where);
+    }
+    
+    public function selectCustomersInternal($where)
+    {
+        $this->openConnection();
+        
         $query = mysql_query("
             SELECT
                 P.id,
@@ -130,7 +308,9 @@ class dbAccess {
                 P.is_customer,
                 P.is_employee,
                 COUNT(CR.id) AS 'count_requests'
-            FROM person AS P left OUTER JOIN customer_request AS CR on P.id = CR.fk_person_id
+            FROM
+                person AS P
+                LEFT OUTER JOIN customer_request AS CR on P.id = CR.fk_person_id
             ".$where."
             GROUP BY P.id;
             ");
@@ -506,6 +686,66 @@ class dbAccess {
         $this->closeConnection($query);
         
         return $result;
+    }
+    
+    public function deleteEmptyCampaigns() {
+        $this->openConnection();
+
+        mysql_query("
+            DELETE
+            FROM campaign
+            WHERE
+                name IS NULL AND
+                description IS NULL AND
+                goal IS NULL AND
+                date_from IS NULL AND
+                date_to IS NULL AND
+                budget IS NULL AND
+                medium IS NULL AND
+                code IS NULL
+            ");
+        
+        mysql_close();
+    }
+    
+    public function insertCampaign() {
+        $this->openConnection();
+
+        mysql_query("INSERT INTO campaign () VALUES ()");
+        
+        $campaignId = mysql_insert_id();
+        
+        mysql_close();
+        
+        return $campaignId;
+    }
+    
+    public function updateCampaign($campaign) {
+        $this->openConnection();
+
+        $campaignId = $this->format($campaign->id);
+        $name = $this->format($campaign->name);
+        $description = $this->format($campaign->description);
+        $goal = $this->format($campaign->goal);
+        $date_from = $this->format($campaign->date_from);
+        $date_to = $this->format($campaign->date_to);
+        $budget = $this->format($campaign->budget);
+        $medium = $this->format($campaign->medium);
+        
+        mysql_query("
+                UPDATE campaign
+                SET
+                    name = '".$name."',
+                    description = '".$description."',
+                    goal = '".$goal."',
+                    date_from = '".$date_from."',
+                    date_to = '".$date_to."',
+                    budget = '".$budget."',
+                    medium = '".$medium."'
+                WHERE id = '".$campaignId."'
+                ");
+        
+        mysql_close();
     }
 }
 

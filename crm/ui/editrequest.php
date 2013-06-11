@@ -2,8 +2,8 @@
 
 @controller::checkAuthentication();
 
-if (isset($_GET['id'])) {
-    $id = $_GET['id'];
+if (isset($_GET['customerId'])) {
+    $customerId = $_GET['customerId'];
 }
 
 if (isset($_GET['requestId'])) {
@@ -22,18 +22,6 @@ else {
 ?>
 
 <script type="text/javascript">
-    
-    function getXmlHttpRequest()
-    {
-        var xmlhttp;
-
-        if (window.XMLHttpRequest)  // code for IE7+, Firefox, Chrome, Opera, Safari
-            xmlhttp=new XMLHttpRequest();
-        else                        // code for IE6, IE5
-            xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
-
-        return xmlhttp;
-    }
     
     function OnReloadArticles(select) {
         OnLoadArticles(select.options[select.selectedIndex].value);
@@ -64,7 +52,7 @@ else {
 
 <section id="main" class="column" style="height: 90%;">
     <article class="module width_full">
-        <form method="POST" action="<?php echo $_SERVER["PHP_SELF"]."?content=customerdetails&id=".$id; ?>">
+        <form method="POST" action="<?php echo $_SERVER["PHP_SELF"]."?content=customerdetails&customerId=".$customerId; ?>">
             <header>
                 <h3>Kundenanfrage erfassen<?php echo $request->getIdFormatted(); ?></h3>
             </header>
@@ -79,7 +67,7 @@ else {
                             if ($request->type == $item['name'])
                                 $selected = "selected='selected'";
                             else
-                                $selected = "";                            
+                                $selected = "";                          
                             
                             echo "<option ".$selected." value='".$item['id']."'>".$item['name']."</option>";
                         }

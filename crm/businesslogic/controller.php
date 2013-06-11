@@ -22,15 +22,19 @@ class controller {
             controller::$content = array(
                 'home' => new page('home', 'Home', 'ui/home.php'),
                 'login' => new page('login', 'Login', 'ui/login.php'),
-                'showcustomers' => new page('showcustomers', 'Kunden ansehen', 'ui/showcustomers.php', false, array('home')),
-                'customerdetails' => new page('customerdetails', 'Kundendetails', 'ui/customerdetails.php', true, array('home', 'showcustomers')),
-                'editcustomer' => new page('editcustomer', 'Kunden bearbeiten', 'ui/editcustomer.php', true, array('home', 'showcustomers', 'customerdetails')),
-                'requestdetails' => new page('requestdetails', 'Anfragendetails', 'ui/requestdetails.php', true, array('home', 'showcustomers', 'customerdetails')),
-                'createrequest' => new page('createrequest', 'Anfrage erfassen', 'ui/editrequest.php', true, array('home', 'showcustomers', 'customerdetails')),
-                'editrequest' => new page('editrequest', 'Anfrage bearbeiten', 'ui/editrequest.php', true, array('home', 'showcustomers', 'customerdetails', 'requestdetails')),
-                'createcustomer' => new page('createcustomer', 'Kunden erfassen', 'ui/editcustomer.php', false, array('home')),
-                'createcampaign' => new page('createcampaign', 'Kampagne erstellen', 'ui/createcampaign.php', true, array('home')),
-                'analysecampaign' => new page('analysecampaign', 'Kampagne analysieren', 'ui/analysecampaign.php', true, array('home'))
+                'showcustomers' => new page('showcustomers', 'Kunden ansehen', 'ui/showcustomers.php', NULL, array('home')),
+                'customerdetails' => new page('customerdetails', 'Kundendetails', 'ui/customerdetails.php', 'customerId', array('home', 'showcustomers')),
+                'editcustomer' => new page('editcustomer', 'Kunden bearbeiten', 'ui/editcustomer.php', 'customerId', array('home', 'showcustomers', 'customerdetails')),
+                'requestdetails' => new page('requestdetails', 'Anfragendetails', 'ui/requestdetails.php', 'customerId', array('home', 'showcustomers', 'customerdetails')),
+                'createrequest' => new page('createrequest', 'Anfrage erfassen', 'ui/editrequest.php', 'customerId', array('home', 'showcustomers', 'customerdetails')),
+                'editrequest' => new page('editrequest', 'Anfrage bearbeiten', 'ui/editrequest.php', 'customerId', array('home', 'showcustomers', 'customerdetails', 'requestdetails')),
+                'createcustomer' => new page('createcustomer', 'Kunden erfassen', 'ui/editcustomer.php', NULL, array('home')),
+                'editcampaign' => new page('editcampaign', 'Kampagne erstellen', 'ui/editcampaign.php', 'campaignId', array('home')),
+                'addcustomerstocampaign' => new page('addcustomerstocampaign', 'Kunden hinzufügen', 'ui/addcustomerstocampaign.php', 'campaignId', array('home', 'editcampaign')),
+                'customerdetailsfromcampaign' => new page('customerdetailsfromcampaign', 'Kundendetails', 'ui/customerdetails.php', 'customerId', array('home', 'editcampaign', 'addcustomerstocampaign')),
+                'addarticlestocampaign' => new page('addarticlestocampaign', 'Artikel hinzufügen', 'ui/addarticlestocampaign.php', 'campaignId', array('home', 'editcampaign', 'addcustomerstocampaign')),
+                'finalizecampaign' => new page('finalizecampaign', 'Kampagne fertigstellen', 'ui/finalizecampaign.php', 'campaignId', array('home', 'editcampaign', 'addcustomerstocampaign', 'addarticlestocampaign')),
+                'analysecampaign' => new page('analysecampaign', 'Kampagne analysieren', 'ui/analysecampaign.php', 'campaignId', array('home'))
                 );
         }
 
@@ -160,6 +164,39 @@ class controller {
         return $content[$key];
     }
     
+    public static function getCustomersByCampaign($campaign) {
+        if (isset($_GET['namefilter']))
+            $namefilter = $_GET['namefilter'];
+        else
+            $namefilter = NULL;
+        
+        if (isset($_GET['zipfilter']))
+            $zipfilter = $_GET['zipfilter'];
+        else
+            
+            $zipfilter = NULL;
+        if (isset($_GET['birthdatefilter']))
+            $birthdatefilter = $_GET['birthdatefilter'];
+        else
+            $birthdatefilter = NULL;
+        
+        return controller::getDataService()->selectCustomersByCampaign($campaign->id, $campaign->medium, $namefilter, $zipfilter, $birthdatefilter);
+    }
+    
+    public static function getArticlessByCampaign($campaign) {
+        if (isset($_GET['category_id']))
+            $category_id = $_GET['category_id'];
+        else
+            $category_id = NULL;
+        
+        if (isset($_GET['manufacturer_id']))
+            $manufacturer_id = $_GET['manufacturer_id'];
+        else
+            $manufacturer_id = NULL;
+        
+        return controller::getDataService()->selectArticlesByCampaign($campaign->id, $category_id, $manufacturer_id);
+    }
+    
     public static function getCustomers($search = NULL) {
         return controller::getDataService()->selectCustomers($search);
     }
@@ -231,7 +268,7 @@ class controller {
     }
     
     public static function editCustomer() {
-        $id = $_POST['id'];
+        $id = $_POST['customerId'];
         $firstname = $_POST['firstname'];
         $lastname = $_POST['lastname'];
         $title = $_POST['title'];
@@ -267,8 +304,8 @@ class controller {
     }
 
     public static function deleteCustomer() {
-        if (isset($_POST['id'])) {
-            $id = $_POST['id'];
+        if (isset($_POST['customerId'])) {
+            $id = $_POST['customerId'];
             controller::getDataService()->deactivateCustomer($id);   
         }
     }
@@ -289,6 +326,32 @@ class controller {
     
     public static function getArticles($article_category_id) {
         return controller::getDataService()->selectArticles($article_category_id);
+    }
+    
+    public static function createCampaign() {
+        controller::getDataService()->deleteEmptyCampaigns();
+        return controller::getDataService()->insertCampaign();
+    }
+    
+    public static function getCampaign($campaignId) {
+        return controller::getDataService()->selectCampaign($campaignId);
+    }
+    
+    public static function editCampaign($campaignId) {
+        $campaign = new campaign();
+        $campaign->id = $campaignId;
+        $campaign->name = $_POST['name'];
+        $campaign->description = $_POST['description'];
+        $campaign->goal = $_POST['goal'];
+        $campaign->date_from = $_POST['date_from'];
+        $campaign->date_to = $_POST['date_to'];
+        $campaign->budget = $_POST['budget'];
+        $campaign->medium = $_POST['medium'];
+        //$code = $_POST['code'];
+        
+        controller::getDataService()->updateCampaign($campaign);
+        
+        return $campaign;
     }
 }
 
