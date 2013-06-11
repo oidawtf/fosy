@@ -1,6 +1,6 @@
 <?php
 
-require_once 'shared/userService.php';
+require_once 'authenticationService.php';
 
 class authenticationController {
     
@@ -31,7 +31,7 @@ class authenticationController {
                     authenticationController::host,
                     authenticationController::user,
                     authenticationController::password,
-                    authenticationController::$db
+                    authenticationController::db
                     );
          
         return authenticationController::$service;

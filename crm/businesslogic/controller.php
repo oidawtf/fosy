@@ -8,18 +8,18 @@ class controller {
     private static $articleCategories;
     private static $status;
     
-    private static $dataService;
+    private static $crmService;
     
-    private static function getDataService() {
-        if (empty(controllerBase::$dataService))
-            controllerBase::$dataService = new crmService(
+    private static function getService() {
+        if (empty(controller::$crmService))
+            controller::$crmService = new crmService(
                     authenticationController::host,
                     authenticationController::user,
                     authenticationController::password,
-                    authenticationController::$db
+                    authenticationController::db
                     );
          
-        return controllerBase::$dataService;
+        return controller::$crmService;
     }
     
     private static function getContent() {
@@ -48,21 +48,21 @@ class controller {
     
     public static function getRequestTypes() {
         if (empty(controller::$requestTypes))
-            controller::$requestTypes = controllerBase::getDataService()->selectRequestTypes();
+            controller::$requestTypes = controller::getService()->selectRequestTypes();
         
         return controller::$requestTypes;
     }
     
     public static function getArticleCategories() {
         if (empty(controller::$articleCategories))
-            controller::$articleCategories = controllerBase::getDataService()->selectArticleCategories();
+            controller::$articleCategories = controller::getService()->selectArticleCategories();
         
         return controller::$articleCategories;
     }
     
     public static function getStatus() {
         if (empty(controller::$status))
-            controller::$status = controllerBase::getDataService()->selectStatus();
+            controller::$status = controller::getService()->selectStatus();
         
         return controller::$status;
     }
@@ -97,7 +97,7 @@ class controller {
         else
             $birthdatefilter = NULL;
         
-        return controllerBase::getDataService()->selectCustomersByCampaign($campaign->id, $campaign->medium, $namefilter, $zipfilter, $birthdatefilter);
+        return controller::getService()->selectCustomersByCampaign($campaign->id, $campaign->medium, $namefilter, $zipfilter, $birthdatefilter);
     }
     
     public static function getArticlessByCampaign($campaign) {
@@ -111,11 +111,11 @@ class controller {
         else
             $manufacturer_id = NULL;
         
-        return controllerBase::getDataService()->selectArticlesByCampaign($campaign->id, $category_id, $manufacturer_id);
+        return controller::getService()->selectArticlesByCampaign($campaign->id, $category_id, $manufacturer_id);
     }
     
     public static function getCustomers($search = NULL) {
-        return controllerBase::getDataService()->selectCustomers($search);
+        return controller::getService()->selectCustomers($search);
     }
     
     public static function getCustomer($id) {
@@ -125,15 +125,15 @@ class controller {
     }
     
     public static function getRequestById($id) {
-        return controllerBase::getDataService()->selectRequestById($id);
+        return controller::getService()->selectRequestById($id);
     }
     
     public static function getRequestsByCustomer($customerId) {
-        return controllerBase::getDataService()->selectRequestsByCustomer($customerId);
+        return controller::getService()->selectRequestsByCustomer($customerId);
     }
     
     public static function getRequestsByUsername() {
-        return controllerBase::getDataService()->selectRequestsByUsername(authenticationController::getUsername());
+        return controller::getService()->selectRequestsByUsername(authenticationController::getUsername());
     }
     
     public static function editRequest($id) {
@@ -147,7 +147,7 @@ class controller {
         $status_id = $_POST['status'];
         $date = date("Y-m-d");
         
-        controllerBase::getDataService()->updateRequest($id, $responsible_userId, $type_id, $article_id, $text, $status_id, $date);
+        controller::getService()->updateRequest($id, $responsible_userId, $type_id, $article_id, $text, $status_id, $date);
     }
     
     public static function createCustomer() {
@@ -166,7 +166,7 @@ class controller {
         $fax = $_POST['fax'];
         $email = $_POST['email'];
 
-        controllerBase::getDataService()->insertCustomer(
+        controller::getService()->insertCustomer(
             $firstname,
             $lastname,
             $title,
@@ -201,7 +201,7 @@ class controller {
         $fax = $_POST['fax'];
         $email = $_POST['email'];
 
-        controllerBase::getDataService()->updateCustomer(
+        controller::getService()->updateCustomer(
             $id,
             $firstname,
             $lastname,
@@ -223,7 +223,7 @@ class controller {
     public static function deleteCustomer() {
         if (isset($_POST['customerId'])) {
             $id = $_POST['customerId'];
-            controllerBase::getDataService()->deactivateCustomer($id);   
+            controller::getService()->deactivateCustomer($id);   
         }
     }
     
@@ -238,20 +238,20 @@ class controller {
         $status_id = $_POST['status'];
         $date = date("Y-m-d");
         
-        controllerBase::getDataService()->insertRequest($customerId, $responsible_userId, $type_id, $article_id, $text, $status_id, $date);
+        controller::getService()->insertRequest($customerId, $responsible_userId, $type_id, $article_id, $text, $status_id, $date);
     }
     
     public static function getArticles($article_category_id) {
-        return controllerBase::getDataService()->selectArticles($article_category_id);
+        return controller::getService()->selectArticles($article_category_id);
     }
     
     public static function createCampaign() {
-        controllerBase::getDataService()->deleteEmptyCampaigns();
-        return controllerBase::getDataService()->insertCampaign();
+        controller::getService()->deleteEmptyCampaigns();
+        return controller::getService()->insertCampaign();
     }
     
     public static function getCampaign($campaignId) {
-        return controllerBase::getDataService()->selectCampaign($campaignId);
+        return controller::getService()->selectCampaign($campaignId);
     }
     
     public static function editCampaign($campaignId) {
@@ -266,7 +266,7 @@ class controller {
         $campaign->medium = $_POST['medium'];
         //$code = $_POST['code'];
         
-        controllerBase::getDataService()->updateCampaign($campaign);
+        controller::getService()->updateCampaign($campaign);
         
         return $campaign;
     }
