@@ -2,7 +2,7 @@
 
 class authenticationController {
     
-    //  local DB    
+    //  local DB
     const host = "localhost";
     const db = "fosy";
     const user = "fosy";
@@ -15,6 +15,7 @@ class authenticationController {
 //    const password = "";
     
     private static $users;
+    private static $service;
     
     const sessionIDName = 'fosy_session';
     const sessionIDUserId = "userId";
@@ -22,15 +23,27 @@ class authenticationController {
     const sessionIDUser_firstname = "user_firstname";
     const sessionIDUser_lastname = "user_lastname";
     
+    private static function getService() {
+        if (empty(controllerBase::$service))
+            controllerBase::$service = new userService(
+                    authenticationController::host,
+                    authenticationController::user,
+                    authenticationController::password,
+                    authenticationController::$db
+                    );
+         
+        return controllerBase::$service;
+    }
+    
     public static function getUsers() {
         if (empty(authenticationController::$users))
-            authenticationController::$users = controllerBase::getDataService()->selectUsers();
+            authenticationController::$users = controllerBase::getService()->selectUsers();
         
         return authenticationController::$users;
     }
  
     public static function isLoginValid($username, $password) {
-        return controllerBase::getDataService()->checkCredentials($username, $password);
+        return controllerBase::getService()->checkCredentials($username, $password);
     }
     
     public static function Login($username) {
@@ -100,7 +113,7 @@ class authenticationController {
     }
     
     public static function IsRegistered($username) {
-        return controllerBase::getDataService()->isUserRegistered($username);
+        return controllerBase::getService()->isUserRegistered($username);
     }
 }
 

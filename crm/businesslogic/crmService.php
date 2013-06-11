@@ -1,10 +1,17 @@
 <?php
 
-class dbAccess {
+class crmService {
     
-
-  
-    public function __construct() {
+    private $host;
+    private $db;
+    private $user;
+    private $password;
+    
+    public function __construct($host, $user, $password, $db) {
+        $this->host = $host;
+        $this->user = $user;
+        $this->password = $password;
+        $this->db = $db;
     }
     
     private function displayError($connection) {
@@ -13,7 +20,7 @@ class dbAccess {
     
     private function openConnection()
     {
-         $connection = mysql_connect(self::host, self::user, self::password) or die("cannot connect");
+         $connection = mysql_connect($this->host, $this->user, $this->password) or die("cannot connect");
          mysql_query("SET NAMES 'utf8'");
 
          if (mysqli_connect_errno($connection))
@@ -22,7 +29,7 @@ class dbAccess {
              exit();
          }
          
-         mysql_select_db(self::db) or die("cannot connect");
+         mysql_select_db($this->db) or die("cannot connect");
          
          return $connection;
     }
@@ -592,30 +599,6 @@ class dbAccess {
         $result = array();
         while ($row = mysql_fetch_assoc($query))
             $result[] = array('id' => $row['id'], 'name' => $row['type']);
-        
-        $this->closeConnection($query);
-        
-        return $result;
-    }
-    
-    public function selectUsers()
-    {
-        $this->openConnection();
-
-        $query = mysql_query("
-            SELECT id, firstname, lastname, username
-            FROM person
-            WHERE username IS NOT NULL
-            ");
-        
-        $result = array();
-        while ($row = mysql_fetch_assoc($query))
-            $result[] = array(
-                'id' => $row['id'],
-                'firstname' => $row['firstname'],
-                'lastname' => $row['lastname'],
-                'username' => $row['username']
-                );
         
         $this->closeConnection($query);
         

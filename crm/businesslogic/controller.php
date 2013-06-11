@@ -1,8 +1,6 @@
 <?php
 
-require_once 'businesslogic/controllerBase.php';
-
-class controller extends controllerBase {
+class controller {
     
     private static $content;
     
@@ -12,9 +10,14 @@ class controller extends controllerBase {
     
     private static $dataService;
     
-    protected static function getDataService() {
+    private static function getDataService() {
         if (empty(controllerBase::$dataService))
-            controllerBase::$dataService = new dbAccess(authenticationController::db);
+            controllerBase::$dataService = new crmService(
+                    authenticationController::host,
+                    authenticationController::user,
+                    authenticationController::password,
+                    authenticationController::$db
+                    );
          
         return controllerBase::$dataService;
     }
