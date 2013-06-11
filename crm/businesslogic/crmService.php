@@ -39,47 +39,6 @@ class crmService {
         mysql_close();  
     }
     
-    public function checkCredentials($username, $password) {
-        $this->openConnection();
-        
-        $username = authenticationService::format($username);
-        $password = authenticationService::format($password);
-        $password = md5($password);
-        
-        // Hier query auslagern in $this->queries["select"]
-        $query = mysql_query("
-            SELECT *
-            FROM person
-            WHERE username='$username' AND password='$password'
-                ");
-
-        $result = mysql_num_rows($query);
-        $this->closeConnection($query);
-        
-        return $result;
-    }
-    
-    public function isUserRegistered($username) {
-        $this->openConnection();
-
-        $username = authenticationService::format($username);
-        
-        $query = mysql_query("
-            SELECT *
-            FROM user
-            WHERE email='$username'
-                ");
-        
-        $result = mysql_num_rows($query);
-
-        $this->closeConnection($query);
-        
-        if ($result > 0)
-            return true;
-        else
-            return false;
-    }
-    
     public function selectCampaign($campaignId) {
         $this->openConnection();
         
