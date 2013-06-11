@@ -10,7 +10,7 @@ class authenticationController {
     const user = "fosy";
     const password = "fosyPassword";
     
-//  remote DB
+    //  remote DB
 //    const host = "";
 //    const db = "";
 //    const user = "";
