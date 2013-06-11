@@ -1,8 +1,8 @@
 <?php
 
+include "../shared/authenticationController.php";
 include "businesslogic/dbaccess.php";
 include "businesslogic/controller.php";
-include "businesslogic/authenticationController.php";
 include "businesslogic/utils.php";
 include "model/person.php";
 include "model/page.php";

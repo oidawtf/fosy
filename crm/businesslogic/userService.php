@@ -1,6 +1,6 @@
 <?php
 
-class userService {
+class authenticationService {
     
     private $host;
     private $db;

@@ -1,5 +1,7 @@
 <?php
 
+require_once 'shared/userService.php';
+
 class authenticationController {
     
     //  local DB
@@ -24,26 +26,26 @@ class authenticationController {
     const sessionIDUser_lastname = "user_lastname";
     
     private static function getService() {
-        if (empty(controllerBase::$service))
-            controllerBase::$service = new userService(
+        if (empty(authenticationController::$service))
+            authenticationController::$service = new authenticationService(
                     authenticationController::host,
                     authenticationController::user,
                     authenticationController::password,
                     authenticationController::$db
                     );
          
-        return controllerBase::$service;
+        return authenticationController::$service;
     }
     
     public static function getUsers() {
         if (empty(authenticationController::$users))
-            authenticationController::$users = controllerBase::getService()->selectUsers();
+            authenticationController::$users = authenticationController::getService()->selectUsers();
         
         return authenticationController::$users;
     }
  
     public static function isLoginValid($username, $password) {
-        return controllerBase::getService()->checkCredentials($username, $password);
+        return authenticationController::getService()->checkCredentials($username, $password);
     }
     
     public static function Login($username) {
@@ -113,7 +115,7 @@ class authenticationController {
     }
     
     public static function IsRegistered($username) {
-        return controllerBase::getService()->isUserRegistered($username);
+        return authenticationController::getService()->isUserRegistered($username);
     }
 }
 
