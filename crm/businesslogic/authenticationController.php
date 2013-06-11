@@ -1,8 +1,18 @@
 <?php
 
-require_once 'businesslogic/controllerBase.php';
-
-class authenticationController extends controllerBase {
+class authenticationController {
+    
+    //  local DB    
+    const host = "localhost";
+    const db = "fosy";
+    const user = "fosy";
+    const password = "fosyPassword";
+    
+//  remote DB
+//    const host = "";
+//    const db = "";
+//    const user = "";
+//    const password = "";
     
     private static $users;
     

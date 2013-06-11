@@ -10,6 +10,15 @@ class controller extends controllerBase {
     private static $articleCategories;
     private static $status;
     
+    private static $dataService;
+    
+    protected static function getDataService() {
+        if (empty(controllerBase::$dataService))
+            controllerBase::$dataService = new dbAccess(authenticationController::db);
+         
+        return controllerBase::$dataService;
+    }
+    
     private static function getContent() {
         if (empty(controller::$content)) {
             controller::$content = array(
