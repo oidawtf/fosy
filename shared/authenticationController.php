@@ -48,7 +48,7 @@ class authenticationController {
         return authenticationController::getService()->checkCredentials($username, $password);
     }
     
-    public static function Login($username) {
+    public static function login($username) {
         @session_start();
         $_SESSION[self::sessionIDName] = 1;
         $_SESSION[self::sessionIDUser] = $username;
@@ -62,7 +62,7 @@ class authenticationController {
             }
     }
     
-    public static function Logout() {
+    public static function logout() {
         @session_start();
         session_unset();
         $_SESSION = array();
@@ -114,7 +114,7 @@ class authenticationController {
         }
     }
     
-    public static function IsRegistered($username) {
+    public static function isRegistered($username) {
         return authenticationController::getService()->isUserRegistered($username);
     }
 }

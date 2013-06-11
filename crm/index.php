@@ -69,12 +69,12 @@
     // Login clicked
     if (isset($_POST['login']) && isset($_POST['username']) && isset($_POST['password']))
         if (authenticationController::isLoginValid($_POST['username'], $_POST['password'])) {
-            authenticationController::Login($_POST['username']);
+            authenticationController::login($_POST['username']);
         }
     
     // Logout clicked
     if (isset($_POST['logout']))
-        authenticationController::Logout();
+        authenticationController::logout();
 
     ?>
 
