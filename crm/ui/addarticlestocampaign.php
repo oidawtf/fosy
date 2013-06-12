@@ -44,7 +44,7 @@ $articles = controller::getArticlessByCampaign($campaign);
                         else
                             $checked = "";
                         echo "<tr>";
-                        echo    "<td><input name='isSelected' type='checkbox' ".$checked." value='".$article->id."'</td>";
+                        echo    "<td><input name='isSelected' onchange='OnSelectionChanged(\"article\", \"".$campaign->id."\", this.value, this.checked)' type='checkbox' ".$checked." value='".$article->id."'</td>";
                         echo    "<td><a href='index.php?content=articledetailsfromcampaign&articleId=".$article->id."&campaignId=".$campaignId."'>".$article->getFullName()."</a></td>";
                         echo    "<td>".$article->category."</td>";
                         echo    "<td>".$article->manufacturer."</td>";

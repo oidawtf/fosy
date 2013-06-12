@@ -57,6 +57,22 @@
 
                     return xmlhttp;
                 }
+    
+                function OnSelectionChanged(type, campaignId, id, checked)
+                {
+                    var xmlhttp = getXmlHttpRequest();
+                    var url = "ui/selectionChanged.php";
+                    var params = "type=" + type + "&campaignId=" + campaignId + "&id=" + id + "&checked=" + checked;
+
+                    xmlhttp.open("POST", url, true);
+
+                    xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+                    xmlhttp.setRequestHeader("Content-length", params.length);
+                    xmlhttp.setRequestHeader("Connection", "close");
+
+                    xmlhttp.send(params);
+                }
+
             </script>
             
             <title>FOSY - Felix Online Systems</title>
@@ -64,6 +80,7 @@
 
     <?php
     
+    include "../shared/authenticationController.php";
     include "includes.php";
     
     // Login clicked

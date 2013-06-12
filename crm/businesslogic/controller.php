@@ -285,6 +285,38 @@ class controller {
         
         return $campaign;
     }
+    
+    public static function updateCampaignRelations() {
+        if (
+                !isset($_POST['type']) ||
+                !isset($_POST['campaignId']) ||
+                !isset($_POST['id']) ||
+                !isset($_POST['checked']))
+            return;
+        
+        $type = $_POST['type'];
+        $campaignId = $_POST['campaignId'];
+        $id = $_POST['id'];
+        $checked = $_POST['checked'];
+        
+        switch ($type) {
+            case 'customer':
+                if ($checked == 'true')
+                    controller::getService ()->insertCustomerIntoCampaign($campaignId, $id);
+                else
+                    controller::getService ()->deleteCustomerFromCampaign($campaignId, $id);
+                break;
+            case 'article':
+                if ($checked == 'true')
+                    controller::getService ()->insertArticleIntoCampaign($campaignId, $id);
+                else
+                    controller::getService ()->deleteArticleFromCampaign($campaignId, $id);
+                break;
+            default:
+                return FALSE;
+                break;
+        }
+    }
 }
 
 ?>

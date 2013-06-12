@@ -672,6 +672,57 @@ class crmService {
         
         mysql_close();
     }
+    
+    public function insertCustomerIntoCampaign($campaignId, $id) {
+        $this->openConnection();
+
+        mysql_query("
+            INSERT
+                INTO campaign_person (fk_campaign_id, fk_person_id)
+                VALUES ('".$campaignId."', '".$id."')
+                    ");
+        
+        mysql_close();
+    }
+    
+    public function deleteCustomerFromCampaign($campaignId, $id) {
+        $this->openConnection();
+  
+        mysql_query("
+            DELETE
+            FROM campaign_person
+            WHERE
+                fk_campaign_id = '".$campaignId."' AND
+                fk_person_id = '".$id."'
+            ");
+        
+        mysql_close();
+    }
+    public function insertArticleIntoCampaign($campaignId, $id) {
+        $this->openConnection();
+
+        mysql_query("
+            INSERT
+                INTO campaign_article (fk_campaign_id, fk_article_id)
+                VALUES ('".$campaignId."', '".$id."')
+                    ");
+        
+        mysql_close();
+    }
+    
+    public function deleteArticleFromCampaign($campaignId, $id) {
+        $this->openConnection();
+  
+        mysql_query("
+            DELETE
+            FROM campaign_article
+            WHERE
+                fk_campaign_id = '".$campaignId."' AND
+                fk_article_id = '".$id."'
+            ");
+        
+        mysql_close();
+    }
 }
 
 ?>

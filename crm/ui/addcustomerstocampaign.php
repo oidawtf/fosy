@@ -16,27 +16,8 @@ $customers = controller::getCustomersByCampaign($campaign);
 
 ?>
 
-<script type="text/javascript">
-    
-    function OnSelectionChanged(type, id, checked)
-    {
-        var xmlhttp = getXmlHttpRequest();
-        var url = "ui/selectionChanged.php";
-        var params = "type=" + type + "&id=" + id + "&checked=" + checked;
-
-        xmlhttp.open("POST", url, true);
-
-        xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-        xmlhttp.setRequestHeader("Content-length", params.length);
-        xmlhttp.setRequestHeader("Connection", "close");
-
-        xmlhttp.send(params);
-    }
-    
-</script>
-
 <section id="main" class="column" style="height: 90%;">
-    <form method="POST" action="<?php echo $_SERVER["PHP_SELF"]; ?>?content=addarticlestocampaign&campaignId=<?php echo $campaignId; ?>">
+    <form method="POST" action="<?php echo $_SERVER["PHP_SELF"]; ?>?content=addarticlestocampaign&campaignId=<?php echo $campaign->id; ?>">
         
         <?php
         if ($campaign->medium == "email")
@@ -67,8 +48,8 @@ $customers = controller::getCustomersByCampaign($campaign);
                         else
                             $checked = "";
                         echo "<tr>";
-                        echo    "<td><input name='isSelected' onchange='OnSelectionChanged('customer', this.value, this.checked)' type='checkbox' ".$checked." value='".$customer->id."'</td>";
-                        echo    "<td><a href='index.php?content=customerdetailsfromcampaign&customerId=".$customer->id."&campaignId=".$campaignId."'>".$customer->getFullName()."</a></td>";
+                        echo    "<td><input name='isSelected' onchange='OnSelectionChanged(\"customer\", \"".$campaign->id."\", this.value, this.checked)' type='checkbox' ".$checked." value='".$customer->id."'</td>";
+                        echo    "<td><a href='index.php?content=customerdetailsfromcampaign&customerId=".$customer->id."&campaignId=".$campaign->id."'>".$customer->getFullName()."</a></td>";
                         echo    "<td style='width: 100px;'>".$customer->getBirthdate()."</td>";
                         echo    "<td>".$customer->zip."</td>";
                         echo "</tr>";
