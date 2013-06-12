@@ -100,7 +100,7 @@ CREATE TABLE offer (
 CREATE TABLE campaign_article (
   fk_campaign_id int(10) NOT NULL, 
   fk_article_id  int(10) NOT NULL, 
-  real_price     decimal(19, 2) NOT NULL, 
+  real_price     decimal(19, 2), 
   PRIMARY KEY (fk_campaign_id, 
   fk_article_id));
 CREATE TABLE article_category (

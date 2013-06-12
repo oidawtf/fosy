@@ -33,6 +33,8 @@ $articles = controller::getArticlessByCampaign($campaign);
                         <th class="header">Hersteller</th>
                         <th class="header">Model</th>
                         <th class="header">Lagerbestand</th>
+                        <th class="header">Verkaufspreis</th>
+                        <th class="header">Kampagnenpreis</th>
                     </tr> 
                 </thead>
                 <tbody style='overflow: scroll; height: 300px;'>
@@ -50,6 +52,8 @@ $articles = controller::getArticlessByCampaign($campaign);
                         echo    "<td>".$article->manufacturer."</td>";
                         echo    "<td>".$article->model."</td>";
                         echo    "<td>".$article->stock."</td>";
+                        echo    "<td>".$article->selling_price."</td>";
+                        echo    "<td>".$article->real_price."</td>";
                         echo "</tr>";
                     }
                     
