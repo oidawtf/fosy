@@ -92,7 +92,7 @@
     // Logout clicked
     if (isset($_POST['logout']))
         authenticationController::logout();
-
+    
     ?>
 
     <body>

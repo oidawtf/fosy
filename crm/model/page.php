@@ -28,11 +28,35 @@ class page {
         return $this->url;
     }
     
-    public function computeIdParameter() {
+    public function getParameter() {
         if ($this->GETId == NULL || !isset($_GET[$this->GETId]))
-            return "";
+            return NULL;
         
-        return "&".$this->GETId."=".$_GET[$this->GETId];
+        return array($this->GETId => $_GET[$this->GETId]);
+    }
+    
+    public function computeIdParameter() {
+        $parameters = array();
+        
+        if ($this->parents != NULL)
+            foreach ($this->parents as $key)
+                $this->addParameter($parameters, $key);
+
+        $this->addParameter($parameters, $this->id);
+        $result = "";
+        foreach ($parameters as $key => $value)
+            $result = $result."&".$key."=".$value;
+        
+        return $result;
+    }
+    
+    private function addParameter(&$parameters, $key) {
+        $newParameter = controller::getContentItem($key)->getParameter();
+        if ($newParameter != NULL)
+            if (!array_key_exists(key($newParameter), $parameters))
+                $parameters[key($newParameter)] = $newParameter[key($newParameter)];
+        
+        return $parameters;
     }
     
     public function getParents() {
