@@ -1,6 +1,6 @@
 <?php
 
-include "../shared/authenticationController.php";
+@include "../shared/authenticationController.php";
 include "businesslogic/crmService.php";
 include "businesslogic/controller.php";
 include "businesslogic/utils.php";

@@ -27,11 +27,11 @@ else {
         OnLoadArticles(select.options[select.selectedIndex].value);
     }
     
-    function OnLoadArticles(article_category_id)
+    function OnLoadArticles(article_category_id, article_id)
     {
         var xmlhttp = getXmlHttpRequest();
         var url = "ui/getArticles.php";
-        var params = "article_category_id=" + article_category_id;
+        var params = "article_category_id=" + article_category_id + "&article_id=" + article_id;
 
         xmlhttp.open("POST", url, true);
 
@@ -108,7 +108,7 @@ else {
                     <label>Artikel</label>
                     <div id="articles"></div>
                     <script type="text/javascript">
-                        OnLoadArticles(<?php echo $request->article_category_id ?>);
+                        OnLoadArticles(<?php echo $request->article_category_id.", ".$request->article_id; ?>);
                     </script>
                 </fieldset>
                 

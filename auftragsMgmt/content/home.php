@@ -16,4 +16,5 @@
 			if(isset($_POST['search']) && isset($_POST['searchButton'])){
 				createCustomerPDF($_POST['search']);
 		}
+                ?>
 </div>
