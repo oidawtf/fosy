@@ -4,6 +4,7 @@ class controller {
     
     private static $content;
     
+    private static $mediums;
     private static $requestTypes;
     private static $articleCategories;
     private static $status;
@@ -58,6 +59,17 @@ class controller {
             controller::$articleCategories = controller::getService()->selectArticleCategories();
         
         return controller::$articleCategories;
+    }
+    
+    public static function getMediums() {
+        if (empty(controller::$mediums)) {
+            controller::$mediums = array(
+                array('id' => 'email', 'name' => 'Newsletter'),
+                array('id' => 'address', 'name' => 'Serienbrief')
+            );
+        }
+        
+        return controller::$mediums;
     }
     
     public static function getStatus() {
@@ -247,7 +259,10 @@ class controller {
     
     public static function createCampaign() {
         controller::getService()->deleteEmptyCampaigns();
-        return controller::getService()->insertCampaign();
+        $campaignId = controller::getService()->insertCampaign();
+        $campaign = new campaign();
+        $campaign->id = $campaignId;
+        return $campaign;
     }
     
     public static function getCampaign($campaignId) {
