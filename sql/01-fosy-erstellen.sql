@@ -1,3 +1,8 @@
+CREATE TABLE tax_rate (
+  id   int(10) NOT NULL AUTO_INCREMENT, 
+  rate smallint(6) NOT NULL, 
+  PRIMARY KEY (id), 
+  UNIQUE INDEX (id));
 CREATE TABLE plannedvalue_type (
   id   int(10) NOT NULL AUTO_INCREMENT, 
   type varchar(10) NOT NULL, 
@@ -57,6 +62,7 @@ CREATE TABLE tax_type (
 CREATE TABLE tax (
   id                   int(10) NOT NULL AUTO_INCREMENT, 
   fk_tax_type_id       int(10) NOT NULL, 
+  fk_tax_rate_id       int(10) NOT NULL, 
   `date`               date NOT NULL, 
   value                decimal(19, 2) NOT NULL, 
   businessRecordNumber varchar(255) NOT NULL, 
@@ -174,6 +180,7 @@ CREATE TABLE person (
   password         varchar(255), 
   title            varchar(10), 
   companyname      varchar(255), 
+  taxnumber        varchar(129), 
   street           varchar(255) NOT NULL, 
   housenumber      int(10) NOT NULL, 
   stiege           smallint(6), 
@@ -182,6 +189,7 @@ CREATE TABLE person (
   zip              smallint(6) NOT NULL, 
   country          varchar(255) NOT NULL, 
   phone            varchar(128), 
+  phone_extension  varchar(10), 
   fax              varchar(128), 
   email            varchar(255), 
   birthdate        date, 
@@ -193,13 +201,14 @@ CREATE TABLE person (
   is_employee      tinyint(1), 
   PRIMARY KEY (id), 
   UNIQUE INDEX (id));
+ALTER TABLE tax ADD INDEX FKtax226913 (fk_tax_rate_id), ADD CONSTRAINT FKtax226913 FOREIGN KEY (fk_tax_rate_id) REFERENCES tax_rate (id);
+ALTER TABLE person ADD INDEX FKperson804629 (fk_department_id), ADD CONSTRAINT FKperson804629 FOREIGN KEY (fk_department_id) REFERENCES department (id);
 ALTER TABLE plannedvalue ADD INDEX FKplannedval839 (fk_plannedvalue_type_id), ADD CONSTRAINT FKplannedval839 FOREIGN KEY (fk_plannedvalue_type_id) REFERENCES plannedvalue_type (id);
 ALTER TABLE customer_request ADD INDEX FKcustomer_r922497 (fk_responsible_user_id), ADD CONSTRAINT FKcustomer_r922497 FOREIGN KEY (fk_responsible_user_id) REFERENCES person (id);
 ALTER TABLE article ADD INDEX FKarticle457910 (fk_article_manufacturer_id), ADD CONSTRAINT FKarticle457910 FOREIGN KEY (fk_article_manufacturer_id) REFERENCES article_manufacturer (id);
 ALTER TABLE person_role ADD INDEX FKperson_rol382207 (fk_role_id), ADD CONSTRAINT FKperson_rol382207 FOREIGN KEY (fk_role_id) REFERENCES role (id);
 ALTER TABLE offer ADD INDEX FKoffer923303 (fk_customer_id), ADD CONSTRAINT FKoffer923303 FOREIGN KEY (fk_customer_id) REFERENCES person (id);
 ALTER TABLE person_role ADD INDEX FKperson_rol801128 (fk_person_id), ADD CONSTRAINT FKperson_rol801128 FOREIGN KEY (fk_person_id) REFERENCES person (id);
-ALTER TABLE person ADD INDEX FKperson804629 (fk_department_id), ADD CONSTRAINT FKperson804629 FOREIGN KEY (fk_department_id) REFERENCES department (id);
 ALTER TABLE campaign_person ADD INDEX FKcampaign_p674063 (fk_person_id), ADD CONSTRAINT FKcampaign_p674063 FOREIGN KEY (fk_person_id) REFERENCES person (id);
 ALTER TABLE campaign_person ADD INDEX FKcampaign_p19488 (fk_campaign_id), ADD CONSTRAINT FKcampaign_p19488 FOREIGN KEY (fk_campaign_id) REFERENCES campaign (id);
 ALTER TABLE customer_request ADD INDEX FKcustomer_r322622 (fk_customer_request_type_id), ADD CONSTRAINT FKcustomer_r322622 FOREIGN KEY (fk_customer_request_type_id) REFERENCES customer_request_type (id);
