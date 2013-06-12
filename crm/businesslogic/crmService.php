@@ -723,6 +723,27 @@ class crmService {
         
         mysql_close();
     }
+    
+    public function updateRealPrice($campaignId, $articleId, $realprice) {
+        $this->openConnection();
+
+        $realprice = authenticationService::format($realprice);
+        if ($realprice == "")
+            $set = "real_price = NULL";
+        else
+            $set = "real_price = '".$realprice."'";
+        
+        mysql_query("
+                UPDATE campaign_article
+                SET
+                    ".$set."
+                WHERE
+                    fk_campaign_id = '".$campaignId."' AND
+                    fk_article_id = '".$articleId."'
+                ");
+        
+        mysql_close();
+    }
 }
 
 ?>

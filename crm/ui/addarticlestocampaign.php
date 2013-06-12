@@ -18,14 +18,23 @@ $articles = controller::getArticlessByCampaign($campaign);
 
 <script type="text/javascript">
 
-function OnArticleSelectionChanged(type, campaignId, id, checked)
-{
+function OnArticleSelectionChanged(type, campaignId, id, checked) {
     OnSelectionChanged(type, campaignId, id, checked);
     document.getElementById('real_price_' + id).disabled = !checked;
 }
 
 function OnRealPriceChanged(campaignId, articleId, realprice) {
-    alert("Campaign: " + campaignId + "; Article: " + articleId + ", Price:" + realprice);
+    var xmlhttp = getXmlHttpRequest();
+    var url = "ui/updaterealprice.php";
+    var params = "campaignId=" + campaignId + "&articleId=" + articleId + "&realprice=" + realprice;
+
+    xmlhttp.open("POST", url, true);
+
+    xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xmlhttp.setRequestHeader("Content-length", params.length);
+    xmlhttp.setRequestHeader("Connection", "close");
+
+    xmlhttp.send(params);
 }
 
 </script>

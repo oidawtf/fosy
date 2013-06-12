@@ -317,6 +317,20 @@ class controller {
                 break;
         }
     }
+    
+    public static function updateRealPrice() {
+        if (
+                !isset($_POST['campaignId']) ||
+                !isset($_POST['articleId']) ||
+                !isset($_POST['realprice']))
+            return;
+
+        $campaignId = $_POST['campaignId'];
+        $articleId = $_POST['articleId'];
+        $realprice = $_POST['realprice'];
+        
+        controller::getService()->updateRealPrice($campaignId, $articleId, $realprice);
+    }
 }
 
 ?>
