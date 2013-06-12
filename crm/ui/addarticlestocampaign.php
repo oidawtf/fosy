@@ -16,8 +16,22 @@ $articles = controller::getArticlessByCampaign($campaign);
 
 ?>
 
+<script type="text/javascript">
+
+function OnArticleSelectionChanged(type, campaignId, id, checked)
+{
+    OnSelectionChanged(type, campaignId, id, checked);
+    document.getElementById('real_price_' + id).disabled = !checked;
+}
+
+function OnRealPriceChanged(campaignId, articleId, realprice) {
+    alert("Campaign: " + campaignId + "; Article: " + articleId + ", Price:" + realprice);
+}
+
+</script>
+
 <section id="main" class="column" style="height: 90%;">
-    <form method="POST" action="<?php echo $_SERVER["PHP_SELF"]; ?>?content=finalizecampaign&campaignId=<?php echo $campaignId; ?>">
+    <form method="POST" action="<?php echo $_SERVER["PHP_SELF"]; ?>?content=finalizecampaign&campaignId=<?php echo $campaign->id; ?>">
         <article class="module width_full">
             
             <header>
@@ -41,19 +55,23 @@ $articles = controller::getArticlessByCampaign($campaign);
                     <?php
                     
                     foreach ($articles as $article) {
-                        if ($article->isSelected)
+                        if ($article->isSelected) {
                             $checked = "checked=''";
-                        else
+                            $enabled = "";
+                        }
+                        else {
                             $checked = "";
+                            $enabled = "disabled=''";
+                        }
                         echo "<tr>";
-                        echo    "<td><input name='isSelected' onchange='OnSelectionChanged(\"article\", \"".$campaign->id."\", this.value, this.checked)' type='checkbox' ".$checked." value='".$article->id."'</td>";
-                        echo    "<td><a href='index.php?content=articledetailsfromcampaign&articleId=".$article->id."&campaignId=".$campaignId."'>".$article->getFullName()."</a></td>";
+                        echo    "<td><input name='isSelected' onchange='OnArticleSelectionChanged(\"article\", \"".$campaign->id."\", this.value, this.checked)' type='checkbox' ".$checked." value='".$article->id."'</td>";
+                        echo    "<td><a href='index.php?content=articledetailsfromcampaign&articleId=".$article->id."&campaignId=".$campaign->id."'>".$article->getFullName()."</a></td>";
                         echo    "<td>".$article->category."</td>";
                         echo    "<td>".$article->manufacturer."</td>";
                         echo    "<td>".$article->model."</td>";
                         echo    "<td>".$article->stock."</td>";
                         echo    "<td>".$article->selling_price."</td>";
-                        echo    "<td>".$article->real_price."</td>";
+                        echo    "<td><input id='real_price_".$article->id."' onchange='OnRealPriceChanged(\"".$campaign->id."\", \"".$article->id."\", this.value)' type='number' ".$enabled." value='".$article->real_price."'></input></td>";
                         echo "</tr>";
                     }
                     
