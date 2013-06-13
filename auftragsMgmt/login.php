@@ -1,7 +1,9 @@
 <div id="loginForm">
+<a href="http://localhost/fosy/index.php">
     <div id="logo">
         <img src="img/logo_auftragsMgmt.png" alt="LOGO Programm: Felix Online Systems"/>
     </div>
+</a>
     <!-- //TODO formatieren -->
     <hr />
     <br />

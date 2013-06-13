@@ -28,7 +28,9 @@
 		}
 		else
 			return $result;
-	}
+	} 
+
+
 
 	function displayPersonData($pData){
 		echo "
@@ -62,7 +64,7 @@
 
 	function displayPersonDropDown($pData){
 		echo "Mehrere Kunden gefunden.. Bitte w&auml;hlen Sie!<br />";
-		echo "<form method=\"POST\" action=\"" . $_SERVER["PHP_SELF"] . "?content=home\">
+		echo "<form method=\"POST\" action=\"" . $_SERVER["PHP_SELF"] . "?content=AngebotErstellen\">
 				<select name=\"personSelectDropDown\"	>";				
 				while($row = mysql_fetch_assoc($pData)){
 					echo "<option value=\"".$row['id']."\">" . $row['id'] . " / " .

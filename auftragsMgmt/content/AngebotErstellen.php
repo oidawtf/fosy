@@ -9,7 +9,6 @@
 	</table>
 		
 		<?php
-		var_dump($_SESSION['cart']);
 			if(isset($_POST['search']) && isset($_POST['searchButton'])){
 				findPerson($_POST['search'],true);
 			}

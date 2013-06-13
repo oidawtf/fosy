@@ -1,6 +1,7 @@
 <div>
 	<?php
-		require("../util/pdfFunctions.php");
+		//require("util/pdfFunctions.php");
+
 	?>
 
 	<table>
@@ -13,8 +14,18 @@
 	</table>
 		
 		<?php
-			if(isset($_POST['search']) && isset($_POST['searchButton'])){
-				createCustomerPDF($_POST['search']);
-		}
-                ?>
+			/*if(isset($_POST['search']) && isset($_POST['searchButton'])){
+				$result = findPerson($_POST['search'],false);
+
+				if(mysql_num_rows($result)>0){
+					createCustomerPDF($result);
+				}
+			}
+		
+
+
+		//	if(isset($_POST['search']) && isset($_POST['searchButton'])){
+		//		createCustomerPDF($_POST['search']);
+		//}*/
+        ?>
 </div>

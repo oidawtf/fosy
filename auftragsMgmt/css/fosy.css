@@ -45,6 +45,8 @@ header {
 }
 #logo{
 	clear:both;
+	background:#FFF;
+	border-bottom:1px solid #000;
 }
 
 #logout {
