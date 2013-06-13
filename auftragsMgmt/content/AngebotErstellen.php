@@ -18,7 +18,7 @@
 
 
 			if(isset($_POST['personSelectDropDown']) && isset($_POST['personPicker'])){
-				findPerson($_POST['personSelectDropDown']);
+				findPerson($_POST['personSelectDropDown'],true);
 			}
 
 			if(isset($_POST['searchA']) && isset($_POST['searchAButton'])){
