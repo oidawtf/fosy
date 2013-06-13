@@ -59,12 +59,14 @@ CREATE TABLE tax_type (
   type varchar(10) NOT NULL, 
   PRIMARY KEY (id), 
   UNIQUE INDEX (id));
-CREATE TABLE tax (
+CREATE TABLE invoice (
   id                   int(10) NOT NULL AUTO_INCREMENT, 
   fk_tax_type_id       int(10) NOT NULL, 
   fk_tax_rate_id       int(10) NOT NULL, 
   `date`               date NOT NULL, 
-  value                decimal(19, 2) NOT NULL, 
+  gross_price          decimal(19, 2) NOT NULL, 
+  net                  decimal(19, 2) NOT NULL, 
+  tax                  decimal(19, 2) NOT NULL, 
   businessRecordNumber varchar(255) NOT NULL, 
   PRIMARY KEY (id), 
   UNIQUE INDEX (id));
@@ -201,7 +203,7 @@ CREATE TABLE person (
   is_employee      tinyint(1), 
   PRIMARY KEY (id), 
   UNIQUE INDEX (id));
-ALTER TABLE tax ADD INDEX FKtax226913 (fk_tax_rate_id), ADD CONSTRAINT FKtax226913 FOREIGN KEY (fk_tax_rate_id) REFERENCES tax_rate (id);
+ALTER TABLE invoice ADD INDEX FKinvoice859400 (fk_tax_rate_id), ADD CONSTRAINT FKinvoice859400 FOREIGN KEY (fk_tax_rate_id) REFERENCES tax_rate (id);
 ALTER TABLE person ADD INDEX FKperson804629 (fk_department_id), ADD CONSTRAINT FKperson804629 FOREIGN KEY (fk_department_id) REFERENCES department (id);
 ALTER TABLE plannedvalue ADD INDEX FKplannedval839 (fk_plannedvalue_type_id), ADD CONSTRAINT FKplannedval839 FOREIGN KEY (fk_plannedvalue_type_id) REFERENCES plannedvalue_type (id);
 ALTER TABLE customer_request ADD INDEX FKcustomer_r922497 (fk_responsible_user_id), ADD CONSTRAINT FKcustomer_r922497 FOREIGN KEY (fk_responsible_user_id) REFERENCES person (id);
@@ -222,7 +224,7 @@ ALTER TABLE offer ADD INDEX FKoffer38377 (fk_order_id), ADD CONSTRAINT FKoffer38
 ALTER TABLE offer ADD INDEX FKoffer469590 (fk_delivery_id), ADD CONSTRAINT FKoffer469590 FOREIGN KEY (fk_delivery_id) REFERENCES delivery (id);
 ALTER TABLE offer_article ADD INDEX FKoffer_arti895052 (fk_article_id), ADD CONSTRAINT FKoffer_arti895052 FOREIGN KEY (fk_article_id) REFERENCES article (id);
 ALTER TABLE offer_article ADD INDEX FKoffer_arti327112 (fk_offer_id), ADD CONSTRAINT FKoffer_arti327112 FOREIGN KEY (fk_offer_id) REFERENCES offer (id);
-ALTER TABLE tax ADD INDEX FKtax270969 (fk_tax_type_id), ADD CONSTRAINT FKtax270969 FOREIGN KEY (fk_tax_type_id) REFERENCES tax_type (id);
+ALTER TABLE invoice ADD INDEX FKinvoice614307 (fk_tax_type_id), ADD CONSTRAINT FKinvoice614307 FOREIGN KEY (fk_tax_type_id) REFERENCES tax_type (id);
 ALTER TABLE indicator ADD INDEX FKindicator424408 (fk_indicator_type_id), ADD CONSTRAINT FKindicator424408 FOREIGN KEY (fk_indicator_type_id) REFERENCES indicator_type (id);
 ALTER TABLE plannedvalue ADD INDEX FKplannedval437012 (fk_indicator_id), ADD CONSTRAINT FKplannedval437012 FOREIGN KEY (fk_indicator_id) REFERENCES indicator (id);
 ALTER TABLE plannedvalue ADD INDEX FKplannedval9649 (fk_period_id), ADD CONSTRAINT FKplannedval9649 FOREIGN KEY (fk_period_id) REFERENCES period (id);
