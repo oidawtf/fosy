@@ -1,4 +1,5 @@
 <?php
+	require("../../shared/authenticationController.php");
 	require("db.inc.php");
 	
 	$query = "SELECT i.name, p.value AS pValue, pv.value AS pvValue, pvt.type, pv.id AS pvID 
@@ -8,11 +9,10 @@
 				INNER JOIN plannedvalue_type pvt ON pv.fk_plannedvalue_type_id = pvt.id 
 				WHERE i.id=".$_GET['id'];
 
-	
 	$result = mysql_query($query);
 
 	if($result && mysql_num_rows($result)) {
-		echo "<table cellpadding='0' cellspacing='0' class='ui-widget ui-widget-content ui-corner-all'><thead class='ui-widget-header ui-corner-all'><tr><th>Kennzahl</th><th>Zeitraum</th><th>Planwert</th><th>&nbsp;</th></tr></thead><tbody>";
+		echo "<br/><table cellpadding='0' cellspacing='0' class='ui-widget ui-widget-content ui-corner-all'><thead class='ui-widget-header ui-corner-all'><tr><th>Kennzahl</th><th>Zeitraum</th><th>Planwert</th><th>&nbsp;</th></tr></thead><tbody>";
 		$i = 0;	 // counter for layout
 		while($row = mysql_fetch_assoc($result)) { 
 ?>

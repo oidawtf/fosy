@@ -59,6 +59,7 @@
 		<div id="saveButton">
 			<button type="submit" name="save" id="save">Speichern</button>
 		</div>
+	</fieldset>
 </form>
 
 <?php } ?>
