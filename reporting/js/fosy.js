@@ -27,6 +27,9 @@ $(function() {
 	$("#taxError").hide();
 	$("#taxOutput").hide();
 	
+	/* print button in ust va hide */
+	$("#printButton").hide();
+	
 	/* calculate tax */
 	$("#calculate").click(function() {
 		bruttoBetrag = $("#bruttoBetrag").val();
@@ -35,9 +38,9 @@ $(function() {
 		if(bruttoBetrag != "" && bruttoBetrag > 0) {
 			if(!isNaN(bruttoBetrag)) {
 				
-				tax = $("input:radio:checked[name='tax']").val();
+				rate = $("input:radio:checked[name='rate']").val();
 				
-				if(tax==10) { vst = bruttoBetrag / 11; }
+				if(rate==10) { vst = bruttoBetrag / 11; }
 				else{ vst = bruttoBetrag / 6; }
 				nettoBetrag = bruttoBetrag - vst;
 				
@@ -77,6 +80,18 @@ $(function() {
 		});
 	});
 	
+	/* ust va jahr selected */
+	$("#ustVAJahrSelect").change(function() {
+		$("#ustVaNoData").remove();
+	
+		$("#ustVAJahrSelect option:selected").each(function() {
+			var id = $(this).val();
+			if(id > 0) {
+				getUSTVATableForYear(id);
+			}
+		});
+	});
+	
 });
 
 /* plandaten anlegen period selected */
@@ -89,7 +104,29 @@ $(document).on('change', '#periodSelect', function() {
 	});
 });
 
-/* AJAX Request for planned Value */
+/* ust va check box selected/unselected */
+$(document).on('click', '.month', function() {
+	var showButton = false;
+	$(".month").each(function() {
+		if($(this).is(':checked')) {
+			showButton = true;
+			return false;
+		}
+	});
+	if(showButton) {
+		$("#printButton").show();
+	}else {
+		$("#printButton").hide();
+	}
+});
+
+/*
+	
+	
+	
+});*/
+
+/* INIT AJAX REQUESTS */
 var req = null;
 var pos = 0;
 var url = null;
@@ -103,6 +140,8 @@ function initAjaxCall() {
 		req = new ActiveXObject("Microsoft.XMLHTTP");
 	}
 }
+
+/* AJAX Request for planned Value */
 function getPlannedvalues(id) {
 	initAjaxCall();
 	req.onreadystatechange = displayPlannedvalue;
@@ -115,6 +154,7 @@ function displayPlannedvalue() {
 	}
 }
 
+/* AJAX Request for periods */
 function getPeriods(id) {
 	initAjaxCall();
 	req.onreadystatechange = displayPeriods;
@@ -124,6 +164,19 @@ function getPeriods(id) {
 function displayPeriods() {
 	if(req.readyState == 4) {
 		$('#periods').html(req.responseText);
+	}
+}
+
+/* AJAX Request for ust va table */
+function getUSTVATableForYear(year) {
+	initAjaxCall();
+	req.onreadystatechange = displayUstVaTable;
+	req.open("GET", url+"util/getUstVaTable.ajax.php?year="+year);
+	req.send(null);
+}
+function displayUstVaTable() {
+	if(req.readyState == 4) {
+		$("#resultDiv").html(req.responseText);
 	}
 }
 

@@ -19,6 +19,8 @@ CREATE TABLE tax_report (
   year     smallint(6) NOT NULL, 
   document varchar(255) NOT NULL, 
   PRIMARY KEY (id), 
+  CONSTRAINT monthYear 
+    UNIQUE (month, year), 
   UNIQUE INDEX (id));
 CREATE TABLE role (
   id       int(10) NOT NULL AUTO_INCREMENT, 
@@ -89,16 +91,18 @@ CREATE TABLE delivery (
   assambly    tinyint(1) NOT NULL, 
   PRIMARY KEY (id), 
   UNIQUE INDEX (id));
-CREATE TABLE `order` (
+CREATE TABLE orders (
   id     int(10) NOT NULL AUTO_INCREMENT, 
+  number varchar(128) NOT NULL, 
   `date` date NOT NULL, 
   PRIMARY KEY (id), 
   UNIQUE INDEX (id));
 CREATE TABLE offer (
   id             int(10) NOT NULL AUTO_INCREMENT, 
   fk_customer_id int(10) NOT NULL, 
-  fk_delivery_id int(10) NOT NULL, 
-  fk_order_id    int(10) NOT NULL, 
+  fk_delivery_id int(10), 
+  fk_order_id    int(10), 
+  number         varchar(128) NOT NULL, 
   `date`         date NOT NULL, 
   valid_from     date NOT NULL, 
   valid_until    date NOT NULL, 
@@ -220,7 +224,7 @@ ALTER TABLE customer_request ADD INDEX FKcustomer_r247992 (fk_status_id), ADD CO
 ALTER TABLE article ADD INDEX FKarticle656773 (fk_article_category_id), ADD CONSTRAINT FKarticle656773 FOREIGN KEY (fk_article_category_id) REFERENCES article_category (id);
 ALTER TABLE campaign_article ADD INDEX FKcampaign_a874402 (fk_campaign_id), ADD CONSTRAINT FKcampaign_a874402 FOREIGN KEY (fk_campaign_id) REFERENCES campaign (id);
 ALTER TABLE campaign_article ADD INDEX FKcampaign_a697883 (fk_article_id), ADD CONSTRAINT FKcampaign_a697883 FOREIGN KEY (fk_article_id) REFERENCES article (id);
-ALTER TABLE offer ADD INDEX FKoffer38377 (fk_order_id), ADD CONSTRAINT FKoffer38377 FOREIGN KEY (fk_order_id) REFERENCES `order` (id);
+ALTER TABLE offer ADD INDEX FKoffer816172 (fk_order_id), ADD CONSTRAINT FKoffer816172 FOREIGN KEY (fk_order_id) REFERENCES orders (id);
 ALTER TABLE offer ADD INDEX FKoffer469590 (fk_delivery_id), ADD CONSTRAINT FKoffer469590 FOREIGN KEY (fk_delivery_id) REFERENCES delivery (id);
 ALTER TABLE offer_article ADD INDEX FKoffer_arti895052 (fk_article_id), ADD CONSTRAINT FKoffer_arti895052 FOREIGN KEY (fk_article_id) REFERENCES article (id);
 ALTER TABLE offer_article ADD INDEX FKoffer_arti327112 (fk_offer_id), ADD CONSTRAINT FKoffer_arti327112 FOREIGN KEY (fk_offer_id) REFERENCES offer (id);

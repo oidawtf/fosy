@@ -1,4 +1,5 @@
 <h2>Plandaten hinzufügen</h2>
+<br/>
 <?php 
 	// save clicked 
 	if(isset($_POST['save']) && checkIndicator($_POST['indicatorsAddSelect']) && checkPeriod($_POST['periodSelect']) && checkValue($_POST['wert']) && checkPlannedvalueType($_POST['plannedvalueType'])) {
@@ -73,9 +74,10 @@
 				?>
 			</select>
 		</div>
-		<div id="saveButton">
+		<div>
 			<button type="submit" name="save" id="save">Speichern</button>
 		</div>
+	</fieldset>
 </form>
 
 <?php } ?>

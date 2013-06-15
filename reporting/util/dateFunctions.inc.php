@@ -1,4 +1,4 @@
-<?php
+<?php   
 
 function checkDateFormatValid($date) {
 	if(empty($date)) { return false; }
@@ -37,6 +37,27 @@ function checkDateNotInFuture($date) {
 */
 function formatDateForDatabase($date) {
  	return date('Y-m-d', strtotime($date));
+}
+
+/*
+	inputformat: m.yyyy
+	outputformat: m
+*/
+function getMonthOrYearFromMonthYear($monthYear, $which) {
+	if($which == 'm') {
+		return substr($monthYear, 0, strpos($monthYear, "-"));
+	} else if($which == 'y') {
+		return substr($monthYear, strpos($monthYear, "-")+1);
+	}else {
+		return 0;
+	}
+}
+
+
+function getMonthShortName($month) {
+	$monthShortNames = array(1=>"Jan", 2=>"Feb", 3=>"Mär", 4=>"Apr", 5=>"Mai", 6=>"Jun", 7=>"Jul", 8=>"Aug", 9=>"Sep", 10=>"Okt", 11=>"Nov", 12=>"Dez");
+
+	return $monthShortNames[$month];
 }
 
 ?>

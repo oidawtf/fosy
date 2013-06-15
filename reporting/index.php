@@ -61,7 +61,8 @@
 							case 'flexibleReports':
 							case 'addIncomminginvoice':
 							case 'addIncomminginvoiceSuccess':
-							case 'ustVA':
+							case 'manageUstVa':
+							case 'ustVaPrintedSuccess':
 							case 'managePlannedvalue':
 							case 'planIstVergleich':
 							case 'impressum':
