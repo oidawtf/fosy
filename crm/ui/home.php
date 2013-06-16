@@ -12,8 +12,8 @@ authenticationController::checkAuthentication();
             <h3 class="tabs_involved">Anfragen</h3>
         </header>
 
-        <div class="tab_container">
-            <div class="tab_content" style="display: block;">
+        <div class="tab_container table-wrapper">
+            <div class="tab_content table-scroll" style="display: block;">
                 <table cellspacing="0" class="tablesorter">
                     <thead>
                         <tr>

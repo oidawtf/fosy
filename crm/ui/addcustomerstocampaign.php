@@ -30,34 +30,38 @@ $customers = controller::getCustomersByCampaign($campaign);
                 <h3 class="tabs_involved">Kundenauswahl</h3>
             </header>
 
-            <table cellspacing="0" class="tablesorter">
-                <thead>
-                    <tr>
-                        <th class="header"></th>
-                        <th class="header">Name</th>
-                        <th class="header" style="width: 100px;">Geburtsdatum</th>
-                        <th class="header">ZIP Code</th>
-                    </tr>
-                </thead>
-                <tbody style="overflow: scroll; height: 300px;">
-                    <?php
+            <div class="table-wrapper">
+                <div class="table-scroll">
+                    <table cellspacing="0" class="tablesorter">
+                        <thead>
+                            <tr>
+                                <th class="header"></th>
+                                <th class="header">Name</th>
+                                <th class="header" style="width: 100px;">Geburtsdatum</th>
+                                <th class="header">ZIP Code</th>
+                            </tr>
+                        </thead>
+                        <tbody style="overflow: scroll; height: 300px;">
+                            <?php
 
-                    foreach ($customers as $customer) {
-                        if ($customer->isSelected)
-                            $checked = "checked=''";
-                        else
-                            $checked = "";
-                        echo "<tr>";
-                        echo    "<td><input name='isSelected' onchange='OnSelectionChanged(\"customer\", \"".$campaign->id."\", this.value, this.checked)' type='checkbox' ".$checked." value='".$customer->id."'</td>";
-                        echo    "<td><a href='index.php?content=customerdetailsfromcampaign&customerId=".$customer->id."&campaignId=".$campaign->id."'>".$customer->getFullName()."</a></td>";
-                        echo    "<td style='width: 100px;'>".$customer->getBirthdate()."</td>";
-                        echo    "<td>".$customer->zip."</td>";
-                        echo "</tr>";
-                    }
+                            foreach ($customers as $customer) {
+                                if ($customer->isSelected)
+                                    $checked = "checked=''";
+                                else
+                                    $checked = "";
+                                echo "<tr>";
+                                echo    "<td><input name='isSelected' onchange='OnSelectionChanged(\"customer\", \"".$campaign->id."\", this.value, this.checked)' type='checkbox' ".$checked." value='".$customer->id."'</td>";
+                                echo    "<td><a href='index.php?content=customerdetailsfromcampaign&customerId=".$customer->id."&campaignId=".$campaign->id."'>".$customer->getFullName()."</a></td>";
+                                echo    "<td style='width: 100px;'>".$customer->getBirthdate()."</td>";
+                                echo    "<td>".$customer->zip."</td>";
+                                echo "</tr>";
+                            }
 
-                    ?>
-                </tbody>
-            </table>
+                            ?>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
 
             <footer>
                 <div class="submit_link">

@@ -46,7 +46,7 @@ body {
   position: relative;
 }
 .table-scroll {
-  height: 600px;
+  max-height: 600px;
   overflow: auto;
 }
 #table-wrapper table {

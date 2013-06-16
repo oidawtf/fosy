@@ -47,46 +47,50 @@ function OnRealPriceChanged(campaignId, articleId, realprice) {
                 <h3 class="tabs_involved">Artikelauswahl</h3>
             </header>
 
-            <table cellspacing="0" class="tablesorter">
-                <thead>
-                    <tr> 
-                        <th class="header"></th>
-                        <th class="header">Artikel</th>
-                        <th class="header">Kategorie</th>
-                        <th class="header">Hersteller</th>
-                        <th class="header">Model</th>
-                        <th class="header">Lagerbestand</th>
-                        <th class="header">Verkaufspreis</th>
-                        <th class="header">Kampagnenpreis</th>
-                    </tr> 
-                </thead>
-                <tbody style='overflow: scroll; height: 300px;'>
-                    <?php
-                    
-                    foreach ($articles as $article) {
-                        if ($article->isSelected) {
-                            $checked = "checked=''";
-                            $enabled = "";
-                        }
-                        else {
-                            $checked = "";
-                            $enabled = "disabled=''";
-                        }
-                        echo "<tr>";
-                        echo    "<td><input name='isSelected' onchange='OnArticleSelectionChanged(\"article\", \"".$campaign->id."\", this.value, this.checked)' type='checkbox' ".$checked." value='".$article->id."'</td>";
-                        echo    "<td><a href='index.php?content=articledetailsfromcampaign&articleId=".$article->id."&campaignId=".$campaign->id."'>".$article->getFullName()."</a></td>";
-                        echo    "<td>".$article->category."</td>";
-                        echo    "<td>".$article->manufacturer."</td>";
-                        echo    "<td>".$article->model."</td>";
-                        echo    "<td>".$article->stock."</td>";
-                        echo    "<td>".$article->selling_price."</td>";
-                        echo    "<td><input id='real_price_".$article->id."' onchange='OnRealPriceChanged(\"".$campaign->id."\", \"".$article->id."\", this.value)' type='number' ".$enabled." value='".$article->real_price."'></input></td>";
-                        echo "</tr>";
-                    }
-                    
-                    ?>
-                </tbody>
-            </table>
+            <div class="table-wrapper">
+                <div class="table-scroll">
+                    <table cellspacing="0" class="tablesorter">
+                        <thead>
+                            <tr> 
+                                <th class="header"></th>
+                                <th class="header">Artikel</th>
+                                <th class="header">Kategorie</th>
+                                <th class="header">Hersteller</th>
+                                <th class="header">Model</th>
+                                <th class="header">Lagerbestand</th>
+                                <th class="header">Verkaufspreis</th>
+                                <th class="header">Kampagnenpreis</th>
+                            </tr> 
+                        </thead>
+                        <tbody style='overflow: scroll; height: 300px;'>
+                            <?php
+
+                            foreach ($articles as $article) {
+                                if ($article->isSelected) {
+                                    $checked = "checked=''";
+                                    $enabled = "";
+                                }
+                                else {
+                                    $checked = "";
+                                    $enabled = "disabled=''";
+                                }
+                                echo "<tr>";
+                                echo    "<td><input name='isSelected' onchange='OnArticleSelectionChanged(\"article\", \"".$campaign->id."\", this.value, this.checked)' type='checkbox' ".$checked." value='".$article->id."'</td>";
+                                echo    "<td><a href='index.php?content=articledetailsfromcampaign&articleId=".$article->id."&campaignId=".$campaign->id."'>".$article->getFullName()."</a></td>";
+                                echo    "<td>".$article->category."</td>";
+                                echo    "<td>".$article->manufacturer."</td>";
+                                echo    "<td>".$article->model."</td>";
+                                echo    "<td>".$article->stock."</td>";
+                                echo    "<td>".$article->selling_price."</td>";
+                                echo    "<td><input id='real_price_".$article->id."' onchange='OnRealPriceChanged(\"".$campaign->id."\", \"".$article->id."\", this.value)' type='number' ".$enabled." value='".$article->real_price."'></input></td>";
+                                echo "</tr>";
+                            }
+
+                            ?>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
             
             <footer>
                 <div class="submit_link">

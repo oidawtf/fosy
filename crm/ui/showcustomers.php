@@ -29,7 +29,7 @@ else
         </header>
 
         <div class="tab_container table-wrapper">
-            <div  class="tab_content table-scroll" id="tab1" style="display: block;">
+            <div class="tab_content table-scroll" id="tab1" style="display: block;">
                 <table cellspacing="0" class="tablesorter">
                     <thead>
                         <tr> 
