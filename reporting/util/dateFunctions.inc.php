@@ -60,4 +60,26 @@ function getMonthShortName($month) {
 	return $monthShortNames[$month];
 }
 
+/*
+	inputformat: m[m]-yyyy
+	outputformat: yyyy-mm-01
+*/
+function getDateFrom($monthYear) {
+	$month = getMonthOrYearFromMonthYear($monthYear, 'm');
+	$year = getMonthOrYearFromMonthYear($monthYear, 'y');
+	
+	return $year."-".$month."-01";
+}
+/*
+	inputformat: m[m]-yyyy
+	outputformat: yyyy-mm-maxdays
+*/
+function getDateTo($monthYear) {
+	$month = getMonthOrYearFromMonthYear($monthYear, 'm');
+	$year = getMonthOrYearFromMonthYear($monthYear, 'y');
+	$dayInMonth = date('t', mktime(0, 0, 0, $month, 1, $year));
+	
+	return $year."-".$month."-".$dayInMonth;
+}
+
 ?>

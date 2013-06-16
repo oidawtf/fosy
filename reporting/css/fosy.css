@@ -162,3 +162,17 @@ fieldset div label {
 #resultDiv table tr td.right {
 	text-align: right;
 }
+
+/* dashboard */
+fieldset#fieldsetOffer {
+	width: 300px;
+	float:left;
+	margin-right: 10px;
+}
+fieldset#fieldsetOrder {
+	width:300px;
+	
+}
+fieldset#fieldsetRelation {
+	width:610px;
+}

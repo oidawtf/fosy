@@ -129,17 +129,4 @@ function saveUstVa($monthYear, $path) {
 	}
 }
 
-function getDateFrom($monthYear) {
-	$month = getMonthOrYearFromMonthYear($monthYear, 'm');
-	$year = getMonthOrYearFromMonthYear($monthYear, 'y');
-	
-	return $year."-".$month."-01";
-}
-function getDateTo($monthYear) {
-	$month = getMonthOrYearFromMonthYear($monthYear, 'm');
-	$year = getMonthOrYearFromMonthYear($monthYear, 'y');
-	$dayInMonth = date('t', mktime(0, 0, 0, $month, 1, $year));
-	
-	return $year."-".$month."-".$dayInMonth;
-}
 ?>
