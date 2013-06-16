@@ -1,7 +1,7 @@
 <header id="header">
     <hgroup>
         <h1 class="site_title">
-            <a href="../index.php">FOSY - Felix Online Systems</a>
+            <a href="../index.php">Felix Online Systems</a>
         </h1>
         <h2 class="section_title"><?php echo controller::getContentItem()->getTitle(); ?></h2>
         <div class="btn_view_site">

@@ -110,7 +110,12 @@
             <?php include controller::getContentItem()->getUrl(); ?>
 	</div>
         
-        <?php include "ui/footer.php"; ?>
+        <?php
+        
+        if (authenticationController::isLoggedIn())
+            include "ui/footer.php";
+        
+        ?>
         
     </body>
 </html>

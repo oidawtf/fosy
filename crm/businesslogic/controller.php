@@ -331,6 +331,14 @@ class controller {
         
         controller::getService()->updateRealPrice($campaignId, $articleId, $realprice);
     }
+    
+    public static function getLoginMessage() {
+        if (isset($_POST['login']) && isset($_POST['username']) && isset($_POST['password']))
+            if (authenticationController::isLoginValid($_POST['username'], $_POST['password']))
+                echo "<h4 class='alert_success'>Login erfolgreich!</h4>";
+            else
+                echo "<h4 class='alert_error'>Login fehlgeschlagen!</h4>";
+    }
 }
 
 ?>

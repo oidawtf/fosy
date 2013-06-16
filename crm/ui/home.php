@@ -2,18 +2,22 @@
 
 authenticationController::checkAuthentication();
 
+$requests = controller::getRequestsByUsername();
+
 ?>
 
 <section id="main" class="column" style="height: 90%;">
     
+    <?php controller::getLoginMessage(); ?>
+    
     <article class="module width_full" style="float:left">
         
         <header>
-            <h3 class="tabs_involved">Anfragen</h3>
+            <h3 class="tabs_involved">Anfragen - insgesamt <?php echo count($requests); ?></h3>
         </header>
 
-        <div class="tab_container">
-            <div class="tab_content" style="display: block;">
+        <div class="tab_container table-wrapper">
+            <div class="tab_content table-scroll" style="display: block;">
                 <table cellspacing="0" class="tablesorter">
                     <thead>
                         <tr>
@@ -28,8 +32,6 @@ authenticationController::checkAuthentication();
                     <tbody>
                         
                         <?php
-                        
-                        $requests = controller::getRequestsByUsername();
                         
                         foreach ($requests as $request) {
                             echo "<tr>";

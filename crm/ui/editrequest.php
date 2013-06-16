@@ -16,6 +16,7 @@ else {
     $request->responsible_userId = $user['id'];
     $request->responsible_user = $user['username'];
     $request->article_category_id = 1;
+    $request->article_id = 1;
     $command = 'createrequest';
 }
 

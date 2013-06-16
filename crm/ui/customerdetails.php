@@ -71,42 +71,46 @@ if (isset($_GET['customerId']))
             <h3 class="tabs_involved">Anfragen - ingesamt <?php echo $customer->requests; ?></h3>
         </header>
         
-        <table cellspacing="0" class="tablesorter">
-            <thead>
-                <tr> 
-                    <th class="header">Betreff</th>
-                    <th class="header">Text</th>
-                    <th class="header" style="width: 120px;">Sachbearbeiter</th>
-                    <th class="header" style="width: 100px;">Status</th>
-                    <th class="header" style="width: 100px;">Datum</th>
-                </tr> 
-            </thead>
-            <tbody>
+        <div class="table-wrapper">
+            <div class="table-scroll" style="height: 400px;">
+                <table cellspacing="0" class="tablesorter">
+                    <thead>
+                        <tr> 
+                            <th class="header">Betreff</th>
+                            <th class="header">Text</th>
+                            <th class="header" style="width: 120px;">Sachbearbeiter</th>
+                            <th class="header" style="width: 100px;">Status</th>
+                            <th class="header" style="width: 100px;">Datum</th>
+                        </tr> 
+                    </thead>
+                    <tbody>
 
-                <?php
+                        <?php
 
-                $requests = controller::getRequestsByCustomer($customer->id);
+                        $requests = controller::getRequestsByCustomer($customer->id);
 
-                foreach ($requests as $request) {
-                    echo "<tr>";
-                    echo    "<td><a href='".$_SERVER['PHP_SELF']."?content=requestdetails&customerId=".$customer->id."&requestId=".$request->id."'>".$request->getBetreff()."</a></td>";
-                    echo    "<td>".$request->getTextTrimmed()."</td>";
-                    echo    "<td>".$request->responsible_user."</td>";
-                    echo    "<td>".$request->status."</td>";
-                    echo    "<td>".$request->getDate()."</td>";
-                    echo "</tr>";
-                }
+                        foreach ($requests as $request) {
+                            echo "<tr>";
+                            echo    "<td><a href='".$_SERVER['PHP_SELF']."?content=requestdetails&customerId=".$customer->id."&requestId=".$request->id."'>".$request->getBetreff()."</a></td>";
+                            echo    "<td>".$request->getTextTrimmed()."</td>";
+                            echo    "<td>".$request->responsible_user."</td>";
+                            echo    "<td>".$request->status."</td>";
+                            echo    "<td>".$request->getDate()."</td>";
+                            echo "</tr>";
+                        }
 
-                ?>
+                        ?>
 
-            </tbody>
-        </table>
+                    </tbody>
+                </table>
+            </div>
+        </div>
         
         <footer>
             <div class="submit_link">
                 <form method="GET" action="<?php echo $_SERVER['PHP_SELF']; ?>">
                     <input type="hidden" name="content" value="createrequest" />
-                    <input type="hidden" name="id" value="<?php echo $customer->id; ?>" />
+                    <input type="hidden" name="customerId" value="<?php echo $customer->id; ?>" />
                     <input type="submit" value="Anfrage erfassen" />
                 </form>
             </div>
