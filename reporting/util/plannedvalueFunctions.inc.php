@@ -87,8 +87,7 @@ function checkPlannedvalueType($selectedPlannedvalueType) {
 }
 
 function savePlannedvalue($selectedIndicator, $selectedPeriod, $enteredValue, $selectedPlannedvalueType) {
-	if(checkIndicator($selectedIndicator) && checkPeriod($selectedPeriod) && checkValue($enteredValue) && checkPlannedvalueType($selectedPlannedvalueType)) {
-				
+	if(checkPlannedIndicator($selectedIndicator) && checkPeriod($selectedPeriod) && checkValue($enteredValue) && checkPlannedvalueType($selectedPlannedvalueType)) {
 		$query = "INSERT INTO plannedvalue (fk_period_id, fk_indicator_id, fk_plannedvalue_type_id, value) VALUES ($selectedPeriod, $selectedIndicator, $selectedPlannedvalueType, '$enteredValue')";
 		$result = mysql_query($query);
 	
