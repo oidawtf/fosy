@@ -66,7 +66,7 @@ function getPlannedvalueTypes() {
 	return $plannedvalueTypes;
 }
 
-function checkIndicator($selectedIndicator) {
+function checkPlannedIndicator($selectedIndicator) {
 	if($selectedIndicator <= 0) { return false; }
 	else { return true; }
 }

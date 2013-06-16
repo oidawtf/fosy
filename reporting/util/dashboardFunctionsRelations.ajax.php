@@ -25,10 +25,16 @@
 	$sumYearOffer = getOfferSum("sumYear", getDateFrom("1-".$currentYear), getDateTo("12-".$currentYear));
 	$sumYearOrder = getOrdersSum("sumYear", getDateFrom("1-".$currentYear), getDateTo("12-".$currentYear));
 
-	// 5. json object vor layout	
+	// 5. Relations
+	$relationMonth = round( (($sumMonthOrder / $sumMonthOffer) * 100), 2);
+	$relationQuarter = round( (($sumQuarterOrder / $sumQuarterOffer) * 100), 2);
+	$relationYear = round( (($sumYearOrder / $sumYearOffer) * 100), 2);
+
+
+	// 6. json object for layout	
 	$jsonOffer='{
 		"labels":
-			["'.getMonthShortName($currentMonth).' '.$currentYear.'", "'.$currentQuarter.'.Q. '.$currentYear.'", "'.$currentYear.'"],
+			["'.getMonthShortName($currentMonth).' '.$currentYear.' ('.$relationMonth.' %)", "'.$currentQuarter.'.Q. '.$currentYear.' ('.$relationQuarter.' %)", "'.$currentYear.' ('.$relationYear.' %)"],
 		"datasets": [ {
 			"fillColor":"#d0e5f5",
 			"strokeColor":"#4297d7",

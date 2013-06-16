@@ -31,6 +31,21 @@ function checkDateNotInFuture($date) {
 	return false;
 }
 
+/* Dateformat: dd.mm.yyyy */
+function checkDateFromBeforeDateTo($dateFrom, $dateTo) {
+	if(checkDateFormatValid($dateFrom) && checkDateFormatValid($dateTo)) {
+		$dateFrom 	= mktime(0, 0, 0, substr($dateFrom, 3, 2), substr($dateFrom, 0, 2), substr($dateFrom, 6, 4));
+		$dateTo 	= mktime(0, 0, 0, substr($dateTo, 3, 2), substr($dateTo, 0, 2), substr($dateTo, 6, 4));
+		
+		if($dateFrom > $dateTo) {
+			return false;
+		}else {
+			return true;
+		}
+	}
+	return false;
+}
+
 /* 	
 	inputformat: dd.mm.yyyy
 	outputformat: yyyy-mm-dd

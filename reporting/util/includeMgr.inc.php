@@ -1,10 +1,18 @@
 <?php
-	require("../shared/authenticationController.php");
-	require("util/db.inc.php");
-	require("util/functions.inc.php");
-	require("util/dateFunctions.inc.php");
-	require("util/numberFunctions.inc.php");
-	require("util/incomingInvoiceFunctions.inc.php");
-	require("util/plannedvalueFunctions.inc.php");
-	require("util/ustVaFunctions.inc.php");
+	require('../shared/authenticationController.php');
+	require('../shared/fpdf.php');
+	require('../shared/fpdm.php');
+	require('../shared/font/helvetica.php');
+	require('../shared/font/helveticab.php');
+	require('../shared/font/helveticabi.php');
+	require('../shared/font/helveticai.php');
+	require('util/db.inc.php');
+	require('util/functions.inc.php');
+	require('util/dashboardFunctions.inc.php');
+	require('util/dateFunctions.inc.php');
+	require('util/numberFunctions.inc.php');
+	require('util/incomingInvoiceFunctions.inc.php');
+	require('util/plannedvalueFunctions.inc.php');
+	require('util/ustVaFunctions.inc.php');
+	require('util/flexibleReportsFunctions.inc.php');
 ?>

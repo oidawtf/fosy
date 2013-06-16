@@ -10,6 +10,24 @@ $(function() {
 		dateFormat: "dd.mm.yy"
 	});
 	
+	/* flexible Reports */
+	$("#datepickerFrom").datepicker({
+		showOn: "button",
+		autoSize: true,
+		buttonImage: "img/calendar.gif",
+		buttonImageOnly: true,
+		buttonText: "Datum",
+		dateFormat: "dd.mm.yy"
+	});
+	$("#datepickerTo").datepicker({
+		showOn: "button",
+		autoSize: true,
+		buttonImage: "img/calendar.gif",
+		buttonImageOnly: true,
+		buttonText: "Datum",
+		dateFormat: "dd.mm.yy"
+	});
+	
 	/* mouse over for navigation */
 	$("nav ul li a").hover(
 		function(){
@@ -93,117 +111,122 @@ $(function() {
 	});
 	
 	/* DASHBOARD */
+	var maxValueForBar = 0;
 	/* offers */
-	var url="util/dashboardFunctionsOffers.ajax.php";
-	$.getJSON(url,function(json){
-		var dataOffer	= json["datasets"][0]
-		var sumMonth 	= dataOffer["data"][0];
-		var sumQuarter 	= dataOffer["data"][1];
-		var sumYear 	= dataOffer["data"][2];
+	if($("#chartOffer").get(0)) {
+		var url="util/dashboardFunctionsOffers.ajax.php";
+		$.getJSON(url,function(json){
+			var dataOffer	= json["datasets"][0]
+			var sumMonth 	= dataOffer["data"][0];
+			var sumQuarter 	= dataOffer["data"][1];
+			var sumYear 	= dataOffer["data"][2];
 		
-		var data = {
-			labels : [json["labels"][0], json["labels"][1], json["labels"][2]],
-			datasets : [ {
-				fillColor : dataOffer["fillColor"],
-				strokeColor : dataOffer["strokeColor"],
-				data : [sumMonth, sumQuarter, sumYear]
-			}]
-		};
+			var data = {
+				labels : [json["labels"][0], json["labels"][1], json["labels"][2]],
+				datasets : [ {
+					fillColor : dataOffer["fillColor"],
+					strokeColor : dataOffer["strokeColor"],
+					data : [sumMonth, sumQuarter, sumYear]
+				}]
+			};
 		
-		max = dataOffer["data"][0];
-		for(i = 1; i < dataOffer["data"].length; i++) {
-			if(dataOffer["data"][i] > max)
-			max = dataOffer["data"][i];
-		}
+			maxValueForBar = dataOffer["data"][0];
+			for(i = 1; i < dataOffer["data"].length; i++) {
+				if(dataOffer["data"][i] > maxValueForBar)
+				maxValueForBar = dataOffer["data"][i];
+			}
 		
-		var opts = { 
-			scaleOverride:true, 
-			scaleSteps:3, 
-			scaleStepWidth:max, // Todo muss man noch schauen, ob das nicht zu sehr verwirrt
-		};
-		var chartOffer = $("#chartOffer").get(0).getContext("2d");
-		var myNewChart = new Chart(chartOffer).Bar(data, opts);
-	});
+			var opts = { 
+				scaleOverride:true, 
+				scaleSteps:3, 
+				scaleStepWidth:maxValueForBar,
+			};
+		
+			var chartOffer = $("#chartOffer").get(0).getContext("2d");
+			var myNewChart = new Chart(chartOffer).Bar(data, opts);
+
+		});
+	}
 	
 	/* orders */
-	var url="util/dashboardFunctionsOrders.ajax.php";
-	$.getJSON(url,function(json){
-		var dataOrder 	= json["datasets"][0]; 
-		var sumMonth 	= dataOrder["data"][0];
-		var sumQuarter 	= dataOrder["data"][1];
-		var sumYear 	= dataOrder["data"][2];
+	if($("#chartOrder").get(0)) {
+		var url="util/dashboardFunctionsOrders.ajax.php";
+		$.getJSON(url,function(json){
+			var dataOrder 	= json["datasets"][0]; 
+			var sumMonth 	= dataOrder["data"][0];
+			var sumQuarter 	= dataOrder["data"][1];
+			var sumYear 	= dataOrder["data"][2];
 		
-		var data = {
-			labels : [json["labels"][0], json["labels"][1], json["labels"][2]],
-			datasets : [ {
-				fillColor : dataOrder["fillColor"],
-				strokeColor : dataOrder["strokeColor"],
-				data : [sumMonth, sumQuarter, sumYear]
-			}]
-		};
+			var data = {
+				labels : [json["labels"][0], json["labels"][1], json["labels"][2]],
+				datasets : [ {
+					fillColor : dataOrder["fillColor"],
+					strokeColor : dataOrder["strokeColor"],
+					data : [sumMonth, sumQuarter, sumYear]
+				}]
+			};
 		
-		max = dataOrder["data"][0];
-		for(i = 1; i < dataOrder["data"].length; i++) {
-			if(dataOrder["data"][i] > max)
-			max = dataOrder["data"][i];
-		}
+			var opts = { 
+				scaleOverride:true, 
+				scaleSteps:3, 
+				scaleStepWidth:maxValueForBar,
+			};
 		
-		var opts = { 
-			scaleOverride:true, 
-			scaleSteps:3, 
-			scaleStepWidth:max, // Todo muss man noch schauen, ob das nicht zu sehr verwirrt
-		};
-		var chartOrder = $("#chartOrder").get(0).getContext("2d");
-		var myNewChart = new Chart(chartOrder).Bar(data, opts);
-	});
+			var chartOrder = $("#chartOrder").get(0).getContext("2d");
+			var myNewChart = new Chart(chartOrder).Bar(data, opts);
+		});
+	}
 	
 	/* relations */
-	var url="util/dashboardFunctionsRelations.ajax.php";
-	$.getJSON(url,function(json){
-		var dataOffer = json["datasets"][0];
-		var dataOrder = json["datasets"][1];
+	if($("#chartRelation").get(0)) {
+		var url="util/dashboardFunctionsRelations.ajax.php";
+		$.getJSON(url,function(json){
+			var dataOffer = json["datasets"][0];
+			var dataOrder = json["datasets"][1];
 		
-		var sumMonthOffer 	= dataOffer["data"][0];
-		var sumQuarterOffer = dataOffer["data"][1];
-		var sumYearOffer 	= dataOffer["data"][2];
-		var sumMonthOrder 	= dataOrder["data"][0];
-		var sumQuarterOrder = dataOrder["data"][1];
-		var sumYearOrder 	= dataOrder["data"][2];
+			var sumMonthOffer 	= dataOffer["data"][0];
+			var sumQuarterOffer = dataOffer["data"][1];
+			var sumYearOffer 	= dataOffer["data"][2];
+			var sumMonthOrder 	= dataOrder["data"][0];
+			var sumQuarterOrder = dataOrder["data"][1];
+			var sumYearOrder 	= dataOrder["data"][2];
 		
-		var data = {
-			labels : [json["labels"][0], json["labels"][1], json["labels"][2]],
-			datasets : [ {
-				fillColor : dataOffer["fillColor"],
-				strokeColor : dataOffer["strokeColor"],
-				data : [sumMonthOffer, sumQuarterOffer, sumYearOffer]
-			}, {
-				fillColor : dataOrder["fillColor"],
-				strokeColor : dataOrder["strokeColor"],
-				data : [sumMonthOrder, sumQuarterOrder, sumYearOrder]
-			}]
-		};
+			var data = {
+				labels : [json["labels"][0], json["labels"][1], json["labels"][2]],
+				datasets : [ {
+					fillColor : dataOffer["fillColor"],
+					strokeColor : dataOffer["strokeColor"],
+					data : [sumMonthOffer, sumQuarterOffer, sumYearOffer]
+				}, {
+					fillColor : dataOrder["fillColor"],
+					strokeColor : dataOrder["strokeColor"],
+					data : [sumMonthOrder, sumQuarterOrder, sumYearOrder]
+				}]
+			};
 		
-		maxOffer = dataOffer["data"][0];
-		for(i = 1; i < dataOffer["data"].length; i++) {
-			if(dataOffer["data"][i] > maxOffer)
-			maxOffer = dataOffer["data"][i];
-		}
-		maxOrder = dataOrder["data"][0];
-		for(i = 1; i < dataOrder["data"].length; i++) {
-			if(dataOrder["data"][i] > maxOrder)
-			maxOrder = dataOrder["data"][i];
-		}
-		if(maxOffer > maxOrder) { max = maxOffer; }
+			maxOffer = dataOffer["data"][0];
+			for(i = 1; i < dataOffer["data"].length; i++) {
+				if(dataOffer["data"][i] > maxOffer)
+				maxOffer = dataOffer["data"][i];
+			}
+			maxOrder = dataOrder["data"][0];
+			for(i = 1; i < dataOrder["data"].length; i++) {
+				if(dataOrder["data"][i] > maxOrder)
+				maxOrder = dataOrder["data"][i];
+			}
+			if(maxOffer > maxOrder) { max = maxOffer; }
 		
-		var opts = { 
-			scaleOverride:true, 
-			scaleSteps:3, 
-			scaleStepWidth:max,
-		};
-		var chartRelation = $("#chartRelation").get(0).getContext("2d");
-		var myNewChart = new Chart(chartRelation).Bar(data, opts);
+			var opts = { 
+				scaleOverride:true, 
+				scaleSteps:3, 
+				scaleStepWidth:max,
+			};
 		
-	});
+			var chartRelation = $("#chartRelation").get(0).getContext("2d");
+			var myNewChart = new Chart(chartRelation).Bar(data, opts);
+				
+		});
+	}
 	
 	
 });

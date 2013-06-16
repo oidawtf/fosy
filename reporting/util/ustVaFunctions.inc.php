@@ -1,6 +1,4 @@
 <?php
-require('../shared/fpdf.php');
-require('../shared/fpdm.php');
 
 function generatePdf($monthYear) {
 	$month = getMonthOrYearFromMonthYear($monthYear, 'm');

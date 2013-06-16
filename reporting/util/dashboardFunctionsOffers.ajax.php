@@ -25,7 +25,7 @@
 	// 5. json object vor layout	
 	$jsonOffer='{
 		"labels":
-			["'.getMonthShortName($currentMonth).' '.$currentYear.'", "'.$currentQuarter.'.Q. '.$currentYear.'", "'.$currentYear.'"],
+			["'.getMonthShortName($currentMonth).' '.$currentYear.' ", "'.$currentQuarter.'.Q. '.$currentYear.'", "'.$currentYear.'"],
 		"datasets": [ {
 			"fillColor":"#d0e5f5",
 			"strokeColor":"#4297d7",

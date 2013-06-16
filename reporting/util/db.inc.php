@@ -16,4 +16,4 @@
 		$message .= 'Gesamte Abfrage: ' . $query;
 		die($message);
 	}
-?>		
+?>

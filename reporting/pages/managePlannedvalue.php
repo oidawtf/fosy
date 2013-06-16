@@ -3,9 +3,10 @@
 
 <form method="POST" action="#">
 	<fieldset class="ui-widget ui-widget-content-white ui-corner-all">
-		<legend>Plandaten hinzufügen</legend>
+		<legend>Plandatenverwaltung</legend>
 		
-		<div>Kennzahl:
+		<div>
+			<label>Kennzahl:</label>
 			<select id="indicatorsSelect" class="ui-widget ui-widget-content ui-corner-all">
 				<option value="0"><--wählen--></option>
 				<?php 

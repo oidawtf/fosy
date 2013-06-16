@@ -162,6 +162,9 @@ fieldset div label {
 #resultDiv table tr td.right {
 	text-align: right;
 }
+#resultDiv table tr td.center {
+	text-align: center;
+}
 
 /* dashboard */
 fieldset#fieldsetOffer {
@@ -175,4 +178,10 @@ fieldset#fieldsetOrder {
 }
 fieldset#fieldsetRelation {
 	width:610px;
+}
+
+/* flexible reports */
+#flexZeit {
+	width:300px;
+	float:left;
 }
