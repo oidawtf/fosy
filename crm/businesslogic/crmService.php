@@ -645,8 +645,12 @@ class crmService {
         return $campaignId;
     }
     
+    private function convertTomysqlDate($date) {
+        return preg_replace("!([01][0-9])/([0-9]{2})/([0-9]{4})!", "$3-$1-$2", $date);
+    }
+    
     public function updateCampaign($campaign) {
-        $this->openConnection();
+        $con = $this->openConnection();
 
         $campaignId = authenticationService::format($campaign->id);
         $name = authenticationService::format($campaign->name);
@@ -657,7 +661,10 @@ class crmService {
         $budget = authenticationService::format($campaign->budget);
         $medium = authenticationService::format($campaign->medium);
         
-        mysql_query("
+        $date_from = $this->convertTomysqlDate($date_from);
+        $date_to = $this->convertTomysqlDate($date_to);
+        
+        $query = "
                 UPDATE campaign
                 SET
                     name = '".$name."',
@@ -668,7 +675,13 @@ class crmService {
                     budget = '".$budget."',
                     medium = '".$medium."'
                 WHERE id = '".$campaignId."'
-                ");
+                ";
+        
+        mysql_query($query);
+        
+        echo $query;
+        
+        $this->displayError($con);
         
         mysql_close();
     }

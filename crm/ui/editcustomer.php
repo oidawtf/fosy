@@ -13,6 +13,12 @@ else {
 
 ?>
 
+<script type="text/javascript">
+    $(function() {
+        $( "#birthdate" ).datepicker();
+    });
+</script>
+
 <section id="main" class="column" style="height: 90%;">
     
     <article class="module width_full">
@@ -37,7 +43,7 @@ else {
                                 <td><input name="firstname" required="1" type="text" style="width:90%" value="<?php echo $customer->firstname; ?>" /></td>
                                 <td><input name="lastname" required="1" type="text" style="width:90%" value="<?php echo $customer->lastname; ?>" /></td>
                                 <td><input name="title" type="text" style="width:90%" value="<?php echo $customer->title; ?>" /></td>
-                                <td><input name="birthdate" type="date" style="width:90%" value="<?php echo $customer->birthdate; ?>" /></td>
+                                <td><input name="birthdate" type="date" id="birthdate" style="width:90%" value="<?php echo $customer->birthdate; ?>" /></td>
                             </tr>
                         </tbody>
                     </table>
