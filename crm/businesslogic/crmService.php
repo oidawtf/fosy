@@ -645,6 +645,10 @@ class crmService {
         return $campaignId;
     }
     
+    private function convertTomysqlDate($date) {
+        return preg_replace("!([01][0-9])/([0-9]{2})/([0-9]{4})!", "$3-$1-$2", $date);
+    }
+    
     public function updateCampaign($campaign) {
         $this->openConnection();
 
@@ -656,6 +660,9 @@ class crmService {
         $date_to = authenticationService::format($campaign->date_to);
         $budget = authenticationService::format($campaign->budget);
         $medium = authenticationService::format($campaign->medium);
+        
+        $date_from = $this->convertTomysqlDate($date_from);
+        $date_to = $this->convertTomysqlDate($date_to);
         
         mysql_query("
                 UPDATE campaign
@@ -743,6 +750,96 @@ class crmService {
                 ");
         
         mysql_close();
+    }
+    
+    public function selectSelectedCustomers($campaignId) {
+        $this->openConnection();
+        
+        $query = mysql_query("
+            SELECT
+                P.id,
+                P.firstname,
+                P.lastname,
+                P.title,
+                P.email
+            FROM
+                person AS P
+                LEFT OUTER JOIN campaign_person CP on P.id = CP.fk_person_id
+            WHERE CP.fk_campaign_id = '".$campaignId."'
+            ");
+        
+        $result = array();
+        while ($row = mysql_fetch_assoc($query))
+        {
+            $person = new person();
+            $person->id = $row['id'];
+            $person->firstname = $row['firstname'];
+            $person->lastname = $row['lastname'];
+            $person->title = $row['title'];
+            $person->email = $row['email'];
+            $result[] = $person;
+        }
+        
+        $this->closeConnection($query);
+        
+        return $result;
+    }
+    
+    public function selectSelectedArticles($campaignId) {
+        $this->openConnection();
+        
+        $query = mysql_query("
+            SELECT
+                A.id AS article_id,
+                A.model,
+                A.description,
+                A.picture,
+                A.stock,
+                A.purchase_price,
+                A.selling_price,
+                A.tax_rate,
+                CA.fk_campaign_id AS campaign_id,
+                CA.real_price,
+                CA.fk_campaign_id = '".$campaignId."' AS isSelected,
+                AC.id AS category_id,
+                AC.name AS category,
+                AM.id AS manufacturer_id,
+                AM.name AS manufacturer
+            FROM
+                article AS A
+                LEFT OUTER JOIN campaign_article AS CA on A.id = CA.fk_article_id
+                LEFT OUTER JOIN article_category AS AC on A.fk_article_category_id = AC.id
+                LEFT OUTER JOIN article_manufacturer AS AM on A.fk_article_manufacturer_id = AM.id
+            WHERE CA.fk_campaign_id = '".$campaignId."'
+            ");
+        
+        $result = array();
+        while ($row = mysql_fetch_assoc($query))
+        {
+            $article = new article();
+            $article->id = $row['article_id'];
+            $article->category_id = $row['category_id'];
+            $article->category = $row['category'];
+            $article->manufacturer_id = $row['manufacturer_id'];
+            $article->manufacturer = $row['manufacturer'];
+            $article->model = $row['model'];
+            $article->description = $row['description'];
+            $article->picture = $row['picture'];
+            $article->stock = $row['stock'];
+            $article->purchase_price = $row['purchase_price'];
+            $article->selling_price = $row['selling_price'];
+            if ($row['real_price'] == NULL)
+                $article->real_price = $row['selling_price'];
+            else
+                $article->real_price = $row['real_price'];
+            $article->tax_rate = $row['tax_rate'];
+            $article->isSelected = $row['isSelected'];
+            $result[] = $article;
+        }
+        
+        $this->closeConnection($query);
+        
+        return $result;
     }
 }
 

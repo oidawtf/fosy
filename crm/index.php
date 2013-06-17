@@ -14,8 +14,10 @@
             -->
             <link rel="stylesheet" href="css/site.css">
             <link rel="stylesheet" href="css/layout.css">
+            <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
             
-            <script type="text/javascript" src="js/jquery-1.5.2.min.js"></script>
+            <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+            <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
             <script type="text/javascript" src="js/hideshow.js"></script>
             <script type="text/javascript" src="js/jquery.tablesorter.min.js"></script>
             <script type="text/javascript" src="js/jquery.equalHeight.js"></script>
@@ -72,7 +74,7 @@
 
                     xmlhttp.send(params);
                 }
-
+                
             </script>
             
             <title>FOSY - Felix Online Systems</title>
