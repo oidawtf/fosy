@@ -650,7 +650,7 @@ class crmService {
     }
     
     public function updateCampaign($campaign) {
-        $con = $this->openConnection();
+        $this->openConnection();
 
         $campaignId = authenticationService::format($campaign->id);
         $name = authenticationService::format($campaign->name);
@@ -664,7 +664,7 @@ class crmService {
         $date_from = $this->convertTomysqlDate($date_from);
         $date_to = $this->convertTomysqlDate($date_to);
         
-        $query = "
+        mysql_query("
                 UPDATE campaign
                 SET
                     name = '".$name."',
@@ -675,13 +675,7 @@ class crmService {
                     budget = '".$budget."',
                     medium = '".$medium."'
                 WHERE id = '".$campaignId."'
-                ";
-        
-        mysql_query($query);
-        
-        echo $query;
-        
-        $this->displayError($con);
+                ");
         
         mysql_close();
     }
