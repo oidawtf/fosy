@@ -48,6 +48,10 @@ $(function() {
 	/* print button in ust va hide */
 	$("#printButton").hide();
 	
+	/* time-block for flex reports */
+	//$("#timeBlockEmployee").hide();
+	//$("#timeBlock").hide();
+	
 	/* calculate tax */
 	$("#calculate").click(function() {
 		bruttoBetrag = $("#bruttoBetrag").val();
@@ -98,6 +102,20 @@ $(function() {
 		});
 	});
 	
+	/* flex reports kz selected */
+	/*$("#allIndicatorsSelect").change(function() {
+		$("#allIndicatorsSelect option:selected").each(function() {
+			var id = $(this).val();
+			if(id == 5) {
+				$("#timeBlock").hide();
+				$("#timeBlockEmployee").show();
+			}else {
+				$("#timeBlockEmployee").hide();
+				$("#timeBlock").show();
+			}
+		});
+	});*/
+	
 	/* ust va jahr selected */
 	$("#ustVAJahrSelect").change(function() {
 		$("#ustVaNoData").remove();
@@ -144,39 +162,12 @@ $(function() {
 		
 			var chartOffer = $("#chartOffer").get(0).getContext("2d");
 			var myNewChart = new Chart(chartOffer).Bar(data, opts);
-
+			
+			createOffers(maxValueForBar);
 		});
 	}
 	
-	/* orders */
-	if($("#chartOrder").get(0)) {
-		var url="util/dashboardFunctionsOrders.ajax.php";
-		$.getJSON(url,function(json){
-			var dataOrder 	= json["datasets"][0]; 
-			var sumMonth 	= dataOrder["data"][0];
-			var sumQuarter 	= dataOrder["data"][1];
-			var sumYear 	= dataOrder["data"][2];
 		
-			var data = {
-				labels : [json["labels"][0], json["labels"][1], json["labels"][2]],
-				datasets : [ {
-					fillColor : dataOrder["fillColor"],
-					strokeColor : dataOrder["strokeColor"],
-					data : [sumMonth, sumQuarter, sumYear]
-				}]
-			};
-		
-			var opts = { 
-				scaleOverride:true, 
-				scaleSteps:3, 
-				scaleStepWidth:maxValueForBar,
-			};
-		
-			var chartOrder = $("#chartOrder").get(0).getContext("2d");
-			var myNewChart = new Chart(chartOrder).Bar(data, opts);
-		});
-	}
-	
 	/* relations */
 	if($("#chartRelation").get(0)) {
 		var url="util/dashboardFunctionsRelations.ajax.php";
@@ -226,10 +217,41 @@ $(function() {
 			var myNewChart = new Chart(chartRelation).Bar(data, opts);
 				
 		});
-	}
-	
+	}	
 	
 });
+
+function createOffers(maxValueForBar) {
+	/* orders */
+	if($("#chartOrder").get(0)) {
+		var url="util/dashboardFunctionsOrders.ajax.php";
+		$.getJSON(url,function(json){
+			var dataOrder 	= json["datasets"][0]; 
+			var sumMonth 	= dataOrder["data"][0];
+			var sumQuarter 	= dataOrder["data"][1];
+			var sumYear 	= dataOrder["data"][2];
+		
+			var data = {
+				labels : [json["labels"][0], json["labels"][1], json["labels"][2]],
+				datasets : [ {
+					fillColor : dataOrder["fillColor"],
+					strokeColor : dataOrder["strokeColor"],
+					data : [sumMonth, sumQuarter, sumYear]
+				}]
+			};
+		
+			var opts = { 
+				scaleOverride:true, 
+				scaleSteps:3, 
+				scaleStepWidth:maxValueForBar,
+			};
+		
+			var chartOrder = $("#chartOrder").get(0).getContext("2d");
+			var myNewChart = new Chart(chartOrder).Bar(data, opts);
+		});
+	}
+
+}
 
 /* plandaten anlegen period selected */
 $(document).on('change', '#periodSelect', function() {

@@ -181,7 +181,20 @@ fieldset#fieldsetRelation {
 }
 
 /* flexible reports */
-#flexZeit {
-	width:300px;
-	float:left;
+#flexKZ label {
+	width: 180px;
+}
+#timeBlockEmployee label {
+	width: 180px;
+}
+#timeBlock label {
+	width: 180px;
+}
+#timeBlock {
+}
+#flexTimeFrom {
+	margin-left: 0;
+}
+#flexTimeTo {
+	margin-left: 0;
 }

@@ -15,15 +15,31 @@
 
 	
 	$indicatorId = $_GET['allIndicatorsSelect'];
+	$date = $_GET['date'];
 	$dateFrom = $_GET['dateFrom']; // dd.mm.yyyy
 	$dateTo = $_GET['dateTo']; // dd.mm.yyyy
 	
-	if(checkFlexibleIndicator($indicatorId) && 
-		checkDateFormatValid($dateFrom) && 
-		checkDateFormatValid($dateTo) && 
-		checkDateNotInFuture($dateFrom) && 
-		checkDateFromBeforeDateTo($dateFrom, $dateTo)) {
-	
+	if(checkFlexibleIndicator($indicatorId)) {
+		if($indicatorId == 5) {
+			if(checkDateFormatValid($date)) {
+				$dataCorrect = true;
+			}
+		}else {
+			if(checkDateFormatValid($dateFrom) && 
+				checkDateFormatValid($dateTo) && 
+				checkDateNotInFuture($dateFrom) && 
+				checkDateFromBeforeDateTo($dateFrom, $dateTo)) {
+				$dataCorrect = true;
+			}else {
+				$dataCorrect = false;
+			}
+		
+		
+		}
+	}  
+		
+	if($dataCorrect) {	
+		$dateDB = formatDateForDatabase($date); // yyyy-mm-dd
 		$dateFromDB = formatDateForDatabase($dateFrom); // yyyy-mm-dd
 		$dateToDB = formatDateForDatabase($dateTo); // yyyy-mm-dd
 		
@@ -52,7 +68,7 @@
 				break;
 			case 5: // Mitarbeiterstatistik (TAB)
 				$indiNameAndType = getIndicatorNameAndType($indicatorId);
-				$employees = getEmployeeStatistik($indicatorId, 'pdf');
+				$employees = getEmployeeStatistik($indicatorId, $dateDB, 'pdf');
 				generateEmployeeStatistikPDF($indiNameAndType[0], $indiNameAndType[1], $dateFrom, $dateTo, $employees);
 				break;
 			case 7: // Umsatz und Anzahl Bestellung pro Kunde (TAB)

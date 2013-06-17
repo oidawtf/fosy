@@ -17,9 +17,10 @@ function getAllIndicators() {
 	return $indicators;
 }
 
-function generateReport($indicatorId, $dateFrom, $dateTo) {
-	$dateFromDB = formatDateForDatabase($dateFrom);
-	$dateToDB = formatDateForDatabase($dateTo);
+function generateReport($indicatorId, $dateFrom, $dateTo, $date) {
+	if(isset($date)) { $dateDB = formatDateForDatabase($date); }
+	if(isset($dateFrom)) { $dateFromDB = formatDateForDatabase($dateFrom); }
+	if(isset($dateTo)) { $dateToDB = formatDateForDatabase($dateTo); }
 	
 	switch($indicatorId) {
 		case 1: // Anzahl Angebote (KZ)
@@ -36,7 +37,7 @@ function generateReport($indicatorId, $dateFrom, $dateTo) {
 			$result = getTotalRevenue($indicatorId, 'html');
 			break;
 		case 5: // Mitarbeiterstatistik (TAB)
-			$result = getEmployeeStatistik($indicatorId, 'html');
+			$result = getEmployeeStatistik($indicatorId, $dateDB, 'html');
 			break;
 		case 7: // Umsatz und Anzahl Bestellung pro Kunde (TAB)
 			$result = getTurnoverAndQuantityPerCustomer($indicatorId, 'html');
@@ -136,9 +137,9 @@ function getTotalRevenue($indicatorId, $htmlPDF) {
 	}
 }
 
-function getEmployeeStatistik($indicatorId, $htmlPDF) {
+function getEmployeeStatistik($indicatorId, $dateDB, $htmlPDF) {
 	$indiNameAndType = getIndicatorNameAndType($indicatorId);
-	$query = "SELECT d.name AS departmentName, count(name) AS anzahlMA FROM person p JOIN department d ON p.fk_department_id = d.id WHERE p.is_employee=1 GROUP BY d.name ORDER BY d.id";
+	$query = "SELECT d.name AS departmentName, count(name) AS anzahlMA FROM person p JOIN department d ON p.fk_department_id = d.id WHERE p.is_employee=1 AND hiredate < '".$dateDB."' GROUP BY d.name ORDER BY d.id";
 	$result = mysql_query($query);
 	
 	if($result && mysql_num_rows($result)) {
