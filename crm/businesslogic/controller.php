@@ -339,6 +339,14 @@ class controller {
             else
                 echo "<h4 class='alert_error'>Login fehlgeschlagen!</h4>";
     }
+    
+    public static function getSelectedCustomers($campaignId) {
+        return controller::getService()->selectSelectedCustomers($campaignId);
+    }
+    
+    public static function getSelectedArticles($campaignId) {
+        return controller::getService()->selectSelectedArticles($campaignId);
+    }
 }
 
 ?>
