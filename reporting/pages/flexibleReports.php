@@ -92,7 +92,7 @@
 			</div>
 			<div id="flexTimeTo">
 				<label>Zeitraum bis:</label>
-				<input class="ui-widget ui-widget-content ui-corner-all" type="text" name="dateTo" id="datepickerTo" value=''/>
+				<input class="ui-widget ui-widget-content ui-corner-all" type="text" name="dateTo" id="datepickerTo" value="<?php echo $_POST['dateTo']; ?>"/>
 			</div>
 		</div>
 		<br/>

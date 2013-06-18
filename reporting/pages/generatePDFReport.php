@@ -45,43 +45,37 @@
 		
 		switch($indicatorId) {
 			case 1: // Anzahl Angebote (KZ)
-				$indiNameAndType = getIndicatorNameAndType($indicatorId);
 				$sumOffers = getOfferSum("sum", $dateFromDB, $dateToDB);
-				generateOfferPDF($indiNameAndType[0], $indiNameAndType[1], $dateFrom, $dateTo, $sumOffers);
+				generateOfferPDF($indicatorId, $dateFrom, $dateTo, $sumOffers);
 				break;
 			case 2: // Anzahl Aufträge (KZ)
-				$indiNameAndType = getIndicatorNameAndType($indicatorId);
 				$sumOrders = getOrdersSum("sum", $dateFromDB, $dateToDB);
-				generateOrdersPDF($indiNameAndType[0], $indiNameAndType[1], $dateFrom, $dateTo, $sumOrders);
+				generateOrdersPDF($indicatorId, $dateFrom, $dateTo, $sumOrders);
 				break;
 			case 3: // Verhältnis Angebote/Aufträge (KZ)
-				$indiNameAndType = getIndicatorNameAndType($indicatorId);
 				$sumOffers = getOfferSum("sum", $dateFromDB, $dateToDB);
 				$sumOrders = getOrdersSum("sum", $dateFromDB, $dateToDB);
-				generateRelationOfferOrderPDF($indiNameAndType[0], $indiNameAndType[1], $dateFrom, $dateTo, $sumOffers, $sumOrders);
+				generateRelationOfferOrderPDF($indicatorId, $dateFrom, $dateTo, $sumOffers, $sumOrders);
 				break;
 			case 4: // Gesamtumsatz (KZ)
 			case 6: // Gesamtumsatz (TAB)
-				$indiNameAndType = getIndicatorNameAndType($indicatorId);
 				$totalRevenue = getTotalRevenue($indicatorId, 'pdf');
-				generateTotalRevenuePDF($indiNameAndType[0], $indiNameAndType[1], $dateFrom, $dateTo, $totalRevenue);
+				generateTotalRevenuePDF($indicatorId, $dateFrom, $dateTo, $totalRevenue);
 				break;
 			case 5: // Mitarbeiterstatistik (TAB)
-				$indiNameAndType = getIndicatorNameAndType($indicatorId);
 				$employees = getEmployeeStatistik($indicatorId, $dateDB, 'pdf');
-				generateEmployeeStatistikPDF($indiNameAndType[0], $indiNameAndType[1], $dateFrom, $dateTo, $employees);
+				generateEmployeeStatistikPDF($indicatorId, $date, $employees);
 				break;
 			case 7: // Umsatz und Anzahl Bestellung pro Kunde (TAB)
-				$indiNameAndType = getIndicatorNameAndType($indicatorId);
 				$turnoverAndQuantity = getTurnoverAndQuantityPerCustomer($indicatorId, 'pdf');
-				generateTurnoverAndQuantityPerCustomerPDF($indiNameAndType[0], $indiNameAndType[1], $dateFrom, $dateTo, $turnoverAndQuantity);
+				generateTurnoverAndQuantityPerCustomerPDF($indicatorId, $dateFrom, $dateTo, $turnoverAndQuantity);
 				break;
 		}		
 	}else {
 		echo "sorry can't generate PDF.";
 	}
 
-function initPDF($indiName, $indiType, $dateFrom, $dateTo) {
+function initPDF($indicatorId, $indiName, $indiType, $dateFrom, $dateTo) {
 	$pdf = new PDF();
 	$pdf->AliasNbPages();
 	$pdf->AddPage();
@@ -89,38 +83,46 @@ function initPDF($indiName, $indiType, $dateFrom, $dateTo) {
 	$pdf->Cell(0, 5, "$indiName ($indiType)");
 	$pdf->Ln(10);
 	$pdf->SetFont('Helvetica', '', 12);
-	$pdf->Cell(0, 5, "Zeitraum von: ".$dateFrom." - Zeitraum bis: ".$dateTo);
+	if($indicatorId==5) {
+		$pdf->Cell(0, 5, "Zeitpunkt: ".$dateFrom);
+	}else {
+		$pdf->Cell(0, 5, "Zeitraum von: ".$dateFrom." - Zeitraum bis: ".$dateTo);
+	}
 	$pdf->Ln(10);
 	return $pdf;
 }
 
-function generateOfferPDF($indiName, $indiType, $dateFrom, $dateTo, $sumOffers) {
-	$pdf = initPDF($indiName, $indiType, $dateFrom, $dateTo);
+
+function generateOfferPDF($indicatorId, $dateFrom, $dateTo, $sumOffers) {
+	$indiNameAndType = getIndicatorNameAndType($indicatorId);
+	$pdf = initPDF($indicatorId, $indiNameAndType[0], $indiNameAndType[1], $dateFrom, $dateTo);
 	
-	$header = array($indiName . " (".$indiType.")");
+	$header = array($indiNameAndType[0] . " (".$indiNameAndType[1].")");
 	$data = array(array($sumOffers));
 	$colWidth = array(50);
 	$pdf->Table($colWidth, $header, $data);
 
-	$filename = $indiName.'_'.$dateFrom.'-'.$dateTo.'.pdf';
+	$filename = $indiNameAndType[0].'_'.$dateFrom.'-'.$dateTo.'.pdf';
 	$pdf->Output($filename, 'D');
 }
 
-function generateOrdersPDF($indiName, $indiType, $dateFrom, $dateTo, $sumOrders) {
+function generateOrdersPDF($indicatorId, $dateFrom, $dateTo, $sumOrders) {
+	$indiNameAndType = getIndicatorNameAndType($indicatorId);
 	// todo add regex for replacing umlauts
-	$pdf = initPDF($indiName, $indiType, $dateFrom, $dateTo);
+	$pdf = initPDF($indicatorId, $indiNameAndType[0], $indiNameAndType[1], $dateFrom, $dateTo);
 	
-	$header = array($indiName . " (".$indiType.")");
+	$header = array($indiNameAndType[0] . " (".$indiNameAndType[1].")");
 	$data = array(array($sumOrders));
 	$colWidth = array(50);
 	$pdf->Table($colWidth, $header, $data);
 	
-	$filename = $indiName.'_'.$dateFrom.'-'.$dateTo.'.pdf';
+	$filename = $indiNameAndType[0].'_'.$dateFrom.'-'.$dateTo.'.pdf';
 	$pdf->Output($filename, 'D');
 }
 
-function generateRelationOfferOrderPDF($indiName, $indiType, $dateFrom, $dateTo, $sumOffers, $sumOrders) {
-	$pdf = initPDF($indiName, $indiType, $dateFrom, $dateTo);
+function generateRelationOfferOrderPDF($indicatorId, $dateFrom, $dateTo, $sumOffers, $sumOrders) {
+	$indiNameAndType = getIndicatorNameAndType($indicatorId);
+	$pdf = initPDF($indicatorId, $indiNameAndType[0], $indiNameAndType[1], $dateFrom, $dateTo);
 	
 	$header = array("Anzahl Angebote (KZ)", "Anzahl Aufträge (KZ)", "Verhältnis");
 	$relation = round( (($sumOrders / $sumOffers) * 100), 2) . " %";
@@ -128,43 +130,46 @@ function generateRelationOfferOrderPDF($indiName, $indiType, $dateFrom, $dateTo,
 	$colWidth = array(50, 50, 40);
 	$pdf->Table($colWidth, $header, $data);
 	
-	$filename = $indiName.'_'.$dateFrom.'-'.$dateTo.'.pdf';
+	$filename = $indiNameAndType[0].'_'.$dateFrom.'-'.$dateTo.'.pdf';
 	$pdf->Output($filename, 'D');	
 }
 
-function generateTotalRevenuePDF($indiName, $indiType, $dateFrom, $dateTo, $totalRevenue) {
-	$pdf = initPDF($indiName, $indiType, $dateFrom, $dateTo);
+function generateTotalRevenuePDF($indicatorId, $dateFrom, $dateTo, $totalRevenue) {
+	$indiNameAndType = getIndicatorNameAndType($indicatorId);
+	$pdf = initPDF($indicatorId, $indiNameAndType[0], $indiNameAndType[1], $dateFrom, $dateTo);
 	
-	$header = array($indiName . " (".$indiType.")");
+	$header = array($indiNameAndType[0] . " (".$indiNameAndType[1].")");
 	$data = array(array(str_replace('.',',',$totalRevenue)." Euro"));
 	$colWidth = array(50);
 	$pdf->Table($colWidth, $header, $data);
 	
-	$filename = $indiName.'_'.$dateFrom.'-'.$dateTo.'.pdf';
+	$filename = $indiNameAndType[0].'_'.$dateFrom.'-'.$dateTo.'.pdf';
 	$pdf->Output($filename, 'D');
 }
 
-function generateEmployeeStatistikPDF($indiName, $indiType, $dateFrom, $dateTo, $employees) {
-	$pdf = initPDF($indiName, $indiType, $dateFrom, $dateTo);
+function generateEmployeeStatistikPDF($indicatorId, $date, $employees) {
+	$indiNameAndType = getIndicatorNameAndType($indicatorId);
+	$pdf = initPDF($indicatorId, $indiNameAndType[0], $indiNameAndType[1], $date, '');
 	
 	$header = array("Abteilung", "Anz. MA");
 	$data = $employees;
 	$colWidth = array(50, 50);
 	$pdf->Table($colWidth, $header, $data);
 	
-	$filename = $indiName.'_'.$dateFrom.'-'.$dateTo.'.pdf';
+	$filename = $indiNameAndType[0].'_'.$date.'.pdf';
 	$pdf->Output($filename, 'D');
 }
 
-function generateTurnoverAndQuantityPerCustomerPDF($indiName, $indiType, $dateFrom, $dateTo, $turnoverAndQuantity) {
-	$pdf = initPDF($indiName, $indiType, $dateFrom, $dateTo);
+function generateTurnoverAndQuantityPerCustomerPDF($indicatorId, $dateFrom, $dateTo, $turnoverAndQuantity) {
+	$indiNameAndType = getIndicatorNameAndType($indicatorId);
+	$pdf = initPDF($indicatorId, $indiNameAndType[0], $indiNameAndType[1], $dateFrom, $dateTo);
 	
 	$header = array("Vorname", "Nachname", "Anz. Bestellungen", "Umsatz");
 	$data = $turnoverAndQuantity; // todo iterate and str_replace the umsatz and add euro
 	$colWidth = array(40, 40, 50, 50);
 	$pdf->Table($colWidth, $header, $data);
 	
-	$filename = $indiName.'_'.$dateFrom.'-'.$dateTo.'.pdf';
+	$filename = $indiNameAndType[0].'_'.$dateFrom.'-'.$dateTo.'.pdf';
 	$pdf->Output($filename, 'D');
 }
 
