@@ -109,7 +109,6 @@ INSERT INTO indicator (fk_indicator_type_id, name) VALUES ( (select id from indi
 INSERT INTO indicator (fk_indicator_type_id, name) VALUES ( (select id from indicator_type where type='KZ'), 'Verhältnis Angebote/Aufträge');
 INSERT INTO indicator (fk_indicator_type_id, name) VALUES ( (select id from indicator_type where type='KZ'), 'Gesamtumsatz');
 INSERT INTO indicator (fk_indicator_type_id, name) VALUES ( (select id from indicator_type where type='TAB'), 'Mitarbeiterstatistik');
-INSERT INTO indicator (fk_indicator_type_id, name) VALUES ( (select id from indicator_type where type='TAB'), 'Gesamtumsatz');
 INSERT INTO indicator (fk_indicator_type_id, name) VALUES ( (select id from indicator_type where type='TAB'), 'Umsatz und Anzahl Bestellungen pro Kunde');
 
 -- plannedValue
