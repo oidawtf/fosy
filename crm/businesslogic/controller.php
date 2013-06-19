@@ -352,6 +352,15 @@ class controller {
     public static function getSelectedArticles($campaignId) {
         return controller::getService()->selectSelectedArticles($campaignId);
     }
+    
+    public static function getCampaignData($campaignId) {
+        $campaign = controller::getService()->selectCampaign($campaignId);
+        
+        $campaign->customers = controller::getService()->selectCampaignCustomersData($campaign);
+        $campaign->articles = controller::getService()->selectCampaignArticlesData($campaign);
+        
+        return $campaign;
+    }
 }
 
 ?>

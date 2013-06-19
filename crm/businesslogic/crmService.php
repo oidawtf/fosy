@@ -100,7 +100,7 @@ class crmService {
             return $campaign[0];
     }
     
-    public function selectCustomersByCampaign($campaignId, $medium, $namefilter, $zipfilter, $birthdatefilter) {
+    public function selectCustomersByCampaign($campaignId, $medium, $namefilter = NULL, $zipfilter = NULL, $birthdatefilter = NULL) {
         if ($medium == "email")
             $where = "
                 WHERE
@@ -183,7 +183,7 @@ class crmService {
         return $result;
     }
    
-    public function selectArticlesByCampaign($campaignId, $category_id, $manufacturer_id) {
+    public function selectArticlesByCampaign($campaignId, $category_id = NULL, $manufacturer_id = NULL) {
         $this->openConnection();
         
         $where = "";
@@ -883,6 +883,85 @@ class crmService {
                 $article->real_price = $row['real_price'];
             $article->tax_rate = $row['tax_rate'];
             $article->isSelected = $row['isSelected'];
+            $result[] = $article;
+        }
+        
+        $this->closeConnection($query);
+        
+        return $result;
+    }
+    
+    public function selectCampaignCustomersData($campaign) {
+        
+    }
+    
+    public function selectCampaignArticlesData($campaign) {
+        $this->openConnection();
+        
+        $select = "
+            SELECT
+                A.id AS article_id,
+                A.model,
+                A.description,
+                A.picture,
+                A.stock,
+                A.purchase_price,
+                A.selling_price,
+                CA.real_price,
+                A.tax_rate,
+                AC.id AS category_id,
+                AC.name AS category,
+                AM.id AS manufacturer_id,
+                AM.name AS manufacturer,
+                ORD.count
+            FROM article AS A
+                RIGHT OUTER JOIN (
+                    SELECT
+                        OF.id AS 'offerId',
+                        OF.number,
+                        OF.fk_customer_id AS 'customerId',
+                        ORD.id AS 'orderId',
+                        ORD.date AS 'orderDate',
+                        OA.fk_article_id AS 'articleId',
+                        OA.count
+                    FROM offer AS OF
+                    LEFT OUTER JOIN offer_article AS OA ON OF.id = OA.fk_offer_id
+                    LEFT OUTER JOIN orders AS ORD ON OF.fk_order_id = ORD.id
+                    WHERE DATE(ORD.date) BETWEEN '".$campaign->date_from."' AND '".$campaign->date_to."'
+                ) AS ORD ON A.id = ORD.articleId
+            LEFT OUTER JOIN article_category AS AC ON A.fk_article_category_id = AC.id
+            LEFT OUTER JOIN article_manufacturer AS AM ON A.fk_article_manufacturer_id = AM.id
+            LEFT OUTER JOIN (
+                SELECT *
+                FROM campaign_article
+                WHERE campaign_article.fk_campaign_id = '".$campaign->id."'
+            ) AS CA on A.id = CA.fk_article_id
+            WHERE CA.fk_campaign_id IS NOT NULL
+            ";
+        
+        echo $select;
+        $query = mysql_query($select);
+        
+        $result = array();
+        while ($row = mysql_fetch_assoc($query))
+        {
+            $article = new article();
+            $article->id = $row['article_id'];
+            $article->category_id = $row['category_id'];
+            $article->category = $row['category'];
+            $article->manufacturer_id = $row['manufacturer_id'];
+            $article->manufacturer = $row['manufacturer'];
+            $article->model = $row['model'];
+            $article->description = $row['description'];
+            $article->picture = $row['picture'];
+            $article->stock = $row['stock'];
+            $article->purchase_price = $row['purchase_price'];
+            $article->selling_price = $row['selling_price'];
+            if ($row['real_price'] == NULL)
+                $article->real_price = $row['selling_price'];
+            else
+                $article->real_price = $row['real_price'];
+            $article->tax_rate = $row['tax_rate'];
             $result[] = $article;
         }
         
