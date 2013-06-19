@@ -214,13 +214,13 @@ INSERT INTO `campaign` (`id`, `name`, `description`, `goal`, `date_from`, `date_
 
 -- Dumping data for table `campaign_article`
 INSERT INTO `campaign_article` (`fk_campaign_id`, `fk_article_id`, `real_price`) VALUES
-(1, 1, 0.00),
-(1, 2, 0.00),
+(1, 1, NULL),
+(1, 2, NULL),
 (1, 6, 100.00),
-(2, 1, 0.00),
-(2, 2, 0.00),
-(2, 3, 0.00),
-(2, 4, 0.00);
+(2, 1, NULL),
+(2, 2, NULL),
+(2, 3, NULL),
+(2, 4, NULL);
 
 -- Dumping data for table `campaign_person`
 INSERT INTO `campaign_person` (`fk_person_id`, `fk_campaign_id`) VALUES
