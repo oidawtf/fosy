@@ -35,6 +35,7 @@ class controller {
                 'createrequest' => new page('createrequest', 'Anfrage erfassen', 'ui/editrequest.php', 'customerId', array('home', 'showcustomers', 'customerdetails')),
                 'editrequest' => new page('editrequest', 'Anfrage bearbeiten', 'ui/editrequest.php', 'requestId', array('home', 'showcustomers', 'customerdetails', 'requestdetails')),
                 'createcustomer' => new page('createcustomer', 'Kunden erfassen', 'ui/editcustomer.php', NULL, array('home')),
+                'showcampaigns' => new page('showcampaigns', 'Kampagnen anzeigen', 'ui/showcampaigns.php', NULL, array('home')),
                 'editcampaign' => new page('editcampaign', 'Kampagne erstellen', 'ui/editcampaign.php', 'campaignId', array('home')),
                 'addcustomerstocampaign' => new page('addcustomerstocampaign', 'Kunden hinzufügen', 'ui/addcustomerstocampaign.php', 'campaignId', array('home', 'editcampaign')),
                 'customerdetailsfromcampaign' => new page('customerdetailsfromcampaign', 'Kundendetails', 'ui/customerdetails.php', 'customerId', array('home', 'editcampaign', 'addcustomerstocampaign')),
@@ -255,6 +256,11 @@ class controller {
     
     public static function getArticles($article_category_id) {
         return controller::getService()->selectArticles($article_category_id);
+    }
+    
+    public static function getCampaigns() {
+        controller::getService()->deleteEmptyCampaigns();
+        return controller::getService()->selectCampaigns();
     }
     
     public static function createCampaign() {

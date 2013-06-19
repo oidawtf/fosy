@@ -39,32 +39,65 @@ class crmService {
         mysql_close();  
     }
     
-    public function selectCampaign($campaignId) {
+    public function selectCampaigns($where = "") {
         $this->openConnection();
-        
-        $campaignId = authenticationService::format($campaignId);
 
         $query = mysql_query("
-            SELECT id, name, description, goal, date_from, date_to, budget, medium, code
-            FROM campaign
-            WHERE id = '".$campaignId."'
+            SELECT
+                C.id,
+                C.name,
+                C.description,
+                C.goal,
+                C.date_from,
+                C.date_to,
+                C.budget,
+                C.medium,
+                C.code,
+                P.count_customers,
+                A.count_articles
+            FROM
+                campaign AS C
+                LEFT OUTER JOIN (
+                    select fk_campaign_id AS id, COUNT(fk_person_id) as 'count_customers'
+                    from campaign_person
+                    GROUP BY fk_campaign_id
+                ) AS P ON P.id = C.id
+                LEFT OUTER JOIN (
+                    select fk_campaign_id AS id, COUNT(fk_article_id) as 'count_articles'
+                    from campaign_article
+                    GROUP BY fk_campaign_id
+                ) AS A ON A.id = C.id
+            ".$where."
             ");
         
-        $row = mysql_fetch_assoc($query);
-        $campaign = new campaign();
-        $campaign->id = $row['id'];
-        $campaign->name = $row['name'];
-        $campaign->description = $row['description'];
-        $campaign->goal = $row['goal'];
-        $campaign->date_from = $row['date_from'];
-        $campaign->date_to = $row['date_to'];
-        $campaign->budget = $row['budget'];
-        $campaign->medium = $row['medium'];
-        $campaign->code = $row['code'];
+        $result = array();
+        while ($row = mysql_fetch_assoc($query))
+        {
+            $campaign = new campaign();
+            $campaign->id = $row['id'];
+            $campaign->name = $row['name'];
+            $campaign->description = $row['description'];
+            $campaign->goal = $row['goal'];
+            $campaign->date_from = $row['date_from'];
+            $campaign->date_to = $row['date_to'];
+            $campaign->budget = $row['budget'];
+            $campaign->medium = $row['medium'];
+            $campaign->code = $row['code'];
+            $campaign->customers = $row['count_customers'];
+            $campaign->articles = $row['count_articles'];
+            $result[] = $campaign;
+        }
         
         $this->closeConnection($query);
         
-        return $campaign;
+        return $result;
+    }
+    
+    public function selectCampaign($campaignId) {
+        $campaignId = authenticationService::format($campaignId);
+        $campaign = $this->selectCampaigns("WHERE C.id = '".$campaignId."'");
+        if (count($campaign) > 0)
+            return $campaign[0];
     }
     
     public function selectCustomersByCampaign($campaignId, $medium, $namefilter, $zipfilter, $birthdatefilter) {

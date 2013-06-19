@@ -12,8 +12,8 @@ class campaign {
     public $medium;
     public $code;
     
-    public $articles;
     public $customers;
+    public $articles;
     
 }
 
