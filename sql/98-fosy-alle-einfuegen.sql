@@ -209,8 +209,8 @@ INSERT INTO `customer_request` (`id`, `fk_customer_request_type_id`, `fk_person_
 
 -- Dumping data for table `campaign`
 INSERT INTO `campaign` (`id`, `name`, `description`, `goal`, `date_from`, `date_to`, `budget`, `medium`, `code`) VALUES
-(1, 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata', 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata', 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata', '2013-10-12', '2013-12-20', 100000.00, 'address', NULL),
-(2, 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata', 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata', 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata', '2014-01-10', '2014-02-25', 20000.00, 'email', NULL);
+(1, 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata', 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata', 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata', '2013-04-15', '2013-05-15', 100000.00, 'address', NULL),
+(2, 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata', 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata', 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata', '2013-05-15', '2013-06-15', 20000.00, 'email', NULL);
 
 -- Dumping data for table `campaign_article`
 INSERT INTO `campaign_article` (`fk_campaign_id`, `fk_article_id`, `real_price`) VALUES
@@ -243,6 +243,7 @@ INSERT INTO offer (fk_customer_id, fk_delivery_id, number, date, valid_from, val
 INSERT INTO offer (fk_customer_id, fk_delivery_id, number, date, valid_from, valid_until) VALUES (24, 2, 'offer-2-2013', '2013-04-15', '2013-04-15', '2013-05-15');
 INSERT INTO offer (fk_customer_id, fk_delivery_id, number, date, valid_from, valid_until) VALUES (29, 3, 'offer-3-2013', '2013-05-03', '2013-05-03', '2013-06-03');
 INSERT INTO offer (fk_customer_id, fk_delivery_id, number, date, valid_from, valid_until) VALUES (23, 1, 'offer-4-2013', '2013-06-11', '2013-06-11', '2013-07-11');
+INSERT INTO offer (fk_customer_id, fk_delivery_id, number, date, valid_from, valid_until) VALUES (30, 3, 'offer-5-2013', '2013-04-25', '2013-04-25', '2013-05-15');
 
 -- orders
 INSERT INTO orders(number, date) VALUES ('order-1-2013', '2013-04-15');
@@ -254,3 +255,15 @@ INSERT INTO invoice(fk_tax_type_id, fk_tax_rate_id, date, gross_price, net, tax,
 INSERT INTO orders(number, date) VALUES ('order-4-2013', '2013-06-15');
 UPDATE offer SET fk_order_id=(select id from orders where number='order-4-2013') where number = 'offer-4-2013';
 INSERT INTO invoice(fk_tax_type_id, fk_tax_rate_id, date, gross_price, net, tax, businessRecordNumber) VALUES ( (select id from tax_type where type='ust'), (select id from tax_rate where rate=20), '2013-06-15', 120, 100, 20, 'order-4-2013');
+INSERT INTO orders(number, date) VALUES ('order-5-2013', '2013-05-10');
+UPDATE offer SET fk_order_id=(select id from orders where number='order-5-2013') where number = 'offer-5-2013';
+
+INSERT INTO `offer_article` (`fk_article_id`, `fk_offer_id`, `count`) VALUES
+(1, 1, 3),
+(1, 2, 5),
+(2, 1, 2),
+(3, 2, 6),
+(5, 4, 2),
+(5, 5, 8),
+(6, 4, 7),
+(6, 5, 9);
