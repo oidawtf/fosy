@@ -231,7 +231,7 @@ class crmService {
     public function selectCustomersInternal($where)
     {
         $this->openConnection();
-        
+
         $query = mysql_query("
             SELECT
                 P.id,
@@ -256,13 +256,27 @@ class crmService {
                 P.is_distributor,
                 P.is_customer,
                 P.is_employee,
-                COUNT(CR.id) AS 'count_requests'
+                CR.count_requests,
+                O.count_offers,
+                O.count_orders
             FROM
-                person AS P
-                LEFT OUTER JOIN customer_request AS CR on P.id = CR.fk_person_id
-            ".$where."
-            GROUP BY P.id;
-            ");
+                person as P
+                LEFT OUTER JOIN (
+                    SELECT P.id, COUNT(CR.id) AS 'count_requests'
+                    FROM person AS P
+                    LEFT OUTER JOIN customer_request AS CR ON P.id = CR.fk_person_id
+                    WHERE P.is_customer = 1
+                    GROUP BY P.id
+                ) AS CR ON CR.id = P.id
+                LEFT OUTER JOIN (
+                    SELECT P.id, COUNT(O.id) AS 'count_offers', COUNT(O.fk_order_id) AS 'count_orders'
+                    FROM person AS P
+                    LEFT OUTER JOIN offer AS O ON P.id = O.fk_customer_id
+                    WHERE P.is_customer = 1
+                    GROUP BY P.id
+                ) AS O ON O.id = P.id
+                ".$where."
+                ");
         
         $result = array();
         while ($row = mysql_fetch_assoc($query))
@@ -291,6 +305,8 @@ class crmService {
             $person->is_customer = $row['is_customer'];
             $person->is_employee = $row['is_employee'];
             $person->requests = $row['count_requests'];
+            $person->offers = $row['count_offers'];
+            $person->orders = $row['count_orders'];
             $result[] = $person;
         }
         
