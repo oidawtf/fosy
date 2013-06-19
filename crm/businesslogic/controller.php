@@ -41,7 +41,7 @@ class controller {
                 'customerdetailsfromcampaign' => new page('customerdetailsfromcampaign', 'Kundendetails', 'ui/customerdetails.php', 'customerId', array('home', 'editcampaign', 'addcustomerstocampaign')),
                 'addarticlestocampaign' => new page('addarticlestocampaign', 'Artikel hinzufügen', 'ui/addarticlestocampaign.php', 'campaignId', array('home', 'editcampaign', 'addcustomerstocampaign')),
                 'finalizecampaign' => new page('finalizecampaign', 'Kampagne fertigstellen', 'ui/finalizecampaign.php', 'campaignId', array('home', 'editcampaign', 'addcustomerstocampaign', 'addarticlestocampaign')),
-                'analysecampaign' => new page('analysecampaign', 'Kampagne analysieren', 'ui/analysecampaign.php', 'campaignId', array('home'))
+                'analysecampaign' => new page('analysecampaign', 'Kampagne analysieren', 'ui/analysecampaign.php', 'campaignId', array('home', 'showcampaigns'))
                 );
         }
 

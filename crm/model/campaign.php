@@ -1,6 +1,10 @@
 <?php
 
 class campaign {
+
+    const MAXLENGTHNAME = 50;
+    const MAXLENGTHDESCRIPTION = 200;
+    const MAXLENGTHGOAL= 50;
     
     public $id;
     public $name;
@@ -15,6 +19,35 @@ class campaign {
     public $customers;
     public $articles;
     
+    public function getNameTrimmed($length = NULL) {
+        if ($length == NULL)
+            $length = self::MAXLENGTHNAME;
+        
+        if (strlen($this->name) > $length)
+            return substr($this->name, 0, $length - 3)."...";
+        
+        return $this->name;
+    }
+    
+    public function getDescriptionTrimmed($length = NULL) {
+        if ($length == NULL)
+            $length = self::MAXLENGTHDESCRIPTION;
+        
+        if (strlen($this->description) > $length)
+            return substr($this->description, 0, $length - 3)."...";
+        
+        return $this->description;
+    }
+    
+    public function getGoalTrimmed($length = NULL) {
+        if ($length == NULL)
+            $length = self::MAXLENGTHGOAL;
+        
+        if (strlen($this->goal) > $length)
+            return substr($this->goal, 0, $length - 3)."...";
+        
+        return $this->goal;
+    }
 }
 
 ?>
