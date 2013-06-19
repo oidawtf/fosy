@@ -45,8 +45,6 @@ class PDF extends FPDF
             $sum += $articleSum;
         }
         
-        $this->AddPage();
-        
         $this->SetFont(self::HEADERFONTFAMILY, self::HEADERFONTWEIGHT, self::HEADERFONTSIZE);
         $this->Cell(40,10, "Bestellte Artikel");
         $this->Ln();
@@ -61,9 +59,9 @@ class PDF extends FPDF
     private function PrintArticleTable($header, $data) {
         // Colors, line width and bold font
         $this->SetFont(self::NORMALFONTFAMILY, self::NORMALFONTWEIGHT, self::NORMALFONTSIZE);
-        $this->SetFillColor(255,0,0);
-        $this->SetTextColor(255);
-        $this->SetDrawColor(128,0,0);
+        $this->SetFillColor(76, 150, 224);
+        $this->SetTextColor(33, 66, 99);
+        $this->SetDrawColor(33, 66, 99);
         $this->SetLineWidth(.3);
         $this->SetFont('','B');
         // Header
@@ -95,6 +93,13 @@ class PDF extends FPDF
 }
 
 $pdf = new PDF();
+
+$pdf->AddPage();
+
+$pdf->SetFont($pdf::HEADERFONTFAMILY, $pdf::HEADERFONTWEIGHT, $pdf::HEADERFONTSIZE);
+$pdf->Cell(40,10, "Auswertung Kampagne - ".$campaign->id);
+$pdf->Ln();
+$pdf->Ln();
 
 $pdf->PrintCustomers($campaign->customers);
 $pdf->PrintArticles($campaign->articles);
