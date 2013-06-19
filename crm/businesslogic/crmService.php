@@ -962,6 +962,7 @@ class crmService {
             else
                 $article->real_price = $row['real_price'];
             $article->tax_rate = $row['tax_rate'];
+            $article->count = $row['count'];
             $result[] = $article;
         }
         

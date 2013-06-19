@@ -15,6 +15,7 @@ class article {
     public $selling_price;
     public $real_price;
     public $tax_rate;
+    public $count;
     
     public $isSelected;
     
