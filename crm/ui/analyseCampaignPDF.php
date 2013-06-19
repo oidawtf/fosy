@@ -24,7 +24,17 @@ class PDF extends FPDF
     const NORMALFONTSIZE = 14;
     
     public function PrintCustomers($customers) {
+        foreach ($customers as $item) {
+            $customer = $item['person'];
+            $this->SetFont(self::HEADERFONTFAMILY, self::HEADERFONTWEIGHT, self::HEADERFONTSIZE);
+            $this->Cell(40,10, "Kunde ".$customer->id." - ".$customer->getFullName());
+            $this->Ln();
+
+            $this->PrintArticles($item['articles']);
+            $this->Ln();
+        }
         
+        $this->Ln();
     }
     
     public function PrintArticles($articles) {
@@ -44,10 +54,6 @@ class PDF extends FPDF
             $data[] = $item;
             $sum += $articleSum;
         }
-        
-        $this->SetFont(self::HEADERFONTFAMILY, self::HEADERFONTWEIGHT, self::HEADERFONTSIZE);
-        $this->Cell(40,10, "Bestellte Artikel");
-        $this->Ln();
         
         $this->PrintArticleTable($header, $data);
         
@@ -102,6 +108,9 @@ $pdf->Ln();
 $pdf->Ln();
 
 $pdf->PrintCustomers($campaign->customers);
+$pdf->SetFont($pdf::HEADERFONTFAMILY, $pdf::HEADERFONTWEIGHT, $pdf::HEADERFONTSIZE);
+$pdf->Cell(40,10, "Bestellte Artikel");
+$pdf->Ln();
 $pdf->PrintArticles($campaign->articles);
 
 $pdf->Output();

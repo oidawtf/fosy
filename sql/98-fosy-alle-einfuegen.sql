@@ -209,7 +209,8 @@ INSERT INTO `customer_request` (`id`, `fk_customer_request_type_id`, `fk_person_
 -- Dumping data for table `campaign`
 INSERT INTO `campaign` (`id`, `name`, `description`, `goal`, `date_from`, `date_to`, `budget`, `medium`, `code`) VALUES
 (1, 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata', 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata', 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata', '2013-04-15', '2013-05-15', 100000.00, 'address', NULL),
-(2, 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata', 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata', 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata', '2013-05-15', '2013-06-15', 20000.00, 'email', NULL);
+(2, 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata', 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata', 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata', '2013-05-15', '2013-06-15', 20000.00, 'email', NULL),
+(3, 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata', 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata', 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata', '2013-01-01', '2013-12-31', 1750000.00, 'address', NULL);
 
 -- Dumping data for table `campaign_article`
 INSERT INTO `campaign_article` (`fk_campaign_id`, `fk_article_id`, `real_price`) VALUES
@@ -219,17 +220,25 @@ INSERT INTO `campaign_article` (`fk_campaign_id`, `fk_article_id`, `real_price`)
 (2, 1, NULL),
 (2, 2, NULL),
 (2, 3, NULL),
-(2, 4, NULL);
+(2, 4, NULL),
+(3, 1, NULL),
+(3, 2, NULL),
+(3, 3, NULL),
+(3, 4, NULL);
 
 -- Dumping data for table `campaign_person`
 INSERT INTO `campaign_person` (`fk_person_id`, `fk_campaign_id`) VALUES
 (23, 1),
 (23, 2),
+(23, 3),
 (24, 1),
 (24, 2),
+(24, 3),
 (25, 1),
 (26, 2),
+(26, 3),
 (27, 2),
+(27, 3),
 (28, 1);
 
 -- delivery 

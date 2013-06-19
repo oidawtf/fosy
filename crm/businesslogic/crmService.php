@@ -170,7 +170,7 @@ class crmService {
             $person->email = $row['email'];
             $person->personnel_number = $row['personnel_number'];
             $person->hiredate = $row['hiredate'];
-            $person->posistion = $row['position'];
+            $person->position = $row['position'];
             $person->is_distributor = $row['is_distributor'];
             $person->is_customer = $row['is_customer'];
             $person->is_employee = $row['is_employee'];
@@ -333,7 +333,7 @@ class crmService {
             $person->email = $row['email'];
             $person->personnel_number = $row['personnel_number'];
             $person->hiredate = $row['hiredate'];
-            $person->posistion = $row['position'];
+            $person->position = $row['position'];
             $person->is_distributor = $row['is_distributor'];
             $person->is_customer = $row['is_customer'];
             $person->is_employee = $row['is_employee'];
@@ -998,11 +998,34 @@ class crmService {
             $person->email = $row['email'];
             $person->personnel_number = $row['personnel_number'];
             $person->hiredate = $row['hiredate'];
-            $person->posistion = $row['position'];
+            $person->position = $row['position'];
             $person->is_distributor = $row['is_distributor'];
             $person->is_customer = $row['is_customer'];
             $person->is_employee = $row['is_employee'];
-            $result[] = $person;
+            
+            $article = new article();
+            $article->id = $row['articleId'];
+            $article->category_id = $row['category_id'];
+            $article->category = $row['category'];
+            $article->manufacturer_id = $row['manufacturer_id'];
+            $article->manufacturer = $row['manufacturer'];
+            $article->model = $row['model'];
+            $article->description = $row['description'];
+            $article->picture = $row['picture'];
+            $article->stock = $row['stock'];
+            $article->purchase_price = $row['purchase_price'];
+            $article->selling_price = $row['selling_price'];
+            if ($row['real_price'] == NULL)
+                $article->real_price = $row['selling_price'];
+            else
+                $article->real_price = $row['real_price'];
+            $article->tax_rate = $row['tax_rate'];
+            $article->count = $row['count'];
+            
+            if (!array_key_exists($person->id, $result))
+                $result[$person->id] = array('person' => $person, 'articles' => array());
+            
+            $result[$person->id]['articles'][] = $article;
         }
         
         $this->closeConnection($query);

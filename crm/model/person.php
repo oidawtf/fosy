@@ -3,11 +3,9 @@
 class person {
     
     public $id;
-    //public $fk_department_id;
     public $firstname;
     public $lastname;
     public $username;
-    //public $password;
     public $title;
     public $street;
     public $housenumber;
@@ -22,7 +20,7 @@ class person {
     public $birthdate;
     public $personnel_number;
     public $hiredate;
-    public $posistion;
+    public $position;
     public $is_distributor;
     public $is_customer;
     public $is_employee;
