@@ -51,7 +51,7 @@ $campaigns = controller::getCampaigns();
                             echo            "<input type='hidden' name='campaignId' value='".$campaign->id."' />";
                             echo            "<input type='image' title='Bearbeiten' src='images/icn_edit.png'>";
                             echo        "</form>";
-                            echo        "<a href='".$_SERVER['PHP_SELF']."?content=analysecampaign&campaignId=".$campaign->id."'>Analyse</a>";
+                            echo    "<a href='ui/analyseCampaignPDF.php?campaignId=".$campaign->id."' target='_blank'>Analyse</a>";
                             echo    "</td>";
                             echo "</tr>";
                         }
