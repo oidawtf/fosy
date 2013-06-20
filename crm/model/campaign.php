@@ -48,6 +48,15 @@ class campaign {
         
         return $this->goal;
     }
+    
+    public function getDateFrom() {
+        return utils::ConvertDate($this->date_from);
+    }
+    
+    public function getDateTo() {
+        return utils::ConvertDate($this->date_to);
+    }
+    
 }
 
 ?>

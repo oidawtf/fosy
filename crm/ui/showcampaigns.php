@@ -24,8 +24,8 @@ $campaigns = controller::getCampaigns();
                             <th class="header">Betreff</th>
                             <th class="header">Beschreibung</th>
                             <th class="header">Ziel</th>
-                            <th class="header">Von</th>
-                            <th class="header">Bis</th>
+                            <th class="header" style="width: 120px;">Von</th>
+                            <th class="header" style="width: 120px;">Bis</th>
                             <th class="header">Budget</th>
                             <th class="header">Kunden</th>
                             <th class="header">Artikel</th>
@@ -41,8 +41,8 @@ $campaigns = controller::getCampaigns();
                             echo    "<td>".$campaign->getNameTrimmed()."</td>";
                             echo    "<td>".$campaign->getDescriptionTrimmed()."</td>";
                             echo    "<td>".$campaign->getGoalTrimmed()."</td>";
-                            echo    "<td>".$campaign->date_from."</td>";
-                            echo    "<td>".$campaign->date_to."</td>";
+                            echo    "<td>".$campaign->getDateFrom()."</td>";
+                            echo    "<td>".$campaign->getDateTo()."</td>";
                             echo    "<td>".$campaign->budget."</td>";
                             echo    "<td>".$campaign->customers."</td>";
                             echo    "<td>".$campaign->articles."</td>";

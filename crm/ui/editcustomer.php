@@ -44,7 +44,7 @@ else {
                                 <td><input name="firstname" required="1" type="text" style="width:90%" value="<?php echo $customer->firstname; ?>" /></td>
                                 <td><input name="lastname" required="1" type="text" style="width:90%" value="<?php echo $customer->lastname; ?>" /></td>
                                 <td><input name="title" type="text" style="width:90%" value="<?php echo $customer->title; ?>" /></td>
-                                <td><input name="birthdate" type="date" id="birthdate" style="width:90%" value="<?php echo $customer->birthdate; ?>" /></td>
+                                <td><input name="birthdate" type="date" id="birthdate" style="width:90%" value="<?php echo $customer->getBirthdate(); ?>" /></td>
                             </tr>
                         </tbody>
                     </table>
