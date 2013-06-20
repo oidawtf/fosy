@@ -1,6 +1,7 @@
 <?php
 
 authenticationController::checkAuthentication();
+authenticationController::checkAuthorization();
 
 if (isset($_GET['campaignId']))
     $campaign = controller::getCampaign($_GET['campaignId']);

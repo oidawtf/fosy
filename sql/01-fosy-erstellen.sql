@@ -22,11 +22,12 @@ CREATE TABLE tax_report (
   CONSTRAINT monthYear 
     UNIQUE (month, year), 
   UNIQUE INDEX (id));
-CREATE TABLE role (
-  id       int(10) NOT NULL AUTO_INCREMENT, 
-  rolename varchar(128) NOT NULL, 
-  PRIMARY KEY (id), 
-  UNIQUE INDEX (id));
+CREATE TABLE IF NOT EXISTS role (
+  id		int(10) NOT NULL AUTO_INCREMENT,
+  rolename	varchar(128) NOT NULL,
+  content	varchar(5000) DEFAULT NULL,
+  PRIMARY KEY (id),
+  UNIQUE KEY id (id));
 CREATE TABLE person_role (
   fk_person_id int(10) NOT NULL, 
   fk_role_id   int(10) NOT NULL, 

@@ -5,6 +5,7 @@ require_once '../includes.php';
 require_once '../../shared/fpdf/fpdf.php';
 
 authenticationController::checkAuthentication();
+authenticationController::checkAuthorization('createCampaignPDF');
 
 if (!isset($_GET['campaignId']) || !isset($_GET['customerId']))
     return;

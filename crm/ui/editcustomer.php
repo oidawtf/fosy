@@ -1,6 +1,7 @@
 <?php
 
 authenticationController::checkAuthentication();
+authenticationController::checkAuthorization();
 
 if (isset($_GET['customerId'])) {
     $customer = controller::getCustomer($_GET['customerId']);

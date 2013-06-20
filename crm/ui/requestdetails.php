@@ -1,6 +1,7 @@
 <?php
 
 authenticationController::checkAuthentication();
+authenticationController::checkAuthorization();
 
 if (isset($_GET['requestId']))
     $request = controller::getRequestById($_GET['requestId']);

@@ -1,6 +1,7 @@
 <?php
 
 authenticationController::checkAuthentication();
+authenticationController::checkAuthorization();
 
 if (isset($_POST['createcustomer']))
     controller::createCustomer();

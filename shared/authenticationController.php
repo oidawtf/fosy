@@ -24,6 +24,8 @@ class authenticationController {
     const sessionIDUser = "username";
     const sessionIDUser_firstname = "user_firstname";
     const sessionIDUser_lastname = "user_lastname";
+    const sessionIDUser_roles = "user_roles";
+    const sessionIDUser_contents = "user_contents";
     
     private static function getService() {
         if (empty(authenticationController::$service))
@@ -58,6 +60,8 @@ class authenticationController {
                 $_SESSION[self::sessionIDUserId] = $user['id'];
                 $_SESSION[self::sessionIDUser_firstname] = $user['firstname'];
                 $_SESSION[self::sessionIDUser_lastname] = $user['lastname'];
+                $_SESSION[self::sessionIDUser_roles] = $user['roles'];
+                $_SESSION[self::sessionIDUser_contents] = $user['contents'];
                 break;
             }
     }
@@ -84,12 +88,16 @@ class authenticationController {
                 isset($_SESSION[self::sessionIDUserId]) &&
                 isset($_SESSION[self::sessionIDUser]) &&
                 isset($_SESSION[self::sessionIDUser_firstname]) &&
-                isset($_SESSION[self::sessionIDUser_lastname]))
+                isset($_SESSION[self::sessionIDUser_lastname]) &&
+                isset($_SESSION[self::sessionIDUser_roles]) &&
+                isset($_SESSION[self::sessionIDUser_contents]))
             return array(
                 "id" => $_SESSION[self::sessionIDUserId],
                 "username" => $_SESSION[self::sessionIDUser],
                 "firstname" => $_SESSION[self::sessionIDUser_firstname],
-                "lastname" => $_SESSION[self::sessionIDUser_lastname]
+                "lastname" => $_SESSION[self::sessionIDUser_lastname],
+                "roles" => $_SESSION[self::sessionIDUser_roles],
+                "contents" => $_SESSION[self::sessionIDUser_contents]
                 );
     }
     
@@ -102,16 +110,34 @@ class authenticationController {
         return utils::ConvertUser(authenticationController::getUser());
     }
     
+    private static function displayNoPermission() {
+        echo
+        "
+            <h1>Forbidden</h1>
+            <p>You don't have permission to access / on this server.</p>
+        ";
+        die();
+    }
+    
     public static function checkAuthentication() {
         if(!authenticationController::isLoggedIn())
-        {
-            echo
-            "
-                <h1>Forbidden</h1>
-                <p>You don't have permission to access / on this server.</p>
-            ";
-            die();
-        }
+            authenticationController::displayNoPermission();
+    }
+    
+    public static function checkAuthorization($content = NULL) {
+        if (isset($_GET['content']))
+            $content = $_GET['content'];
+        
+        if (!authenticationController::isAuthorized($content))
+            authenticationController::displayNoPermission();
+    }
+    
+    public static function isAuthorized($content = NULL) {
+        if ($content == NULL && isset($_GET['content']))
+            $content = $_GET['content'];
+        
+        $user = authenticationController::getUser();
+        return array_key_exists($content, $user['contents']);
     }
     
     public static function isRegistered($username) {

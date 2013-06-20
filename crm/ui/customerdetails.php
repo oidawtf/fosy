@@ -1,6 +1,7 @@
 <?php
 
 authenticationController::checkAuthentication();
+authenticationController::checkAuthorization();
 
 if (isset($_POST['createrequest']) && isset($_GET['customerId']))
     controller::createRequest($_GET['customerId']);

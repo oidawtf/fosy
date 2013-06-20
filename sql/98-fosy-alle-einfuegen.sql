@@ -1,13 +1,14 @@
 -- Rollen
-INSERT INTO role (rolename) VALUES ('admin');
-INSERT INTO role (rolename) VALUES ('management');
-INSERT INTO role (rolename) VALUES ('secretary');
-INSERT INTO role (rolename) VALUES ('purchase');
-INSERT INTO role (rolename) VALUES ('sales');
-INSERT INTO role (rolename) VALUES ('humanResources');
-INSERT INTO role (rolename) VALUES ('accounting');
-INSERT INTO role (rolename) VALUES ('montageManagement');
-INSERT INTO role (rolename) VALUES ('montage');
+INSERT INTO role (rolename, content) VALUES
+('admin', 'showcustomers|customerdetails|requestdetails|createrequest|editrequest|createcustomer|showcampaigns|editcampaign|addcustomerstocampaign|customerdetailsfromcampaign|addarticlestocampaign|finalizecampaign|analyseCampaignPDF|createCampaignPDF'),
+('management', 'showcustomers|customerdetails|requestdetails|createrequest|editrequest|createcustomer|showcampaigns|editcampaign|addcustomerstocampaign|customerdetailsfromcampaign|addarticlestocampaign|finalizecampaign|analyseCampaignPDF|createCampaignPDF'),
+('secretary', 'showcustomers|customerdetails|requestdetails|createrequest|editrequest|createcustomer|showcampaigns|analyseCampaignPDF'),
+('purchase', 'showcustomers|customerdetails|requestdetails|createrequest|editrequest|createcustomer|showcampaigns|analyseCampaignPDF'),
+('sales', 'showcustomers|customerdetails|requestdetails|createrequest|editrequest|createcustomer|showcampaigns|editcampaign|addcustomerstocampaign|customerdetailsfromcampaign|addarticlestocampaign|finalizecampaign|analyseCampaignPDF|createCampaignPDF'),
+('humanResources', 'showcustomers|customerdetails|requestdetails|createrequest|editrequest|createcustomer|showcampaigns|analyseCampaignPDF'),
+('accounting', 'showcustomers|customerdetails|requestdetails|createrequest|editrequest|createcustomer|showcampaigns|analyseCampaignPDF'),
+('montageManagement', 'showcustomers|customerdetails|requestdetails|createrequest|editrequest|createcustomer|showcampaigns|analyseCampaignPDF'),
+('montage', 'customerdetails');
 
 -- Abteilungen
 INSERT INTO department (name) VALUES ('Geschäftsführung');

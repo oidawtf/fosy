@@ -92,19 +92,50 @@ class authenticationService {
         $this->openConnection();
 
         $query = mysql_query("
-            SELECT id, firstname, lastname, username
-            FROM person
+            SELECT
+                P.id,
+                P.firstname,
+                P.lastname,
+                P.username,
+                R.roleId,
+                R.rolename,
+                R.content
+            FROM person AS P
+            LEFT OUTER JOIN (
+                SELECT
+                    PR.fk_person_id AS 'personId',
+                    PR.fk_role_id AS 'roleId',
+                    R.rolename,
+                    R.content
+                FROM person_role AS PR
+                LEFT OUTER JOIN role AS R ON PR.fk_role_id = R.id
+            ) AS R on R.personId = P.id
             WHERE username IS NOT NULL
             ");
         
         $result = array();
-        while ($row = mysql_fetch_assoc($query))
-            $result[] = array(
+        while ($row = mysql_fetch_assoc($query)) {
+            $person = array(
                 'id' => $row['id'],
                 'firstname' => $row['firstname'],
                 'lastname' => $row['lastname'],
-                'username' => $row['username']
-                );
+                'username' => $row['username'],
+                'roles' => array(),
+                'contents' => array()
+            );
+            $role = $row['rolename'];
+            $contents = explode("|", $row['content']);
+            
+            if (!array_key_exists($person['id'], $result))
+                $result[$person['id']] = $person;
+            
+            if (!array_key_exists($role, $result[$person['id']]['roles']))
+                $result[$person['id']]['roles'][$role] = $role;
+            
+            foreach ($contents as $content)
+                if (!array_key_exists($content, $result[$person['id']]['contents']))
+                    $result[$person['id']]['contents'][$content] = $content;
+        }
         
         $this->closeConnection($query);
         
