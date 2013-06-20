@@ -361,6 +361,13 @@ class controller {
         
         return $campaign;
     }
+    
+    public static function isAuthorized($content) {
+        if (authenticationController::isAuthorized($content))
+            return "";
+        
+        return "disabled";
+    }
 }
 
 ?>

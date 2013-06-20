@@ -61,3 +61,8 @@ body {
   width: 35%;
   border: 1px solid red;
 }
+
+.disabled {
+   pointer-events: none;
+   cursor: default;
+}

@@ -8,7 +8,7 @@ INSERT INTO role (rolename, content) VALUES
 ('humanResources', 'showcustomers|customerdetails|requestdetails|createrequest|editrequest|createcustomer|showcampaigns|analyseCampaignPDF'),
 ('accounting', 'showcustomers|customerdetails|requestdetails|createrequest|editrequest|createcustomer|showcampaigns|analyseCampaignPDF'),
 ('montageManagement', 'showcustomers|customerdetails|requestdetails|createrequest|editrequest|createcustomer|showcampaigns|analyseCampaignPDF'),
-('montage', 'customerdetails');
+('montage', 'showcustomers|customerdetails|requestdetails|createrequest|editrequest|createcustomer|showcampaigns|analyseCampaignPDF');
 
 -- Abteilungen
 INSERT INTO department (name) VALUES ('Geschäftsführung');

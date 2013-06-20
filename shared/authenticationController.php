@@ -125,7 +125,7 @@ class authenticationController {
     }
     
     public static function checkAuthorization($content = NULL) {
-        if (isset($_GET['content']))
+        if ($content == NULL && isset($_GET['content']))
             $content = $_GET['content'];
         
         if (!authenticationController::isAuthorized($content))
