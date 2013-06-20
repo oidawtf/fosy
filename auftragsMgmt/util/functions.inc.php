@@ -171,20 +171,21 @@
 	}
 
 	function displayCart(){
-		foreach($_SESSION['cart'] as $lItem){
-			echo "id: " . $lItem . " | qty: " . $_SESSION['cart'][$lItem] ."<br />";
+		if(empty($_SESSION['cart'])){
+			echo "leer";
 		}
-		echo "<br />";
+		else
+			foreach($_SESSION['cart'] as $lItem => $lQty){
+				echo "id: " . $lItem . " | qty: " . $lQty ."<br />";
+			}
+			echo "<br />";
 
-		var_dump($_SESSION['cart']);
-
+			var_dump($_SESSION['cart']);
 	}
 
 	function clearCart(){
 		unset($_SESSION['cart']);
 		$_SESSION['cart']=array();
 	}
-
-
 
 ?>
