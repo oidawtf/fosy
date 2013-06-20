@@ -363,6 +363,9 @@ class controller {
     }
     
     public static function isAuthorized($content) {
+        if ($content == 'CONTENT')
+            return "";
+        
         if (authenticationController::isAuthorized($content))
             return "";
         

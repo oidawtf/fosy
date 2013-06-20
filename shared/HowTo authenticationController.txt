@@ -54,3 +54,9 @@ Dazu ist natürlich folgende Methode zu kopieren:
         
         return "disabled";
     }
+
+4) authenticationController::isAuthorized($content = NULL);
+Kann auch für input tags folgendermaßen verwendet werden:
+echo            "<input ".controller::isAuthorized('editcustomer')." type='image' title='Bearbeiten' src='images/icn_edit.png'>";
+
+Dadurch, dass eben "disabled" zurück geliefert wird, wird der input disabled und damit nicht mehr anklickbar

@@ -1,14 +1,14 @@
 -- Rollen
 INSERT INTO role (rolename, content) VALUES
-('admin', 'showcustomers|customerdetails|requestdetails|createrequest|editrequest|createcustomer|showcampaigns|editcampaign|addcustomerstocampaign|customerdetailsfromcampaign|addarticlestocampaign|finalizecampaign|analyseCampaignPDF|createCampaignPDF'),
-('management', 'showcustomers|customerdetails|requestdetails|createrequest|editrequest|createcustomer|showcampaigns|editcampaign|addcustomerstocampaign|customerdetailsfromcampaign|addarticlestocampaign|finalizecampaign|analyseCampaignPDF|createCampaignPDF'),
-('secretary', 'showcustomers|customerdetails|requestdetails|createrequest|editrequest|createcustomer|showcampaigns|analyseCampaignPDF'),
-('purchase', 'showcustomers|customerdetails|requestdetails|createrequest|editrequest|createcustomer|showcampaigns|analyseCampaignPDF'),
-('sales', 'showcustomers|customerdetails|requestdetails|createrequest|editrequest|createcustomer|showcampaigns|editcampaign|addcustomerstocampaign|customerdetailsfromcampaign|addarticlestocampaign|finalizecampaign|analyseCampaignPDF|createCampaignPDF'),
-('humanResources', 'showcustomers|customerdetails|requestdetails|createrequest|editrequest|createcustomer|showcampaigns|analyseCampaignPDF'),
-('accounting', 'showcustomers|customerdetails|requestdetails|createrequest|editrequest|createcustomer|showcampaigns|analyseCampaignPDF'),
-('montageManagement', 'showcustomers|customerdetails|requestdetails|createrequest|editrequest|createcustomer|showcampaigns|analyseCampaignPDF'),
-('montage', 'showcustomers|customerdetails|requestdetails|createrequest|editrequest|createcustomer|showcampaigns|analyseCampaignPDF');
+('admin', 'showcustomers|editcustomer|customerdetails|requestdetails|createrequest|editrequest|createcustomer|showcampaigns|editcampaign|addcustomerstocampaign|customerdetailsfromcampaign|addarticlestocampaign|finalizecampaign|analyseCampaignPDF|createCampaignPDF'),
+('management', 'showcustomers|editcustomer|customerdetails|requestdetails|createrequest|editrequest|createcustomer|showcampaigns|editcampaign|addcustomerstocampaign|customerdetailsfromcampaign|addarticlestocampaign|finalizecampaign|analyseCampaignPDF|createCampaignPDF'),
+('secretary', 'showcustomers|editcustomer|customerdetails|requestdetails|createrequest|editrequest|createcustomer|showcampaigns|analyseCampaignPDF'),
+('purchase', 'showcustomers|editcustomer|customerdetails|requestdetails|createrequest|editrequest|createcustomer|showcampaigns|analyseCampaignPDF'),
+('sales', 'showcustomers|editcustomer|customerdetails|requestdetails|createrequest|editrequest|createcustomer|showcampaigns|editcampaign|addcustomerstocampaign|customerdetailsfromcampaign|addarticlestocampaign|finalizecampaign|analyseCampaignPDF|createCampaignPDF'),
+('humanResources', 'showcustomers|editcustomer|customerdetails|requestdetails|createrequest|editrequest|createcustomer|showcampaigns|analyseCampaignPDF'),
+('accounting', 'showcustomers|editcustomer|customerdetails|requestdetails|createrequest|editrequest|createcustomer|showcampaigns|analyseCampaignPDF'),
+('montageManagement', 'showcustomers|editcustomer|customerdetails|requestdetails|createrequest|editrequest|createcustomer|showcampaigns|analyseCampaignPDF'),
+('montage', 'showcustomers|editcustomer|customerdetails|requestdetails|createrequest|editrequest|createcustomer|showcampaigns|analyseCampaignPDF');
 
 -- Abteilungen
 INSERT INTO department (name) VALUES ('Geschäftsführung');
