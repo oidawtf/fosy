@@ -118,6 +118,16 @@ nav ul a{
 	margin:1px;	
 }
 
+.quantity{
+	width:30px;
+}
+.addButton{
+	font-weight: bold;
+	width:15px;
+}
+
+
+
 /* FOOTER */
 footer {
 	clear:both;

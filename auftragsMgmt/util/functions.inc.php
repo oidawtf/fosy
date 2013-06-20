@@ -40,7 +40,7 @@
 				<table>";
 
 		while($row = mysql_fetch_assoc($pData)){
-			$_SESSION['cart']['customerID']=$row['id'];
+			$_SESSION['cartCustomerID']=$row['id'];
 
 			echo "<tr>
 					<td>Kunden-NR:</td>
@@ -79,8 +79,6 @@
 	}
 
 	function displayArticles(){
-		createCart();
-
 		echo"
 			<table>
 				<tr>
@@ -125,43 +123,66 @@
 					<td>Modell:</td>
 					<td>Beschreibung:</td>
 					<td>Preis/Einheit:</td>
-					<td>Lagerstand:</td>
 					<td>Menge:</td>
+					<td>Hinzuf&uuml;gen</td>
 				</tr>
 				";	
 
+			echo "<form method=\"POST\" action=\"".$_SERVER['PHP_SELF']."\"?content=AngebotErstellen\">";
 
 			while($row = mysql_fetch_assoc($pAData)){
 			echo "<tr>
 					<td>{$row['id']}</td>
+					<td><input type=\"hidden\" name=\"ID\" value=\"{$row['id']}\" /> 
 					<td>{$row['name']}</td>
 					<td>{$row['model']}</td>
 					<!--<td>{$row['description']}</td>-->
 					<td><a href=\"\" target=\"_blank\">&ouml;ffnen</td>
 					<td>{$row['selling_price']}</td>
-					<td>{$row['stock']}</td>
+					<td>
+						<input class=\"quantity\" type=\"number\" name=\"QTY\" min=\"0\" max=\"20\" step=\"1\" maxlength=\"2\" value=\"0\"/>
+					</td>
+					<td>
+						<input class=\"addButton\" type=\"submit\" name=\"addCart\" value=\"+\"/>
+					</td>
 				</tr>
 				";	
 
 			}	
 
-			echo"</table></div>
+			echo"</form></table></div>
 			</fieldset>";
 		
 	}
+
 	function createCart(){
-		$_SESSION['cartItemQuantity']=0;
-		$_SESSION['cartCount']=1;
+		if(!isset($_SESSION['cart'])){
+			$_SESSION['cart']=array();
+		}
 	}
 
-	function addCart($pArticle, $pQty){
-		$_SESSION['cart'][$_SESSION['cartCount']] = $pArticle; 
-		$_SESSION['cartItemQuantity'][$_SESSION['cartCount']] = $pQty; 
-		$_SESSION['cartCount']+=1;
+	function addCart($pArticleID, $pQty){
+		if(!array_key_exists($pArticleID, $_SESSION['cart'])){
+			$_SESSION['cart'][$pArticleID]=$pQty;
+		}
+		elseif(array_key_exists($pArticleID, $_SESSION['cart'])){
+			$_SESSION['cart'][$pArticleID]+=$pQty;
+		}
 	}
 
 	function displayCart(){
+		foreach($_SESSION['cart'] as $lItem){
+			echo "id: " . $lItem . " | qty: " . $_SESSION['cart'][$lItem] ."<br />";
+		}
+		echo "<br />";
+
 		var_dump($_SESSION['cart']);
+
+	}
+
+	function clearCart(){
+		unset($_SESSION['cart']);
+		$_SESSION['cart']=array();
 	}
 
 

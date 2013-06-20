@@ -8,7 +8,7 @@ if(authenticationController::isLoggedIn()) {
       case 'AuftragErstellen':
       case 'AuftrageVerwalten':
       case 'RechnungErstellen':
-        @include 'content/'.$_GET['content'].'.php';
+        include 'content/'.$_GET['content'].'.php';
         break;
     default:
       echo "<h1>404 - Sorry, Page ".$_GET['content']." not found.";

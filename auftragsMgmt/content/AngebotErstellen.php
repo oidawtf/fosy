@@ -22,12 +22,20 @@
 			}
 
 			if(isset($_POST['searchA']) && isset($_POST['searchAButton'])){
-				if(isset($_SESSION['cart']['customerID'])){
-					findPerson($_SESSION['cart']['customerID'],true);
-					
+				if(isset($_SESSION['cartCustomerID'])){
+					findPerson($_SESSION['cartCustomerID'],true);
 				}
 				findArticle($_POST['searchA']);
 			}
+
+			if(isset($_POST['addCart'])){
+				findPerson($_SESSION['cartCustomerID'], true);
+				findArticle($_POST['ID']);
+				addCart($_POST['ID'], $_POST['QTY']);
+				displayCart();
+			}
+
+
 		?>
 
 	</form>
