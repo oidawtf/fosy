@@ -48,7 +48,7 @@ class PDF extends FPDF
                 $article->id,
                 $article->getFullName(),
                 $article->stock,
-                $article->real_price,
+                $article->real_price * (($article->tax_rate / 100) + 1),
                 $article->count,
                 $articleSum
                     );
