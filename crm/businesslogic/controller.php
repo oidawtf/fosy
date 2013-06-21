@@ -376,6 +376,14 @@ class controller {
         
         return "disabled";
     }
+    
+    public static function getOffers($customerId) {
+        return controller::getService()->selectOffers($customerId);
+    }
+    
+    public static function getOrders($customerId) {
+        return controller::getService()->selectOrders($customerId);
+    }
 }
 
 ?>

@@ -77,7 +77,7 @@ else
                     </tbody>
                 </table>
             </div>
-            <div id="tab2" class="tab_content" style="display: none;">
+            <div id="tab2" class="tab_content table-scroll" style="display: none;">
                 <table cellspacing="0" class="tablesorter">
                     <thead>
                         <tr> 
