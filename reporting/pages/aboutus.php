@@ -24,7 +24,7 @@
 	<div class="clear"></div>
 	
 	<fieldset class="ui-widget ui-widget-content-white ui-corner-all albumFieldset">
-		<legend>KundenManagement-Team</legend>
+		<legend>KundenManagement - Team</legend>
 		<div id="person4">
 			<img src="../../img/max.png" alt="Max Hotko - wi12b503" class="ui-corner-all">
 			<div class="ui-corner-bl ui-corner-br textBG"><div class="text">Max Hotko</div></div>
