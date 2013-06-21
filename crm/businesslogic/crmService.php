@@ -123,7 +123,7 @@ class crmService {
         
         $this->openConnection();
         
-        $select = "
+        $query = mysql_query("
             SELECT
                 P.id,
                 P.username,
@@ -156,9 +156,7 @@ class crmService {
                     WHERE campaign_person.fk_campaign_id = '".$campaignId."'
                     ) AS CP on P.id = CP.fk_person_id
             ".$where."
-            ";
-        
-        $query = mysql_query($select);
+            ");
         
         $result = array();
         while ($row = mysql_fetch_assoc($query))
@@ -195,10 +193,19 @@ class crmService {
         return $result;
     }
    
-    public function selectArticlesByCampaign($campaignId, $category_id = NULL, $manufacturer_id = NULL) {
+    public function selectArticlesByCampaign($campaignId, $categoryFilter = NULL, $manufacturerFilter = NULL, $stockFilter = NULL) {
         $this->openConnection();
         
-        $where = "";
+        $where = "WHERE 1=1";
+        
+        if ($categoryFilter != NULL && $categoryFilter != "")
+            $where = $where." AND AC.name LIKE '%".$categoryFilter."%'";
+        
+        if ($manufacturerFilter != NULL && $manufacturerFilter != "")
+            $where = $where." AND AM.name LIKE '%".$manufacturerFilter."%'";
+        
+        if ($stockFilter != NULL && $stockFilter != "")
+            $where = $where." AND A.stock >= '".$stockFilter."'";
         
         $query = mysql_query("
             SELECT

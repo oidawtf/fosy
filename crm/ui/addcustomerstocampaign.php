@@ -25,7 +25,6 @@ if (isset($_GET['yearFilter']))
 if (isset($_GET['zipFilter']))
     $zipFilter = $_GET['zipFilter'];
 
-
 ?>
 
 <section id="main" class="column" style="height: 90%;">
@@ -59,7 +58,7 @@ if (isset($_GET['zipFilter']))
                 </table>
             </div>
 
-            <footer style="clear: both;">
+            <footer>
                 <div class="submit_link">
                     <input type="hidden" name="content" value="addcustomerstocampaign" />
                     <input type="hidden" name="campaignId" value="<?php echo $campaign->id; ?>" />
@@ -78,7 +77,7 @@ if (isset($_GET['zipFilter']))
             </header>
 
             <div class="table-wrapper">
-                <div class="table-scroll">
+                <div class="table-scroll" style="height: 400px;">
                     <table cellspacing="0" class="tablesorter">
                         <thead>
                             <tr>
