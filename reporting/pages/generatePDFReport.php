@@ -58,16 +58,15 @@
 				generateRelationOfferOrderPDF($indicatorId, $dateFrom, $dateTo, $sumOffers, $sumOrders);
 				break;
 			case 4: // Gesamtumsatz (KZ)
-			case 6: // Gesamtumsatz (TAB)
-				$totalRevenue = getTotalRevenue($indicatorId, 'pdf');
+				$totalRevenue = getTotalRevenue($indicatorId, $dateFromDB, $dateToDB, 'pdf');
 				generateTotalRevenuePDF($indicatorId, $dateFrom, $dateTo, $totalRevenue);
 				break;
 			case 5: // Mitarbeiterstatistik (TAB)
 				$employees = getEmployeeStatistik($indicatorId, $dateDB, 'pdf');
 				generateEmployeeStatistikPDF($indicatorId, $date, $employees);
 				break;
-			case 7: // Umsatz und Anzahl Bestellung pro Kunde (TAB)
-				$turnoverAndQuantity = getTurnoverAndQuantityPerCustomer($indicatorId, 'pdf');
+			case 6: // Umsatz und Anzahl Bestellung pro Kunde (TAB)
+				$turnoverAndQuantity = getTurnoverAndQuantityPerCustomer($indicatorId, $dateFromDB, $dateToDB, 'pdf');
 				generateTurnoverAndQuantityPerCustomerPDF($indicatorId, $dateFrom, $dateTo, $turnoverAndQuantity);
 				break;
 		}		

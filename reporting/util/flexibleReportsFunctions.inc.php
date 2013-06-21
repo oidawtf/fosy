@@ -33,14 +33,13 @@ function generateReport($indicatorId, $dateFrom, $dateTo, $date) {
 			$result = getRelationOfferOrder($indicatorId, $dateFromDB, $dateToDB);
 			break;
 		case 4: // Gesamtumsatz (KZ)
-		case 6: // Gesamtumsatz (TAB)
-			$result = getTotalRevenue($indicatorId, 'html');
+			$result = getTotalRevenue($indicatorId, $dateFromDB, $dateToDB, 'html');
 			break;
 		case 5: // Mitarbeiterstatistik (TAB)
 			$result = getEmployeeStatistik($indicatorId, $dateDB, 'html');
 			break;
-		case 7: // Umsatz und Anzahl Bestellung pro Kunde (TAB)
-			$result = getTurnoverAndQuantityPerCustomer($indicatorId, 'html');
+		case 6: // Umsatz und Anzahl Bestellung pro Kunde (TAB)
+			$result = getTurnoverAndQuantityPerCustomer($indicatorId, $dateFromDB, $dateToDB, 'html');
 			break;
 	}
 	
@@ -106,11 +105,10 @@ function getRelationOfferOrder($indicatorId, $dateFromDB, $dateToDB) {
 	return $htmlResult; // todo what if htmlresult empty?
 }
 
-function getTotalRevenue($indicatorId, $htmlPDF) {
+function getTotalRevenue($indicatorId, $dateFromDB, $dateToDB, $htmlPDF) {
 	$indiNameAndType = getIndicatorNameAndType($indicatorId);
 	
-	$query = "SELECT sum(gross_price) FROM invoice i JOIN tax_type tt ON i.fk_tax_type_id = tt.id WHERE tt.type = 'ust'
-";
+	$query = "SELECT sum(gross_price) FROM invoice i JOIN tax_type tt ON i.fk_tax_type_id = tt.id WHERE tt.type = 'ust' AND date BETWEEN '".$dateFromDB."' AND '".$dateToDB."'"; // todo and Date between dateFrom and dateTo
 	$result = mysql_query($query);
 	if($result && mysql_num_rows($result)) {
 		while($row = mysql_fetch_row($result)) {
@@ -176,11 +174,10 @@ function getEmployeeStatistik($indicatorId, $dateDB, $htmlPDF) {
 	
 }
 
-function getTurnoverAndQuantityPerCustomer($indicatorId, $htmlPDF) {
+function getTurnoverAndQuantityPerCustomer($indicatorId, $dateFromDB, $dateToDB, $htmlPDF) {
 	$indiNameAndType = getIndicatorNameAndType($indicatorId);
 	
-	$query = "SELECT p.firstname, p.lastname, count(ors.id) AS AnzOrders, sum(i.gross_price) AS Umsatz FROM person p
-JOIN offer of ON p.id = of.fk_customer_id JOIN orders ors ON of.fk_order_id = ors.id JOIN invoice i ON ors.number = i.businessRecordNumber WHERE p.is_customer = 1 GROUP BY p.id";
+	$query = "SELECT p.firstname, p.lastname, count(ors.id) AS AnzOrders, sum(i.gross_price) AS Umsatz FROM person p JOIN offer of ON p.id = of.fk_customer_id JOIN orders ors ON of.fk_order_id = ors.id JOIN invoice i ON ors.number = i.businessRecordNumber WHERE p.is_customer = 1 AND ors.date BETWEEN '".$dateFromDB."' AND '".$dateToDB."' GROUP BY p.id";
 
 	$result = mysql_query($query);
 	if($result && mysql_num_rows($result)) {

@@ -22,18 +22,19 @@
 	// 4. get value for current year
 	$sumYear = getOrdersSum("sumYear", getDateFrom("1-".$currentYear), getDateTo("12-".$currentYear));
 
-	// 5. json object vor layout	
-	$jsonOffer='{
-		"labels":
-			["'.getMonthShortName($currentMonth).' '.$currentYear.'", "'.$currentQuarter.'.Q. '.$currentYear.'", "'.$currentYear.'"],
-		"datasets": [ {
-			"fillColor":"rgba(220,220,220,0.5)",
-			"strokeColor":"rgba(220,220,220,1)",
-			"data":["'.$sumMonth.'","'.$sumQuarter.'","'.$sumYear.'"]
-			}]
-		}
-	';
+	// 5. json object vor layout
+	$labels = array(getMonthShortName($currentMonth).' '.$currentYear, $currentQuarter.'.Q. '.$currentYear, $currentYear);
+	$data = array($sumMonth, $sumQuarter, $sumYear);
+	$jsonOrders = array(
+		'labels' => $labels,
+		'datasets' => array(
+			0 => array(
+				'fillColor' => 'rgba(220,220,220,0.5)',
+				'strokeColor' => 'rgba(220,220,220,1)',
+				'data' => $data
+			)
+		)
+	);
 	
-	echo $jsonOffer;
-
+	echo json_encode($jsonOrders);
 ?>

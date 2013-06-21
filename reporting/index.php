@@ -65,7 +65,7 @@
 							case 'manageUstVa':
 							case 'ustVaPrintedSuccess':
 							case 'managePlannedvalue':
-							case 'planIstVergleich':
+							case 'plannedActualComparison':
 							case 'impressum':
 							case 'aboutus':
 							case 'deletePlannedvalue':

@@ -32,20 +32,25 @@
 
 
 	// 6. json object for layout	
-	$jsonOffer='{
-		"labels":
-			["'.getMonthShortName($currentMonth).' '.$currentYear.' ('.$relationMonth.' %)", "'.$currentQuarter.'.Q. '.$currentYear.' ('.$relationQuarter.' %)", "'.$currentYear.' ('.$relationYear.' %)"],
-		"datasets": [ {
-			"fillColor":"#d0e5f5",
-			"strokeColor":"#4297d7",
-			"data":["'.$sumMonthOffer.'","'.$sumQuarterOffer.'","'.$sumYearOffer.'"]
-		}, {
-			"fillColor":"rgba(220,220,220,0.5)",
-			"strokeColor":"rgba(220,220,220,1)",
-			"data":["'.$sumMonthOrder.'","'.$sumQuarterOrder.'","'.$sumYearOrder.'"]
-		}]
-	}';
+	$labels = array(getMonthShortName($currentMonth).' '.$currentYear.' ('.$relationMonth.' %)', $currentQuarter.'.Q. '.$currentYear.' ('.$relationQuarter.' %)', $currentYear.' ('.$relationYear.' %)');
+	$data0 = array($sumMonthOffer, $sumQuarterOffer, $sumYearOffer);
+	$data1 = array($sumMonthOrder, $sumQuarterOrder, $sumYearOrder);
+	$jsonRelation = array(
+		'labels' => $labels,
+		'datasets' => array(
+			0 => array(
+				'fillColor' => '#d0e5f5',
+				'strokeColor' => '#4297d7',
+				'data' => $data0
+			),
+			1 => array(
+				'fillColor' => 'rgba(220,220,220,0.5)',
+				'strokeColor' => 'rgba(220,220,220,1)',
+				'data' => $data1
+			)
+		)
+	);
 	
-	echo $jsonOffer;
+	echo json_encode($jsonRelation);
 
 ?>

@@ -56,11 +56,11 @@
 		<li>
 			<a <?php 
 				if(isset($_GET['content'])) { 
-					if($_GET['content']=='planIstVergleich') {
+					if($_GET['content']=='plannedActualComparison') {
 						echo 'class="ui-state-activeFOSY"'; 
 					}  
 				}
-			?> href="<?php echo $_SERVER['PHP_SELF']; ?>?content=planIstVergleich">Plan-Ist-Vergleich</a>
+			?> href="<?php echo $_SERVER['PHP_SELF']; ?>?content=plannedActualComparison">Plan-Ist-Vergleich</a>
 		</li>
     </ul>
 </nav>

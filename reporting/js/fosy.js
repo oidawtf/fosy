@@ -48,9 +48,12 @@ $(function() {
 	/* print button in ust va hide */
 	$("#printButton").hide();
 	
-	/* time-block for flex reports */
-	//$("#timeBlockEmployee").hide();
-	//$("#timeBlock").hide();
+	/* plan ist vergleich hide everything */
+	$("#noPlannedvalues").hide();
+	$("#planWhichTimeBlock").hide();
+	$("#timeMonthBlock").hide();
+	$("#timeQuarterBlock").hide();
+	$("#timeYearBlock").hide();
 	
 	/* calculate tax */
 	$("#calculate").click(function() {
@@ -102,20 +105,6 @@ $(function() {
 		});
 	});
 	
-	/* flex reports kz selected */
-	/*$("#allIndicatorsSelect").change(function() {
-		$("#allIndicatorsSelect option:selected").each(function() {
-			var id = $(this).val();
-			if(id == 5) {
-				$("#timeBlock").hide();
-				$("#timeBlockEmployee").show();
-			}else {
-				$("#timeBlockEmployee").hide();
-				$("#timeBlock").show();
-			}
-		});
-	});*/
-	
 	/* ust va jahr selected */
 	$("#ustVAJahrSelect").change(function() {
 		$("#ustVaNoData").remove();
@@ -134,26 +123,13 @@ $(function() {
 	if($("#chartOffer").get(0)) {
 		var url="util/dashboardFunctionsOffers.ajax.php";
 		$.getJSON(url,function(json){
-			var dataOffer	= json["datasets"][0]
-			var sumMonth 	= dataOffer["data"][0];
-			var sumQuarter 	= dataOffer["data"][1];
-			var sumYear 	= dataOffer["data"][2];
-		
-			var data = {
-				labels : [json["labels"][0], json["labels"][1], json["labels"][2]],
-				datasets : [ {
-					fillColor : dataOffer["fillColor"],
-					strokeColor : dataOffer["strokeColor"],
-					data : [sumMonth, sumQuarter, sumYear]
-				}]
-			};
-		
-			maxValueForBar = dataOffer["data"][0];
-			for(i = 1; i < dataOffer["data"].length; i++) {
-				if(dataOffer["data"][i] > maxValueForBar)
-				maxValueForBar = dataOffer["data"][i];
+			
+			maxValueForBar = json["datasets"][0]["data"][0];
+			for(i = 1; i < json["datasets"][0]["data"].length; i++) {
+				if(json["datasets"][0]["data"][i] > maxValueForBar)
+				maxValueForBar = json["datasets"][0]["data"][i];
 			}
-		
+			
 			var opts = { 
 				scaleOverride:true, 
 				scaleSteps:3, 
@@ -161,64 +137,48 @@ $(function() {
 			};
 		
 			var chartOffer = $("#chartOffer").get(0).getContext("2d");
-			var myNewChart = new Chart(chartOffer).Bar(data, opts);
+			var myNewChart = new Chart(chartOffer).Bar(json, opts);
 			
 			createOffers(maxValueForBar);
+			createRelation(maxValueForBar);
 		});
 	}
 	
-		
-	/* relations */
-	if($("#chartRelation").get(0)) {
-		var url="util/dashboardFunctionsRelations.ajax.php";
-		$.getJSON(url,function(json){
-			var dataOffer = json["datasets"][0];
-			var dataOrder = json["datasets"][1];
-		
-			var sumMonthOffer 	= dataOffer["data"][0];
-			var sumQuarterOffer = dataOffer["data"][1];
-			var sumYearOffer 	= dataOffer["data"][2];
-			var sumMonthOrder 	= dataOrder["data"][0];
-			var sumQuarterOrder = dataOrder["data"][1];
-			var sumYearOrder 	= dataOrder["data"][2];
-		
-			var data = {
-				labels : [json["labels"][0], json["labels"][1], json["labels"][2]],
-				datasets : [ {
-					fillColor : dataOffer["fillColor"],
-					strokeColor : dataOffer["strokeColor"],
-					data : [sumMonthOffer, sumQuarterOffer, sumYearOffer]
-				}, {
-					fillColor : dataOrder["fillColor"],
-					strokeColor : dataOrder["strokeColor"],
-					data : [sumMonthOrder, sumQuarterOrder, sumYearOrder]
-				}]
-			};
-		
-			maxOffer = dataOffer["data"][0];
-			for(i = 1; i < dataOffer["data"].length; i++) {
-				if(dataOffer["data"][i] > maxOffer)
-				maxOffer = dataOffer["data"][i];
-			}
-			maxOrder = dataOrder["data"][0];
-			for(i = 1; i < dataOrder["data"].length; i++) {
-				if(dataOrder["data"][i] > maxOrder)
-				maxOrder = dataOrder["data"][i];
-			}
-			if(maxOffer > maxOrder) { max = maxOffer; }
-		
-			var opts = { 
-				scaleOverride:true, 
-				scaleSteps:3, 
-				scaleStepWidth:max,
-			};
-		
-			var chartRelation = $("#chartRelation").get(0).getContext("2d");
-			var myNewChart = new Chart(chartRelation).Bar(data, opts);
-				
-		});
-	}	
+	/* FLEX REPORT */
+	$("#allIndicatorsSelect").change(function() {
+		$("#datepicker").val("");
+		$("#datepickerFrom").val("");
+		$("#datepickerTo").val("");	
+	});
 	
+	/* PLAN IST VERGLEICH */
+	$("#planIndicatorsSelect").change(function() {
+		$("#planIndicatorsSelect option:selected").each(function() {
+			var id = $(this).val();
+			if(id > 0) {
+				$("#planWhichTimeBlock").show();
+			}
+		});
+	});
+	$("#planWhichTime").change(function() {
+		$("#planWhichTime option:selected").each(function() {
+			var id = $(this).val();
+			if(id == 1) {
+				$("#timeMonthBlock").show();
+				$("#timeQuarterBlock").hide();
+				$("#timeYearBlock").hide();
+			}else if(id == 2) {
+				$("#timeMonthBlock").hide();
+				$("#timeQuarterBlock").show();
+				$("#timeYearBlock").hide();
+			}else {
+				$("#timeMonthBlock").hide();
+				$("#timeQuarterBlock").hide();
+				$("#timeYearBlock").show();
+			}
+		});
+	});
+		
 });
 
 function createOffers(maxValueForBar) {
@@ -226,19 +186,6 @@ function createOffers(maxValueForBar) {
 	if($("#chartOrder").get(0)) {
 		var url="util/dashboardFunctionsOrders.ajax.php";
 		$.getJSON(url,function(json){
-			var dataOrder 	= json["datasets"][0]; 
-			var sumMonth 	= dataOrder["data"][0];
-			var sumQuarter 	= dataOrder["data"][1];
-			var sumYear 	= dataOrder["data"][2];
-		
-			var data = {
-				labels : [json["labels"][0], json["labels"][1], json["labels"][2]],
-				datasets : [ {
-					fillColor : dataOrder["fillColor"],
-					strokeColor : dataOrder["strokeColor"],
-					data : [sumMonth, sumQuarter, sumYear]
-				}]
-			};
 		
 			var opts = { 
 				scaleOverride:true, 
@@ -247,10 +194,29 @@ function createOffers(maxValueForBar) {
 			};
 		
 			var chartOrder = $("#chartOrder").get(0).getContext("2d");
-			var myNewChart = new Chart(chartOrder).Bar(data, opts);
+			var myNewChart = new Chart(chartOrder).Bar(json, opts);
 		});
 	}
 
+}
+
+function createRelation(maxValueForBar) {
+	/* relations */
+	if($("#chartRelation").get(0)) {
+		var url="util/dashboardFunctionsRelations.ajax.php";
+		$.getJSON(url,function(json){
+			
+			var opts = { 
+				scaleOverride:true, 
+				scaleSteps:3, 
+				scaleStepWidth:maxValueForBar,
+			};
+		
+			var chartRelation = $("#chartRelation").get(0).getContext("2d");
+			var myNewChart = new Chart(chartRelation).Bar(json, opts);
+				
+		});
+	}
 }
 
 /* plandaten anlegen period selected */

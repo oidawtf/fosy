@@ -1,14 +1,14 @@
 -- Rollen
-INSERT INTO role (rolename, content) VALUES
-('admin', 'showcustomers|editcustomer|customerdetails|requestdetails|createrequest|editrequest|createcustomer|showcampaigns|editcampaign|addcustomerstocampaign|customerdetailsfromcampaign|addarticlestocampaign|finalizecampaign|analyseCampaignPDF|createCampaignPDF'),
-('management', 'showcustomers|editcustomer|customerdetails|requestdetails|createrequest|editrequest|createcustomer|showcampaigns|editcampaign|addcustomerstocampaign|customerdetailsfromcampaign|addarticlestocampaign|finalizecampaign|analyseCampaignPDF|createCampaignPDF'),
-('secretary', 'showcustomers|editcustomer|customerdetails|requestdetails|createrequest|editrequest|createcustomer|showcampaigns|analyseCampaignPDF'),
-('purchase', 'showcustomers|editcustomer|customerdetails|requestdetails|createrequest|editrequest|createcustomer|showcampaigns|analyseCampaignPDF'),
-('sales', 'showcustomers|editcustomer|customerdetails|requestdetails|createrequest|editrequest|createcustomer|showcampaigns|editcampaign|addcustomerstocampaign|customerdetailsfromcampaign|addarticlestocampaign|finalizecampaign|analyseCampaignPDF|createCampaignPDF'),
-('humanResources', 'showcustomers|editcustomer|customerdetails|requestdetails|createrequest|editrequest|createcustomer|showcampaigns|analyseCampaignPDF'),
-('accounting', 'showcustomers|editcustomer|customerdetails|requestdetails|createrequest|editrequest|createcustomer|showcampaigns|analyseCampaignPDF'),
-('montageManagement', 'showcustomers|editcustomer|customerdetails|requestdetails|createrequest|editrequest|createcustomer|showcampaigns|analyseCampaignPDF'),
-('montage', 'showcustomers|editcustomer|customerdetails|requestdetails|createrequest|editrequest|createcustomer|showcampaigns|analyseCampaignPDF');
+INSERT INTO role (rolename, content) VALUES ('admin', 'showcustomers|editcustomer|customerdetails|requestdetails|createrequest|editrequest|createcustomer|showcampaigns|editcampaign|addcustomerstocampaign|customerdetailsfromcampaign|addarticlestocampaign|finalizecampaign|analyseCampaignPDF|createCampaignPDF'):
+INSERT INTO role (rolename, content) VALUES ('management', 'showcustomers|editcustomer|customerdetails|requestdetails|createrequest|editrequest|createcustomer|showcampaigns|editcampaign|addcustomerstocampaign|customerdetailsfromcampaign|addarticlestocampaign|finalizecampaign|analyseCampaignPDF|createCampaignPDF');
+INSERT INTO role (rolename, content) VALUES ('secretary', 'showcustomers|editcustomer|customerdetails|requestdetails|createrequest|editrequest|createcustomer|showcampaigns|analyseCampaignPDF');
+INSERT INTO role (rolename, content) VALUES ('purchase', 'showcustomers|editcustomer|customerdetails|requestdetails|createrequest|editrequest|createcustomer|showcampaigns|analyseCampaignPDF');
+INSERT INTO role (rolename, content) VALUES ('sales', 'showcustomers|editcustomer|customerdetails|requestdetails|createrequest|editrequest|createcustomer|showcampaigns|editcampaign|addcustomerstocampaign|customerdetailsfromcampaign|addarticlestocampaign|finalizecampaign|analyseCampaignPDF|createCampaignPDF');
+INSERT INTO role (rolename, content) VALUES ('humanResources', 'showcustomers|editcustomer|customerdetails|requestdetails|createrequest|editrequest|createcustomer|showcampaigns|analyseCampaignPDF');
+INSERT INTO role (rolename, content) VALUES ('accounting', 'showcustomers|editcustomer|customerdetails|requestdetails|createrequest|editrequest|createcustomer|showcampaigns|analyseCampaignPDF');
+INSERT INTO role (rolename, content) VALUES ('montageManagement', 'showcustomers|editcustomer|customerdetails|requestdetails|createrequest|editrequest|createcustomer|showcampaigns|analyseCampaignPDF');
+INSERT INTO role (rolename, content) VALUES ('montage', 'showcustomers|editcustomer|customerdetails|requestdetails|createrequest|editrequest|createcustomer|showcampaigns|analyseCampaignPDF');
+
 
 -- Abteilungen
 INSERT INTO department (name) VALUES ('Geschäftsführung');

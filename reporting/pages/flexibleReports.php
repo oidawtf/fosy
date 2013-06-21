@@ -2,40 +2,43 @@
 <br/>
 <?php
 	
-	// create report clicked 
-	if(	(isset($_POST['createReport']) || isset($_POST['createPDF'])) && 
-		checkFlexibleIndicator($_POST['allIndicatorsSelect'])) {
+	// create report or create pdf clicked 
+	if(	isset($_POST['createReport']) || isset($_POST['createPDF'])) {
 		$errorMsg = "";
-
-		if($_POST['allIndicatorsSelect']==5) {
-			if(checkDateFormatValid($_POST['date'])) {
-				$dataCorrect = true;
-			}else {
-				$errorMsg .= "Bitte Datum (Zeitpunkt) im gültigen Format (tt.mm.yyyy) auswählen/eingeben.<br/>";
+		
+		if(checkFlexibleIndicator($_POST['allIndicatorsSelect'])) {
+			if($_POST['allIndicatorsSelect']==5) {
+				if(checkDateFormatValid($_POST['date'])) {
+					$dataCorrect = true;
+				}else {
+					$errorMsg .= "Bitte Datum (Zeitpunkt) im gültigen Format (tt.mm.yyyy) auswählen/eingeben.<br/>";
+				}
+			} else {
+				if(	checkDateFormatValid($_POST['dateFrom']) && 
+					checkDateFormatValid($_POST['dateTo']) && 
+					checkDateNotInFuture($_POST['dateFrom']) && 
+					checkDateFromBeforeDateTo($_POST['dateFrom'], $_POST['dateTo']) ) {
+					$dataCorrect = true;
+				}else {
+					if(!checkDateFormatValid($_POST['dateFrom'])) {
+						$errorMsg .= "Bitte Von-Datum im gültigen Format (tt.mm.jjjj) auswählen/eingeben.<br/>"; 
+					}
+					if(!checkDateFormatValid($_POST['dateTo'])) {
+						$errorMsg .= "Bitte Bis-Datum im gültigen Format (tt.mm.jjjj) auswählen/eingeben.<br/>"; 
+					}
+				
+					if(!checkDateNotInFuture($_POST['dateFrom'])) {
+						$errorMsg .= "Das Von-Datum darf nicht in der Zukunft liegen.<br/>";
+					}
+				
+					if(!checkDateFromBeforeDateTo($_POST['dateFrom'], $_POST['dateTo'])) {
+						$errorMsg .= "Das Von-Datum darf nicht nach dem Bis-Datum liegen.<br/>"; 
+					}
+					$dataCorrect = false;
+				}
 			}
 		} else {
-			if(	checkDateFormatValid($_POST['dateFrom']) && 
-				checkDateFormatValid($_POST['dateTo']) && 
-				checkDateNotInFuture($_POST['dateFrom']) && 
-				checkDateFromBeforeDateTo($_POST['dateFrom'], $_POST['dateTo']) ) {
-				$dataCorrect = true;
-			}else {
-				if(!checkDateFormatValid($_POST['dateFrom'])) {
-					$errorMsg .= "Bitte Von-Datum im gültigen Format (tt.mm.jjjj) auswählen/eingeben.<br/>"; 
-				}
-				if(!checkDateFormatValid($_POST['dateTo'])) {
-					$errorMsg .= "Bitte Bis-Datum im gültigen Format (tt.mm.jjjj) auswählen/eingeben.<br/>"; 
-				}
-			
-				if(!checkDateNotInFuture($_POST['dateFrom'])) {
-					$errorMsg .= "Das Von-Datum darf nicht in der Zukunft liegen.<br/>";
-				}
-			
-				if(!checkDateFromBeforeDateTo($_POST['dateFrom'], $_POST['dateTo'])) {
-					$errorMsg .= "Das Von-Datum darf nicht nach dem Bis-Datum liegen.<br/>"; 
-				}
-				$dataCorrect = false;
-			}
+			$errorMsg .= "Bitte eine Kennzahl auswählen.<br/>";
 		}
 		
 		if($dataCorrect) {
@@ -47,15 +50,8 @@
 					</script>';
 			}
 		}
-	} else {
-		$errorMsg = "";
-		if(isset($_POST['createReport'])) {
-			if(!checkFlexibleIndicator($_POST['allIndicatorsSelect'])) {
-				$errorMsg .= "Bitte eine Kennzahl auswählen.<br/>";
-			}
-		}
 	}
-	
+		
 	if(!empty($errorMsg)) { echo "<div id='error' class='ui-state-error'>".$errorMsg."</div><br/>"; }
 		
 ?>
