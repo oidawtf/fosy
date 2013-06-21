@@ -1124,6 +1124,69 @@ class crmService {
         
         return $result;
     }
+    
+    public function selectOffers($customerId) {
+        $this->openConnection();
+        
+        $query = mysql_query("
+            SELECT
+                OF.id,
+                OF.fk_customer_id AS customerId,
+                OF.number,
+                OF.date,
+                OF.valid_from,
+                OF.valid_until
+            FROM offer AS OF
+            WHERE OF.fk_customer_id = '".$customerId."'
+            ");
+        
+        $result = array();
+        while ($row = mysql_fetch_assoc($query))
+            $result[] = array(
+                'id' => $row['id'],
+                'number' => $row['number'],
+                'date' => $row['date'],
+                'valid_from' => $row['valid_from'],
+                'valid_until' => $row['valid_until']
+            );
+            
+        $this->closeConnection($query);
+        
+        return $result;
+    }
+    
+    public function selectOrders($customerId) {
+        $this->openConnection();
+        
+        $query = mysql_query("
+            SELECT
+                ORD.id AS orderId,
+                OF.id AS offerId,
+                OF.fk_customer_id AS customerId,
+                OF.number AS offerNumber,
+                OF.date AS offerDate,
+                OF.valid_from,
+                OF.valid_until,
+                ORD.number AS orderNumber,
+                ORD.date AS orderDate
+            FROM
+                offer AS OF
+                RIGHT OUTER JOIN orders AS ORD ON ORD.id = OF.fk_order_id
+            WHERE OF.fk_customer_id = '".$customerId."'
+            ");
+        
+        $result = array();
+        while ($row = mysql_fetch_assoc($query))
+            $result[] = array(
+                'id' => $row['orderId'],
+                'orderNumber' => $row['orderNumber'],
+                'orderDate' => $row['orderDate']
+            );
+            
+        $this->closeConnection($query);
+        
+        return $result;
+    }
 }
 
 ?>

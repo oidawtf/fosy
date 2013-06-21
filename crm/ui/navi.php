@@ -29,10 +29,10 @@
         <ul class="toggle">
             <li><a class="menu <?php echo controller::isAuthorized('CONTENT') ?>" href="../reporting/index.php?content=dashboard">Dashboard</a></li>
             <li><a class="menu <?php echo controller::isAuthorized('CONTENT') ?>" href="../reporting/index.php?content=flexibleReports">Flexible Reports</a></li>
-            <li><a class="menu <?php echo controller::isAuthorized('CONTENT') ?>" href="../reporting/index.php?content=erErfassen">ER erfassen</a></li>
-            <li><a class="menu <?php echo controller::isAuthorized('CONTENT') ?>" href="../reporting/index.php?content=ustVA">UST VA</a></li>
-            <li><a class="menu <?php echo controller::isAuthorized('CONTENT') ?>" href="../reporting/index.php?content=plandatenverwaltung">Plandatenverwaltung</a></li>
-            <li><a class="menu <?php echo controller::isAuthorized('CONTENT') ?>" href="../reporting/index.php?content=planIstVergleich">Plan-Ist-Vergleich</a></li>
+            <li><a class="menu <?php echo controller::isAuthorized('CONTENT') ?>" href="../reporting/index.php?content=addIncomminginvoice">ER erfassen</a></li>
+            <li><a class="menu <?php echo controller::isAuthorized('CONTENT') ?>" href="../reporting/index.php?content=manageUstVa">UST VA</a></li>
+            <li><a class="menu <?php echo controller::isAuthorized('CONTENT') ?>" href="../reporting/index.php?content=managePlannedvalue">Plandatenverwaltung</a></li>
+            <li><a class="menu <?php echo controller::isAuthorized('CONTENT') ?>" href="../reporting/index.php?content=plannedActualComparison">Plan-Ist-Vergleich</a></li>
         </ul>
 
     </aside>

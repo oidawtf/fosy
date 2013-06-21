@@ -9,8 +9,14 @@ if (isset($_POST['createrequest']) && isset($_GET['customerId']))
 if (isset($_POST['editrequest']) && isset($_POST['requestId']))
     controller::editRequest($_POST['requestId']);
 
-if (isset($_GET['customerId']))
-    $customer = controller::getCustomer($_GET['customerId']);
+if (!isset($_GET['customerId']))
+    return;
+
+$customerId = $_GET['customerId'];
+
+$customer = controller::getCustomer($customerId);
+$orders = controller::getOrders($customerId);
+$offers = controller::getOffers($customerId);
 
 ?>
 
@@ -67,16 +73,22 @@ if (isset($_GET['customerId']))
         </footer>
     </article>
     
-    <article class="module width_half">
+    <article class="module width_full">
         <header>
-            <h3 class="tabs_involved">Anfragen - ingesamt <?php echo $customer->requests; ?></h3>
+            <h3 class="tabs_involved">Aktivit&auml;ten</h3>
+            <ul class="tabs">
+                <li class="active"><a href="#tab1">Anfragen</a></li>
+                <li><a href="#tab2">Bestellungen</a></li>
+                <li><a href="#tab3">Angebote</a></li>
+            </ul>
         </header>
         
-        <div class="table-wrapper">
-            <div class="table-scroll" style="height: 400px;">
+        <div class="tab_container table-wrapper">
+            
+            <div id="tab1" class="tab_content table-scroll" style="height: 400px; display: block;">
                 <table cellspacing="0" class="tablesorter">
                     <thead>
-                        <tr> 
+                        <tr>
                             <th class="header">Betreff</th>
                             <th class="header">Text</th>
                             <th class="header" style="width: 120px;">Sachbearbeiter</th>
@@ -93,7 +105,7 @@ if (isset($_GET['customerId']))
                         foreach ($requests as $request) {
                             echo "<tr>";
                             echo    "<td><a href='".$_SERVER['PHP_SELF']."?content=requestdetails&customerId=".$customer->id."&requestId=".$request->id."'>".$request->getBetreff()."</a></td>";
-                            echo    "<td>".$request->getTextTrimmed()."</td>";
+                            echo    "<td>".$request->getTextTrimmed(200)."</td>";
                             echo    "<td>".$request->responsible_user."</td>";
                             echo    "<td>".$request->status."</td>";
                             echo    "<td>".$request->getDate()."</td>";
@@ -105,6 +117,65 @@ if (isset($_GET['customerId']))
                     </tbody>
                 </table>
             </div>
+            
+            <div id="tab2" class="tab_content table-scroll" style="height: 400px; display: none;">
+                <table cellspacing="0" class="tablesorter">
+                    <thead>
+                        <tr>
+                            <th class="header">Id</th>
+                            <th class="header">Nummer</th>
+                            <th class="header" style="width: 120px;">Datum</th>
+                        </tr> 
+                    </thead>
+                    <tbody>
+
+                        <?php
+                        
+                        foreach ($orders as $order) {
+                            echo "<tr>";
+                            echo    "<td>".$order['id']."</td>";
+                            echo    "<td>".$order['orderNumber']."</td>";
+                            echo    "<td>".utils::ConvertDate($order['orderDate'])."</td>";
+                            echo "</tr>";
+                        }
+
+                        ?>
+
+                    </tbody>
+                </table>
+            </div>
+        
+            <div id="tab3" class="tab_content table-scroll" style="height: 400px; display: none;">
+                <table cellspacing="0" class="tablesorter">
+                    <thead>
+                        <tr>
+                            <th class="header">Id</th>
+                            <th class="header">Nummer</th>
+                            <th class="header" style="width: 120px;">Datum</th>
+                            <th class="header" style="width: 120px;">G&uuml;ltig ab</th>
+                            <th class="header" style="width: 120px;">G&uuml;ltig bis</th>
+                        </tr> 
+                    </thead>
+                    <tbody>
+
+                        <?php
+
+                        foreach ($offers as $offer) {
+                            echo "<tr>";
+                            echo    "<td>".$offer['id']."</td>";
+                            echo    "<td>".$offer['number']."</td>";
+                            echo    "<td>".utils::ConvertDate($offer['date'])."</td>";
+                            echo    "<td>".utils::ConvertDate($offer['valid_from'])."</td>";
+                            echo    "<td>".utils::ConvertDate($offer['valid_until'])."</td>";
+                            echo "</tr>";
+                        }
+
+                        ?>
+
+                    </tbody>
+                </table>
+            </div>
+            
         </div>
         
         <footer>
@@ -116,13 +187,6 @@ if (isset($_GET['customerId']))
                 </form>
             </div>
         </footer>
-    </article>
-    
-    <article class="module width_half">
-        <header>
-            <h3 class="tabs_involved">Bestellungen</h3>
-        </header>
-        
     </article>
     
     <div class="spacer clear"></div>
