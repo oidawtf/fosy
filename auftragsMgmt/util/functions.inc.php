@@ -138,7 +138,7 @@
 			echo "<tbody>";
 			while($row = mysql_fetch_assoc($pAData)){
 			echo "<tr>
-					<td>{$row['id']}<input type=\"hidden\" name=\"ID\" value=\"{$row['id']}\" /> 
+					<td>{$row['id']}<input type=\"hidden\" name=\"['id']\" value=\"{$row['id']}\" /> 
 					<td>{$row['name']}</td>
 					<td>{$row['model']}</td>
 					<!--<td>{$row['description']}</td>-->
@@ -146,7 +146,7 @@
 					<td>{$row['selling_price']}</td>
 					<td>
 						<input class=\"quantity\" type=\"number\" name=\"QTY\" min=\"0\" max=\"20\" step=\"1\" maxlength=\"2\" value=\"0\"/>
-						<input class=\"addButton\" type=\"submit\" name=\"addCart\" value=\"+\"/>
+						<input class=\"addButton\" type=\"submit\" name=\"addCart_{$row['id']}\" value=\"+\"/>
 					</td>
 				</tr>
 				";	
@@ -160,7 +160,7 @@
 
 	function createCart(){
 		if(!isset($_SESSION['cart'])){
-			$_SESSION['cart']=array("" => "");
+			$_SESSION['cart']=array();
 		}
 	}
 

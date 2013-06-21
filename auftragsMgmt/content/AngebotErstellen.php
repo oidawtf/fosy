@@ -10,6 +10,13 @@
 		
 		<?php
 		echo '<pre>'; var_dump($_POST); echo '</pre>';  
+			
+			foreach($_POST as $key => $value) {
+			  $pos = strpos($key , "addCart_");
+			  if ($pos === 0){
+			    $pos=substr($key,8);
+			  }
+			}
 
 		
 			if(isset($_POST['search']) && isset($_POST['searchButton'])){
@@ -34,8 +41,9 @@
 
 			if(isset($_POST['addCart'])){
 				findPerson($_SESSION['cartCustomerID'], true);
-				findArticle($_POST['ID'],true);
-				addCart($_POST['ID'], $_POST['QTY']);
+				findArticle($pos,true);
+
+				addCart($pos, $_POST['QTY']);
 				displayCart();
 			}
 
