@@ -145,7 +145,7 @@
 					<td><a href=\"\" target=\"_blank\">&ouml;ffnen</td>
 					<td>{$row['selling_price']}</td>
 					<td>
-						<input class=\"quantity\" type=\"number\" name=\"QTY\" min=\"0\" max=\"20\" step=\"1\" maxlength=\"2\" value=\"0\"/>
+						<input class=\"quantity\" type=\"number\" name=\"addQTY_{$row['id']}\" min=\"0\" max=\"20\" step=\"1\" maxlength=\"2\" value=\"0\"/>
 						<input class=\"addButton\" type=\"submit\" name=\"addCart_{$row['id']}\" value=\"+\"/>
 					</td>
 				</tr>
@@ -217,8 +217,8 @@
 						$lQty
 					</td>
 					<td>
-						<input class=\"quantity\" type=\"number\" name=\"cartQTY\" min=\"0\" max=\"20\" step=\"1\" maxlength=\"2\" value=\"0\"/>
-						<input class=\"addButton\" type=\"submit\" name=\"removeCart\" value=\"-\"/>
+						<input class=\"quantity\" type=\"number\" name=\"deleteQTY_{$row['id']}\" min=\"0\" max=\"20\" step=\"1\" maxlength=\"2\" value=\"0\"/>
+						<input class=\"addButton\" type=\"submit\" name=\"removeCartID_{$row['id']}\" value=\"-\"/>
 					</td>
 
 				</tr>

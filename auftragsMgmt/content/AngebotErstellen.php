@@ -1,3 +1,7 @@
+<?php
+	echo '<pre>'; var_dump($_POST); echo '</pre>';  		
+?>
+
 <div>
 	<table>
 		<tr>
@@ -9,14 +13,20 @@
 	</table>
 		
 		<?php
-		echo '<pre>'; var_dump($_POST); echo '</pre>';  
-			
 			foreach($_POST as $key => $value) {
-			  $pos = strpos($key , "addCart_");
-			  if ($pos === 0){
-			    $pos=substr($key,8);
+			  $articleIDadded = strpos($key , "addCart_");
+			  //$posQTY = strpos($key, "addQTY_".$posID);
+
+			  if ($articleIDadded === 0){
+			    $articleID=substr($key,8);
+			  	$QTY = $_POST['addQTY_'.$articleID.''];//"addQTY_".$posID;
+
+			  // echo "id: ".$articleID. "<br />" . "qty: " .$QTY;
 			  }
 			}
+
+			//<input class=\"quantity\" type=\"number\" name=\"deleteQTY_{$row['id']}\" min=\"0\" max=\"20\" step=\"1\" maxlength=\"2\" value=\"0\"/>
+			//<input class=\"addButton\" type=\"submit\" name=\"removeCartID_{$row['id']}\" value=\"-\"/>
 
 		
 			if(isset($_POST['search']) && isset($_POST['searchButton'])){
@@ -39,11 +49,12 @@
 				displayCart();
 			}
 
-			if(isset($_POST['addCart'])){
-				findPerson($_SESSION['cartCustomerID'], true);
-				findArticle($pos,true);
+			$clickedAdd = "addCart_" . $articleID;
 
-				addCart($pos, $_POST['QTY']);
+			if(isset($_POST[$clickedAdd])){
+				findPerson($_SESSION['cartCustomerID'], true);
+				findArticle($articleID,true);
+				addCart($articleID, $QTY);
 				displayCart();
 			}
 
