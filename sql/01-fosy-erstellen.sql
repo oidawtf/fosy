@@ -131,7 +131,7 @@ CREATE TABLE article (
   fk_article_category_id     int(10) NOT NULL, 
   fk_article_manufacturer_id int(10) NOT NULL, 
   model                      varchar(128) NOT NULL, 
-  description                varchar(255) NOT NULL, 
+  description                varchar(1000) NOT NULL, 
   picture                    varchar(255), 
   stock                      int(5) NOT NULL, 
   purchase_price             decimal(19, 2) NOT NULL, 
