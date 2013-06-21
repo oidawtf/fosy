@@ -11,9 +11,9 @@ class authenticationController {
     const password = "fosyPassword";
     
     //  remote DB
-//    const host = "";
-//    const db = "";
-//    const user = "";
+//    const host = "mysqlsvr32.world4you.com";
+//    const db = "oidawtfcomdb2";
+//    const user = "oidawtfcom";
 //    const password = "";
     
     private static $users;

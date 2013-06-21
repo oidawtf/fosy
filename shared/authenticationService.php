@@ -14,7 +14,7 @@ class authenticationService {
         $this->db = $db;
     }
     
-    public static function format($input)
+    private static function format($input)
     {
         $input = stripslashes($input);
         $input = mysql_real_escape_string($input);

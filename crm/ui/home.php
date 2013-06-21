@@ -1,6 +1,6 @@
 <?php
 
-authenticationController::checkAuthentication();
+authenticationController::checkAuthentication(); 
 
 $requests = controller::getRequestsByUsername();
 

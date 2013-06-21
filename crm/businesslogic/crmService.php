@@ -14,6 +14,12 @@ class crmService {
         $this->db = $db;
     }
     
+    private static function format($input) {
+        //$input = stripslashes($input);
+        //$input = mysql_real_escape_string($input);
+        return $input;
+    }
+    
     private function displayError($connection) {
         echo mysql_errno($connection) . ": " . mysql_error($connection). "\n";
     }
@@ -94,7 +100,7 @@ class crmService {
     }
     
     public function selectCampaign($campaignId) {
-        $campaignId = authenticationService::format($campaignId);
+        $campaignId = $this->format($campaignId);
         $campaign = $this->selectCampaigns("WHERE C.id = '".$campaignId."'");
         if (count($campaign) > 0)
             return $campaign[0];
@@ -266,7 +272,7 @@ class crmService {
     }
     
     public function selectCustomers($search = NULL) {
-        $search = authenticationService::format($search);
+        $search = $this->format($search);
         
         if ($search == NULL)
             $where = "WHERE P.is_customer = 1";
@@ -368,7 +374,7 @@ class crmService {
     }
     
     public function selectRequestById($id) {
-        $id = authenticationService::format($id);
+        $id = $this->format($id);
 
         $requests = $this->selectRequests("WHERE CR.id = '".$id."'");
         if (count($requests) > 0)
@@ -378,14 +384,14 @@ class crmService {
     }
 
     public function selectRequestsByCustomer($customerId) {
-        $customerId = authenticationService::format($customerId);
+        $customerId = $this->format($customerId);
 
         return $this->selectRequests("WHERE CR.fk_person_id = '".$customerId."'");
     }
     
     public function selectRequestsByUsername($username) {
-        $username = authenticationService::format($username);
-
+        $username = $this->format($username);
+        
         return $this->selectRequests("
                 WHERE
                     CR.fk_responsible_user_id = (
@@ -464,12 +470,12 @@ class crmService {
     public function updateRequest($id, $responsible_userId, $type_id, $article_id, $text, $status_id, $date) {
         $this->openConnection();
 
-        $id = authenticationService::format($id);
-        $type_id = authenticationService::format($type_id);
-        $article_id = authenticationService::format($article_id);
-        $text = authenticationService::format($text);
-        $status_id = authenticationService::format($status_id);
-        $date = authenticationService::format($date);
+        $id = $this->format($id);
+        $type_id = $this->format($type_id);
+        $article_id = $this->format($article_id);
+        $text = $this->format($text);
+        $status_id = $this->format($status_id);
+        $date = $this->format($date);
         
         mysql_query("
                 UPDATE customer_request
@@ -489,20 +495,20 @@ class crmService {
     public function insertCustomer($firstname, $lastname, $title, $birthdate, $street, $housenumber, $stiege, $doornumber, $zip, $city, $country, $phone, $fax, $email) {
         $this->openConnection();
 
-        $firstname = authenticationService::format($firstname);
-        $lastname = authenticationService::format($lastname);
-        $title = authenticationService::format($title);
-        $birthdate = authenticationService::format($birthdate);
-        $street = authenticationService::format($street);
-        $housenumber = authenticationService::format($housenumber);
-        $stiege = authenticationService::format($stiege);
-        $doornumber = authenticationService::format($doornumber);
-        $zip = authenticationService::format($zip);
-        $city = authenticationService::format($city);
-        $country = authenticationService::format($country);
-        $phone = authenticationService::format($phone);
-        $fax = authenticationService::format($fax);
-        $email = authenticationService::format($email);
+        $firstname = $this->format($firstname);
+        $lastname = $this->format($lastname);
+        $title = $this->format($title);
+        $birthdate = $this->format($birthdate);
+        $street = $this->format($street);
+        $housenumber = $this->format($housenumber);
+        $stiege = $this->format($stiege);
+        $doornumber = $this->format($doornumber);
+        $zip = $this->format($zip);
+        $city = $this->format($city);
+        $country = $this->format($country);
+        $phone = $this->format($phone);
+        $fax = $this->format($fax);
+        $email = $this->format($email);
 
         mysql_query("
             INSERT INTO person (firstname, lastname, title, birthdate, street, housenumber, stiege, doornumber, zip, city, country, phone, fax, email, is_customer)
@@ -531,21 +537,21 @@ class crmService {
     public function updateCustomer($id, $firstname, $lastname, $title, $birthdate, $street, $housenumber, $stiege, $doornumber, $zip, $city, $country, $phone, $fax, $email) {
         $this->openConnection();
 
-        $id = authenticationService::format($id);
-        $firstname = authenticationService::format($firstname);
-        $lastname = authenticationService::format($lastname);
-        $title = authenticationService::format($title);
-        $birthdate = authenticationService::format($birthdate);
-        $street = authenticationService::format($street);
-        $housenumber = authenticationService::format($housenumber);
-        $stiege = authenticationService::format($stiege);
-        $doornumber = authenticationService::format($doornumber);
-        $zip = authenticationService::format($zip);
-        $city = authenticationService::format($city);
-        $country = authenticationService::format($country);
-        $phone = authenticationService::format($phone);
-        $fax = authenticationService::format($fax);
-        $email = authenticationService::format($email);
+        $id = $this->format($id);
+        $firstname = $this->format($firstname);
+        $lastname = $this->format($lastname);
+        $title = $this->format($title);
+        $birthdate = $this->format($birthdate);
+        $street = $this->format($street);
+        $housenumber = $this->format($housenumber);
+        $stiege = $this->format($stiege);
+        $doornumber = $this->format($doornumber);
+        $zip = $this->format($zip);
+        $city = $this->format($city);
+        $country = $this->format($country);
+        $phone = $this->format($phone);
+        $fax = $this->format($fax);
+        $email = $this->format($email);
         
         mysql_query("
                 UPDATE person
@@ -573,7 +579,7 @@ class crmService {
     public function deactivateCustomer($id) {
         $this->openConnection();
 
-        $id = authenticationService::format($id);
+        $id = $this->format($id);
         
         mysql_query("
             UPDATE person
@@ -587,12 +593,12 @@ class crmService {
     public function insertRequest($customerId, $responsible_userId, $type_id, $article_id, $text, $status_id, $date) {
         $this->openConnection();
         
-        $customerId = authenticationService::format($customerId);
-        $type_id = authenticationService::format($type_id);
-        $article_id = authenticationService::format($article_id);
-        $text = authenticationService::format($text);
-        $status_id = authenticationService::format($status_id);
-        $date = authenticationService::format($date);
+        $customerId = $this->format($customerId);
+        $type_id = $this->format($type_id);
+        $article_id = $this->format($article_id);
+        $text = $this->format($text);
+        $status_id = $this->format($status_id);
+        $date = $this->format($date);
         
         mysql_query("
             INSERT INTO customer_request (fk_customer_request_type_id, fk_responsible_user_id, fk_person_id, fk_article_id, fk_status_id, date, text)
@@ -720,14 +726,14 @@ class crmService {
     public function updateCampaign($campaign) {
         $this->openConnection();
 
-        $campaignId = authenticationService::format($campaign->id);
-        $name = authenticationService::format($campaign->name);
-        $description = authenticationService::format($campaign->description);
-        $goal = authenticationService::format($campaign->goal);
-        $date_from = authenticationService::format($campaign->date_from);
-        $date_to = authenticationService::format($campaign->date_to);
-        $budget = authenticationService::format($campaign->budget);
-        $medium = authenticationService::format($campaign->medium);
+        $campaignId = $this->format($campaign->id);
+        $name = $this->format($campaign->name);
+        $description = $this->format($campaign->description);
+        $goal = $this->format($campaign->goal);
+        $date_from = $this->format($campaign->date_from);
+        $date_to = $this->format($campaign->date_to);
+        $budget = $this->format($campaign->budget);
+        $medium = $this->format($campaign->medium);
         
         $date_from = $this->convertTomysqlDate($date_from);
         $date_to = $this->convertTomysqlDate($date_to);
@@ -802,7 +808,7 @@ class crmService {
     public function updateRealPrice($campaignId, $articleId, $realprice) {
         $this->openConnection();
 
-        $realprice = authenticationService::format($realprice);
+        $realprice = $this->format($realprice);
         if ($realprice == "")
             $set = "real_price = NULL";
         else
