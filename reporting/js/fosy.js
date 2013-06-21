@@ -10,6 +10,24 @@ $(function() {
 		dateFormat: "dd.mm.yy"
 	});
 	
+	/* flexible Reports */
+	$("#datepickerFrom").datepicker({
+		showOn: "button",
+		autoSize: true,
+		buttonImage: "img/calendar.gif",
+		buttonImageOnly: true,
+		buttonText: "Datum",
+		dateFormat: "dd.mm.yy"
+	});
+	$("#datepickerTo").datepicker({
+		showOn: "button",
+		autoSize: true,
+		buttonImage: "img/calendar.gif",
+		buttonImageOnly: true,
+		buttonText: "Datum",
+		dateFormat: "dd.mm.yy"
+	});
+	
 	/* mouse over for navigation */
 	$("nav ul li a").hover(
 		function(){
@@ -27,6 +45,16 @@ $(function() {
 	$("#taxError").hide();
 	$("#taxOutput").hide();
 	
+	/* print button in ust va hide */
+	$("#printButton").hide();
+	
+	/* plan ist vergleich hide everything */
+	$("#noPlannedvalues").hide();
+	$("#planWhichTimeBlock").hide();
+	$("#timeMonthBlock").hide();
+	$("#timeQuarterBlock").hide();
+	$("#timeYearBlock").hide();
+	
 	/* calculate tax */
 	$("#calculate").click(function() {
 		bruttoBetrag = $("#bruttoBetrag").val();
@@ -35,9 +63,9 @@ $(function() {
 		if(bruttoBetrag != "" && bruttoBetrag > 0) {
 			if(!isNaN(bruttoBetrag)) {
 				
-				tax = $("input:radio:checked[name='tax']").val();
+				rate = $("input:radio:checked[name='rate']").val();
 				
-				if(tax==10) { vst = bruttoBetrag / 11; }
+				if(rate==10) { vst = bruttoBetrag / 11; }
 				else{ vst = bruttoBetrag / 6; }
 				nettoBetrag = bruttoBetrag - vst;
 				
@@ -77,7 +105,119 @@ $(function() {
 		});
 	});
 	
+	/* ust va jahr selected */
+	$("#ustVAJahrSelect").change(function() {
+		$("#ustVaNoData").remove();
+	
+		$("#ustVAJahrSelect option:selected").each(function() {
+			var id = $(this).val();
+			if(id > 0) {
+				getUSTVATableForYear(id);
+			}
+		});
+	});
+	
+	/* DASHBOARD */
+	var maxValueForBar = 0;
+	/* offers */
+	if($("#chartOffer").get(0)) {
+		var url="util/dashboardFunctionsOffers.ajax.php";
+		$.getJSON(url,function(json){
+			
+			maxValueForBar = json["datasets"][0]["data"][0];
+			for(i = 1; i < json["datasets"][0]["data"].length; i++) {
+				if(json["datasets"][0]["data"][i] > maxValueForBar)
+				maxValueForBar = json["datasets"][0]["data"][i];
+			}
+			
+			var opts = { 
+				scaleOverride:true, 
+				scaleSteps:3, 
+				scaleStepWidth:maxValueForBar,
+			};
+		
+			var chartOffer = $("#chartOffer").get(0).getContext("2d");
+			var myNewChart = new Chart(chartOffer).Bar(json, opts);
+			
+			createOffers(maxValueForBar);
+			createRelation(maxValueForBar);
+		});
+	}
+	
+	/* FLEX REPORT */
+	$("#allIndicatorsSelect").change(function() {
+		$("#datepicker").val("");
+		$("#datepickerFrom").val("");
+		$("#datepickerTo").val("");	
+	});
+	
+	/* PLAN IST VERGLEICH */
+	$("#planIndicatorsSelect").change(function() {
+		$("#planIndicatorsSelect option:selected").each(function() {
+			var id = $(this).val();
+			if(id > 0) {
+				$("#planWhichTimeBlock").show();
+			}
+		});
+	});
+	$("#planWhichTime").change(function() {
+		$("#planWhichTime option:selected").each(function() {
+			var id = $(this).val();
+			if(id == 1) {
+				$("#timeMonthBlock").show();
+				$("#timeQuarterBlock").hide();
+				$("#timeYearBlock").hide();
+			}else if(id == 2) {
+				$("#timeMonthBlock").hide();
+				$("#timeQuarterBlock").show();
+				$("#timeYearBlock").hide();
+			}else {
+				$("#timeMonthBlock").hide();
+				$("#timeQuarterBlock").hide();
+				$("#timeYearBlock").show();
+			}
+		});
+	});
+		
 });
+
+function createOffers(maxValueForBar) {
+	/* orders */
+	if($("#chartOrder").get(0)) {
+		var url="util/dashboardFunctionsOrders.ajax.php";
+		$.getJSON(url,function(json){
+		
+			var opts = { 
+				scaleOverride:true, 
+				scaleSteps:3, 
+				scaleStepWidth:maxValueForBar,
+			};
+		
+			var chartOrder = $("#chartOrder").get(0).getContext("2d");
+			var myNewChart = new Chart(chartOrder).Bar(json, opts);
+		});
+	}
+
+}
+
+function createRelation(maxValueForBar) {
+	/* relations */
+	if($("#chartRelation").get(0)) {
+		var url="util/dashboardFunctionsRelations.ajax.php";
+		$.getJSON(url,function(json){
+			
+			var opts = { 
+				scaleOverride:true, 
+				scaleSteps:3, 
+				scaleStepWidth:maxValueForBar,
+			};
+		
+			var chartRelation = $("#chartRelation").get(0).getContext("2d");
+			var myNewChart = new Chart(chartRelation).Bar(json, opts);
+				
+		});
+	}
+}
 
 /* plandaten anlegen period selected */
 $(document).on('change', '#periodSelect', function() {
@@ -89,7 +229,24 @@ $(document).on('change', '#periodSelect', function() {
 	});
 });
 
-/* AJAX Request for planned Value */
+/* ust va check box selected/unselected */
+$(document).on('click', '.month', function() {
+	var showButton = false;
+	$(".month").each(function() {
+		if($(this).is(':checked')) {
+			showButton = true;
+			return false;
+		}
+	});
+	if(showButton) {
+		$("#printButton").show();
+	}else {
+		$("#printButton").hide();
+	}
+});
+
+
+/* INIT AJAX REQUESTS */
 var req = null;
 var pos = 0;
 var url = null;
@@ -103,6 +260,8 @@ function initAjaxCall() {
 		req = new ActiveXObject("Microsoft.XMLHTTP");
 	}
 }
+
+/* AJAX Request for planned Value */
 function getPlannedvalues(id) {
 	initAjaxCall();
 	req.onreadystatechange = displayPlannedvalue;
@@ -115,6 +274,7 @@ function displayPlannedvalue() {
 	}
 }
 
+/* AJAX Request for periods */
 function getPeriods(id) {
 	initAjaxCall();
 	req.onreadystatechange = displayPeriods;
@@ -124,6 +284,19 @@ function getPeriods(id) {
 function displayPeriods() {
 	if(req.readyState == 4) {
 		$('#periods').html(req.responseText);
+	}
+}
+
+/* AJAX Request for ust va table */
+function getUSTVATableForYear(year) {
+	initAjaxCall();
+	req.onreadystatechange = displayUstVaTable;
+	req.open("GET", url+"util/getUstVaTable.ajax.php?year="+year);
+	req.send(null);
+}
+function displayUstVaTable() {
+	if(req.readyState == 4) {
+		$("#resultDiv").html(req.responseText);
 	}
 }
 

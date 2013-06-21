@@ -16,19 +16,22 @@ function checkBruttoBetrag($brutto) {
 	return true;
 }
 
-function saveIncominginvoice($date, $belegNr, $bruttoBetrag, $tax) {
-	if(checkDateFormatValid($_POST['date']) && checkDateNotInFuture($_POST['date']) &&  checkBelegNr($_POST['belegNr']) && checkBruttoBetrag($_POST['bruttoBetrag'])) {
+function saveIncominginvoice($date, $belegNr, $bruttoBetrag, $rate) {
+	if(checkDateFormatValid($date) && checkDateNotInFuture($date) &&  checkBelegNr($belegNr) && checkBruttoBetrag($bruttoBetrag)) {
 		
 		$bruttoBetrag = floatConverter($bruttoBetrag, array('single_dot_as_decimal'=> TRUE));
 
 		// TODO write short if?
-		if($tax==10) { (float)$vst = $bruttoBetrag / 11; }
-		else if($tax==20) { (float)$vst = $bruttoBetrag / 6; }
+		if($rate==10) { (float)$vst = $bruttoBetrag / 11; }
+		else if($rate==20) { (float)$vst = $bruttoBetrag / 6; }
 	
+		$nettoBetrag = $bruttoBetrag - $vst;
 		$taxType = getTaxTypeId("vst");
+		$taxRate = getTaxRateId($rate);
 		$date = formatDateForDatabase($date);
 	
-		$query = "INSERT INTO tax (date, value, businessRecordNumber, fk_tax_type_id) VALUES ('$date', $vst, '$belegNr', $taxType)";
+		$query = "INSERT INTO invoice (fk_tax_type_id, fk_tax_rate_id, date, gross_price, net, tax, businessRecordNumber) VALUES ($taxType, $taxRate, '$date', $bruttoBetrag, $nettoBetrag, $vst, '$belegNr')";
+
 		$result = mysql_query($query);
 	
 		if($result && mysql_affected_rows()) {
@@ -46,12 +49,24 @@ function getTaxTypeId($type) {
 	$result = mysql_query($query);
 	
 	if ($result && mysql_num_rows($result)) {
-		while($z= mysql_fetch_assoc($result)){
+		while($z = mysql_fetch_assoc($result)){
 			return $z['id'];
 		}
 	}else {
 		showErrorMsg(mysql_errno(), $query);
 	}
+}
+
+function getTaxRateId($rate) {
+	$query = "SELECT id FROM tax_rate WHERE rate='$rate'";
+	$result = mysql_query($query);
 	
+	if($result && mysql_num_rows($result)) {
+		while($z = mysql_fetch_assoc($result)) {
+			return $z['id'];
+		}
+	}else {
+		showErrorMsg(mysql_error(), $query);
+	}
 }
 ?>

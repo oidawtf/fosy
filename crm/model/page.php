@@ -5,14 +5,14 @@ class page {
     private $id;
     private $title;
     private $url;
-    private $needsId;
+    private $GETId;
     private $parents;
     
-    public function __construct($id, $title, $url, $needsId = false, $parents = NULL) {
+    public function __construct($id, $title, $url, $GETId = NULL, $parents = NULL) {
         $this->id = $id;
         $this->title = $title;
         $this->url = $url;
-        $this->needsId = $needsId;
+        $this->GETId = $GETId;
         $this->parents = $parents;
     }
     
@@ -28,11 +28,35 @@ class page {
         return $this->url;
     }
     
-    public function computeIdParameter() {
-        if (isset($_GET['id']) && $this->needsId)
-            return '&id='.$_GET['id'];
+    public function getParameter() {
+        if ($this->GETId == NULL || !isset($_GET[$this->GETId]))
+            return NULL;
         
-        return "";
+        return array($this->GETId => $_GET[$this->GETId]);
+    }
+    
+    public function computeIdParameter() {
+        $parameters = array();
+        
+        if ($this->parents != NULL)
+            foreach ($this->parents as $key)
+                $this->addParameter($parameters, $key);
+
+        $this->addParameter($parameters, $this->id);
+        $result = "";
+        foreach ($parameters as $key => $value)
+            $result = $result."&".$key."=".$value;
+        
+        return $result;
+    }
+    
+    private function addParameter(&$parameters, $key) {
+        $newParameter = controller::getContentItem($key)->getParameter();
+        if ($newParameter != NULL)
+            if (!array_key_exists(key($newParameter), $parameters))
+                $parameters[key($newParameter)] = $newParameter[key($newParameter)];
+        
+        return $parameters;
     }
     
     public function getParents() {

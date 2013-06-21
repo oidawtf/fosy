@@ -3,147 +3,80 @@
 class controller {
     
     private static $content;
-    private static $dataService;
     
-    private static $users;
+    private static $mediums;
     private static $requestTypes;
     private static $articleCategories;
     private static $status;
     
-    const sessionIDName = 'fosy_session';
-    const sessionIDUserId = "userId";
-    const sessionIDUser = "username";
-    const sessionIDUser_firstname = "user_firstname";
-    const sessionIDUser_lastname = "user_lastname";
+    private static $crmService;
     
+    private static function getService() {
+        if (empty(controller::$crmService))
+            controller::$crmService = new crmService(
+                    authenticationController::host,
+                    authenticationController::user,
+                    authenticationController::password,
+                    authenticationController::db
+                    );
+         
+        return controller::$crmService;
+    }
     
     private static function getContent() {
         if (empty(controller::$content)) {
             controller::$content = array(
                 'home' => new page('home', 'Home', 'ui/home.php'),
                 'login' => new page('login', 'Login', 'ui/login.php'),
-                'showcustomers' => new page('showcustomers', 'Kunden ansehen', 'ui/showcustomers.php', false, array('home')),
-                'customerdetails' => new page('customerdetails', 'Kundendetails', 'ui/customerdetails.php', true, array('home', 'showcustomers')),
-                'editcustomer' => new page('editcustomer', 'Kunden bearbeiten', 'ui/editcustomer.php', true, array('home', 'showcustomers', 'customerdetails')),
-                'requestdetails' => new page('requestdetails', 'Anfragendetails', 'ui/requestdetails.php', true, array('home', 'showcustomers', 'customerdetails')),
-                'createrequest' => new page('createrequest', 'Anfrage erfassen', 'ui/editrequest.php', true, array('home', 'showcustomers', 'customerdetails')),
-                'editrequest' => new page('editrequest', 'Anfrage bearbeiten', 'ui/editrequest.php', true, array('home', 'showcustomers', 'customerdetails', 'requestdetails')),
-                'createcustomer' => new page('createcustomer', 'Kunden erfassen', 'ui/editcustomer.php', false, array('home')),
-                'createcampaign' => new page('createcampaign', 'Kampagne erstellen', 'ui/createcampaign.php', true, array('home')),
-                'analysecampaign' => new page('analysecampaign', 'Kampagne analysieren', 'ui/analysecampaign.php', true, array('home'))
+                'showcustomers' => new page('showcustomers', 'Kunden ansehen', 'ui/showcustomers.php', NULL, array('home')),
+                'customerdetails' => new page('customerdetails', 'Kundendetails', 'ui/customerdetails.php', 'customerId', array('home', 'showcustomers')),
+                'editcustomer' => new page('editcustomer', 'Kunden bearbeiten', 'ui/editcustomer.php', 'customerId', array('home', 'showcustomers', 'customerdetails')),
+                'requestdetails' => new page('requestdetails', 'Anfragendetails', 'ui/requestdetails.php', 'requestId', array('home', 'showcustomers', 'customerdetails')),
+                'createrequest' => new page('createrequest', 'Anfrage erfassen', 'ui/editrequest.php', 'customerId', array('home', 'showcustomers', 'customerdetails')),
+                'editrequest' => new page('editrequest', 'Anfrage bearbeiten', 'ui/editrequest.php', 'requestId', array('home', 'showcustomers', 'customerdetails', 'requestdetails')),
+                'createcustomer' => new page('createcustomer', 'Kunden erfassen', 'ui/editcustomer.php', NULL, array('home')),
+                'showcampaigns' => new page('showcampaigns', 'Kampagnen anzeigen', 'ui/showcampaigns.php', NULL, array('home')),
+                'editcampaign' => new page('editcampaign', 'Kampagne erstellen', 'ui/editcampaign.php', 'campaignId', array('home')),
+                'addcustomerstocampaign' => new page('addcustomerstocampaign', 'Kunden hinzufügen', 'ui/addcustomerstocampaign.php', 'campaignId', array('home', 'editcampaign')),
+                'customerdetailsfromcampaign' => new page('customerdetailsfromcampaign', 'Kundendetails', 'ui/customerdetails.php', 'customerId', array('home', 'editcampaign', 'addcustomerstocampaign')),
+                'addarticlestocampaign' => new page('addarticlestocampaign', 'Artikel hinzufügen', 'ui/addarticlestocampaign.php', 'campaignId', array('home', 'editcampaign', 'addcustomerstocampaign')),
+                'finalizecampaign' => new page('finalizecampaign', 'Kampagne fertigstellen', 'ui/finalizecampaign.php', 'campaignId', array('home', 'editcampaign', 'addcustomerstocampaign', 'addarticlestocampaign'))
                 );
         }
 
         return controller::$content;
     }
     
-    private static function getDataService() {
-        if (empty(controller::$dataService))
-            controller::$dataService = new dbAccess();
-         
-        return controller::$dataService;
-    }
-    
-    public static function getUsers() {
-        if (empty(controller::$users))
-            controller::$users = controller::getDataService()->selectUsers();
-        
-        return controller::$users;
-    }
-    
     public static function getRequestTypes() {
         if (empty(controller::$requestTypes))
-            controller::$requestTypes = controller::getDataService()->selectRequestTypes();
+            controller::$requestTypes = controller::getService()->selectRequestTypes();
         
         return controller::$requestTypes;
     }
     
     public static function getArticleCategories() {
         if (empty(controller::$articleCategories))
-            controller::$articleCategories = controller::getDataService()->selectArticleCategories();
+            controller::$articleCategories = controller::getService()->selectArticleCategories();
         
         return controller::$articleCategories;
     }
     
+    public static function getMediums() {
+        if (empty(controller::$mediums)) {
+            controller::$mediums = array(
+                array('id' => 'email', 'name' => 'Newsletter'),
+                array('id' => 'address', 'name' => 'Serienbrief')
+            );
+        }
+        
+        return controller::$mediums;
+    }
+    
     public static function getStatus() {
         if (empty(controller::$status))
-            controller::$status = controller::getDataService()->selectStatus();
+            controller::$status = controller::getService()->selectStatus();
         
         return controller::$status;
-    }
-    
-    public static function isLoginValid($username, $password) {
-        return controller::getDataService()->checkCredentials($username, $password);
-    }
-    
-    public static function Login($username) {
-        @session_start();
-        $_SESSION[self::sessionIDName] = 1;
-        $_SESSION[self::sessionIDUser] = $username;
-        
-        foreach (controller::getUsers() as $user)
-            if ($user['username'] == $username) {
-                $_SESSION[self::sessionIDUserId] = $user['id'];
-                $_SESSION[self::sessionIDUser_firstname] = $user['firstname'];
-                $_SESSION[self::sessionIDUser_lastname] = $user['lastname'];
-                break;
-            }
-    }
-    
-    public static function Logout() {
-        @session_start();
-        session_unset();
-        $_SESSION = array();
-        session_destroy();
-    }
-    
-    public static function isLoggedIn() {
-        @session_start();
-        return isset($_SESSION[controller::getSessionName()]);
-    }
-    
-    public static function getSessionName() {
-        return self::sessionIDName;
-    }
-    
-    public static function getUser() {
-        @session_start();
-        if (
-                isset($_SESSION[self::sessionIDUserId]) &&
-                isset($_SESSION[self::sessionIDUser]) &&
-                isset($_SESSION[self::sessionIDUser_firstname]) &&
-                isset($_SESSION[self::sessionIDUser_lastname]))
-            return array(
-                "id" => $_SESSION[self::sessionIDUserId],
-                "username" => $_SESSION[self::sessionIDUser],
-                "firstname" => $_SESSION[self::sessionIDUser_firstname],
-                "lastname" => $_SESSION[self::sessionIDUser_lastname]
-                );
-    }
-    
-    public static function getUsername() {
-        $user = controller::getUser();
-        return $user['username'];
-    }
-    
-    public static function getFullUsername() {
-        return utils::ConvertUser(controller::getUser());
-    }
-    
-    public static function checkAuthentication() {
-        if(!controller::isLoggedIn())
-        {
-            echo
-            "
-                <h1>Forbidden</h1>
-                <p>You don't have permission to access / on this server.</p>
-            ";
-            die();
-        }
-    }
-    
-    public static function IsRegistered($username) {
-        return controller::getDataService()->isUserRegistered($username);
     }
     
     public static function getContentItem($key = "") {
@@ -151,7 +84,7 @@ class controller {
                 $key = $_GET['content'];
         
         if (!array_key_exists($key, controller::getContent()))
-            if (controller::isLoggedIn())
+            if (authenticationController::isLoggedIn())
                 $key = 'home';
             else
                 $key = 'login';
@@ -160,8 +93,46 @@ class controller {
         return $content[$key];
     }
     
+    public static function getCustomersByCampaign($campaign) {
+        if (isset($_GET['nameFilter']))
+            $nameFilter = $_GET['nameFilter'];
+        else
+            $nameFilter = NULL;
+        
+        if (isset($_GET['yearFilter']))
+            $yearFilter = $_GET['yearFilter'];
+        else
+            $yearFilter = NULL;
+        
+        if (isset($_GET['zipFilter']))
+            $zipFilter = $_GET['zipFilter'];
+        else
+            $zipFilter = NULL;
+        
+        return controller::getService()->selectCustomersByCampaign($campaign->id, $campaign->medium, $nameFilter, $yearFilter, $zipFilter);
+    }
+    
+    public static function getArticlessByCampaign($campaign) {
+        if (isset($_GET['categoryFilter']))
+            $categoryFilter = $_GET['categoryFilter'];
+        else
+            $categoryFilter = NULL;
+        
+        if (isset($_GET['manufacturerFilter']))
+            $manufacturerFilter = $_GET['manufacturerFilter'];
+        else
+            $manufacturerFilter = NULL;
+        
+        if (isset($_GET['stockFilter']))
+            $stockFilter = $_GET['stockFilter'];
+        else
+            $stockFilter = NULL;
+        
+        return controller::getService()->selectArticlesByCampaign($campaign->id, $categoryFilter, $manufacturerFilter, $stockFilter);
+    }
+    
     public static function getCustomers($search = NULL) {
-        return controller::getDataService()->selectCustomers($search);
+        return controller::getService()->selectCustomers($search);
     }
     
     public static function getCustomer($id) {
@@ -171,15 +142,15 @@ class controller {
     }
     
     public static function getRequestById($id) {
-        return controller::getDataService()->selectRequestById($id);
+        return controller::getService()->selectRequestById($id);
     }
     
     public static function getRequestsByCustomer($customerId) {
-        return controller::getDataService()->selectRequestsByCustomer($customerId);
+        return controller::getService()->selectRequestsByCustomer($customerId);
     }
     
     public static function getRequestsByUsername() {
-        return controller::getDataService()->selectRequestsByUsername(controller::getUsername());
+        return controller::getService()->selectRequestsByUsername(authenticationController::getUsername());
     }
     
     public static function editRequest($id) {
@@ -193,7 +164,7 @@ class controller {
         $status_id = $_POST['status'];
         $date = date("Y-m-d");
         
-        controller::getDataService()->updateRequest($id, $responsible_userId, $type_id, $article_id, $text, $status_id, $date);
+        controller::getService()->updateRequest($id, $responsible_userId, $type_id, $article_id, $text, $status_id, $date);
     }
     
     public static function createCustomer() {
@@ -212,7 +183,7 @@ class controller {
         $fax = $_POST['fax'];
         $email = $_POST['email'];
 
-        controller::getDataService()->insertCustomer(
+        controller::getService()->insertCustomer(
             $firstname,
             $lastname,
             $title,
@@ -231,7 +202,7 @@ class controller {
     }
     
     public static function editCustomer() {
-        $id = $_POST['id'];
+        $id = $_POST['customerId'];
         $firstname = $_POST['firstname'];
         $lastname = $_POST['lastname'];
         $title = $_POST['title'];
@@ -247,7 +218,7 @@ class controller {
         $fax = $_POST['fax'];
         $email = $_POST['email'];
 
-        controller::getDataService()->updateCustomer(
+        controller::getService()->updateCustomer(
             $id,
             $firstname,
             $lastname,
@@ -267,9 +238,9 @@ class controller {
     }
 
     public static function deleteCustomer() {
-        if (isset($_POST['id'])) {
-            $id = $_POST['id'];
-            controller::getDataService()->deactivateCustomer($id);   
+        if (isset($_POST['customerId'])) {
+            $id = $_POST['customerId'];
+            controller::getService()->deactivateCustomer($id);   
         }
     }
     
@@ -284,11 +255,134 @@ class controller {
         $status_id = $_POST['status'];
         $date = date("Y-m-d");
         
-        controller::getDataService()->insertRequest($customerId, $responsible_userId, $type_id, $article_id, $text, $status_id, $date);
+        controller::getService()->insertRequest($customerId, $responsible_userId, $type_id, $article_id, $text, $status_id, $date);
     }
     
     public static function getArticles($article_category_id) {
-        return controller::getDataService()->selectArticles($article_category_id);
+        return controller::getService()->selectArticles($article_category_id);
+    }
+    
+    public static function getCampaigns() {
+        controller::getService()->deleteEmptyCampaigns();
+        return controller::getService()->selectCampaigns();
+    }
+    
+    public static function createCampaign() {
+        controller::getService()->deleteEmptyCampaigns();
+        $campaignId = controller::getService()->insertCampaign();
+        $campaign = new campaign();
+        $campaign->id = $campaignId;
+        return $campaign;
+    }
+    
+    public static function getCampaign($campaignId) {
+        return controller::getService()->selectCampaign($campaignId);
+    }
+    
+    public static function editCampaign($campaignId) {
+        $campaign = new campaign();
+        $campaign->id = $campaignId;
+        $campaign->name = $_POST['name'];
+        $campaign->description = $_POST['description'];
+        $campaign->goal = $_POST['goal'];
+        $campaign->date_from = $_POST['date_from'];
+        $campaign->date_to = $_POST['date_to'];
+        $campaign->budget = $_POST['budget'];
+        $campaign->medium = $_POST['medium'];
+        //$code = $_POST['code'];
+        
+        controller::getService()->updateCampaign($campaign);
+        
+        return $campaign;
+    }
+    
+    public static function updateCampaignRelations() {
+        if (
+                !isset($_POST['type']) ||
+                !isset($_POST['campaignId']) ||
+                !isset($_POST['id']) ||
+                !isset($_POST['checked']))
+            return;
+        
+        $type = $_POST['type'];
+        $campaignId = $_POST['campaignId'];
+        $id = $_POST['id'];
+        $checked = $_POST['checked'];
+        
+        switch ($type) {
+            case 'customer':
+                if ($checked == 'true')
+                    controller::getService ()->insertCustomerIntoCampaign($campaignId, $id);
+                else
+                    controller::getService ()->deleteCustomerFromCampaign($campaignId, $id);
+                break;
+            case 'article':
+                if ($checked == 'true')
+                    controller::getService ()->insertArticleIntoCampaign($campaignId, $id);
+                else
+                    controller::getService ()->deleteArticleFromCampaign($campaignId, $id);
+                break;
+            default:
+                return FALSE;
+                break;
+        }
+    }
+    
+    public static function updateRealPrice() {
+        if (
+                !isset($_POST['campaignId']) ||
+                !isset($_POST['articleId']) ||
+                !isset($_POST['realprice']))
+            return;
+
+        $campaignId = $_POST['campaignId'];
+        $articleId = $_POST['articleId'];
+        $realprice = $_POST['realprice'];
+        
+        controller::getService()->updateRealPrice($campaignId, $articleId, $realprice);
+    }
+    
+    public static function getLoginMessage() {
+        if (isset($_POST['login']) && isset($_POST['username']) && isset($_POST['password']))
+            if (authenticationController::isLoginValid($_POST['username'], $_POST['password']))
+                echo "<h4 class='alert_success'>Login erfolgreich!</h4>";
+            else
+                echo "<h4 class='alert_error'>Login fehlgeschlagen!</h4>";
+    }
+    
+    public static function getSelectedCustomers($campaignId) {
+        return controller::getService()->selectSelectedCustomers($campaignId);
+    }
+    
+    public static function getSelectedArticles($campaignId) {
+        return controller::getService()->selectSelectedArticles($campaignId);
+    }
+    
+    public static function getCampaignData($campaignId) {
+        $campaign = controller::getService()->selectCampaign($campaignId);
+        
+        $campaign->customers = controller::getService()->selectCampaignCustomersData($campaign);
+        $campaign->articles = controller::getService()->selectCampaignArticlesData($campaign);
+        
+        return $campaign;
+    }
+    
+    public static function isAuthorized($content) {
+        if ($content == 'CONTENT')
+            return "";
+        
+        if (authenticationController::isAuthorized($content))
+            return "";
+        
+        return "disabled";
+    }
+    
+    public static function getOffers($customerId) {
+        return controller::getService()->selectOffers($customerId);
+    }
+    
+    public static function getOrders($customerId) {
+        return controller::getService()->selectOrders($customerId);
     }
 }
 

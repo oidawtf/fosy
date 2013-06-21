@@ -1,4 +1,4 @@
-<?php
+<?php   
 
 function checkDateFormatValid($date) {
 	if(empty($date)) { return false; }
@@ -31,12 +31,78 @@ function checkDateNotInFuture($date) {
 	return false;
 }
 
+/* Dateformat: dd.mm.yyyy */
+function checkDateFromBeforeDateTo($dateFrom, $dateTo) {
+	if(checkDateFormatValid($dateFrom) && checkDateFormatValid($dateTo)) {
+		$dateFrom 	= mktime(0, 0, 0, substr($dateFrom, 3, 2), substr($dateFrom, 0, 2), substr($dateFrom, 6, 4));
+		$dateTo 	= mktime(0, 0, 0, substr($dateTo, 3, 2), substr($dateTo, 0, 2), substr($dateTo, 6, 4));
+		
+		if($dateFrom > $dateTo) {
+			return false;
+		}else {
+			return true;
+		}
+	}
+	return false;
+}
+
 /* 	
 	inputformat: dd.mm.yyyy
 	outputformat: yyyy-mm-dd
 */
 function formatDateForDatabase($date) {
  	return date('Y-m-d', strtotime($date));
+}
+
+/*
+	inputformat: yyyy-mm-dd
+	outputformat: dd.mm.yy
+*/
+function formatDateForOutput($date) {
+	return date('d.m.Y', strtotime($date));
+}
+
+/*
+	inputformat: m.yyyy
+	outputformat: m
+*/
+function getMonthOrYearFromMonthYear($monthYear, $which) {
+	if($which == 'm') {
+		return substr($monthYear, 0, strpos($monthYear, "-"));
+	} else if($which == 'y') {
+		return substr($monthYear, strpos($monthYear, "-")+1);
+	}else {
+		return 0;
+	}
+}
+
+
+function getMonthShortName($month) {
+	$monthShortNames = array(1=>"Jan", 2=>"Feb", 3=>"Mär", 4=>"Apr", 5=>"Mai", 6=>"Jun", 7=>"Jul", 8=>"Aug", 9=>"Sep", 10=>"Okt", 11=>"Nov", 12=>"Dez");
+
+	return $monthShortNames[$month];
+}
+
+/*
+	inputformat: m[m]-yyyy
+	outputformat: yyyy-mm-01
+*/
+function getDateFrom($monthYear) {
+	$month = getMonthOrYearFromMonthYear($monthYear, 'm');
+	$year = getMonthOrYearFromMonthYear($monthYear, 'y');
+	
+	return $year."-".$month."-01";
+}
+/*
+	inputformat: m[m]-yyyy
+	outputformat: yyyy-mm-maxdays
+*/
+function getDateTo($monthYear) {
+	$month = getMonthOrYearFromMonthYear($monthYear, 'm');
+	$year = getMonthOrYearFromMonthYear($monthYear, 'y');
+	$dayInMonth = date('t', mktime(0, 0, 0, $month, 1, $year));
+	
+	return $year."-".$month."-".$dayInMonth;
 }
 
 ?>

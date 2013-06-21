@@ -1,7 +1,7 @@
 <?php
 require('fpdf/fpdf.php');
 
-function createCustomerPDF($pCustomer){
+function createCustomerPDF($pData){
 	findPerson($pCustomer);
 	$pdf = new FPDF();
 	$pdf->AddPage();

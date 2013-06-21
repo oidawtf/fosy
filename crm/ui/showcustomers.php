@@ -1,6 +1,7 @@
 <?php
 
-@controller::checkAuthentication();
+authenticationController::checkAuthentication();
+authenticationController::checkAuthorization();
 
 if (isset($_POST['createcustomer']))
     controller::createCustomer();
@@ -28,8 +29,8 @@ else
             </ul>
         </header>
 
-        <div class="tab_container">
-            <div class="tab_content" id="tab1" style="display: block;">
+        <div class="tab_container table-wrapper">
+            <div class="tab_content table-scroll" id="tab1" style="display: block;">
                 <table cellspacing="0" class="tablesorter">
                     <thead>
                         <tr> 
@@ -49,7 +50,7 @@ else
                         
                         foreach ($customers as $customer) {
                             echo "<tr>";
-                            echo    "<td><a href='".$_SERVER['PHP_SELF']."?content=customerdetails&id=".$customer->id."'>".$customer->getFullName()."</a></td>";
+                            echo    "<td><a href='".$_SERVER['PHP_SELF']."?content=customerdetails&customerId=".$customer->id."'>".$customer->getFullName()."</a></td>";
                             echo    "<td>".$customer->firstname."</td>";
                             echo    "<td>".$customer->lastname."</td>";
                             echo    "<td>".$customer->getBirthdate()."</td>";
@@ -59,12 +60,12 @@ else
                             echo    "<td>";
                             echo        "<form method='GET' action='".$_SERVER['PHP_SELF']."' style='float:left; margin-right: 10px;'>";
                             echo            "<input type='hidden' name='content' value='editcustomer' />";
-                            echo            "<input type='hidden' name='id' value='".$customer->id."' />";
-                            echo            "<input type='image' title='Bearbeiten' src='images/icn_edit.png'>";
+                            echo            "<input type='hidden' name='customerId' value='".$customer->id."' />";
+                            echo            "<input ".controller::isAuthorized('editcustomer')." type='image' title='Bearbeiten' src='images/icn_edit.png'>";
                             echo        "</form>";
                             echo        "<form method='POST' action='".$_SERVER['PHP_SELF']."?content=showcustomers' style='float:left;'>";
                             echo            "<input type='hidden' name='deletecustomer' value='' />";
-                            echo            "<input type='hidden' name='id' value='".$customer->id."' />";
+                            echo            "<input type='hidden' name='customerId' value='".$customer->id."' />";
                             echo            "<input type='image' title='L&ouml;schen' src='images/icn_trash.png'>";
                             echo        "</form>";
                             echo    "</td>";
@@ -76,7 +77,7 @@ else
                     </tbody>
                 </table>
             </div>
-            <div id="tab2" class="tab_content" style="display: none;">
+            <div id="tab2" class="tab_content table-scroll" style="display: none;">
                 <table cellspacing="0" class="tablesorter">
                     <thead>
                         <tr> 
@@ -96,7 +97,7 @@ else
                         
                         foreach ($customers as $customer) {
                             echo "<tr>";
-                            echo    "<td><a href='".$_SERVER['PHP_SELF']."?content=customerdetails&id=".$customer->id."'>".$customer->firstname." ".$customer->lastname."</a></td>";
+                            echo    "<td><a href='".$_SERVER['PHP_SELF']."?content=customerdetails&customerId=".$customer->id."'>".$customer->firstname." ".$customer->lastname."</a></td>";
                             echo    "<td>".$customer->phone."</td>";
                             echo    "<td>".$customer->fax."</td>";
                             echo    "<td><a href='mailto:".$customer->email."'>".$customer->email."</a></td>";

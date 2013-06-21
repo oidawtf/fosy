@@ -1,14 +1,14 @@
 <header id="header">
     <hgroup>
         <h1 class="site_title">
-            <a href="../index.php">FOSY - Felix Online Systems</a>
+            <a href="../index.php">Felix Online Systems</a>
         </h1>
         <h2 class="section_title"><?php echo controller::getContentItem()->getTitle(); ?></h2>
         <div class="btn_view_site">
             
             <?php
             
-            if (controller::isLoggedIn()) {
+            if (authenticationController::isLoggedIn()) {
                 echo "<form method='POST' action='".$_SERVER['PHP_SELF']."'>";
                 echo    "<input type='hidden' name='logout'>";
                 echo    "<a href='javascript:;' onclick='parentNode.submit();'>Logout</a>";
@@ -27,13 +27,13 @@
 </header>
 
 <?php
-if (!controller::isLoggedIn())
+if (!authenticationController::isLoggedIn())
     return;
 ?>
 
 <section id="secondary_bar">
     <div class="user">
-        <p><?php echo controller::getFullUsername(); ?></p>
+        <p><?php echo authenticationController::getFullUsername(); ?></p>
     </div>
     <div class="breadcrumbs_container">
         <article class="breadcrumbs">

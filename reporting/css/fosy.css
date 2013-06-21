@@ -18,28 +18,30 @@ body, html {
 }
 
 /* LOGIN */
-div#centerhelper {
-	width:1px;
-	height:50%;
-	margin-bottom:-150px; /* Hälfte der Container-Höhe */
-	float:left;
-}
-
-#login {
-	border:1px solid red;
-	position: absolute;
-	left: 50%;
-	top: 50%;
-	width: 400px;
-	height: 200px;
-	margin-left: -200px; /* Hälfte der Breite nach links */
-	margin-top: -100px; /* Hälfte der Höhe nach oben */
-}
-
 #loginForm {
+	width: 340px;
+	height: 200px;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	margin-left: -170px;
+	margin-top: -100px;
 	border:0px solid blue;
-	padding:20px;
+	text-align: center;
 }
+#loginForm #logo {
+	border: 0px solid red;
+}
+#loginForm #loginTable {
+	text-align: left;
+}
+#loginForm #loginTable tr td {
+	font-family: Verdana;
+	font-size: 11pt;
+	border: 0px solid red;
+	padding-bottom: 5px;
+}
+
 
 #wrapper {
 	width: 1000px;
@@ -121,8 +123,14 @@ nav ul li a {
 
 /* FOOTER */
 footer {
+	text-align: center;
 	border:0px solid magenta;
-	height: 30px;
+	height:24px;
+	margin-bottom: 10px;
+	padding-top: 6px;
+}
+footer a {
+	text-decoration: none;
 }
 
 /* Forms */
@@ -161,4 +169,81 @@ fieldset div label {
 }
 #resultDiv table tr td.right {
 	text-align: right;
+}
+#resultDiv table tr td.center {
+	text-align: center;
+}
+
+/* dashboard */
+fieldset#fieldsetOffer {
+	width: 300px;
+	float:left;
+	margin-right: 10px;
+}
+fieldset#fieldsetOrder {
+	width:300px;
+	
+}
+fieldset#fieldsetRelation {
+	width:610px;
+}
+
+/* flexible reports */
+#flexKZ label {
+	width: 180px;
+}
+#timeBlockEmployee label {
+	width: 180px;
+}
+#timeBlock label {
+	width: 180px;
+}
+#timeBlock {
+}
+#flexTimeFrom {
+	margin-left: 0;
+}
+#flexTimeTo {
+	margin-left: 0;
+}
+
+/* plan-ist-vergleich */
+#planKZ {
+
+}
+
+/* about us */
+.albumFieldset {
+	width: 455px;
+}
+div.textBG {
+	position:absolute; 
+	font-weight:bold;
+	font-size: 9pt; 
+	width:125px; 
+	bottom: -5px; 
+	left: -5px; 
+	z-index: 1000; 
+	opacity: 0.7; 
+	background-color: grey; 
+	border:0px solid magenta;
+}
+div.textBG div.text {
+	margin:0;
+	margin-left: 4px;
+	color: white;
+}
+
+#person1, #person2, #person4, #person5, #person7, #person8 {
+	width: 150px; 
+	height: 125px; 
+	position: relative;
+	float:left;
+}
+
+#person3, #person6, #person9 {
+	width: 125px; 
+	height: 125px; 
+	position: relative;
+	float:left;	
 }

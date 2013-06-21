@@ -5,7 +5,7 @@
 	// save clicked 
 	if(isset($_POST['save']) && checkDateFormatValid($_POST['date']) && checkDateNotInFuture($_POST['date']) &&  checkBelegNr($_POST['belegNr']) && checkBruttoBetrag($_POST['bruttoBetrag'])) {
 		
-		saveIncominginvoice($_POST['date'], $_POST['belegNr'], $_POST['bruttoBetrag'], $_POST['tax']);
+		saveIncominginvoice($_POST['date'], $_POST['belegNr'], $_POST['bruttoBetrag'], $_POST['rate']);
 	
 	} else {
 		if(isset($_POST['save'])) {
@@ -44,8 +44,8 @@
 		</div>
 		<div>
 			<label>Steuersatz:</label>
-			<input class="ui-widget ui-widget-content ui-corner-all" type="radio" name="tax" value="10"> 10 %
-			<input class="ui-widget ui-widget-content ui-corner-all" type="radio" name="tax" value="20" checked> 20 %
+			<input class="ui-widget ui-widget-content ui-corner-all" type="radio" name="rate" value="10"> 10 %
+			<input class="ui-widget ui-widget-content ui-corner-all" type="radio" name="rate" value="20" checked> 20 %
 		</div>
 		<div id="taxError" class="ui-state-error"></div>
 		<div id="taxOutput" class="ui-state-highlight">

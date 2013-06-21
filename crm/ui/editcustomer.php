@@ -1,9 +1,10 @@
 <?php
 
-@controller::checkAuthentication();
+authenticationController::checkAuthentication();
+authenticationController::checkAuthorization();
 
-if (isset($_GET['id'])) {
-    $customer = controller::getCustomer($_GET['id']);
+if (isset($_GET['customerId'])) {
+    $customer = controller::getCustomer($_GET['customerId']);
     $command = 'editcustomer';
 }
 else {
@@ -12,6 +13,12 @@ else {
 }
 
 ?>
+
+<script type="text/javascript">
+    $(function() {
+        $( "#birthdate" ).datepicker();
+    });
+</script>
 
 <section id="main" class="column" style="height: 90%;">
     
@@ -37,7 +44,7 @@ else {
                                 <td><input name="firstname" required="1" type="text" style="width:90%" value="<?php echo $customer->firstname; ?>" /></td>
                                 <td><input name="lastname" required="1" type="text" style="width:90%" value="<?php echo $customer->lastname; ?>" /></td>
                                 <td><input name="title" type="text" style="width:90%" value="<?php echo $customer->title; ?>" /></td>
-                                <td><input name="birthdate" type="date" style="width:90%" value="<?php echo $customer->birthdate; ?>" /></td>
+                                <td><input name="birthdate" type="date" id="birthdate" style="width:90%" value="<?php echo $customer->birthdate; ?>" /></td>
                             </tr>
                         </tbody>
                     </table>
@@ -98,7 +105,7 @@ else {
         
             <footer>
                 <div class="submit_link">
-                    <input type="hidden" name="id" value="<?php echo $customer->id; ?>" />
+                    <input type="hidden" name="customerId" value="<?php echo $customer->id; ?>" />
                     <input type="submit" class="alt_btn" name="<?php echo $command; ?>" value="Speichern" />
                     <input type="button" onclick="javascript:history.back()" value="Abbrechen" />
                 </div>

@@ -1,9 +1,10 @@
 <?php
 
-@controller::checkAuthentication();
+authenticationController::checkAuthentication();
+authenticationController::checkAuthorization();
 
-if (isset($_GET['id'])) {
-    $id = $_GET['id'];
+if (isset($_GET['customerId'])) {
+    $customerId = $_GET['customerId'];
 }
 
 if (isset($_GET['requestId'])) {
@@ -12,10 +13,11 @@ if (isset($_GET['requestId'])) {
 }
 else {
     $request = new request();
-    $user = controller::getUser();
+    $user = authenticationController::getUser();
     $request->responsible_userId = $user['id'];
     $request->responsible_user = $user['username'];
     $request->article_category_id = 1;
+    $request->article_id = 1;
     $command = 'createrequest';
 }
 
@@ -23,27 +25,15 @@ else {
 
 <script type="text/javascript">
     
-    function getXmlHttpRequest()
-    {
-        var xmlhttp;
-
-        if (window.XMLHttpRequest)  // code for IE7+, Firefox, Chrome, Opera, Safari
-            xmlhttp=new XMLHttpRequest();
-        else                        // code for IE6, IE5
-            xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
-
-        return xmlhttp;
-    }
-    
     function OnReloadArticles(select) {
         OnLoadArticles(select.options[select.selectedIndex].value);
     }
     
-    function OnLoadArticles(article_category_id)
+    function OnLoadArticles(article_category_id, article_id)
     {
         var xmlhttp = getXmlHttpRequest();
         var url = "ui/getArticles.php";
-        var params = "article_category_id=" + article_category_id;
+        var params = "article_category_id=" + article_category_id + "&article_id=" + article_id;
 
         xmlhttp.open("POST", url, true);
 
@@ -64,7 +54,7 @@ else {
 
 <section id="main" class="column" style="height: 90%;">
     <article class="module width_full">
-        <form method="POST" action="<?php echo $_SERVER["PHP_SELF"]."?content=customerdetails&id=".$id; ?>">
+        <form method="POST" action="<?php echo $_SERVER["PHP_SELF"]."?content=customerdetails&customerId=".$customerId; ?>">
             <header>
                 <h3>Kundenanfrage erfassen<?php echo $request->getIdFormatted(); ?></h3>
             </header>
@@ -79,7 +69,7 @@ else {
                             if ($request->type == $item['name'])
                                 $selected = "selected='selected'";
                             else
-                                $selected = "";                            
+                                $selected = "";                          
                             
                             echo "<option ".$selected." value='".$item['id']."'>".$item['name']."</option>";
                         }
@@ -90,7 +80,7 @@ else {
                     <label>Sachbearbeiter</label>
                     <select name="responsible_userId" style="width:92%;">
                         <?php
-                        foreach (controller::getUsers() as $item) {
+                        foreach (authenticationController::getUsers() as $item) {
                             if ($request->responsible_userId == $item['id'])
                                 $selected = "selected='selected'";
                             else
@@ -120,7 +110,7 @@ else {
                     <label>Artikel</label>
                     <div id="articles"></div>
                     <script type="text/javascript">
-                        OnLoadArticles(<?php echo $request->article_category_id ?>);
+                        OnLoadArticles(<?php echo $request->article_category_id.", ".$request->article_id; ?>);
                     </script>
                 </fieldset>
                 

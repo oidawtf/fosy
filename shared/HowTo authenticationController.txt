@@ -1,0 +1,62 @@
+HOW TO USE AUTHENTICATIONCONTROLLER
+
+1) authenticationController::checkAuthentication();
+Überprüft, ob der User eingeloggt ist, ansonsten wird eine Permission denied angezeigt "die"
+Am Besten in jeder Seite, die ein content werden kann und Überprüfung erfordern zu Beginn abfragen:
+
+<?php
+authenticationController::checkAuthentication();
+?>
+
+2) authenticationController::checkAuthorization($content = NULL);
+Überprüft die Rollenberechtigung anhand der $_GET['content'] Parameter, es kann allerdings auch der content übergeben werden.
+
+Die contents müssen dem table roles in der DB in dieser Form hinzugefügt werden:
+showcustomers|customerdetails| [...] |createCampaignPDF
+
+Folgendermaßen verwenden:
+
+2.1) content=xxx $_GET Parameter steht zur Verfügung
+<?php
+authenticationController::checkAuthentication();
+authenticationController::checkAuthorization();
+?>
+
+2.2) zB bei einem pdf (indem es ja keinen content Parameter gibt)
+<?php
+authenticationController::checkAuthentication();
+authenticationController::checkAuthorization('analyseCampaignPDF');
+?>
+
+3) authenticationController::isAuthorized($content = NULL);
+Dasselbe wie checkAuthorization, allerdings liefert die Methode einen bool zurück
+Diese Methode ist für die enable/disable Funktionalität für hyperlinks gedacht und sollte mit folgendem pattern erweitern werden.
+
+3.1) im modul css (im fosy.css ist es bereits drinnen) folgende class hinzufügen:
+
+.disabled {
+   pointer-events: none;
+   cursor: default;
+}
+
+Damit wird ein hyperlink mit dieser class "disabled" (er wird allerdings trotzdem noch immer angezeigt, nur tut sich nichts)
+
+3.2) Um hyperlinks bequem je nach Authorisierung disablen zu können, nun die einzelnen Komponenten so zusammen fügen:
+
+<a class="menu <?php echo myIsAuthorized('XYZ') ?>" href=" [...] ?content=XYZ">Titel</a>
+
+Wobei XYZ der content ist auf den der hyperlink zeigt, falls der user authorisiert ist, diesen angegebenen content durch seine role zu sehen, wird "" zurück geliefert, ansonsten "disabled".
+
+Dazu ist natürlich folgende Methode zu kopieren:
+    public static function myIsAuthorized($content) {
+        if (authenticationController::isAuthorized($content))
+            return "";
+        
+        return "disabled";
+    }
+
+4) authenticationController::isAuthorized($content = NULL);
+Kann auch für input tags folgendermaßen verwendet werden:
+echo            "<input ".controller::isAuthorized('editcustomer')." type='image' title='Bearbeiten' src='images/icn_edit.png'>";
+
+Dadurch, dass eben "disabled" zurück geliefert wird, wird der input disabled und damit nicht mehr anklickbar

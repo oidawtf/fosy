@@ -1,13 +1,14 @@
 <h2>Plandaten hinzufügen</h2>
+<br/>
 <?php 
 	// save clicked 
-	if(isset($_POST['save']) && checkIndicator($_POST['indicatorsAddSelect']) && checkPeriod($_POST['periodSelect']) && checkValue($_POST['wert']) && checkPlannedvalueType($_POST['plannedvalueType'])) {
+	if(isset($_POST['save']) && checkPlannedIndicator($_POST['indicatorsAddSelect']) && checkPeriod($_POST['periodSelect']) && checkValue($_POST['wert']) && checkPlannedvalueType($_POST['plannedvalueType'])) {
 		savePlannedvalue($_POST['indicatorsAddSelect'], $_POST['periodSelect'], $_POST['wert'], $_POST['plannedvalueType']);
 	
 	} else {	
 		if(isset($_POST['save'])) {
 			$errorMsg = "";
-			if(!checkIndicator($_POST['indicatorsAddSelect'])) {
+			if(!checkPlannedIndicator($_POST['indicatorsAddSelect'])) {
 				$errorMsg .= "Bitte Kennzahl auswählen.<br/>"; 
 			}
 			if(!checkPeriod($_POST['periodSelect'])) {
@@ -73,9 +74,10 @@
 				?>
 			</select>
 		</div>
-		<div id="saveButton">
+		<div>
 			<button type="submit" name="save" id="save">Speichern</button>
 		</div>
+	</fieldset>
 </form>
 
 <?php } ?>

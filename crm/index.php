@@ -14,8 +14,10 @@
             -->
             <link rel="stylesheet" href="css/site.css">
             <link rel="stylesheet" href="css/layout.css">
+            <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
             
-            <script type="text/javascript" src="js/jquery-1.5.2.min.js"></script>
+            <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+            <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
             <script type="text/javascript" src="js/hideshow.js"></script>
             <script type="text/javascript" src="js/jquery.tablesorter.min.js"></script>
             <script type="text/javascript" src="js/jquery.equalHeight.js"></script>
@@ -41,12 +43,38 @@
                         return false;
                     });
                 });
-            </script>
-            
-            <script type="text/javascript">
+
                 $(function(){
                     $('.column').equalHeight();
                 });
+                
+                function getXmlHttpRequest()
+                {
+                    var xmlhttp;
+
+                    if (window.XMLHttpRequest)  // code for IE7+, Firefox, Chrome, Opera, Safari
+                        xmlhttp=new XMLHttpRequest();
+                    else                        // code for IE6, IE5
+                        xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+
+                    return xmlhttp;
+                }
+    
+                function OnSelectionChanged(type, campaignId, id, checked)
+                {
+                    var xmlhttp = getXmlHttpRequest();
+                    var url = "ui/selectionChanged.php";
+                    var params = "type=" + type + "&campaignId=" + campaignId + "&id=" + id + "&checked=" + checked;
+
+                    xmlhttp.open("POST", url, true);
+
+                    xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+                    xmlhttp.setRequestHeader("Content-length", params.length);
+                    xmlhttp.setRequestHeader("Connection", "close");
+
+                    xmlhttp.send(params);
+                }
+                
             </script>
             
             <title>FOSY - Felix Online Systems</title>
@@ -54,18 +82,19 @@
 
     <?php
     
+    include "../shared/authenticationController.php";
     include "includes.php";
     
     // Login clicked
     if (isset($_POST['login']) && isset($_POST['username']) && isset($_POST['password']))
-        if (controller::isLoginValid($_POST['username'], $_POST['password'])) {
-            controller::Login($_POST['username']);
+        if (authenticationController::isLoginValid($_POST['username'], $_POST['password'])) {
+            authenticationController::login($_POST['username']);
         }
     
     // Logout clicked
     if (isset($_POST['logout']))
-        controller::Logout();
-
+        authenticationController::logout();
+    
     ?>
 
     <body>
@@ -74,7 +103,7 @@
         
         include "ui/header.php";
         
-        if (controller::isLoggedIn())
+        if (authenticationController::isLoggedIn())
             include "ui/navi.php";
             
         ?>
@@ -83,7 +112,12 @@
             <?php include controller::getContentItem()->getUrl(); ?>
 	</div>
         
-        <?php include "ui/footer.php"; ?>
+        <?php
+        
+        if (authenticationController::isLoggedIn())
+            include "ui/footer.php";
+        
+        ?>
         
     </body>
 </html>

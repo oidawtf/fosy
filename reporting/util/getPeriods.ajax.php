@@ -1,4 +1,5 @@
 <?php
+	require("../../shared/authenticationController.php");
 	require("db.inc.php");
 	
 	$query = "SELECT p1.id AS id, p1.value AS value FROM period p1 WHERE p1.value
