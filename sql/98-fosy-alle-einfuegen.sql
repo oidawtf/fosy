@@ -310,6 +310,7 @@ UPDATE offer SET fk_order_id=(select id from orders where number='order-4-2013')
 INSERT INTO invoice(fk_tax_type_id, fk_tax_rate_id, date, gross_price, net, tax, businessRecordNumber) VALUES ( (select id from tax_type where type='ust'), (select id from tax_rate where rate=20), '2013-06-15', 120, 100, 20, 'order-4-2013');
 INSERT INTO orders(number, date) VALUES ('order-5-2013', '2013-05-10');
 UPDATE offer SET fk_order_id=(select id from orders where number='order-5-2013') where number = 'offer-5-2013';
+INSERT INTO invoice(fk_tax_type_id, fk_tax_rate_id, date, gross_price, net, tax, businessRecordNumber) VALUES ( (select id from tax_type where type='ust'), (select id from tax_rate where rate=20), '2013-06-15', 120, 100, 20, 'order-5-2013');
 
 INSERT INTO `offer_article` (`fk_article_id`, `fk_offer_id`, `count`) VALUES
 (1, 1, 3),
