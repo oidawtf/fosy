@@ -1,5 +1,5 @@
 -- Rollen
-INSERT INTO role (rolename, content) VALUES ('admin', 'showcustomers|editcustomer|customerdetails|requestdetails|createrequest|editrequest|createcustomer|showcampaigns|editcampaign|addcustomerstocampaign|customerdetailsfromcampaign|addarticlestocampaign|finalizecampaign|analyseCampaignPDF|createCampaignPDF'):
+INSERT INTO role (rolename, content) VALUES ('admin', 'showcustomers|editcustomer|customerdetails|requestdetails|createrequest|editrequest|createcustomer|showcampaigns|editcampaign|addcustomerstocampaign|customerdetailsfromcampaign|addarticlestocampaign|finalizecampaign|analyseCampaignPDF|createCampaignPDF');
 INSERT INTO role (rolename, content) VALUES ('management', 'showcustomers|editcustomer|customerdetails|requestdetails|createrequest|editrequest|createcustomer|showcampaigns|editcampaign|addcustomerstocampaign|customerdetailsfromcampaign|addarticlestocampaign|finalizecampaign|analyseCampaignPDF|createCampaignPDF');
 INSERT INTO role (rolename, content) VALUES ('secretary', 'showcustomers|editcustomer|customerdetails|requestdetails|createrequest|editrequest|createcustomer|showcampaigns|analyseCampaignPDF');
 INSERT INTO role (rolename, content) VALUES ('purchase', 'showcustomers|editcustomer|customerdetails|requestdetails|createrequest|editrequest|createcustomer|showcampaigns|analyseCampaignPDF');
