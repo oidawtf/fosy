@@ -1,6 +1,6 @@
 <header class="ui-widget ui-widget-content-white ui-corner-all">
 	<div id="moduleLogo">
-		<a href="<?php echo $_SERVER["PHP_SELF"]; ?>"><img src="img/logo_reporting.png" alt="FOSY - Reporting"></a>
+		<a href="<?php echo $_SERVER["PHP_SELF"]."?content=dashboard"; ?>"><img src="img/logo_reporting.png" alt="FOSY - Reporting"></a>
 	</div>
 	
 	<div id="fosyLogo">

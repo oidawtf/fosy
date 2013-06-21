@@ -42,56 +42,57 @@
 
     <body>
 
-	<div id="wrapper">
-	
-		<!-- header start -->
-		<?php if(authenticationController::isLoggedIn()) { include "header.php"; } ?>
-		<!-- header end -->
-		
-		<!-- navi start -->
-		<?php if(authenticationController::isLoggedIn()) { include "navi.php"; } ?>
-		<!-- navi end -->
-
-		<div id="content">
-			<?php
+	<?php
+		if(authenticationController::isLoggedIn()) {
+			echo "<div id='wrapper'>";
 			
-				if(authenticationController::isLoggedIn()) {
-					if(isset($_GET['content'])) {
-						switch($_GET['content']) {
-							case 'dashboard':
-							case 'flexibleReports':
-							case 'addIncomminginvoice':
-							case 'addIncomminginvoiceSuccess':
-							case 'manageUstVa':
-							case 'ustVaPrintedSuccess':
-							case 'managePlannedvalue':
-							case 'plannedActualComparison':
-							case 'impressum':
-							case 'aboutus':
-							case 'deletePlannedvalue':
-							case 'deletePlannedvalueSuccess':
-							case 'editPlannedvalue':
-							case 'editPlannedvalueSuccess':
-							case 'addPlannedvalue':
-							case 'addPlannedvalueSuccess':
-								@include "pages/".$_GET['content'].'.php';
-								break;
-							default:
-								echo "<h2>Sorry, Page ".$_GET['content']." not found.</h2>";
-								break;
-						}
-					}
-				}else {
-					include "login.php";
-				}
-
-			?>
-		</div>
+			/* header start */
+			include "header.php";
+			/* header end */
+				
+			/* navi start */
+			include "navi.php";
+			/* navi end */
 		
-		<!-- footer start -->
-		<?php if(authenticationController::isLoggedIn()) { include "footer.php"; } ?>
-		<!-- footer end -->
-	</div><!-- wrapper end -->
-
+			/* content start */
+			echo "<div id='content'>";
+			 
+			if(isset($_GET['content'])) {
+				switch($_GET['content']) {
+					case 'dashboard':
+					case 'flexibleReports':
+					case 'addIncomminginvoice':
+					case 'addIncomminginvoiceSuccess':
+					case 'manageUstVa':
+					case 'ustVaPrintedSuccess':
+					case 'managePlannedvalue':
+					case 'plannedActualComparison':
+					case 'impressum':
+					case 'aboutus':
+					case 'deletePlannedvalue':
+					case 'deletePlannedvalueSuccess':
+					case 'editPlannedvalue':
+					case 'editPlannedvalueSuccess':
+					case 'addPlannedvalue':
+					case 'addPlannedvalueSuccess':
+						@include "pages/".$_GET['content'].'.php';
+						break;
+					default:
+						echo "<h2>Sorry, Page ".$_GET['content']." not found.</h2>";
+						break;
+				}
+			}
+			echo "</div>";
+			/* content end */
+			
+			/* footer start */
+			include "footer.php";
+			/* footer end */
+			
+		}else {
+			include "login.php";
+		}
+	?>
+		
     </body>
 </html>

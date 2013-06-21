@@ -8,31 +8,26 @@ body {
 	height: 100%;
 }
 
-div#centerhelper {
-	width:1px;
-	height:50%;
-	margin-bottom:-150px; /* Hälfte der Container-Höhe */
-	float:left;
-}
-
 #modules {
+	width: 425px;
+	height: 426px;
 	position: absolute;
-	left: 50%;
 	top: 50%;
-        width: 100%;
-	height: 100%;
-	margin-left: -638px; /* Hälfte der Breite nach links */
-	margin-top: -71px; /* Hälfte der Höhe nach oben */
+	left: 50%;
+	margin-left: -213px;
+	margin-top: -213px;
 }
 
+/*
+todo delete if not needed any more
 #login {
 	position: absolute;
 	left: 50%;
 	top: 50%;
 	width: 400px;
 	height: 200px;
-	margin-left: -200px; /* Hälfte der Breite nach links */
-	margin-top: -100px; /* Hälfte der Höhe nach oben */
+	margin-left: -200px;
+	margin-top: -100px;
 }
 
 #loginForm {
@@ -53,4 +48,4 @@ div#centerhelper {
 .disabled {
    pointer-events: none;
    cursor: default;
-}
+}*/
