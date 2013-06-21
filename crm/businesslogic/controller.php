@@ -94,22 +94,22 @@ class controller {
     }
     
     public static function getCustomersByCampaign($campaign) {
-        if (isset($_GET['namefilter']))
-            $namefilter = $_GET['namefilter'];
+        if (isset($_GET['nameFilter']))
+            $nameFilter = $_GET['nameFilter'];
         else
-            $namefilter = NULL;
+            $nameFilter = NULL;
         
-        if (isset($_GET['zipfilter']))
-            $zipfilter = $_GET['zipfilter'];
+        if (isset($_GET['yearFilter']))
+            $yearFilter = $_GET['yearFilter'];
         else
-            
-            $zipfilter = NULL;
-        if (isset($_GET['birthdatefilter']))
-            $birthdatefilter = $_GET['birthdatefilter'];
-        else
-            $birthdatefilter = NULL;
+            $yearFilter = NULL;
         
-        return controller::getService()->selectCustomersByCampaign($campaign->id, $campaign->medium, $namefilter, $zipfilter, $birthdatefilter);
+        if (isset($_GET['zipFilter']))
+            $zipFilter = $_GET['zipFilter'];
+        else
+            $zipFilter = NULL;
+        
+        return controller::getService()->selectCustomersByCampaign($campaign->id, $campaign->medium, $nameFilter, $yearFilter, $zipFilter);
     }
     
     public static function getArticlessByCampaign($campaign) {
