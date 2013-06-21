@@ -40,7 +40,7 @@ else
                     </div>
                     <div style="float: left; margin-bottom: 10px;">
                         <label>* Beschreibung</label>
-                        <textarea name="description" required="1" maxlength="255" rows=5"><?php echo $campaign->description; ?></textarea>
+                        <textarea name="description" required="1" maxlength="1000" rows=5"><?php echo $campaign->description; ?></textarea>
                     </div>
                     <table class="clear">
                         <tbody>
@@ -52,8 +52,8 @@ else
                             </tr>
                             <tr>
                                 <td><input name="budget" required="1" type="text" value="<?php echo $campaign->budget; ?>" style="width:90%" /></td>
-                                <td><input id="date_from" name="date_from" required="1" type="date" value="<?php echo $campaign->getDateFrom(); ?>" style="width:90%" /></td>
-                                <td><input id="date_to" name="date_to" required="1" type="date" value="<?php echo $campaign->getDateTo(); ?>" style="width:90%" /></td>
+                                <td><input id="date_from" name="date_from" required="1" type="date" value="<?php echo $campaign->date_from; ?>" style="width:90%" /></td>
+                                <td><input id="date_to" name="date_to" required="1" type="date" value="<?php echo $campaign->date_to; ?>" style="width:90%" /></td>
                                 <td>
                                     <select name="medium" style="width:90%;">
                                         <?php

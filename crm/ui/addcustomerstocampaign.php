@@ -15,42 +15,69 @@ else
 
 $customers = controller::getCustomersByCampaign($campaign);
 
+$nameFilter = NULL;
+$yearFilter = NULL;
+$zipFilter = NULL;
+if (isset($_GET['nameFilter']))
+    $nameFilter = $_GET['nameFilter'];
+if (isset($_GET['yearFilter']))
+    $yearFilter = $_GET['yearFilter'];
+if (isset($_GET['zipFilter']))
+    $zipFilter = $_GET['zipFilter'];
+
 ?>
 
-<script type="text/javascript">
-
-function OnApplyFilter(type, campaignId, id, checked)
-{
-    var xmlhttp = getXmlHttpRequest();
-    var url = "ui/selectionChanged.php";
-    var params = "type=" + type + "&campaignId=" + campaignId + "&id=" + id + "&checked=" + checked;
-
-    xmlhttp.open("POST", url, true);
-
-    xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-    xmlhttp.setRequestHeader("Content-length", params.length);
-    xmlhttp.setRequestHeader("Connection", "close");
-
-    xmlhttp.send(params);
-}
-</script>
-
 <section id="main" class="column" style="height: 90%;">
-    <form method="POST" action="<?php echo $_SERVER["PHP_SELF"]; ?>?content=addarticlestocampaign&campaignId=<?php echo $campaign->id; ?>">
         
-        <?php
-        if ($campaign->medium == "email")
-            echo "<h4 class='alert_warning'>Es werden nur Kunden angezeigt, die eine email eingetragen haben.</h4>";
-        ?>
+    <?php
+    if ($campaign->medium == "email")
+        echo "<h4 class='alert_warning'>Es werden nur Kunden angezeigt, die eine email eingetragen haben.</h4>";
+    ?>
         
-        <article class="module width_full">
+    <article class="module width_full">
+        <form class="quick_search" style="padding: 0px; text-align: left;" method="GET" action="<?php echo $_SERVER['PHP_SELF']; ?>">
             
+            <header>
+                <h3 class="tabs_involved">Filter</h3>
+            </header>
+
+            <div class="module_content">
+                <table class="clear">
+                    <tbody>
+                        <tr>
+                            <td style="width: 200px;"><label>Name</label></td>
+                            <td><label>Geburtsjahr</label></td>
+                            <td><label>ZIP</label></td>
+                        </tr>
+                        <tr>
+                            <td><input style="width: 95%;" type="text" name="nameFilter" onfocus="if(!this._haschanged){this.value=''};this._haschanged=true;" value="<?php echo $nameFilter; ?>"></td>
+                            <td><input style="width: 95%;" type="text" name="yearFilter" onfocus="if(!this._haschanged){this.value=''};this._haschanged=true;" value="<?php echo $yearFilter; ?>"></td>
+                            <td><input style="width: 95%;" type="text" name="zipFilter" onfocus="if(!this._haschanged){this.value=''};this._haschanged=true;" value="<?php echo $zipFilter; ?>"></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <footer>
+                <div class="submit_link">
+                    <input type="hidden" name="content" value="addcustomerstocampaign" />
+                    <input type="hidden" name="campaignId" value="<?php echo $campaign->id; ?>" />
+                    <input type="submit" value="Anwenden" />
+                </div>
+            </footer>
+                
+        </form>
+    </article>
+        
+    <article class="module width_full">
+        <form method="POST" action="<?php echo $_SERVER["PHP_SELF"]; ?>?content=addarticlestocampaign&campaignId=<?php echo $campaign->id; ?>">
+                
             <header>
                 <h3 class="tabs_involved">Kundenauswahl</h3>
             </header>
 
             <div class="table-wrapper">
-                <div class="table-scroll">
+                <div class="table-scroll" style="height: 400px;">
                     <table cellspacing="0" class="tablesorter">
                         <thead>
                             <tr>
@@ -61,21 +88,6 @@ function OnApplyFilter(type, campaignId, id, checked)
                             </tr>
                         </thead>
                         <tbody style="overflow: scroll; height: 300px;">
-                            <tr>
-                                <form class="quick_search" method="GET" action="<?php echo $_SERVER['PHP_SELF']; ?>">
-                                    <td></td>
-                                    <td>
-                                        <input type="text" name="search" onclick="" onfocus="if(!this._haschanged){this.value=''};this._haschanged=true;" value="Name...">
-                                    </td>
-                                    <td>
-                                        <input type="text" name="search" onfocus="if(!this._haschanged){this.value=''};this._haschanged=true;" value="Geburtsdatum...">
-                                    </td>
-                                    <td>
-                                        <input type="text" name="search" onfocus="if(!this._haschanged){this.value=''};this._haschanged=true;" value="ZIP Code...">
-                                    </td>
-                                </form>
-                            </tr>
-                            
                             <?php
 
                             foreach ($customers as $customer) {
@@ -90,6 +102,8 @@ function OnApplyFilter(type, campaignId, id, checked)
                                 echo    "<td>".$customer->zip."</td>";
                                 echo "</tr>";
                             }
+                            
+                            echo "<tr style='height: inherit;'></tr>";
 
                             ?>
                         </tbody>
@@ -102,9 +116,9 @@ function OnApplyFilter(type, campaignId, id, checked)
                     <input type="submit" class="alt_btn" name="addcustomerstocampaign" value="Weiter zur Artikelauswahl" />
                 </div>
             </footer>
-        
-        </article>
-    </form>
+    
+        </form>
+    </article>
     
     <div class="spacer clear"></div>
     

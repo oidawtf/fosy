@@ -4,7 +4,6 @@ require_once '../../shared/authenticationController.php';
 require_once '../includes.php';
 
 authenticationController::checkAuthentication();
-authenticationController::checkAuthorization();
 
 if (!isset($_POST['article_category_id']) || !isset($_POST['article_id']))
     return;

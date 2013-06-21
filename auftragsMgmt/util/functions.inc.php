@@ -94,7 +94,7 @@
 	}
 
 
-	function findArticle($pACritera){
+	function findArticle($pACritera, $display){
 		$queryA = 
 		"SELECT article.id, article.model, article.description, article.selling_price, article.stock, article_category.name 
 		FROM article
@@ -102,53 +102,56 @@
 		WHERE(article.fk_article_category_id = article_category.id AND (article.id = '$pACritera' OR article.model = '$pACritera'))";
 		$resultA = mysql_query($queryA);
 		$countA = mysql_num_rows($resultA);
-		if($countA == 0)
-			echo "Kein Artikel gefunden!";
+		
+		if($display == true){
+			if($countA == 0)
+				echo "Kein Artikel gefunden!";
 
-		if($countA>0)
-			displayArticleList($resultA);
+			if($countA>0)
+				displayArticleList($resultA);
+		}
+		else
+			return $resultA;
 	}
 
 	function displayArticleList($pAData){
 	
-			echo "<fieldset>
+			echo "<fieldset id=\"articleList\">
 				<legend>Artikel</legend>
 					<div id\"Artikeldaten\">";
 			
 			echo "
-				<table>
-				<tr>
-					<td>Artikelnummer:</td>
-					<td>Kategorie:</td>
-					<td>Modell:</td>
-					<td>Beschreibung:</td>
-					<td>Preis/Einheit:</td>
-					<td>Menge:</td>
-					<td>Hinzuf&uuml;gen</td>
-				</tr>
+				<table id=\"artikelDatenTable\" rules=\"rows\">
+				<thead>
+					<tr>
+						<td>ArtNr:</td>
+						<td>Kategorie:</td>
+						<td>Modell:</td>
+						<td>Beschreibung:</td>
+						<td>Preis/Einheit:</td>
+						<td>Menge:</td>
+					</tr>
+				</thead>
 				";	
 
 			echo "<form method=\"POST\" action=\"".$_SERVER['PHP_SELF']."\"?content=AngebotErstellen\">";
-
+			echo "<tbody>";
 			while($row = mysql_fetch_assoc($pAData)){
 			echo "<tr>
-					<td>{$row['id']}</td>
-					<td><input type=\"hidden\" name=\"ID\" value=\"{$row['id']}\" /> 
+					<td>{$row['id']}<input type=\"hidden\" name=\"['id']\" value=\"{$row['id']}\" /> 
 					<td>{$row['name']}</td>
 					<td>{$row['model']}</td>
 					<!--<td>{$row['description']}</td>-->
 					<td><a href=\"\" target=\"_blank\">&ouml;ffnen</td>
 					<td>{$row['selling_price']}</td>
 					<td>
-						<input class=\"quantity\" type=\"number\" name=\"QTY\" min=\"0\" max=\"20\" step=\"1\" maxlength=\"2\" value=\"0\"/>
-					</td>
-					<td>
-						<input class=\"addButton\" type=\"submit\" name=\"addCart\" value=\"+\"/>
+						<input class=\"quantity\" type=\"number\" name=\"addQTY_{$row['id']}\" min=\"0\" max=\"20\" step=\"1\" maxlength=\"2\" value=\"0\"/>
+						<input class=\"addButton\" type=\"submit\" name=\"addCart_{$row['id']}\" value=\"+\"/>
 					</td>
 				</tr>
 				";	
-
 			}	
+			echo "</tbody>";
 
 			echo"</form></table></div>
 			</fieldset>";
@@ -162,30 +165,82 @@
 	}
 
 	function addCart($pArticleID, $pQty){
-		if(!array_key_exists($pArticleID, $_SESSION['cart'])){
+		if(cartIsEmpty())
+			$_SESSION['cart'][$pArticleID]=$pQty;
+		elseif(!array_key_exists($pArticleID, $_SESSION['cart'])){
 			$_SESSION['cart'][$pArticleID]=$pQty;
 		}
 		elseif(array_key_exists($pArticleID, $_SESSION['cart'])){
 			$_SESSION['cart'][$pArticleID]+=$pQty;
 		}
+
+
 	}
 
 	function displayCart(){
-		if(empty($_SESSION['cart'])){
-			echo "leer";
-		}
-		else
-			foreach($_SESSION['cart'] as $lItem => $lQty){
-				echo "id: " . $lItem . " | qty: " . $lQty ."<br />";
-			}
-			echo "<br />";
+		if(cartIsEmpty())
+			return;
 
-			var_dump($_SESSION['cart']);
+		echo "<fieldset id=\"Warenkorb\">
+			<legend>Warenkorb</legend>
+				<div id\"warenkorb\">";
+		
+		echo "
+			<table id=\"cart\" rules=\"rows\"*>
+			<thead>
+				<tr>
+					<td>ArtNr:</td>
+					<td>Kategorie:</td>
+					<td>Modell:</td>
+					<td>Beschreibung:</td>
+					<td>Preis/Einheit:</td>
+					<td>Menge:</td>
+					<td>Entfernen</td>
+				</tr>
+			</thead>
+			";
+			echo "<form name=\"cartForm\" method=\"POST\" action=\"".$_SERVER['PHP_SELF']."?content=AngebotErstellen\">";
+			echo "<tbody>";
+		
+		foreach($_SESSION['cart'] as $lItem => $lQty){
+			$cartData = findArticle($lItem, false);
+
+			while($row = mysql_fetch_assoc($cartData)){
+			echo "<tr>
+					<td>{$row['id']}<input type=\"hidden\" name=\"cartID\" value=\"{$row['id']}\" /> 
+					<td>{$row['name']}</td>
+					<td>{$row['model']}</td>
+					<!--<td>{$row['description']}</td>-->
+					<td><a href=\"\" target=\"_blank\">&ouml;ffnen</td>
+					<td>{$row['selling_price']}</td>
+					<td>
+						$lQty
+					</td>
+					<td>
+						<input class=\"quantity\" type=\"number\" name=\"deleteQTY_{$row['id']}\" min=\"0\" max=\"20\" step=\"1\" maxlength=\"2\" value=\"0\"/>
+						<input class=\"addButton\" type=\"submit\" name=\"removeCartID_{$row['id']}\" value=\"-\"/>
+					</td>
+
+				</tr>
+				";
+			}
+		}
+		echo"</form></tbody></table></div></fieldset>";
+	}
+
+	function removeCart($pArticleID, $pQty){
+		if(array_key_exists($pArticleID, $_SESSION['cart']))
+			$_SESSION['cart'][$pArticleID]-$pQty;
+
+		if($_SESSION['cart'][$pArticleID] < 0)
+			unset($_SESSION['cart'][$pArticleID]);
 	}
 
 	function clearCart(){
 		unset($_SESSION['cart']);
 		$_SESSION['cart']=array();
 	}
-
+	function cartIsEmpty(){
+		return empty($_SESSION['cart']);
+	}
 ?>

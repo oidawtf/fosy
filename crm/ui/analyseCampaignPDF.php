@@ -24,6 +24,25 @@ class PDF extends FPDF
     const NORMALFONTWEIGHT = "";
     const NORMALFONTSIZE = 14;
     
+    // Page header
+    public function Header()
+    {
+        // Logo
+        $this->Image('../../img/logo_120x40_transparent.png', 20, 10, 40);
+        $this->Ln(20);
+    }
+    
+    // Page footer
+    public function Footer()
+    {
+        // Position at 1.5 cm from bottom
+        $this->SetY(-15);
+        // Arial italic 8
+        $this->SetFont('Arial','I',8);
+        // Page number
+        $this->Cell(0,10,'Seite '.$this->PageNo().'/{nb}',0,0,'C');
+    }
+    
     public function PrintCustomers($customers) {
         foreach ($customers as $item) {
             $customer = $item['person'];
@@ -101,12 +120,17 @@ class PDF extends FPDF
 
 $pdf = new PDF();
 
+$pdf->AliasNbPages();
+
 $pdf->AddPage();
 
 $pdf->SetFont($pdf::HEADERFONTFAMILY, $pdf::HEADERFONTWEIGHT, $pdf::HEADERFONTSIZE);
 $pdf->Cell(40,10, "Auswertung Kampagne - ".$campaign->id);
-$pdf->Ln();
-$pdf->Ln();
+$pdf->Ln(10);
+
+$pdf->SetFont($pdf::NORMALFONTFAMILY, $pdf::NORMALFONTWEIGHT, $pdf::NORMALFONTSIZE);
+$pdf->MultiCell(170, 5, $campaign->name);
+$pdf->Ln(10);
 
 $pdf->PrintCustomers($campaign->customers);
 $pdf->SetFont($pdf::HEADERFONTFAMILY, $pdf::HEADERFONTWEIGHT, $pdf::HEADERFONTSIZE);

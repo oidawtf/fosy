@@ -94,36 +94,41 @@ class controller {
     }
     
     public static function getCustomersByCampaign($campaign) {
-        if (isset($_GET['namefilter']))
-            $namefilter = $_GET['namefilter'];
+        if (isset($_GET['nameFilter']))
+            $nameFilter = $_GET['nameFilter'];
         else
-            $namefilter = NULL;
+            $nameFilter = NULL;
         
-        if (isset($_GET['zipfilter']))
-            $zipfilter = $_GET['zipfilter'];
+        if (isset($_GET['yearFilter']))
+            $yearFilter = $_GET['yearFilter'];
         else
-            
-            $zipfilter = NULL;
-        if (isset($_GET['birthdatefilter']))
-            $birthdatefilter = $_GET['birthdatefilter'];
-        else
-            $birthdatefilter = NULL;
+            $yearFilter = NULL;
         
-        return controller::getService()->selectCustomersByCampaign($campaign->id, $campaign->medium, $namefilter, $zipfilter, $birthdatefilter);
+        if (isset($_GET['zipFilter']))
+            $zipFilter = $_GET['zipFilter'];
+        else
+            $zipFilter = NULL;
+        
+        return controller::getService()->selectCustomersByCampaign($campaign->id, $campaign->medium, $nameFilter, $yearFilter, $zipFilter);
     }
     
     public static function getArticlessByCampaign($campaign) {
-        if (isset($_GET['category_id']))
-            $category_id = $_GET['category_id'];
+        if (isset($_GET['categoryFilter']))
+            $categoryFilter = $_GET['categoryFilter'];
         else
-            $category_id = NULL;
+            $categoryFilter = NULL;
         
-        if (isset($_GET['manufacturer_id']))
-            $manufacturer_id = $_GET['manufacturer_id'];
+        if (isset($_GET['manufacturerFilter']))
+            $manufacturerFilter = $_GET['manufacturerFilter'];
         else
-            $manufacturer_id = NULL;
+            $manufacturerFilter = NULL;
         
-        return controller::getService()->selectArticlesByCampaign($campaign->id, $category_id, $manufacturer_id);
+        if (isset($_GET['stockFilter']))
+            $stockFilter = $_GET['stockFilter'];
+        else
+            $stockFilter = NULL;
+        
+        return controller::getService()->selectArticlesByCampaign($campaign->id, $categoryFilter, $manufacturerFilter, $stockFilter);
     }
     
     public static function getCustomers($search = NULL) {

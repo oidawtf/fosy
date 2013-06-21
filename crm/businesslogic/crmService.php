@@ -100,16 +100,26 @@ class crmService {
             return $campaign[0];
     }
     
-    public function selectCustomersByCampaign($campaignId, $medium, $namefilter = NULL, $zipfilter = NULL, $birthdatefilter = NULL) {
+    public function selectCustomersByCampaign($campaignId, $medium, $nameFilter = NULL, $yearFilter = NULL, $zipFilter = NULL) {
+        $where = "WHERE P.is_customer = 1";
+        
         if ($medium == "email")
-            $where = "
-                WHERE
-                    P.email IS NOT NULL AND
-                    P.email != '' AND
-                    P.is_customer = 1
+            $where = $where."
+                     AND P.email IS NOT NULL
+                     AND P.email != ''
                     ";
-        else
-            $where = "WHERE P.is_customer = 1";
+        
+        if ($nameFilter != NULL && $nameFilter != "")
+            $where = $where."
+                 AND (P.firstname LIKE '%".$nameFilter."%' OR
+                      P.lastname LIKE '%".$nameFilter."%')
+                ";
+        
+        if ($yearFilter != NULL && $yearFilter != "")
+            $where = $where." AND P.birthdate LIKE '%".$yearFilter."%'";
+        
+        if ($zipFilter != NULL && $zipFilter != "")
+            $where = $where." AND P.zip LIKE '%".$zipFilter."%'";
         
         $this->openConnection();
         
@@ -183,10 +193,19 @@ class crmService {
         return $result;
     }
    
-    public function selectArticlesByCampaign($campaignId, $category_id = NULL, $manufacturer_id = NULL) {
+    public function selectArticlesByCampaign($campaignId, $categoryFilter = NULL, $manufacturerFilter = NULL, $stockFilter = NULL) {
         $this->openConnection();
         
-        $where = "";
+        $where = "WHERE 1=1";
+        
+        if ($categoryFilter != NULL && $categoryFilter != "")
+            $where = $where." AND AC.name LIKE '%".$categoryFilter."%'";
+        
+        if ($manufacturerFilter != NULL && $manufacturerFilter != "")
+            $where = $where." AND AM.name LIKE '%".$manufacturerFilter."%'";
+        
+        if ($stockFilter != NULL && $stockFilter != "")
+            $where = $where." AND A.stock >= '".$stockFilter."'";
         
         $query = mysql_query("
             SELECT
@@ -253,10 +272,10 @@ class crmService {
             $where = "WHERE P.is_customer = 1";
         else
             $where = "WHERE 
-                        (P.id like '%".$search."%' OR
-                         P.username like '%".$search."%' OR
-                         P.firstname like '%".$search."%' OR
-                         P.lastname like '%".$search."%') AND P.is_customer = 1";
+                        (P.id LIKE '%".$search."%' OR
+                         P.username LIKE '%".$search."%' OR
+                         P.firstname LIKE '%".$search."%' OR
+                         P.lastname LIKE '%".$search."%') AND P.is_customer = 1";
         
         return $this->selectCustomersInternal($where);
     }
