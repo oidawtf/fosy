@@ -21,7 +21,7 @@ $campaigns = controller::getCampaigns();
                 <table cellspacing="0" class="tablesorter">
                     <thead>
                         <tr> 
-                            <th class="header">Betreff</th>
+                            <th class="header">Name</th>
                             <th class="header">Beschreibung</th>
                             <th class="header">Ziel</th>
                             <th class="header" style="width: 120px;">Von</th>
