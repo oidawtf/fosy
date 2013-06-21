@@ -40,7 +40,7 @@ else
                     </div>
                     <div style="float: left; margin-bottom: 10px;">
                         <label>* Beschreibung</label>
-                        <textarea name="description" required="1" maxlength="255" rows=5"><?php echo $campaign->description; ?></textarea>
+                        <textarea name="description" required="1" maxlength="1000" rows=5"><?php echo $campaign->description; ?></textarea>
                     </div>
                     <table class="clear">
                         <tbody>

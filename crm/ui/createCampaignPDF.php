@@ -92,14 +92,14 @@ class PDF extends FPDF
     }
     
     public function PrintDate() {
-        $this->Ln(20);
+        $this->Ln(10);
         $this->SetFont('Arial', '', 12);
         $this->Cell(self::RIGHTINDENT);
         $this->Cell(80,5,"Wien, am ".date("d. m. Y"),0,0,'R');
     }
     
     public function PrintSubject($campaign) {
-        $this->Ln(20);
+        $this->Ln(10);
         $this->SetFont('Arial', 'B', 12);
         
         $this->Cell(self::LEFTINDENT);
