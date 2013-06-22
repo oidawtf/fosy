@@ -10,11 +10,17 @@ class authenticationController {
 //    const user = "fosy";
 //    const password = "fosyPassword";
     
-    //  remote DB
-    const host = "wi-projectdb.technikum-wien.at";
-    const db = "ss13-bbb2-fst-3";
-    const user = "SS13-BBB2-FST-3";
-    const password = "DbPass4BBB2-3";
+    //  remote ENTW DB
+    const host = "mysqlsvr32.world4you.com";
+    const db = "oidawtfcomdb2";
+    const user = "oidawtfcom";
+    const password = "JDx0Z@M";
+    
+    //  remote PROD DB
+//    const host = "wi-projectdb.technikum-wien.at";
+//    const db = "ss13-bbb2-fst-3";
+//    const user = "SS13-BBB2-FST-3";
+//    const password = "DbPass4BBB2-3";
     
     private static $users;
     private static $service;
