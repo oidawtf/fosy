@@ -40,7 +40,10 @@ if (!authenticationController::isLoggedIn())
             
             <?php
             
-            $content = controller::getContentItem();
+            if (isset($_GET['search']) && strtolower($_GET['search']) == "lorem ipsum")
+                $content = controller::getContentItem('easteregg');
+            else
+                $content = controller::getContentItem();
             
             if ($content->getParents() != NULL) {
                 foreach($content->getParents() as $parentKey) {

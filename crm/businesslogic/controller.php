@@ -29,6 +29,7 @@ class controller {
                 'home' => new page('home', 'Home', 'ui/home.php'),
                 'login' => new page('login', 'Login', 'ui/login.php'),
                 'about' => new page('about', 'Über uns', 'ui/about.php', NULL, array('home')),
+                'easteregg' => new page('easteregg', 'Easteregg', 'ui/easteregg.php'),
                 'showcustomers' => new page('showcustomers', 'Kunden ansehen', 'ui/showcustomers.php', NULL, array('home')),
                 'customerdetails' => new page('customerdetails', 'Kundendetails', 'ui/customerdetails.php', 'customerId', array('home', 'showcustomers')),
                 'editcustomer' => new page('editcustomer', 'Kunden bearbeiten', 'ui/editcustomer.php', 'customerId', array('home', 'showcustomers', 'customerdetails')),
@@ -81,6 +82,8 @@ class controller {
     }
     
     public static function getContentItem($key = "") {
+        $content = controller::getContent();
+        
         if ($key == "" && isset($_GET['content']))
                 $key = $_GET['content'];
         
@@ -90,7 +93,6 @@ class controller {
             else
                 $key = 'login';
         
-        $content = controller::getContent();
         return $content[$key];
     }
     

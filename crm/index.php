@@ -109,7 +109,12 @@
         ?>
 		
         <div id="content">
-            <?php include controller::getContentItem()->getUrl(); ?>
+            <?php
+            if (isset($_GET['search']) && strtolower($_GET['search']) == "lorem ipsum")
+                include controller::getContentItem('easteregg')->getUrl();
+            else
+                include controller::getContentItem()->getUrl();
+            ?>
 	</div>
         
         <?php
