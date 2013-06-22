@@ -28,6 +28,7 @@ class controller {
             controller::$content = array(
                 'home' => new page('home', 'Home', 'ui/home.php'),
                 'login' => new page('login', 'Login', 'ui/login.php'),
+                'about' => new page('about', 'Über uns', 'ui/about.php', NULL, array('home')),
                 'showcustomers' => new page('showcustomers', 'Kunden ansehen', 'ui/showcustomers.php', NULL, array('home')),
                 'customerdetails' => new page('customerdetails', 'Kundendetails', 'ui/customerdetails.php', 'customerId', array('home', 'showcustomers')),
                 'editcustomer' => new page('editcustomer', 'Kunden bearbeiten', 'ui/editcustomer.php', 'customerId', array('home', 'showcustomers', 'customerdetails')),

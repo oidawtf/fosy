@@ -56,9 +56,9 @@ else {
                         <tbody>
                             <tr>
                                 <td><label>* Stra&szlig;e</label></th>
-                                <td><label style="width:95px">* Hausnummer</label></td>
-                                <td><label style="width:65px">Stiege</label></td>
-                                <td><label style="width:65px">T&uuml;r</label></td>
+                                <td><label style="width:100px;">* Hausnummer</label></td>
+                                <td><label style="width:65px;">Stiege</label></td>
+                                <td><label style="width:65px;">T&uuml;r</label></td>
                             </tr>
                             <tr>
                                 <td><input name="street" required="1" type="text" style="width:90%" value="<?php echo $customer->street; ?>" /></td>
