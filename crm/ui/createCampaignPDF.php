@@ -73,21 +73,21 @@ class PDF extends FPDF
         $this->SetFont('Arial', 'B', 12);
         
         $this->Cell(self::LEFTINDENT);
-        $this->Cell(80,10,$customer->getFullName(),0,0,'L');
+        $this->Cell(80,10,utf8_decode($customer->getFullName()),0,0,'L');
         $this->Ln();
         
         $this->SetFont('Arial', '', 12);
         
         $this->Cell(self::LEFTINDENT);
-        $this->Cell(80,5,$customer->getAddress(),0,0,'L');
+        $this->Cell(80,5,utf8_decode($customer->getAddress()),0,0,'L');
         $this->Ln();
         
         $this->Cell(self::LEFTINDENT);
-        $this->Cell(80,5,$customer->zip." ".$customer->city,0,0,'L');
+        $this->Cell(80,5,$customer->zip." ".utf8_decode($customer->city),0,0,'L');
         $this->Ln();
         
         $this->Cell(self::LEFTINDENT);
-        $this->Cell(80,5,$customer->country,0,0,'L');
+        $this->Cell(80,5,utf8_decode($customer->country),0,0,'L');
         $this->Ln();
     }
     
@@ -111,7 +111,7 @@ class PDF extends FPDF
         $this->SetFont('Arial', '', 12);
         
         $this->Cell(self::LEFTINDENT);
-        $this->MultiCell(170, 5, $campaign->description);
+        $this->MultiCell(170, 5, utf8_decode($campaign->description));
         $this->Ln();
         
         $this->Cell(self::LEFTINDENT);
@@ -137,13 +137,13 @@ class PDF extends FPDF
         $this->Ln(10);
         $this->Cell(self::LEFTINDENT);
         $this->SetFont(self::HEADERFONTFAMILY, self::HEADERFONTWEIGHT, self::HEADERFONTSIZE);
-        $this->Cell(40,10, $article->getFullName()." - EUR ".$article->real_price * (($article->tax_rate / 100) + 1));
+        $this->Cell(40,10, utf8_decode($article->getFullName())." - EUR ".$article->real_price * (($article->tax_rate / 100) + 1));
         $this->Ln();
         
         $this->SetFont(self::NORMALFONTFAMILY, self::NORMALFONTWEIGHT, self::NORMALFONTSIZE);
         
         $this->Cell(self::LEFTINDENT);
-        $this->MultiCell(170, 5, $article->description);
+        $this->MultiCell(170, 5, utf8_decode($article->description));
         $this->Ln();
     }
 }

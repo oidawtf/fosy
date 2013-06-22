@@ -47,7 +47,7 @@ class PDF extends FPDF
         foreach ($customers as $item) {
             $customer = $item['person'];
             $this->SetFont(self::HEADERFONTFAMILY, self::HEADERFONTWEIGHT, self::HEADERFONTSIZE);
-            $this->Cell(40,10, "Kunde ".$customer->id." - ".$customer->getFullName());
+            $this->Cell(40,10, "Kunde ".$customer->id." - ".utf8_decode($customer->getFullName()));
             $this->Ln();
 
             $this->PrintArticles($item['articles']);
@@ -65,7 +65,7 @@ class PDF extends FPDF
             $articleSum = $article->real_price * (($article->tax_rate / 100) + 1) * $article->count;
             $item = array(
                 $article->id,
-                $article->getFullName(),
+                utf8_decode($article->getFullName()),
                 $article->stock,
                 $article->real_price * (($article->tax_rate / 100) + 1),
                 $article->count,
@@ -129,7 +129,7 @@ $pdf->Cell(40,10, "Auswertung Kampagne - ".$campaign->id);
 $pdf->Ln(10);
 
 $pdf->SetFont($pdf::NORMALFONTFAMILY, $pdf::NORMALFONTWEIGHT, $pdf::NORMALFONTSIZE);
-$pdf->MultiCell(170, 5, $campaign->name);
+$pdf->MultiCell(170, 5, utf8_decode($campaign->name));
 $pdf->Ln(10);
 
 $pdf->PrintCustomers($campaign->customers);

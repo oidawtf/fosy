@@ -39,6 +39,8 @@ $customers = controller::getSelectedCustomers($campaignId);
                             echo    "<td><a href='ui/createCampaignPDF.php?campaignId=".$campaignId."&customerId=".$customer->id."' target='_blank'>PDF</a></td>";
                             echo "</tr>";
                         }
+                        
+                        echo "<tr style='height: inherit;'></tr>";
 
                         ?>
                     </tbody>
