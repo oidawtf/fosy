@@ -22,7 +22,7 @@ $requests = controller::getRequestsByUsername();
                     <thead>
                         <tr>
                             <th class="header">Betreff</th>
-                            <th class="header" style="width: 250px;">Text</th>
+                            <th class="header" style="min-width: 250px;">Text</th>
                             <th class="header" style="width: 150px;">Kunde</th>
                             <th class="header" style="width: 100px;">Status</th>
                             <th class="header" style="width: 100px;">Datum</th>

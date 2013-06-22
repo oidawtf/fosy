@@ -5,10 +5,10 @@ require_once 'authenticationService.php';
 class authenticationController {
     
     //  local DB
-    const host = "localhost";
-    const db = "fosy";
-    const user = "fosy";
-    const password = "fosyPassword";
+//    const host = "localhost";
+//    const db = "fosy";
+//    const user = "fosy";
+//    const password = "fosyPassword";
     
     //  remote ENTW DB
 //    const host = "mysqlsvr32.world4you.com";
@@ -17,10 +17,10 @@ class authenticationController {
 //    const password = "JDx0Z@M";
     
     //  remote PROD DB
-//    const host = "wi-projectdb.technikum-wien.at";
-//    const db = "ss13-bbb2-fst-3";
-//    const user = "SS13-BBB2-FST-3";
-//    const password = "DbPass4BBB2-3";
+    const host = "wi-projectdb.technikum-wien.at";
+    const db = "ss13-bbb2-fst-3";
+    const user = "SS13-BBB2-FST-3";
+    const password = "DbPass4BBB2-3";
     
     private static $users;
     private static $service;
