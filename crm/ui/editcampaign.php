@@ -45,17 +45,17 @@ else
                     <table class="clear">
                         <tbody>
                             <tr>
-                                <td><label>* Budget</label></td>
-                                <td><label>* Von</label></td>
-                                <td><label>* Bis</label></td>
-                                <td><label>Medium</label></td>
+                                <td><label style="width: 100px;">* Budget</label></td>
+                                <td><label style="width: 100px;">* Von</label></td>
+                                <td><label style="width: 100px;">* Bis</label></td>
+                                <td><label style="width: 100px;">Medium</label></td>
                             </tr>
                             <tr>
-                                <td><input name="budget" required="1" type="text" value="<?php echo $campaign->budget; ?>" style="width:90%" /></td>
-                                <td><input id="date_from" name="date_from" required="1" type="date" value="<?php echo $campaign->date_from; ?>" style="width:90%" /></td>
-                                <td><input id="date_to" name="date_to" required="1" type="date" value="<?php echo $campaign->date_to; ?>" style="width:90%" /></td>
+                                <td><input name="budget" style="width: 100px;" required="1" type="text" value="<?php echo $campaign->budget; ?>" style="width:90%" /></td>
+                                <td><input id="date_from" style="width: 100px;" name="date_from" required="1" type="date" value="<?php echo $campaign->date_from; ?>" style="width:90%" /></td>
+                                <td><input id="date_to" style="width: 100px;" name="date_to" required="1" type="date" value="<?php echo $campaign->date_to; ?>" style="width:90%" /></td>
                                 <td>
-                                    <select name="medium" style="width:90%;">
+                                    <select style="width: 100px;" name="medium" style="width:90%;">
                                         <?php
                                         foreach (controller::getMediums() as $item) {
                                             if ($campaign->medium == $item['id'])

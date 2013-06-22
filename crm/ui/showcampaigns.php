@@ -22,7 +22,7 @@ $campaigns = controller::getCampaigns();
                     <thead>
                         <tr> 
                             <th class="header">Name</th>
-                            <th class="header">Beschreibung</th>
+                            <th class="header" style="width: 250px;">Beschreibung</th>
                             <th class="header">Ziel</th>
                             <th class="header" style="width: 120px;">Von</th>
                             <th class="header" style="width: 120px;">Bis</th>

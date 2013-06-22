@@ -37,13 +37,13 @@ else {
                             <tr>
                                 <td><label>* Vorname</label></td>
                                 <td><label>* Nachname</label></td>
-                                <td><label>Titel</label></td>
-                                <td><label>Geburtsdatum</label></td>
+                                <td><label style="width: 80px;">Titel</label></td>
+                                <td><label style="width: 80px;">Geburtsdatum</label></td>
                             </tr>
                             <tr>
                                 <td><input name="firstname" required="1" type="text" style="width:90%" value="<?php echo $customer->firstname; ?>" /></td>
                                 <td><input name="lastname" required="1" type="text" style="width:90%" value="<?php echo $customer->lastname; ?>" /></td>
-                                <td><input name="title" type="text" style="width:90%" value="<?php echo $customer->title; ?>" /></td>
+                                <td><input name="title" type="text" style="width: 80%;" value="<?php echo $customer->title; ?>" /></td>
                                 <td><input name="birthdate" type="date" id="birthdate" style="width:90%" value="<?php echo $customer->birthdate; ?>" /></td>
                             </tr>
                         </tbody>

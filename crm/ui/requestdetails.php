@@ -15,15 +15,15 @@ if (isset($_GET['requestId']))
         </header>
 
         <div class="module_content">
-            <fieldset style="padding: 10px">
+            <fieldset style="padding: 10px;">
                 <h4><label style="width: 90%;"><?php echo $request->getBetreff(); ?></label></h4>
                 <table class="clear">
                     <tbody>
                         <tr>
-                            <td><label>Kunde</label></td>
-                            <td><label>Sachbearbeiter</label></td>
-                            <td><label>Status</label></td>
-                            <td><label>Datum</label></td>
+                            <td><label style="width: 150px;">Kunde</label></td>
+                            <td><label style="width: 200px;">Sachbearbeiter</label></td>
+                            <td><label style="width: 150px;">Status</label></td>
+                            <td><label style="width: 100px;">Datum</label></td>
                             <td></td>
                         </tr>
                         <tr>
