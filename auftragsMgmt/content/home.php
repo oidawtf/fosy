@@ -1,9 +1,7 @@
-<div>
+<div>HOMEHOMEHOMEHOME
 	<?php
 		//require("util/pdfFunctions.php");
-
-	?>
-
+/*
 	<table>
 		<tr>
 			<form method="POST" action="<?php echo $_SERVER["PHP_SELF"]; ?>?content=AngebotErstellen">
@@ -12,9 +10,7 @@
 			<td><input type="submit" name="searchButton" value="suchen">
 		</tr>
 	</table>
-		
-		<?php
-			/*if(isset($_POST['search']) && isset($_POST['searchButton'])){
+*/			/*if(isset($_POST['search']) && isset($_POST['searchButton'])){
 				$result = findPerson($_POST['search'],false);
 
 				if(mysql_num_rows($result)>0){

@@ -8,6 +8,7 @@ if(authenticationController::isLoggedIn()) {
       case 'AuftragErstellen':
       case 'AuftrageVerwalten':
       case 'RechnungErstellen':
+      //case 'AngebotPDF':
         include 'content/'.$_GET['content'].'.php';
         break;
     default:
