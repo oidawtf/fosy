@@ -34,7 +34,6 @@
 				$dataCorrect = false;
 			}
 		
-		
 		}
 	}  
 		
@@ -79,7 +78,8 @@ function initPDF($indicatorId, $indiName, $indiType, $dateFrom, $dateTo) {
 	$pdf->AliasNbPages();
 	$pdf->AddPage();
 	$pdf->SetFont('Helvetica', 'B', 14);
-	$pdf->Cell(0, 5, "$indiName ($indiType)");
+	$KZName = utf8_decode($indiName);
+	$pdf->Cell(0, 5, "$KZName ($indiType)");
 	$pdf->Ln(10);
 	$pdf->SetFont('Helvetica', '', 12);
 	if($indicatorId==5) {

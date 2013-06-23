@@ -88,7 +88,7 @@
 			
 					foreach($indicators as $indicator) {
 						echo "<option value='$indicator[id]'";
-						if($_POST['allIndicatorsSelect']==$indicator[id]){ echo " selected='selected'"; }
+						if($_POST['planIndicatorsSelect']==$indicator[id]){ echo " selected='selected'"; }
 						echo ">$indicator[name] ($indicator[type])</option>";
 					}
 				?>
@@ -101,9 +101,9 @@
 			<label>Zeitraum:</label>
 			<select id="planWhichTime" name="planWhichTime" class="ui-widget ui-widget-content ui-corner-all">
 				<option value="0"><--wählen--></option>
-				<option value="1">Monat</option>
-				<option value="2">Quartal</option>
-				<option value="3">Jahr</option>
+				<option value="1"<?php if($_POST['planWhichTime']==1){ echo " selected='selected'"; }?>>Monat</option>
+				<option value="2"<?php if($_POST['planWhichTime']==2){ echo " selected='selected'"; }?>>Quartal</option>
+				<option value="3"<?php if($_POST['planWhichTime']==3){ echo " selected='selected'"; }?>>Jahr</option>
 			</select>
 		</div>
 		
@@ -114,7 +114,9 @@
 				<?php
 					$months = array(1=>"Jan", 2=>"Feb", 3=>"Mär", 4=>"Apr", 5=>"Mai", 6=>"Jun", 7=>"Jul", 8=>"Aug", 9=>"Sep", 10=>"Okt", 11=>"Nov", 12=>"Dez");
 					for($i = 1; $i <= count($months); $i++) {
-						echo "<option value='$i'>$months[$i]</option>";
+						echo "<option value='$i'";
+						if($_POST['planByMonthMonth']==$i) { echo " selected='selected'"; }
+						echo ">$months[$i]</option>";
 					}
 				?>
 			</select>
@@ -124,7 +126,9 @@
 					$curYear = date('Y');
 					for($i = 0; $i < 7; $i++) {
 						$year = $curYear - $i;
-						echo "<option value='$year'>$year</option>";
+						echo "<option value='$year'";
+						if($_POST['planByMonthYear']==$year) { echo " selected='selected'"; }
+						echo ">$year</option>";
 					}
 				?>
 			</select>
@@ -136,7 +140,9 @@
 				<?php
 					$quarters = array(1=>"1. Quartal", 2=>"2. Quartal", 3=>"3. Quartal", 4=>"4. Quartal");
 					for($i = 1; $i <= count($quarters); $i++) {
-						echo "<option value='$i'>$quarters[$i]</option>";
+						echo "<option value='$i'";
+						if($_POST['planByQuarterQuarter']==$i) { echo " selected='selected'"; }
+						echo ">$quarters[$i]</option>";
 					}
 				?>
 			</select>
@@ -146,7 +152,9 @@
 					$curYear = date('Y');
 					for($i = 0; $i < 7; $i++) {
 						$year = $curYear - $i;
-						echo "<option value='$year'>$year</option>";
+						echo "<option value='$year'";
+						if($_POST['planByQuarterYear']==$year) { echo " selected='selected'"; }
+						echo ">$year</option>";
 					}
 				?>
 			</select>
@@ -159,7 +167,9 @@
 					$curYear = date('Y');
 					for($i = 0; $i < 7; $i++) {
 						$year = $curYear - $i;
-						echo "<option value='$year'>$year</option>";
+						echo "<option value='$year'";
+						if($_POST['planByYearYear']==$year) { echo " selected='selected'"; }
+						echo ">$year</option>";
 					}
 				?>
 			</select>

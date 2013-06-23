@@ -30,7 +30,7 @@ class PDF extends FPDF {
 
 		// Header
 		for($i=0; $i<count($colWidth); $i++) {
-			$this->Cell($colWidth[$i],7,$header[$i],1,0,'C',true);	
+			$this->Cell($colWidth[$i],7,utf8_decode($header[$i]),1,0,'C',true);	
 		}
 		$this->Ln();
 		
@@ -43,7 +43,7 @@ class PDF extends FPDF {
 		$fill = false;
 		foreach($data as $row) {
 			for($i=0; $i<count($colWidth); $i++) {
-				$this->Cell($colWidth[$i],6,$row[$i],'LR',0,'R',$fill);
+				$this->Cell($colWidth[$i],6,utf8_decode($row[$i]),'LR',0,'R',$fill);
 			}
 			$this->Ln();
 			$fill = !$fill;

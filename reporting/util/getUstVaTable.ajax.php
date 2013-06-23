@@ -33,7 +33,6 @@
 				// we have elements in our database
 				array_push($rows, $row);
 			}
-			
 		}
 		
 		
@@ -59,10 +58,10 @@
 				
 				if($found) {
 					echo "<tr class='cell".($cellI%2)."'>";
-					echo "<td>&nbsp;</td>";	
+					echo "<td><input type='checkbox' name='selectedMonth[]' class='month' id='month".$month."' value='".$month."-".$_GET['year']."'></td>";	
 					echo "<td>".getMonthShortName($foundMonth)." ".$foundYear."</td>";
 					echo "<td>"; 
-					if(strlen($row['document'])!=0) { echo "<a href='/reporting/".$foundDocument."' target='_blank'>Download</a>"; } 
+					if(strlen($row['document'])!=0) { echo "<a href='u30/".$foundDocument."' target='_blank'>Download</a>"; } 
 					echo "</td>";
 					echo "</tr>";
 					$cellI++;

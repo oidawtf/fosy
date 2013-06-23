@@ -17,6 +17,7 @@ body, html {
 	font-weight: bold;
 }
 
+
 /* LOGIN */
 #loginForm {
 	width: 340px;
@@ -133,6 +134,24 @@ footer a {
 	text-decoration: none;
 }
 
+/* ICONS */
+ul#icons {
+    margin: 0;
+    padding: 0;
+}
+ul#icons li {
+    cursor: pointer;
+    float: left;
+    list-style: none outside none;
+    margin: 2px;
+    padding: 4px 0;
+    position: relative;
+}
+ul#icons span.ui-icon {
+    float: left;
+    margin: 0 4px;
+}
+
 /* Forms */
 #ui-datepicker-div {
 	font-size: 8pt;
@@ -151,9 +170,18 @@ fieldset div {
 fieldset div label {
 	display: block;
 	float: left;
-	width: 150px;
+	width: 120px;
 	border: 0px solid blue;
 }
+.ui-datepicker-trigger {
+	position:relative;
+	top: 3px;
+	left: 2px;
+}
+#plannedvalue #wert {
+	width: 70px;
+}
+
 
 /* tables */
 #resultDiv table {
@@ -188,28 +216,20 @@ fieldset#fieldsetRelation {
 	width:610px;
 }
 
+
 /* flexible reports */
-#flexKZ label {
-	width: 180px;
-}
-#timeBlockEmployee label {
-	width: 180px;
-}
-#timeBlock label {
-	width: 180px;
-}
 #timeBlock {
+	margin-top: 0;
 }
 #flexTimeFrom {
 	margin-left: 0;
+	margin-top: 0px;
+	width: 280px;
+	float:left;
 }
 #flexTimeTo {
 	margin-left: 0;
-}
-
-/* plan-ist-vergleich */
-#planKZ {
-
+	padding-top: 0px;
 }
 
 /* about us */

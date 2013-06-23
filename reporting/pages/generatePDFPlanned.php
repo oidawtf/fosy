@@ -59,7 +59,8 @@ function initPDF($indicatorId, $indiName, $indiType, $dateFrom, $dateTo) {
 	$pdf->AliasNbPages();
 	$pdf->AddPage();
 	$pdf->SetFont('Helvetica', 'B', 14);
-	$pdf->Cell(0, 5, "$indiName ($indiType)");
+	$KZName = utf8_decode($indiName);
+	$pdf->Cell(0, 5, "$KZName ($indiType)");
 	$pdf->Ln(10);
 	$pdf->SetFont('Helvetica', '', 12);
 	$pdf->Cell(0, 5, "Zeitraum von: ".$dateFrom." - Zeitraum bis: ".$dateTo);
@@ -72,7 +73,8 @@ function generatePlannedActualComparisonOfferPDF($indicatorId, $dateFrom, $dateT
 	$indiNameAndType = getIndicatorNameAndType($indicatorId);
 	$pdf = initPDF($indicatorId, $indiNameAndType[0], $indiNameAndType[1], $dateFrom, $dateTo);
 	
-	$header = array("Plan-Wert", "Ist-Wert", "Verhältnis");
+	$str = utf8_decode("Verhältnis");
+	$header = array("Plan-Wert", "Ist-Wert", $str);
 	$data = array($plannedActualComparisonOffers); // todo add datatype to values
 	$colWidth = array(40, 40, 40);
 	$pdf->Table($colWidth, $header, $data);
@@ -86,7 +88,8 @@ function generatePlannedActualComparisonOrdersPDF($indicatorId, $dateFrom, $date
 	// todo add regex for replacing umlauts
 	$pdf = initPDF($indicatorId, $indiNameAndType[0], $indiNameAndType[1], $dateFrom, $dateTo);
 	
-	$header = array("Plan-Wert", "Ist-Wert", "Verhältnis");
+	$str = utf8_decode("Verhältnis");
+	$header = array("Plan-Wert", "Ist-Wert", $str);
 	$data = array($plannedActualComparisonOrders); // todo add datatype to values
 	$colWidth = array(40, 40, 40);
 	$pdf->Table($colWidth, $header, $data);
@@ -99,7 +102,8 @@ function generatePlannedActualComparisonRelationOfferOrderPDF($indicatorId, $dat
 	$indiNameAndType = getIndicatorNameAndType($indicatorId);
 	$pdf = initPDF($indicatorId, $indiNameAndType[0], $indiNameAndType[1], $dateFrom, $dateTo);
 	
-	$header = array("Plan-Wert", "Ist-Wert", "Verhältnis");
+	$str = utf8_decode("Verhältnis");
+	$header = array("Plan-Wert", "Ist-Wert", $str);
 	$data = array($plannedActualComparisonRelationOfferOrders);
 	$colWidth = array(40, 50, 40);
 	$pdf->Table($colWidth, $header, $data);
@@ -112,7 +116,8 @@ function generatePlannedActualComparisonTotalRevenuePDF($indicatorId, $dateFrom,
 	$indiNameAndType = getIndicatorNameAndType($indicatorId);
 	$pdf = initPDF($indicatorId, $indiNameAndType[0], $indiNameAndType[1], $dateFrom, $dateTo);
 	
-	$header = array("Plan-Wert", "Ist-Wert", "Verhältnis");
+	$str = utf8_decode("Verhältnis");
+	$header = array("Plan-Wert", "Ist-Wert", $str);
 	$data = array($plannedActualComparisonTotalRevenue);
 	$colWidth = array(40, 40, 40);
 	$pdf->Table($colWidth, $header, $data);

@@ -21,8 +21,21 @@
 				<td><?php echo $row['pValue']; ?></td>
 				<td class="right"><?php echo $row['pvValue']; ?> <?php echo $row['type']; ?></td>
 				<td>
-					<a href="/reporting/index.php?content=editPlannedvalue&pvID=<?php echo $row['pvID']; ?>">Edit</a> 
-					<a href="/reporting/index.php?content=deletePlannedvalue&pvID=<?php echo $row['pvID']; ?>">Delete</a></td>
+					
+						<ul id="icons" class="ui-widget ui-helper-clearfix">
+							<a href="/reporting/index.php?content=editPlannedvalue&pvID=<?php echo $row['pvID']; ?>">
+								<li class="ui-state-default ui-corner-all">
+									<span class="ui-icon ui-icon-pencil"> </span>
+								</li>
+							</a>
+							<a href="/reporting/index.php?content=deletePlannedvalue&pvID=<?php echo $row['pvID']; ?>">
+								<li class="ui-state-default ui-corner-all">
+									<span class="ui-icon ui-icon-trash"> </span>
+								</li>
+							</a>
+						</ul>
+					 
+				</td>
 			</tr>
 <?php		$i++;
 		}

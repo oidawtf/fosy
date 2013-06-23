@@ -29,7 +29,7 @@ function generatePdf($monthYear) {
 			'Tagesdatum2'	=> date("d.m.Y")
 		);
 		
-		$inputfile = "u30".DIRECTORY_SEPARATOR."u30-2013-fosy.pdf";
+		$inputfile = "u30/u30-2013-fosy.pdf";
 		$pdf = new FPDM($inputfile); 
 		$pdf->Load($fields, false); // second parameter: false if field values are in ISO-8859-1, true if UTF-8
 		$pdf->Merge();
@@ -37,8 +37,8 @@ function generatePdf($monthYear) {
 		// D: Inline to the browser and force a file download
 		// F: Save to local file
 		// S: Return document as string
-		$filename = "u30".DIRECTORY_SEPARATOR."u30_".$month."-2013.pdf";
-		$pdf->Output($filename, 'F');
+		$filename = "u30_".$month."-2013.pdf";
+		$pdf->Output('u30/'.$filename, 'F');
 		return $filename; 
 	}else {
 		return -1;
@@ -117,13 +117,30 @@ function getVstSum($monthYear) {
 function saveUstVa($monthYear, $path) {
 	$month = getMonthOrYearFromMonthYear($monthYear, 'm');
 	$year = getMonthOrYearFromMonthYear($monthYear, 'y');
-	$query = "INSERT INTO tax_report (month, year, document) VALUES ($month, $year, '$path')";
+	
+	if(!checkUstVaAlreadyExists($month, $year)) {
+		$query = "INSERT INTO tax_report (month, year, document) VALUES ($month, $year, '$path')";
+		$result = mysql_query($query);
+	
+		if($result && mysql_affected_rows()) {
+			redirect("ustVaPrintedSuccess");
+		}else {
+			showErrorMsg(mysql_errno(), $query);
+		}
+	}else {
+		redirect("ustVaPrintedSuccess"); 
+	}
+}
+
+function checkUstVaAlreadyExists($month, $year) {
+	
+	$query = "SELECT id FROM tax_report WHERE month=$month AND year=$year";
 	$result = mysql_query($query);
 	
-	if($result && mysql_affected_rows()) {
-		redirect("ustVaPrintedSuccess");
+	if(mysql_num_rows($result)<1) {
+		return false;
 	}else {
-		showErrorMsg(mysql_errno(), $query);
+		return true;
 	}
 }
 

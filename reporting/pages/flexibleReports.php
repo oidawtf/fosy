@@ -78,7 +78,7 @@
 			</select>
 		</div>
 		<div id="timeBlockEmployee">
-			<label>Zeitpunkt (MA-Statistik):</label>
+			<label>Zeitpunkt:</label>
 			<input class="ui-widget ui-widget-content ui-corner-all" type="text" name="date" id="datepicker" value="<?php echo $_POST['date']; ?>"/>
 		</div>
 		<div id="timeBlock">

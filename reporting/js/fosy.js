@@ -4,7 +4,7 @@ $(function() {
 	$("#datepicker").datepicker({
 		showOn: "button",
 		autoSize: true,
-		buttonImage: "img/calendar.gif",
+		buttonImage: "img/calendar.png",
 		buttonImageOnly: true,
 		buttonText: "Datum",
 		dateFormat: "dd.mm.yy"
@@ -14,7 +14,7 @@ $(function() {
 	$("#datepickerFrom").datepicker({
 		showOn: "button",
 		autoSize: true,
-		buttonImage: "img/calendar.gif",
+		buttonImage: "img/calendar.png",
 		buttonImageOnly: true,
 		buttonText: "Datum",
 		dateFormat: "dd.mm.yy"
@@ -22,7 +22,7 @@ $(function() {
 	$("#datepickerTo").datepicker({
 		showOn: "button",
 		autoSize: true,
-		buttonImage: "img/calendar.gif",
+		buttonImage: "img/calendar.png",
 		buttonImageOnly: true,
 		buttonText: "Datum",
 		dateFormat: "dd.mm.yy"
@@ -47,14 +47,8 @@ $(function() {
 	
 	/* print button in ust va hide */
 	$("#printButton").hide();
-	
-	/* plan ist vergleich hide everything */
-	$("#noPlannedvalues").hide();
-	$("#planWhichTimeBlock").hide();
-	$("#timeMonthBlock").hide();
-	$("#timeQuarterBlock").hide();
-	$("#timeYearBlock").hide();
-	
+			
+		
 	/* calculate tax */
 	$("#calculate").click(function() {
 		bruttoBetrag = $("#bruttoBetrag").val();
@@ -134,6 +128,7 @@ $(function() {
 				scaleOverride:true, 
 				scaleSteps:3, 
 				scaleStepWidth:maxValueForBar,
+				showTooltips:true
 			};
 		
 			var chartOffer = $("#chartOffer").get(0).getContext("2d");
@@ -145,13 +140,91 @@ $(function() {
 	}
 	
 	/* FLEX REPORT */
+	/* hide elements */
+	if ($("#allIndicatorsSelect option:selected").length) {
+		var indiSelectVal = $("#allIndicatorsSelect").val();
+		
+		if(indiSelectVal != 0) {
+			if(indiSelectVal == 5) {
+				$("#timeBlockEmployee").show();
+				$("#timeBlock").hide();
+			}else {
+				$("#timeBlock").show();
+				$("#timeBlockEmployee").hide();
+			}
+		} else {
+			$("#timeBlockEmployee").hide();
+			$("#timeBlock").hide();
+		}
+		
+	}else {
+		$("#timeBlockEmployee").hide();
+		$("#timeBlock").hide();
+	}
 	$("#allIndicatorsSelect").change(function() {
-		$("#datepicker").val("");
-		$("#datepickerFrom").val("");
-		$("#datepickerTo").val("");	
+		$("#allIndicatorsSelect option:selected").each(function() {
+			var id = $(this).val();
+			if(id == 5) {
+				$("#timeBlockEmployee").show();
+				$("#timeBlock").hide();
+				$("#datepickerFrom").val("");
+				$("#datepickerTo").val("");	
+			}else {
+				$("#timeBlock").show();
+				$("#timeBlockEmployee").hide();
+				$("#datepicker").val("");
+			}
+		});
 	});
+	/* FLEX REPORT ENDE */
 	
 	/* PLAN IST VERGLEICH */
+	/* hide elements */
+	if ($("#planIndicatorsSelect option:selected").length) {
+		var indiSelectVal = $("#planIndicatorsSelect").val();
+				
+		if(indiSelectVal != 0) {
+			if( $("#planWhichTime option:selected").length) {
+				var planWhichTimeSelectVal = $("#planWhichTime").val();
+								
+				switch(planWhichTimeSelectVal) {
+					case '1':
+						$("#timeMonthBlock").show();
+						$("#timeQuarterBlock").hide();
+						$("#timeYearBlock").hide();	
+						break;
+					case '2':
+						$("#timeMonthBlock").hide();
+						$("#timeQuarterBlock").show();
+						$("#timeYearBlock").hide();
+						break;
+					case '3':
+						$("#timeMonthBlock").hide();
+						$("#timeQuarterBlock").hide();
+						$("#timeYearBlock").show();
+						break;
+					default:
+						$("#timeMonthBlock").hide();
+						$("#timeQuarterBlock").hide();
+						$("#timeYearBlock").hide();
+						break;
+				}
+			}
+		} else {
+			$("#planWhichTimeBlock").hide();
+			$("#timeMonthBlock").hide();
+			$("#timeQuarterBlock").hide();
+			$("#timeYearBlock").hide();
+		}
+		
+	}else {
+		$("#planWhichTimeBlock").hide();
+		$("#timeMonthBlock").hide();
+		$("#timeQuarterBlock").hide();
+		$("#timeYearBlock").hide();
+	}
+	$("#noPlannedvalues").hide();
+
 	$("#planIndicatorsSelect").change(function() {
 		$("#planIndicatorsSelect option:selected").each(function() {
 			var id = $(this).val();
@@ -178,6 +251,7 @@ $(function() {
 			}
 		});
 	});
+	/* PLAN IST VERGLEICH ENDE */
 		
 });
 
@@ -219,6 +293,19 @@ function createRelation(maxValueForBar) {
 	}
 }
 
+/* icons hover */
+$(document).on( {
+    mouseenter: function() 
+    {
+        $(this).addClass("ui-state-hover")
+    },
+    mouseleave: function()
+    {
+        $(this).removeClass("ui-state-hover")
+    }
+}
+, 'ul#icons li'); //pass the element as an argument to .on
+	
 /* plandaten anlegen period selected */
 $(document).on('change', '#periodSelect', function() {
 	$("#periodSelect option:selected").each(function() {
