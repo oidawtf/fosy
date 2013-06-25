@@ -45,7 +45,7 @@ body, html {
 
 
 #wrapper {
-	width: 1000px;
+	width: 850px;
 	margin: 0 auto;
 	background: #FFF;
 	border: 0px solid green;
@@ -116,7 +116,7 @@ nav ul li a {
 #content {
 	border:0px solid blue;
 	float: right;
-	width: 790px;
+	width: 640px;
 	min-height: 150px;
 	background: #FFFFFF;
 	margin-bottom: 10px;

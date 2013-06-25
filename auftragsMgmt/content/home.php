@@ -1,4 +1,5 @@
-<div>HOMEHOMEHOMEHOME
+<div>
+<h2> Willkommen im Auftragsmanagement!</h2>
 	<?php
 		//require("util/pdfFunctions.php");
 /*

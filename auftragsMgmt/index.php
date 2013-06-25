@@ -60,6 +60,6 @@
 				?>
 
 			<?php if(authenticationController::isLoggedIn()) { include "footer.php"; } ?>
-		</div>
+		<!--</div>-->
     </body>
 </html>

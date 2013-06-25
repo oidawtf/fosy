@@ -1,5 +1,5 @@
 <?php
-	//echo '<pre>'; var_dump($_POST); echo '</pre>';  		
+	//echo '<pre>'; var_dump($_SESSION['cart']); echo '</pre>';  		
 ?>
 
 <div>	
@@ -11,11 +11,11 @@
 			displayCheckOut();
 		}
 		else if(isset($_GET['action']) && $_GET['action'] === "createPDF"){
-			saveOfferToDatabase();
+			$offerId = saveOfferToDatabase();
 
 			if(true) {
 				echo '<script type="text/javascript">
-					window.open("content/AngebotPDF.php");
+					window.open("content/AngebotPDF.php?createPDF=Offer&offerId='.$offerId.'");
 				</script>';
 			}
 		}
@@ -31,10 +31,21 @@
 					</tr>
 				</table>";
 
+				if(!isset($_POST['search']) && !isset($_POST['searchButton']) && !isset($_POST['personSelectDropDown']) && !isset($_POST['personPicker']))
+					echo "Noch kein Kunde? <a href=\"http://localhost/fosy/crm/index.php?content=createcustomer&prevPage=true\">Anlegen</a>";
+			
+				
+				if(isset($_SESSION['cartCustomerID']) && !isset($_POST['searchA']) && !isset($_POST['searchAButton'])){
+					findPerson($_SESSION['cartCustomerID'], true);
+					displayCart(true);
+				}
+
 
 				foreach($_POST as $key => $value) {
 					$articleIDadded = strpos($key , "addCart_");
+					echo strpos($key , "addCart_");
 					$articleDelete = strpos($key, "removeCartID_");
+					echo strpos($key, "removeCartID_");
 							  //$posQTY = strpos($key, "addQTY_".$posID);
 			
 					if ($articleIDadded === 0){
@@ -62,9 +73,7 @@
 					findPerson($_POST['search'],true);
 				}
 							
-				if(!isset($_POST['search']) && !isset($_POST['searchButton']) && !isset($_POST['personSelectDropDown']) && !isset($_POST['personPicker']))
-					echo "Noch kein Kunde? <a href=\"http://localhost/fosy/crm/index.php?content=createcustomer&prevPage=true\">Anlegen</a>";
-			
+
 			
 				if(isset($_POST['personSelectDropDown']) && isset($_POST['personPicker'])){
 					findPerson($_POST['personSelectDropDown'],true);

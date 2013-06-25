@@ -1,5 +1,8 @@
 <?php
 	include "auftrag.functions.inc.php";
+	include "rechnung.functions.inc.php";
+
+	
 	function findPerson($pCritera, $pDisplay){
 		$query = "SELECT id, firstname, lastname, city, street, housenumber
 			FROM person
@@ -109,10 +112,30 @@
 
 	function findArticle($pACritera, $display){
 		$queryA = 
-		"SELECT article.id, article.model, article.description, article.selling_price, article.stock, article_category.name 
+		"SELECT article.id, article.model, article.description, article.selling_price, article.stock, article_category.name as categoryName
 		FROM article
 		JOIN article_category ON ( article_category.id ) 
-		WHERE(article.fk_article_category_id = article_category.id AND (article.id = '$pACritera' OR article.model = '$pACritera'))";
+		WHERE(article.fk_article_category_id = article_category.id AND (article.id = '$pACritera' OR article.model LIKE '%$pACritera%'))";
+		$resultA = mysql_query($queryA);
+		$countA = mysql_num_rows($resultA);
+		
+		if($display == true){
+			if($countA == 0)
+				echo "Kein Artikel gefunden!";
+
+			if($countA>0)
+				displayArticleList($resultA);
+		}
+		else
+			return $resultA;
+	}
+
+	function findArticleByID($pACritera, $display){
+		$queryA = 
+		"SELECT article.id, article.model, article.description, article.tax_rate, article.selling_price, article.stock, article_category.name as categoryName
+		FROM article
+		JOIN article_category ON ( article_category.id ) 
+		WHERE(article.fk_article_category_id = article_category.id AND article.id = '$pACritera')";
 		$resultA = mysql_query($queryA);
 		$countA = mysql_num_rows($resultA);
 		
@@ -152,7 +175,7 @@
 			while($row = mysql_fetch_assoc($pAData)){
 			echo "<tr>
 					<td>{$row['id']}<input type=\"hidden\" name=\"['id']\" value=\"{$row['id']}\" /> 
-					<td>{$row['name']}</td>
+					<td>{$row['categoryName']}</td>
 					<td>{$row['model']}</td>
 					<!--<td>{$row['description']}</td>-->
 					<td><a href=\"\" target=\"_blank\">&ouml;ffnen</td>
@@ -166,7 +189,7 @@
 			}	
 			echo "</tbody>";
 
-			echo"</form></table></div>
+			echo "</form></table></div>
 			</fieldset>";
 		
 	}
@@ -181,16 +204,15 @@
 		if($pQty < 0)
 			return;
 
-		if(cartIsEmpty())
+		if(cartIsEmpty()){
 			$_SESSION['cart'][$pArticleID]=$pQty;
+		}
 		elseif(!array_key_exists($pArticleID, $_SESSION['cart'])){
 			$_SESSION['cart'][$pArticleID]=$pQty;
 		}
 		elseif(array_key_exists($pArticleID, $_SESSION['cart'])){
 			$_SESSION['cart'][$pArticleID]+=$pQty;
 		}
-
-
 	}
 
 	function displayCart($displayButtons){
@@ -221,12 +243,12 @@
 			echo "<tbody>";
 		
 		foreach($_SESSION['cart'] as $lItem => $lQty){
-			$cartData = findArticle($lItem, false);
+			$cartData = findArticleByID($lItem, false);
 
 			while($row = mysql_fetch_assoc($cartData)){
 			echo "<tr>
 					<td>{$row['id']}<input type=\"hidden\" name=\"cartID\" value=\"{$row['id']}\" /> 
-					<td>{$row['name']}</td>
+					<td>{$row['categoryName']}</td>
 					<td>{$row['model']}</td>
 					<!--<td>{$row['description']}</td>-->
 					<td><a href=\"\" target=\"_blank\">&ouml;ffnen</td>
@@ -265,7 +287,7 @@
 	}
 
 	function displayConditionsLink(){
-		echo "<a href=\"{$_SERVER["PHP_SELF"]}?content=AngebotErstellen&page=konditionen\">weiter</a>";
+		echo "&nbsp;&nbsp;<a href=\"{$_SERVER["PHP_SELF"]}?content=AngebotErstellen&page=konditionen\">weiter</a>";
 	}
 
 	function displayPersonAddress($pData){
@@ -402,7 +424,7 @@
 			echo "</thead>";
 		$sum;
 		foreach($_SESSION['cart'] as $lItem => $lQty){
-			$cartData = findArticle($lItem, false);
+			$cartData = findArticleByID($lItem, false);
 			echo "<tr>";
 
 			while($row = mysql_fetch_assoc($cartData)){
@@ -514,6 +536,8 @@
 		$customerID = $_SESSION['cartCustomerID'];
 		$maxID = mysql_query("SELECT MAX(id) FROM offer");
 		$row = mysql_fetch_row($maxID);
+		mysql_free_result($maxID);
+		
 		$lastOfferID = $row[0]+1;
 		$offerNumberString = $row[0];
 
@@ -522,28 +546,34 @@
 		$offerNumberString +=1;
 		$offerNumber = "offer-$offerNumberString-$curYear";
 
-		$queryOffer ="
-			INSERT INTO offer (fk_customer_id, fk_delivery_id, number, date, valid_from, valid_until)
-			VALUES ('$customerID', '$lastID', '$offerNumber', now(), now(), DATE_ADD(now(),INTERVAL 14 DAY))";
+		$queryOffer ="INSERT INTO offer (fk_customer_id, fk_delivery_id, number, date, valid_from, valid_until)
+			VALUES ($customerID, $lastID, '$offerNumber', now(), now(), DATE_ADD(now(),INTERVAL 14 DAY))";
 		//echo $queryOffer . "<br /><br />";
-		mysql_query($queryOffer);
+		$result = mysql_query($queryOffer);
 			//	mysql_error();
 		///$lastOfferID = mysql_insert_id();
 	
-		foreach($_SESSION['cart'] as $lItem => $lQty){
-			$cartData = findArticle($lItem, false);
 		
+		foreach($_SESSION['cart'] as $lItem => $lQty){
+			$cartData = findArticleByID($lItem, false);
+				
             while($row = mysql_fetch_assoc($cartData)){
             	$artID = $row['id'];
             	$queryOfferArticle ="
-					INSERT INTO 'offer_article' ('fk_article_id', 'fk_offer_id', 'count')
-					VALUES('$artID', '$lastOfferID', '$lQty')";
+					INSERT INTO offer_article (fk_article_id, fk_offer_id, count)
+					VALUES($artID, $lastOfferID, '$lQty')";
 					//echo "$lastOfferID <br /><br />".$queryOfferArticle . "<br /><br />";
-					mysql_query($queryOfferArticle);
+					$result = mysql_query($queryOfferArticle);
+					if(!$result) {
+						echo "Mysql-error: " . mysql_error() . "<br>";
+					}
 					//mysql_error();
+					//asd
 			}
 		}
-		clearCart();
+		//clearCart();
+		
+		return $offerNumberString;
 }
 
 	function calculatePrice(){
@@ -558,4 +588,7 @@
 		return $price;
 	}
 
+	function calculatePriceForOrder(){
+
+	}
 ?>

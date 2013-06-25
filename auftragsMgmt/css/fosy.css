@@ -55,12 +55,13 @@ header {
 
 /* NAVI */
 nav {
-	border:0;
-	width:20%;
+	border:0px solid black;
+	width:25%;
 	float:left;
 	background-color: white;
 	margin: 5px 0px;
 	font-size: 1em;
+	
 }
 
 
@@ -107,7 +108,7 @@ nav ul a{
 /* CONTENT */
 #content {
 	border:0px;
-	width:79%;
+	width:73%;
 	float:right;
 	background-color: #FFFFFF;
 	padding:5px;
@@ -146,6 +147,12 @@ footer {
 	clear:both;
 	border:0px;
 	background-color: #E6E6E6;
+	text-align: center;
+
+}
+footer a{
+	margin: 0 20px;
+	
 }
 
 /* 

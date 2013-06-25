@@ -73,7 +73,7 @@ function generatePlannedActualComparisonOfferPDF($indicatorId, $dateFrom, $dateT
 	$indiNameAndType = getIndicatorNameAndType($indicatorId);
 	$pdf = initPDF($indicatorId, $indiNameAndType[0], $indiNameAndType[1], $dateFrom, $dateTo);
 	
-	$str = utf8_decode("Verhältnis");
+	$str = "Verhältnis in %";
 	$header = array("Plan-Wert", "Ist-Wert", $str);
 	$data = array($plannedActualComparisonOffers); // todo add datatype to values
 	$colWidth = array(40, 40, 40);
@@ -88,7 +88,7 @@ function generatePlannedActualComparisonOrdersPDF($indicatorId, $dateFrom, $date
 	// todo add regex for replacing umlauts
 	$pdf = initPDF($indicatorId, $indiNameAndType[0], $indiNameAndType[1], $dateFrom, $dateTo);
 	
-	$str = utf8_decode("Verhältnis");
+	$str = "Verhältnis in %";
 	$header = array("Plan-Wert", "Ist-Wert", $str);
 	$data = array($plannedActualComparisonOrders); // todo add datatype to values
 	$colWidth = array(40, 40, 40);
@@ -102,7 +102,7 @@ function generatePlannedActualComparisonRelationOfferOrderPDF($indicatorId, $dat
 	$indiNameAndType = getIndicatorNameAndType($indicatorId);
 	$pdf = initPDF($indicatorId, $indiNameAndType[0], $indiNameAndType[1], $dateFrom, $dateTo);
 	
-	$str = utf8_decode("Verhältnis");
+	$str = "Verhältnis in %";
 	$header = array("Plan-Wert", "Ist-Wert", $str);
 	$data = array($plannedActualComparisonRelationOfferOrders);
 	$colWidth = array(40, 50, 40);
@@ -116,7 +116,7 @@ function generatePlannedActualComparisonTotalRevenuePDF($indicatorId, $dateFrom,
 	$indiNameAndType = getIndicatorNameAndType($indicatorId);
 	$pdf = initPDF($indicatorId, $indiNameAndType[0], $indiNameAndType[1], $dateFrom, $dateTo);
 	
-	$str = utf8_decode("Verhältnis");
+	$str = "Verhältnis in %";
 	$header = array("Plan-Wert", "Ist-Wert", $str);
 	$data = array($plannedActualComparisonTotalRevenue);
 	$colWidth = array(40, 40, 40);

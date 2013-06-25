@@ -163,7 +163,7 @@ function generateTurnoverAndQuantityPerCustomerPDF($indicatorId, $dateFrom, $dat
 	$indiNameAndType = getIndicatorNameAndType($indicatorId);
 	$pdf = initPDF($indicatorId, $indiNameAndType[0], $indiNameAndType[1], $dateFrom, $dateTo);
 	
-	$header = array("Vorname", "Nachname", "Anz. Bestellungen", "Umsatz");
+	$header = (array("Vorname", "Nachname", "Anz. Bestellungen", "Umsatz in EUR"));
 	$data = $turnoverAndQuantity; // todo iterate and str_replace the umsatz and add euro
 	$colWidth = array(40, 40, 50, 50);
 	$pdf->Table($colWidth, $header, $data);

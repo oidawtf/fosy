@@ -1,6 +1,6 @@
 <header>
     <div id="logo">
-    	<a href="http://localhost/fosy/index.php">
+    	<a href="index.php">
         	<img src="img/logo_auftragsMgmt.png" alt="LOGO Programm: Felix Online Systems"/>
         </a>
 

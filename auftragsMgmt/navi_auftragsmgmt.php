@@ -12,11 +12,11 @@
 					Angebot erstellen
 				</li>
 			</a>
-			<a href="<?php echo $_SERVER['PHP_SELF']; ?>?content=AngebotVerwalten">
+			<!--<a href="<?php echo $_SERVER['PHP_SELF']; ?>?content=AngebotVerwalten">
 		        <li >
 					Angebote verwalten
 				</li>
-			</a>
+			</a>-->
 			<br />
 		<h4>&nbsp;&nbsp;Auftr&auml;ge</h4>
 			<a href="<?php echo $_SERVER['PHP_SELF']; ?>?content=AuftragErstellen">
@@ -33,11 +33,6 @@
 		<h4>&nbsp;&nbsp;Rechnungen</h4>
 			<a href="<?php echo $_SERVER['PHP_SELF']; ?>?content=RechnungErstellen">
 				<li>
-					Rechnung erstellen
-				</li>
-			</a>
-			<a href="<?php echo $_SERVER['PHP_SELF']; ?>?content=RechnungErstellen">
-				<li >
 					Rechnung erstellen
 				</li>
 			</a>

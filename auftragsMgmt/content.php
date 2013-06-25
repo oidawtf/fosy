@@ -8,6 +8,8 @@ if(authenticationController::isLoggedIn()) {
       case 'AuftragErstellen':
       case 'AuftrageVerwalten':
       case 'RechnungErstellen':
+      case 'Impressum':
+      case 'AGB':
       //case 'AngebotPDF':
         include 'content/'.$_GET['content'].'.php';
         break;

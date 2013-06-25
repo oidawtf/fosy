@@ -1,3 +1,8 @@
 <footer>
-	<h1>footer</h1>
+	<a href="<?php echo $_SERVER['PHP_SELF']; ?>?content=Impressum">
+					Impressum
+			</a>
+			<a href="<?php echo $_SERVER['PHP_SELF']; ?>?content=AGB">
+					AGB
+			</a>
 </footer>
